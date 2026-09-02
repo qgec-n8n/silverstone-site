@@ -1,7 +1,7 @@
 /**
- * Bespoke verified-results instrument for /pricing — the one page where
+ * Custom verified-results instrument for /pricing — the one page where
  * benchmark figures may run to two rows. Explicitly laid out as three cells
- * above and two centred below (not a generic auto-fit grid), with every
+ * above and two centered below (not a generic auto-fit grid), with every
  * value's font size resolved against its own cell width via a container
  * query, so no figure can ever overflow or wrap internally regardless of how
  * long the string is ("£16,800.00" vs "15 hours/week").

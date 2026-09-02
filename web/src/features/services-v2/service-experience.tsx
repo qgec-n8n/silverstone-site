@@ -1,6 +1,6 @@
 /**
  * services-v2 entry point. Renders the dark cinematic service body for an
- * approved service route via its fully bespoke composition.
+ * approved service route via its fully custom composition.
  *
  * Each composition is dynamically imported so its code (and its Motion-heavy
  * signature/demo components) code-splits into its own chunk rather than being

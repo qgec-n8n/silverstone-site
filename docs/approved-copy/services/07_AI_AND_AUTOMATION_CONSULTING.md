@@ -12,7 +12,7 @@
 - **London variants:** AI consulting London; AI automation consultancy London — supporting only, with broad London head terms reserved for the core London page.
 - **UK variants:** AI consulting UK; AI automation consulting UK; AI opportunity audit UK
 - **Semantic entities:** opportunity audit, readiness assessment, value-effort-risk scoring, data quality, governance, build-versus-buy, vendor selection, responsible AI, roadmap, operating model, procurement, change management, evaluation
-- **Conversion objective:** Convert an uncertain but serious buyer into a discovery call for a scoped audit, prioritisation exercise or decision roadmap that is valuable before any build is commissioned.
+- **Conversion objective:** Convert an uncertain but serious buyer into a discovery call for a scoped audit, prioritization exercise or decision roadmap that is valuable before any build is commissioned.
 - **Primary CTA:** Book a discovery call
 - **Recommended public-copy length:** 1,200–1,800 words excluding editorial and implementation appendices
 - **Selected CSV rows:** 77, 69, 63
@@ -44,14 +44,14 @@
 ### H3 structure
 
 - Operating model and workflow inventory
-- Value, effort and risk prioritisation
+- Value, effort and risk prioritization
 - Data and systems readiness
 - Build, buy, configure or leave alone
 - Governance and responsible AI
 - Roadmap and change management
 - Frame
 - Investigate
-- Prioritise
+- Prioritize
 - Translate
 
 ### Breadcrumb labels
@@ -60,7 +60,7 @@
 
 ### Internal-link targets and natural anchors
 
-- `/services/ai-automation` — “move a prioritised workflow into implementation”
+- `/services/ai-automation` — “move a prioritized workflow into implementation”
 - `/services/app-development` — “build a product where custom software is justified”
 - `/services/ai-voice-agents` — “assess governed voice use cases”
 - `/services/ai-receptionists` — “evaluate front-desk automation”
@@ -96,7 +96,7 @@
 - Build versus buy for AI automation
 - AI readiness: data, process and ownership
 - A practical responsible-AI checklist for SMEs
-- How to prioritise AI use cases by value, effort and risk
+- How to prioritize AI use cases by value, effort and risk
 
 ### Recommended schema types
 
@@ -119,7 +119,7 @@
 
 ### Short-answer definition
 
-> An AI opportunity audit examines business workflows, value, effort, risk, data, systems and ownership to identify which use cases should be prioritised, configured, bought, built or deliberately left alone.
+> An AI opportunity audit examines business workflows, value, effort, risk, data, systems and ownership to identify which use cases should be prioritized, configured, bought, built or deliberately left alone.
 
 ### Terms that should not be repeated excessively
 
@@ -132,8 +132,8 @@ AI consulting UK, AI strategy, transformation, roadmap, leading consultancy, inn
 ## 4. Aether Flow route-entry hero
 
 - **Pill:** Leadership advisory / Opportunity audit
-- **Title:** Put judgement before implementation
-- **Subtitle:** A senior decision layer for prioritising use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.
+- **Title:** Put judgment before implementation
+- **Subtitle:** A senior decision layer for prioritizing use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.
 - **Route-entry button:** Explore the advisory route
 
 ## 5. Complete public page copy
@@ -144,7 +144,7 @@ AI creates pressure to act quickly. It also creates an unusually large number of
 
 A team can buy software before it has defined the workflow. A promising pilot can fail because the source data is inaccessible. Several departments can procure overlapping tools. A use case can look efficient on a slide while transferring risk, review work and maintenance into the operating team.
 
-Silverstone provides AI and automation consulting for UK businesses that need a clearer decision route before or during implementation. The work covers opportunity audits, readiness, use-case prioritisation, data and system review, build-versus-buy, governance, responsible AI, architecture, implementation planning and change management.
+Silverstone provides AI and automation consulting for UK businesses that need a clearer decision route before or during implementation. The work covers opportunity audits, readiness, use-case prioritization, data and system review, build-versus-buy, governance, responsible AI, architecture, implementation planning and change management.
 
 Consulting is not a pretext for selling a build. A valuable engagement can conclude that the business should configure an existing platform, redesign the manual process, delay a use case, run a smaller test—or leave it alone.
 
@@ -156,9 +156,9 @@ The first conversation focuses on the decisions leadership needs to make, the op
 
 Tools arrive with compelling demonstrations and broad capability lists. The business problem is usually narrower and more demanding.
 
-Which workflow is causing measurable friction? Who owns it? Is the task repeated enough to justify intervention? Are the inputs accessible and reliable? Which decisions are deterministic, which require judgement and which must remain with an authorised person? What happens when the system is wrong? How will value be measured after deployment?
+Which workflow is causing measurable friction? Who owns it? Is the task repeated enough to justify intervention? Are the inputs accessible and reliable? Which decisions are deterministic, which require judgment and which must remain with an authorized person? What happens when the system is wrong? How will value be measured after deployment?
 
-Without those answers, an “AI strategy” can become a collection of product names and aspirations. The organisation may automate a low-value task because it is easy to demo, while a more important process remains blocked by data, ownership or policy.
+Without those answers, an “AI strategy” can become a collection of product names and aspirations. The organization may automate a low-value task because it is easy to demo, while a more important process remains blocked by data, ownership or policy.
 
 Silverstone starts with the operating model. Technology becomes one possible response to an ordered business decision.
 
@@ -170,13 +170,13 @@ We identify the workflows, handoffs and decisions that consume time, delay custo
 
 Each candidate receives an owner, current route, frequency, volume, inputs, outputs, systems, exception pattern and consequence of failure. This prevents abstract use cases from outranking real operating problems.
 
-### Value, effort and risk prioritisation
+### Value, effort and risk prioritization
 
 Use cases are assessed across more than theoretical savings.
 
 Value may include staff capacity, response time, consistency, revenue support, customer experience, quality or strategic differentiation. Effort includes integration, data preparation, process change, testing, procurement and ongoing operation. Risk includes data sensitivity, legal or professional consequence, model uncertainty, reversibility, customer exposure and dependency on external vendors.
 
-A value-effort-risk view helps distinguish quick experiments, foundational work, strategic programmes and ideas that should not proceed.
+A value-effort-risk view helps distinguish quick experiments, foundational work, strategic programs and ideas that should not proceed.
 
 ### Data and systems readiness
 
@@ -190,7 +190,7 @@ The same applies to systems. APIs, webhooks, exports, authentication, vendor lim
 
 Not every problem needs custom software.
 
-An existing platform may cover the need with acceptable compromise. A configurable automation may create value without a bespoke application. A custom build may be justified when the workflow is specific, strategically important or poorly served by the market. Some processes should remain manual because the frequency, risk or variability makes automation uneconomic.
+An existing platform may cover the need with acceptable compromise. A configurable automation may create value without a custom application. A custom build may be justified when the workflow is specific, strategically important or poorly served by the market. Some processes should remain manual because the frequency, risk or variability makes automation uneconomic.
 
 The recommendation should make the trade-off visible: capability, control, time, dependency, internal capacity, total cost and long-term maintenance.
 
@@ -208,7 +208,7 @@ A roadmap should not simply sort projects by enthusiasm.
 
 We sequence the enabling work, experiments and implementations according to value, dependencies, readiness and risk. The plan identifies decision owners, evidence gates, required capabilities and what must be true before the next stage begins.
 
-Change management is included because a technically working system can still fail operationally. Staff need to understand what is changing, where their judgement remains essential, how exceptions are handled and how feedback reaches the team responsible for the system.
+Change management is included because a technically working system can still fail operationally. Staff need to understand what is changing, where their judgment remains essential, how exceptions are handled and how feedback reaches the team responsible for the system.
 
 ## Published evidence, used to frame—not forecast—the opportunity
 
@@ -230,7 +230,7 @@ We define the leadership question, boundaries, stakeholders and evidence require
 
 Relevant process owners, systems and materials are reviewed. Workflows, data, constraints, existing tools, risk and organisational readiness are made explicit. Assumptions are separated from verified facts.
 
-### 3. Prioritise
+### 3. Prioritize
 
 Use cases are scored and discussed across value, effort, risk and readiness. The output distinguishes what can begin, what needs enabling work, what should be bought or configured, and what should stop.
 
@@ -248,7 +248,7 @@ Selective restraint is part of competent consulting.
 
 A process should not be automated merely because it is manual. Warning signs include:
 
-- professional judgement is the central value of the task;
+- professional judgment is the central value of the task;
 - the inputs are too inconsistent or poorly governed;
 - the process itself is disputed or changes constantly;
 - the consequence of error is high and review would remove the efficiency benefit;
@@ -260,7 +260,7 @@ In some cases, the right first move is process simplification, data cleaning, po
 
 ## Who benefits from an independent decision layer
 
-Consulting is valuable for owner-led businesses that see several opportunities but cannot identify the first one; scale-ups choosing between vendors and custom development; operating teams that need a roadmap across functions; and technical teams seeking an external commercial, governance or prioritisation lens.
+Consulting is valuable for owner-led businesses that see several opportunities but cannot identify the first one; scale-ups choosing between vendors and custom development; operating teams that need a roadmap across functions; and technical teams seeking an external commercial, governance or prioritization lens.
 
 It is a poor fit when leadership has already chosen the answer and wants a document to validate it, no process owners can participate, the business expects guaranteed savings without baseline access, or advisory work is expected to replace specialist legal or security review.
 
@@ -270,11 +270,11 @@ The service is designed to stand on its own. A recommendation does not need to r
 
 ### What is the output of an opportunity audit?
 
-The exact format depends on scope, but it may include a workflow inventory, prioritisation matrix, readiness findings, build-versus-buy analysis, risk and governance requirements, architecture direction, measurement plan and sequenced roadmap.
+The exact format depends on scope, but it may include a workflow inventory, prioritization matrix, readiness findings, build-versus-buy analysis, risk and governance requirements, architecture direction, measurement plan and sequenced roadmap.
 
 ### How long does consulting take?
 
-Duration depends on the number of workflows, stakeholders, systems and decisions. The public page does not promise a universal audit or 90-day programme. Scope, access and outputs are defined in the proposal.
+Duration depends on the number of workflows, stakeholders, systems and decisions. The public page does not promise a universal audit or 90-day program. Scope, access and outputs are defined in the proposal.
 
 ### Is Silverstone tied to a particular vendor?
 
@@ -282,7 +282,7 @@ The recommendation should follow the operating requirement. Any commercial relat
 
 ### Can consulting support an internal technical team?
 
-Yes. The engagement can provide prioritisation, architecture challenge, use-case definition, governance and decision documentation while internal teams retain implementation ownership.
+Yes. The engagement can provide prioritization, architecture challenge, use-case definition, governance and decision documentation while internal teams retain implementation ownership.
 
 ### Does the audit include legal or compliance advice?
 
@@ -313,7 +313,7 @@ Review **How We Work** for the route from advisory to delivery, **Pricing** for 
 
 ### Outcome cards
 
-- **A prioritised opportunity set** — Separate credible first moves from expensive distractions.
+- **A prioritized opportunity set** — Separate credible first moves from expensive distractions.
 - **Stronger investment decisions** — Understand what must be bought, configured, built or left alone.
 - **Implementation-ready reasoning** — Carry requirements, controls, measures and ownership into delivery.
 
@@ -329,7 +329,7 @@ Review **How We Work** for the route from advisory to delivery, **Pricing** for 
 
 1. **Frame the decision** — Define scope, stakeholders and evidence required.
 2. **Investigate readiness** — Review workflows, data, systems, risk and ownership.
-3. **Prioritise the routes** — Score value, effort, risk and dependency.
+3. **Prioritize the routes** — Score value, effort, risk and dependency.
 4. **Translate into action** — Produce decisions, controls, measures and a sequenced roadmap.
 
 ### Comparison block
@@ -375,11 +375,11 @@ No mandatory reserved external demo integration is required for this route.
 
 ### Recommended advisory demonstration module
 
-- **Label:** Synthetic opportunity-prioritisation surface
+- **Label:** Synthetic opportunity-prioritization surface
 - **Heading:** See how one use case moves from ambition to a decision
 - **Body:** Use an illustrative matrix or staged advisory instrument to reveal operating value, effort, data readiness, risk, governance and the recommended route: build, buy, configure, defer or leave alone.
 - **Status wording:** Illustrative decision framework. It is not a client audit, legal assessment, procurement recommendation or ROI forecast.
-- **CTA transition:** Bring a real opportunity set to a discovery call and define the evidence needed to prioritise it.
+- **CTA transition:** Bring a real opportunity set to a discovery call and define the evidence needed to prioritize it.
 
 ## 8. Non-public implementation appendix
 
@@ -392,7 +392,7 @@ No mandatory reserved external demo integration is required for this route.
 - Benchmark context
 - Four-stage advisory route
 - What-not-to-automate section
-- Synthetic prioritisation demonstration
+- Synthetic prioritization demonstration
 - Fit and independence
 - FAQs
 - Final CTA
@@ -408,13 +408,13 @@ Use the selected benchmark panel after the service capabilities and before the i
 
 ### Image placement
 
-- Use `services_consulting.jpg` / `services_consulting_mobile.jpg` in the audit, roadmap or prioritisation section.
+- Use `services_consulting.jpg` / `services_consulting_mobile.jpg` in the audit, roadmap or prioritization section.
 - Label all matrices and roadmaps as illustrative unless they are approved client materials.
 - Do not pair governance visuals with language that implies certification or legal sign-off.
 
 ### Demo placement
 
-Place the synthetic prioritisation surface after the four-stage advisory route and before the fit section. No external configuration slot is required.
+Place the synthetic prioritization surface after the four-stage advisory route and before the fit section. No external configuration slot is required.
 
 ### CTA placement
 
@@ -460,7 +460,7 @@ Editorial keyword lists, claims approval notes, CSV row identifiers, source comm
 
 ### Benchmark interpretation
 
-Rows 77, 69 and 63 are external automation-capacity figures, not consulting results. They may motivate an audit but cannot be used to calculate a forecast without a client baseline. The 768+ figure lacks a universal time basis in the CSV and must remain exactly labelled as reported hours saved.
+Rows 77, 69 and 63 are external automation-capacity figures, not consulting results. They may motivate an audit but cannot be used to calculate a forecast without a client baseline. The 768+ figure lacks a universal time basis in the CSV and must remain exactly labeled as reported hours saved.
 
 ### Required disclaimer
 
@@ -469,7 +469,7 @@ Rows 77, 69 and 63 are external automation-capacity figures, not consulting resu
 ### Claude research ideas applied
 
 - Opportunity audit, readiness, value-effort-risk, data governance, build-versus-buy and responsible AI used as core engagement language.
-- Boutique advantage expressed through senior judgement and scoped outcomes without invented pricing.
+- Boutique advantage expressed through senior judgment and scoped outcomes without invented pricing.
 - Consulting positioned as valuable independently of implementation.
 - What not to automate treated as a positive advisory outcome.
 
@@ -484,13 +484,13 @@ Rows 77, 69 and 63 are external automation-capacity figures, not consulting resu
 ### Legacy ideas retained
 
 - Audit the operating model before selecting tools.
-- Prioritised roadmap and implementation handoff.
+- Prioritized roadmap and implementation handoff.
 - Leadership ownership and understandable review checkpoints.
 
 ### Competitor principles used
 
 - Audit-first conversion route.
-- Senior strategic judgement positioned against enterprise overhead and generic tool sales.
+- Senior strategic judgment positioned against enterprise overhead and generic tool sales.
 - No invented fixed fee, duration or 90-day promise.
 - Calm, decision-led register rather than transformation hype.
 

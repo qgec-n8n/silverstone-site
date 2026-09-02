@@ -12,7 +12,7 @@ type MarqueeRowProps = {
 };
 
 /**
- * One counter-scrolling row of coloured, icon-only integration marks. Marks are
+ * One counter-scrolling row of colored, icon-only integration marks. Marks are
  * duplicated so the CSS keyframe loop is seamless; when `enabled` is false the
  * track is static (reduced motion / minimal tier). The track is decorative
  * (`aria-hidden`) — the names are surfaced once via a visually-hidden list in
@@ -55,7 +55,7 @@ export function MarqueeRow({
                 seamless loop, so this alt never reaches a screen reader — the
                 names are announced once from the parent's visually-hidden
                 list. It names the brand anyway because image crawlers do not
-                honour aria-hidden, and 141 alt-less marks were the largest
+                honor aria-hidden, and 141 alt-less marks were the largest
                 accessibility finding in the 2026-07-31 Ahrefs crawl. */}
             <img
               src={mark.file}

@@ -760,7 +760,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   }, []);
 
   useEffect(() => {
-    // Deep-link section jumps land with the desktop header minimised so the
+    // Deep-link section jumps land with the desktop header minimized so the
     // section pill sits 1rem below the viewport top (mobile never hides).
     const onDeepLinkJump = () => {
       if (isDesktop.current) {

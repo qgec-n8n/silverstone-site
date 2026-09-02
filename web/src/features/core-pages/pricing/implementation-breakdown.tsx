@@ -28,7 +28,7 @@ import { Money } from "~/components/ui/money";
 const DRIVER_ICONS = [Layers, Gauge, Target, Clock] as const;
 
 /** One spectral hue per cost driver, so the mosaic reads as four distinct
-    considerations rather than one grey list. */
+    considerations rather than one gray list. */
 const DRIVER_ACCENTS = [
   "var(--ss-v2-aqua)",
   "var(--ss-v2-azure)",

@@ -1,5 +1,5 @@
 /**
- * Hospitality — bespoke composition.
+ * Hospitality — custom composition.
  * Visual concept: Guest Service Radar — calm watchfulness at peak demand.
  * The full-width venue image lands directly after the problem cards (the
  * atmosphere IS the product); workflows and the guest journey follow; safety
@@ -19,6 +19,7 @@ import {
   TrendingUp,
   UserCheck,
   Users,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -46,6 +47,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -86,6 +88,19 @@ export function HospitalityComposition({
       />
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
+
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
 
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">

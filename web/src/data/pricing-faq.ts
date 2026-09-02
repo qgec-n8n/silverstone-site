@@ -38,7 +38,7 @@ export const PRICING_FAQ: readonly PricingFaqItem[] = [
   {
     question: "What’s included in the monthly retainer?",
     answer:
-      "Monitoring, maintenance, priority support and regular optimisation reviews. Relevant plans can also include employee training, reporting, enhancement work and defined response times.",
+      "Monitoring, maintenance, priority support and regular optimization reviews. Relevant plans can also include employee training, reporting, enhancement work and defined response times.",
   },
   {
     question: "Do you offer payment plans?",

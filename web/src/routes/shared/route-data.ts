@@ -9,7 +9,7 @@ type RouteLoaderOptions = {
   exactPath?: string;
   routeGroup: RouteGroup;
   /**
-   * Set false for routes whose body is a fully bespoke experience (the
+   * Set false for routes whose body is a fully custom experience (the
    * services/industries hubs) so legacy migrated copy never reaches the DOM.
    */
   withMigratedContent?: boolean;

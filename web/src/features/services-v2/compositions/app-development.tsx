@@ -1,5 +1,5 @@
 /**
- * App Development — bespoke composition.
+ * App Development — custom composition.
  * Visual concept: Product State Engine.
  *
  * No reserved external demo surface for this route (approved config carries no

@@ -11,7 +11,7 @@ type IntegrationCarouselProps = {
   marqueeEnabled: boolean;
 };
 
-/** Three counter-scrolling rows of coloured, icon-only integration marks. */
+/** Three counter-scrolling rows of colored, icon-only integration marks. */
 export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps) {
   return (
     <SectionShell

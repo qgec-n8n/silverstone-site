@@ -87,7 +87,7 @@ function escapeRegExp(value: string): string {
  * Section headings arrive from the automation pipeline as plain strings, so
  * the single gradient accent every other page's headings carry (`*phrase*`
  * emphasis → gradient `em`) is applied here: the closing phrase of the
- * heading is emphasised, skipping leading connective words so the gradient
+ * heading is emphasized, skipping leading connective words so the gradient
  * never starts on "and"/"the". Headings that already carry `*emphasis*`
  * markers, or are too short to split, are left untouched.
  */
@@ -1498,8 +1498,8 @@ function ArticleSection({
        * Both tables render as siblings of the section rather than inside its
        * card: the section card closes after the icon bullet list / grid, and
        * each table stands as its own card below. Sitting directly in the
-       * Reveal grid item (a full-width, page-centred block) lets their desktop
-       * breakout (margin-inline-start:50% + translateX(-50%)) centre cleanly on
+       * Reveal grid item (a full-width, page-centered block) lets their desktop
+       * breakout (margin-inline-start:50% + translateX(-50%)) center cleanly on
        * the column instead of the padded section content box. Inside the card
        * that same breakout resolves against the 62rem content box and the
        * 70rem table hangs 4rem past each edge — which is exactly what the

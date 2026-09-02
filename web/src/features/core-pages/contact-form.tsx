@@ -1,5 +1,5 @@
 /**
- * Contact enquiry console — two purpose-built shells sharing one state.
+ * Contact inquiry console — two purpose-built shells sharing one state.
  *
  * Desktop (≥48rem) is a dossier console: a fixed intelligence rail on the
  * left (step list, live brief manifest that assembles as answers land, and
@@ -50,7 +50,7 @@ const INTEREST_OPTIONS = [
   "AI Automation",
   "AI & Automation Consulting",
   "Content Creation",
-  "Partnership or other enquiry",
+  "Partnership or other inquiry",
 ];
 
 const COMPANY_SIZE_OPTIONS = ["Just me", "2–10 people", "11–50 people", "50+ people"];
@@ -150,14 +150,14 @@ type StageDef = {
 const DESKTOP_STAGES: readonly StageDef[] = [
   { id: "focus", label: "Focus", title: "What should we look at?" },
   { id: "operation", label: "Operation", title: "How you operate today" },
-  { id: "send", label: "Send", title: "Send your enquiry" },
+  { id: "send", label: "Send", title: "Send your inquiry" },
 ];
 
 const MOBILE_STAGES: readonly StageDef[] = [
   { id: "focus", label: "Focus", title: "What should we look at?" },
   { id: "scope", label: "Scope", title: "Scope and timing" },
   { id: "operation", label: "Operation", title: "Your operation today" },
-  { id: "send", label: "Send", title: "Send your enquiry" },
+  { id: "send", label: "Send", title: "Send your inquiry" },
 ];
 
 /** Which optional qualifiers each panel carries — drives the honest
@@ -231,7 +231,7 @@ async function submitEnquiry(data: EnquiryData): Promise<void> {
     body: JSON.stringify(payload),
   });
   if (!response.ok) {
-    throw new Error(`Enquiry endpoint responded with ${String(response.status)}`);
+    throw new Error(`Inquiry endpoint responded with ${String(response.status)}`);
   }
 }
 
@@ -426,7 +426,7 @@ export function ContactForm() {
     setDirection(next > activeStep ? 1 : -1);
     setErrors({});
     // A failed send shouldn't keep warning once the visitor goes back to
-    // adjust the enquiry — the next attempt reports its own outcome.
+    // adjust the inquiry — the next attempt reports its own outcome.
     setStatus((current) => (current === "fallback" ? "idle" : current));
     setStep(next);
   };
@@ -470,9 +470,9 @@ export function ContactForm() {
       >
         <div className="ss-enq__terminal" role="status">
           <CheckCircle2Icon aria-hidden="true" className="ss-enq__terminal-icon" />
-          <p className="ss-enq__terminal-title">Enquiry sent</p>
+          <p className="ss-enq__terminal-title">Inquiry sent</p>
           <p className="ss-enq__terminal-body">
-            Thank you — your enquiry is now in the Silverstone inbox. We'll reply to{" "}
+            Thank you — your inquiry is now in the Silverstone inbox. We'll reply to{" "}
             <strong>{data.email.trim()}</strong> within one working day.
           </p>
         </div>
@@ -488,7 +488,7 @@ export function ContactForm() {
     data.budget ? ["Budget", data.budget] : null,
     data.timeline ? ["Timeline", data.timeline] : null,
     data.decisionRole ? ["Sign-off", data.decisionRole] : null,
-    data.enquiryVolume ? ["Enquiries / wk", data.enquiryVolume] : null,
+    data.enquiryVolume ? ["Inquiries / wk", data.enquiryVolume] : null,
     data.adminHours ? ["Admin hrs / wk", data.adminHours] : null,
     data.channels.length > 0 ? ["Channels", data.channels.join(", ")] : null,
     data.systems.length > 0 ? ["Systems", data.systems.join(", ")] : null,
@@ -573,7 +573,7 @@ export function ContactForm() {
 
   const volumeRow = (
     <ChipRow
-      legend="Enquiries per week"
+      legend="Inquiries per week"
       hint="optional"
       name="enquiryVolume"
       options={ENQUIRY_VOLUME_OPTIONS}
@@ -597,7 +597,7 @@ export function ContactForm() {
 
   const channelsRow = (
     <ChipMultiRow
-      legend="Enquiry channels"
+      legend="Inquiry channels"
       hint="select any"
       name="channels"
       options={CHANNEL_OPTIONS}
@@ -705,7 +705,7 @@ export function ContactForm() {
   const sendFields = (
     <div className="ss-enq__fields" data-enq-send>
       {mobile && manifest.length > 0 ? (
-        <p className="ss-enq__brief-line" aria-label="Enquiry summary">
+        <p className="ss-enq__brief-line" aria-label="Inquiry summary">
           {manifest.map(([, value]) => value).join(" · ")}
         </p>
       ) : null}
@@ -722,8 +722,8 @@ export function ContactForm() {
           maxLength={MESSAGE_MAX_LENGTH}
           placeholder={
             mobile
-              ? "e.g. Half our enquiries go unanswered after hours — we want them captured and booked automatically."
-              : "e.g. Enquiries reach us by phone and Instagram, but half go unanswered outside opening hours — we want them captured, qualified and booked automatically."
+              ? "e.g. Half our inquiries go unanswered after hours — we want them captured and booked automatically."
+              : "e.g. Inquiries reach us by phone and Instagram, but half go unanswered outside opening hours — we want them captured, qualified and booked automatically."
           }
           value={data.message}
           onChange={(event) => patch({ message: event.target.value })}
@@ -760,7 +760,7 @@ export function ContactForm() {
               </>
             ) : (
               <>
-                I'm happy to be contacted about this enquiry —{" "}
+                I'm happy to be contacted about this inquiry —{" "}
                 <a href="/privacy-policy">privacy policy</a>. Please don't include
                 passwords or sensitive personal data.
               </>
@@ -839,7 +839,7 @@ export function ContactForm() {
     <form
       className="ss-core-form ss-enq ss-srv2-beam-border"
       data-enq-shell={shellKind}
-      aria-label="Silverstone enquiry form"
+      aria-label="Silverstone inquiry form"
       onSubmit={(event) => {
         event.preventDefault();
         if (lastStage) {
@@ -851,7 +851,7 @@ export function ContactForm() {
     >
       {!mobile ? (
         <aside className="ss-enq__rail">
-          <p className="ss-enq__rail-label">Direct enquiry</p>
+          <p className="ss-enq__rail-label">Direct inquiry</p>
           <ol className="ss-enq__steps">
             {stages.map((entry, index) => {
               const state =
@@ -884,7 +884,7 @@ export function ContactForm() {
           <div className="ss-enq__manifest-block">
             <p className="ss-enq__rail-label">Live brief</p>
             {manifest.length > 0 ? (
-              <dl className="ss-enq__manifest" aria-label="Enquiry summary">
+              <dl className="ss-enq__manifest" aria-label="Inquiry summary">
                 {manifest.map(([label, value]) => (
                   <div key={label}>
                     <dt>{label}</dt>
@@ -911,7 +911,7 @@ export function ContactForm() {
       <div className="ss-enq__stagearea">
         {mobile ? (
           <div className="ss-enq__mobhead" aria-hidden="true">
-            <span className="ss-enq__rail-label">Direct enquiry</span>
+            <span className="ss-enq__rail-label">Direct inquiry</span>
             <span className="ss-enq__mobhead-count">
               {String(activeStep + 1).padStart(2, "0")} /{" "}
               {String(stages.length).padStart(2, "0")}
@@ -987,7 +987,7 @@ export function ContactForm() {
           ) : mobile ? (
             <a
               className="ss-enq__mailto"
-              href="mailto:info@silverstone-ai.com?subject=Enquiry%20for%20Silverstone%20AI"
+              href="mailto:info@silverstone-ai.com?subject=Inquiry%20for%20Silverstone%20AI"
             >
               Email instead
             </a>
@@ -1011,7 +1011,7 @@ export function ContactForm() {
                 "Sending…"
               ) : (
                 <>
-                  Send enquiry <Send aria-hidden="true" />
+                  Send inquiry <Send aria-hidden="true" />
                 </>
               )}
             </button>

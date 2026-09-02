@@ -529,7 +529,7 @@ export const BESPOKE_ENGAGEMENTS: readonly BespokeEngagement[] = [
     scope: [
       "Focused review",
       "Full workflow audit",
-      "Roadmap and prioritisation",
+      "Roadmap and prioritization",
       "Hourly, daily or fixed fee",
     ],
     ctaLabel: "Discuss consulting",

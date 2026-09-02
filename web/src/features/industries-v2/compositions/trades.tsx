@@ -1,5 +1,5 @@
 /**
- * Trades & Home Services — bespoke composition.
+ * Trades & Home Services — custom composition.
  * Visual concept: Job-Intake Dispatch Board — the board being worked. Proof
  * lands immediately after the journey (response speed is the pitch); the
  * office-to-field imagery splits beside quote workflows; boundary and fit
@@ -19,6 +19,7 @@ import {
   Users,
   Wrench,
   Zap,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -46,6 +47,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -88,6 +90,19 @@ export function TradesComposition({
       />
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
+
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
 
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">

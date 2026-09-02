@@ -24,7 +24,12 @@ import {
   Reveal,
   RichText,
 } from "~/features/services-v2/components/primitives";
-import type { IndustryCard, IndustryCaseStudy, IndustryStage } from "../content/types";
+import type {
+  IndustryMarkets,
+  IndustryCard,
+  IndustryCaseStudy,
+  IndustryStage,
+} from "../content/types";
 import type { IndustryImage } from "../content/route-art";
 
 const entranceEase = [0.22, 1, 0.36, 1] as const;
@@ -155,7 +160,7 @@ function JourneyRailStage({ children, index }: { children: ReactNode; index: num
 }
 
 /**
- * The human-judgement boundary: a two-tone console splitting what the system
+ * The human-judgment boundary: a two-tone console splitting what the system
  * prepares from what stays with people, with per-line staggered reveals.
  */
 export function BoundaryPanel({
@@ -300,6 +305,78 @@ export function FitPanel({ right, caution }: { right: string[]; caution: string 
 }
 
 /** Per-page trust tokens rendered directly beneath the secondary hero. */
+/**
+ * The two-market manifest: one panel, two lanes, one shared mechanism.
+ *
+ * Deliberately not a glossary and not a toggle. Both lanes are always in the
+ * DOM and always visible, so a US reader sees their tooling named beside the
+ * UK equivalent (and vice versa), and a crawler reads both vocabularies on
+ * one canonical page. The shared rail underneath states what does not change
+ * between markets, which is the actual argument of the page.
+ */
+export function MarketLanes({ markets }: { markets: IndustryMarkets }) {
+  return (
+    <div className="ss-ind2-markets ss-srv2-beam-border">
+      <div className="ss-ind2-markets__lanes">
+        {markets.lanes.map((lane, index) => (
+          <Reveal
+            key={lane.market}
+            kind="card"
+            delayMs={index * 120}
+            className="ss-ind2-market"
+          >
+            <div className="ss-ind2-market__inner" data-market={lane.market}>
+              <p className="ss-ind2-market__head">
+                <span className="ss-ind2-market__code" aria-hidden="true">
+                  {lane.market}
+                </span>
+                <span className="ss-ind2-market__label">{lane.label}</span>
+              </p>
+              <dl className="ss-ind2-market__rows">
+                <div className="ss-ind2-market__row">
+                  <dt>Who runs it</dt>
+                  <dd>{lane.operators}</dd>
+                </div>
+                <div className="ss-ind2-market__row">
+                  <dt>Plugs into</dt>
+                  <dd>
+                    <ul className="ss-ind2-market__tools">
+                      {lane.tooling.map((tool) => (
+                        <li key={tool}>{tool}</li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+                <div className="ss-ind2-market__row">
+                  <dt>Your words</dt>
+                  <dd>{lane.vocabulary}</dd>
+                </div>
+                <div className="ss-ind2-market__row" data-keeps="true">
+                  <dt>Stays with people</dt>
+                  <dd>{lane.keepsHuman}</dd>
+                </div>
+              </dl>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal kind="section" delayMs={260}>
+        <div className="ss-ind2-markets__shared">
+          <span className="ss-ind2-markets__shared-label">Identical in both</span>
+          <ol className="ss-ind2-markets__shared-list">
+            {markets.shared.map((item) => (
+              <li key={item}>
+                <RichText text={item} />
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Reveal>
+      <BorderBeam />
+    </div>
+  );
+}
+
 export function TrustTokens({ tokens }: { tokens: string[] }) {
   const reducedMotion = useReducedMotion() ?? false;
 

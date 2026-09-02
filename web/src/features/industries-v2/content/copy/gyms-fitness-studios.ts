@@ -10,7 +10,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   routeEntry: {
     loaderText: "Linking club and member signals",
     pill: "Trial-to-membership intelligence",
-    title: "Make every genuine enquiry visible to the team",
+    title: "Make every genuine inquiry visible to the team",
     subtitle:
       "Connect website, phone, social, classes and membership records so trials and follow-up move with context—not scattered reminders.",
     buttonLabel: "Explore the member journey",
@@ -19,26 +19,66 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     title:
       "Gym & Fitness Studio Automation for Leads, Trials and Retention | Silverstone AI",
     description:
-      "Connect membership enquiries, trial bookings, class questions, onboarding, follow-up and reactivation with gym automation built around staff and member systems.",
-    h1: "Connect the journey from first enquiry to active membership",
+      "Connect membership inquiries, trial bookings, class questions, onboarding, follow-up and reactivation with gym automation built around staff and member systems.",
+    h1: "Connect the journey from first inquiry to active membership",
   },
   eyebrow: "Gym & studio automation",
-  h1: "Every enquiry, *tracked to membership*",
+  h1: "Every inquiry, *tracked to membership*",
   heroSub:
-    "A trial enquiry lands on Instagram, a call hits a second site — plenty of activity, zero visibility. Silverstone gives your front desk **one reliable view**, end to end.",
+    "A trial inquiry lands on Instagram, a call hits a second site: plenty of activity, zero visibility. Silverstone AI gives your front desk **one reliable view**, end to end, for gyms and studios in the US and UK.",
   heroPoints: [
-    "Every enquiry lands with a visible owner",
+    "Every inquiry lands with a visible owner",
     "Trials tracked from booking to follow-up",
     "Injuries and disputes always stay human",
   ],
   trustTokens: ["Location-aware", "Member-contextual", "Consent-led", "Staff-owned"],
+  markets: {
+    eyebrow: "Built for your market",
+    heading: "Same invisible trial. *Your* club system.",
+    lead: "A trial inquiry on Instagram in Miami and one in Manchester go invisible the same way. The journey is identical; the club-management platform and what you call a class pass change.",
+    lanes: [
+      {
+        market: "US",
+        label: "United States",
+        operators:
+          "Gyms, boutique fitness studios and CrossFit boxes, from a single location to a franchise group.",
+        tooling: [
+          "Mindbody, ClubReady, ABC Fitness or Zen Planner",
+          "Google Business Profile, Instagram and ClassPass leads",
+          "Your class schedule, waitlist and membership records",
+        ],
+        vocabulary:
+          "Free trials, tours, class packs, memberships, freezes, the front desk.",
+        keepsHuman:
+          "Injury and exercise suitability, safeguarding, disputes, refunds and freezes.",
+      },
+      {
+        market: "UK",
+        label: "United Kingdom",
+        operators: "Independent gyms, boutique studios and multi-site clubs.",
+        tooling: [
+          "Glofox, Mindbody, ClubRight or Gymcatch",
+          "Google Business Profile, Instagram and ClassPass leads",
+          "Your timetable, waitlist and membership records",
+        ],
+        vocabulary: "Trials, tours, class passes, memberships, freezes, reception.",
+        keepsHuman:
+          "Injury and exercise suitability, safeguarding, disputes, refunds and freezes.",
+      },
+    ],
+    shared: [
+      "Every inquiry from any channel lands with a visible owner and a real trial or tour slot.",
+      "Class capacity and waitlists read your live system, never a stale timetable.",
+      "Follow-up reflects attendance and consent; health questions always reach qualified staff.",
+    ],
+  },
   problem: {
     heading: "Demand is leaking *between systems*",
-    body: "Plenty of activity, no coherent view of intent or ownership. **The goal is fewer lost enquiries, clearer handoffs and communication that actually reflects reality** — across every location and channel.",
+    body: "Plenty of activity, no coherent view of intent or ownership. **The goal is fewer lost inquiries, clearer handoffs and communication that actually reflects reality**, across every location and channel.",
     cards: [
       {
         title: "Interest arrives everywhere",
-        body: "Website, phone, social and walk-in — one owner, instantly.",
+        body: "Website, phone, social and walk-in: one owner, instantly.",
       },
       {
         title: "Trial booked, follow-up unclear",
@@ -56,11 +96,11 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   },
   journey: {
     heading: "The trial is a *journey*, not an event",
-    lead: "A trial has commercial value only when the steps around it work — health suitability is never assessed by the system.",
+    lead: "A trial has commercial value only when the steps around it work; health suitability is never assessed by the system.",
     stages: [
       {
-        title: "Enquiry identified",
-        body: "Location, goal and interest captured from any channel — no health assessment.",
+        title: "Inquiry identified",
+        body: "Location, goal and interest captured from any channel, with no health assessment.",
       },
       {
         title: "Trial routed",
@@ -68,7 +108,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
       },
       {
         title: "Owner notified",
-        body: "A visible record created — the enquiry stops being invisible.",
+        body: "A visible record created; the inquiry stops being invisible.",
       },
       {
         title: "Attendance recorded",
@@ -76,17 +116,17 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
       },
       {
         title: "Membership begins",
-        body: "Onboarding starts only after they say yes — nothing skipped.",
+        body: "Onboarding starts only after they say yes, with nothing skipped.",
       },
     ],
   },
   workflows: {
-    heading: "Classes, onboarding, retention — *connected*",
-    lead: "Retention isn't a stream of discounts. It's recognising a change and picking the right response.",
+    heading: "Classes, onboarding, retention, *connected*",
+    lead: "Retention isn't a stream of discounts. It's recognizing a change and picking the right response.",
     items: [
       {
         title: "Class answers",
-        body: "Timetable and capacity from your live system — never medical advice.",
+        body: "Schedule and capacity from your live system, never medical advice.",
       },
       {
         title: "Waitlist movement",
@@ -94,25 +134,25 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
       },
       {
         title: "Onboarding, sequenced",
-        body: "Every step visible to staff — nothing falls through.",
+        body: "Every step visible to staff; nothing falls through.",
       },
       {
         title: "Status-aware reactivation",
-        body: "The right message, or none at all — never a blanket blast.",
+        body: "The right message, or none at all, never a blanket blast.",
       },
     ],
   },
   services: {
     heading: "A system your *front desk can run*",
-    lead: "What already works gets connected — never ripped out.",
+    lead: "What already works gets connected, never ripped out.",
     paragraphs: [
-      "An [AI receptionist](/services/ai-receptionists) handles routine questions; [lead follow-up workflows](/services/ai-automation) connect forms, calendars and staff tasks.",
-      "A [governed content system](/services/content-creation) maintains class and community info; [custom member applications](/services/app-development) power a member portal, with a [conversion-led gym website](/services/web-design-development) sharpening the offer before the enquiry.",
+      "An [AI receptionist](/services/ai-receptionists) handles routine questions; [lead follow-up workflows](/services/ai-automation) connect forms, calendars and staff tasks in Mindbody, Glofox, ClubReady or whichever platform runs the club.",
+      "A [governed content system](/services/content-creation) maintains class and community info; [custom member applications](/services/app-development) power a member portal, with a [conversion-led gym website](/services/web-design-development) sharpening the offer before the inquiry.",
     ],
   },
   proof: {
     heading: "Audience and engagement, *verified*",
-    lead: "Verified Silverstone AI campaign delivery results — the scale of attention the operating system converts into tracked trials.",
+    lead: "Verified Silverstone AI campaign delivery results: the scale of attention the operating system converts into tracked trials.",
     metrics: [
       {
         id: "benchmark-109",
@@ -144,26 +184,26 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   },
   boundary: {
     heading: "Duty of care stays *human*",
-    body: "Automation coordinates enquiries, timetables and reminders. **People decide injury, safeguarding, disputes and retention discretion.** A cancellation always gets a clear, fair route — never obstruction.",
+    body: "Automation coordinates inquiries, schedules and reminders. **People decide injury, safeguarding, disputes and retention discretion.** A cancellation always gets a clear, fair route, never obstruction.",
     keeps: [
       "Injury advice & exercise suitability",
       "Health disclosures & safeguarding",
       "Disputes, refunds & freezes",
       "Discretionary retention calls",
-      "Cancellations — clear and fair, always",
+      "Cancellations, clear and fair, always",
     ],
   },
   process: {
     heading: "One measurable journey *first*",
-    lead: "Built for how the club actually runs — staff visibility and override from day one.",
+    lead: "Built for how the club actually runs, with staff visibility and override from day one.",
     steps: [
-      { title: "Map the channels", body: "Every enquiry channel and location." },
+      { title: "Map the channels", body: "Every inquiry channel and location." },
       {
         title: "Identify authority",
         body: "Class, trial and membership systems, confirmed.",
       },
       { title: "Define permissions", body: "Questions and actions, written down." },
-      { title: "Select one path", body: "Enquiry to trial, proven first." },
+      { title: "Select one path", body: "Inquiry to trial, proven first." },
       {
         title: "Test the edges",
         body: "Capacity, no-shows, disclosures, cancellations.",
@@ -173,9 +213,9 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   },
   fit: {
     heading: "Is this *your operation*?",
-    lead: "Attention becomes value only when you can recognise intent and own the next step.",
+    lead: "Attention becomes value only when you can recognize intent and own the next step.",
     right: [
-      "Repeated enquiry volume across channels",
+      "Repeated inquiry volume across channels",
       "Defined trial and membership routes",
       "Reasonably clean member data",
       "A named owner for follow-up",
@@ -188,7 +228,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     items: [
       {
         q: "Can it book trials and classes?",
-        a: "Yes, where your trial or class system is authoritative — capacity and waitlist rules tested before launch.",
+        a: "Yes, where your trial or class system is authoritative, whether Mindbody, Glofox, ClubReady, ABC Fitness or Zen Planner, with capacity and waitlist rules tested before launch.",
       },
       {
         q: "Can it follow up trial visitors?",
@@ -196,7 +236,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
       },
       {
         q: "Can it reactivate inactive members?",
-        a: "Segmented, lawful communication — **health and disputes always need careful human handling.**",
+        a: "Segmented, consent-led communication; **health and disputes always need careful human handling.**",
       },
       {
         q: "Will it replace the front desk?",
@@ -210,12 +250,12 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   },
   midCta: {
     heading: "Review *your* trial conversion",
-    body: "Bring one trial or lead that got hard to track. We'll map the systems and actions around it — live.",
+    body: "Bring one trial or lead that got hard to track. We'll map the systems and actions around it, live.",
     buttonLabel: "Book a discovery call",
   },
   finalCta: {
-    heading: "Enquiry to active member, *reliably*",
-    body: "One call examines your journey across channels, systems and staff — and whether a clearer layer improves follow-up without replacing what makes the club valuable. See [how we deliver](/how-we-work) and [how scope shapes pricing](/pricing).",
+    heading: "Inquiry to active member, *reliably*",
+    body: "One call examines your journey across channels, systems and staff, and whether a clearer layer improves follow-up without replacing what makes the club valuable. See [how we deliver](/how-we-work) and [how scope shapes pricing](/pricing).",
     reassurance:
       "No health advice · no obstructive cancellation design · community stays human.",
     buttonLabel: "Book a discovery call",

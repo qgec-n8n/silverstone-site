@@ -1,5 +1,5 @@
 /**
- * eCommerce Brands — bespoke composition.
+ * eCommerce Brands — custom composition.
  * Visual concept: Order-State Conveyor — state and authority made visible.
  * The state journey leads; support/returns/retention workflows follow as a
  * four-up grid; the boundary console lands before proof (policy control IS
@@ -20,6 +20,7 @@ import {
   Star,
   TrendingUp,
   UserCheck,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -47,6 +48,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -89,6 +91,19 @@ export function EcommerceComposition({
       />
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
+
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
 
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">

@@ -1,5 +1,5 @@
 /**
- * AI Consulting — bespoke composition.
+ * AI Consulting — custom composition.
  * Visual concept: Strategic Opportunity Observatory.
  */
 import type { CSSProperties } from "react";

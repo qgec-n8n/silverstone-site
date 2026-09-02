@@ -1,5 +1,5 @@
 /**
- * Physios & Chiropractors — bespoke composition.
+ * Physios & Chiropractors — custom composition.
  * Visual concept: Care-Plan Continuity Timeline — administration below the
  * line, care above it. The boundary console lands directly after the problem
  * (professional caution is the buying context); the clinic image pairs with
@@ -18,6 +18,7 @@ import {
   TrendingUp,
   UserCheck,
   Users,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -45,6 +46,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -90,6 +92,19 @@ export function PhysiosChiropractorsComposition({
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
 
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
+
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">
           <SectionHead
@@ -131,7 +146,7 @@ export function PhysiosChiropractorsComposition({
       <section className="ss-srv2-section" aria-labelledby="ind2-journey">
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
-            eyebrow="Enquiry to prepared appointment"
+            eyebrow="Inquiry to prepared appointment"
             icon={CalendarClock}
             heading={copy.journey.heading}
             headingId="ind2-journey"

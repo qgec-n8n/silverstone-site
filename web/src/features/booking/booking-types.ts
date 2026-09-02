@@ -17,7 +17,7 @@ export const SERVICE_OPTIONS = [
   { id: "automation", label: "AI automation" },
   { id: "consulting", label: "AI & automation consulting" },
   { id: "content", label: "Content creation" },
-  { id: "other", label: "Partnership or other enquiry" },
+  { id: "other", label: "Partnership or other inquiry" },
 ] as const;
 
 export const INDUSTRY_OPTIONS = [

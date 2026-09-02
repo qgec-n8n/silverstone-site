@@ -3,7 +3,7 @@
  *
  * Each card is a `PanelReveal` root, so the frame itself materialises with the
  * system's existing edge-light ignition and single diagonal sheen rather than a
- * bespoke entrance; the featured card adds the resident `BorderBeam` so exactly
+ * custom entrance; the featured card adds the resident `BorderBeam` so exactly
  * one card in the row carries continuous perimeter energy. Everything else —
  * price hierarchy, inclusion lists, hover lift — is CSS, so nothing here
  * animates layout.

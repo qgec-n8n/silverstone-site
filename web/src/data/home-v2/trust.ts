@@ -41,7 +41,7 @@ export const SILVERSTONE_STANDARD: readonly StandardPillar[] = [
     id: "human-control",
     title: "A human always in control",
     description:
-      "Automation does the heavy lifting; people hold the judgement. Review points are built into every workflow.",
+      "Automation does the heavy lifting; people hold the judgment. Review points are built into every workflow.",
     icon: "UserCheck",
   },
   {

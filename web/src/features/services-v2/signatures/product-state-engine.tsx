@@ -1,6 +1,6 @@
 /**
  * App Development signature — "Product State Engine". Four connected layers
- * (User → Interface → API → Data) with a signal travelling top-to-bottom, a
+ * (User → Interface → API → Data) with a signal traveling top-to-bottom, a
  * state chip cycling Loading → Success → Retry, and a release pipeline
  * tracker (Build → Test → Ship) closing out the panel. Distinct animation
  * language from Web Design's horizontal assemble: vertical depth stagger + a

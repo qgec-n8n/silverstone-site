@@ -1,5 +1,5 @@
 /**
- * AI Voice Agents — bespoke composition.
+ * AI Voice Agents — custom composition.
  * Visual concept: Conversation Signal Intelligence.
  */
 import type { CSSProperties } from "react";

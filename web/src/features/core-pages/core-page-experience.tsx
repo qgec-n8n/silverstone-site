@@ -1,7 +1,7 @@
 /**
- * core-pages entry point. Renders the bespoke body for one of the six core
+ * core-pages entry point. Renders the custom body for one of the six core
  * marketing routes (how-we-work, blog, about, pricing, contact, book) via
- * its own fully bespoke composition — no shared section-architecture loop.
+ * its own fully custom composition — no shared section-architecture loop.
  *
  * Each composition is dynamically imported so its code (and its signature's
  * Motion-heavy SVG) code-splits into its own chunk rather than bundling into

@@ -10,7 +10,7 @@
  * shell is queued and sent the moment the connection reports connected; an
  * optimistic echo keeps the thread honest while that handshake completes.
  *
- * The UI is entirely bespoke — no Botpress components or stylesheets — built
+ * The UI is entirely custom — no Botpress components or stylesheets — built
  * on the headless `useActiveConversation` state.
  */
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
@@ -340,7 +340,7 @@ function SamThreadMessage({
 }
 
 /**
- * Bespoke block renderer for the message types a governed receptionist bot
+ * Custom block renderer for the message types a governed receptionist bot
  * actually sends: text (with light markdown), choices, images and blocs.
  * Anything else degrades to its text fields rather than breaking the thread.
  */

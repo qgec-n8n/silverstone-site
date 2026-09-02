@@ -302,7 +302,7 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
       return undefined;
     }
 
-    let cancelled = false;
+    let canceled = false;
     const capturedWindowListeners: WindowListener[] = [];
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const mobile = window.matchMedia("(max-width: 768px)").matches;
@@ -462,12 +462,12 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
       try {
         await ensureParticlesScript();
       } catch {
-        if (!cancelled) {
+        if (!canceled) {
           onReady?.("fallback");
         }
         return;
       }
-      if (cancelled) {
+      if (canceled) {
         return;
       }
       if (!window.particlesJS) {
@@ -501,7 +501,7 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
 
     /* Keep the canvas draw loop active during scrolling. Mobile browsers can
        discard a fixed canvas's backing paint mid-gesture; if its frame is
-       cancelled here, it stays blank until a later resume forces a repaint. */
+       canceled here, it stays blank until a later resume forces a repaint. */
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("pointerdown", handleActivity, { passive: true });
     window.addEventListener("touchstart", handleActivity, { passive: true });
@@ -513,7 +513,7 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
     void start();
 
     return () => {
-      cancelled = true;
+      canceled = true;
       window.clearTimeout(idleTimer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("pointerdown", handleActivity);

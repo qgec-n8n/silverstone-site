@@ -96,8 +96,8 @@ export const serviceImageUses: ServiceImageUse[] = [
     desktopAsset: "general-services-1-mobile.png",
     mobileAsset: "general-services-1-mobile.png",
     rationale:
-      "Shows a premium enquiry-capture panel that supports website conversion-system messaging. Uses the portrait crop on both breakpoints — the landscape general-services-1.png is no longer used on this route.",
-    alt: "Illustrative reception and enquiry capture panel.",
+      "Shows a premium inquiry-capture panel that supports website conversion-system messaging. Uses the portrait crop on both breakpoints — the landscape general-services-1.png is no longer used on this route.",
+    alt: "Illustrative reception and inquiry capture panel.",
     sourceType: "approved-zip",
     desktopDimensions: { width: 1696, height: 2528 },
     mobileDimensions: { width: 1696, height: 2528 },
@@ -135,8 +135,8 @@ export const serviceImageUses: ServiceImageUse[] = [
     desktopAsset: "receptionists-hero.png",
     mobileAsset: "receptionists-hero-mobile.png",
     rationale:
-      "Bespoke generated image (gpt-image-2-mcp, 2026-07-01) so this route no longer duplicates the Web Design page's general-services-1.png. Supports reception capture and enquiry triage while remaining clearly illustrative.",
-    alt: "Illustrative front-desk reception panel showing a call being answered, a booking confirmed, and an enquiry escalated to a person.",
+      "Custom generated image (gpt-image-2-mcp, 2026-07-01) so this route no longer duplicates the Web Design page's general-services-1.png. Supports reception capture and inquiry triage while remaining clearly illustrative.",
+    alt: "Illustrative front-desk reception panel showing a call being answered, a booking confirmed, and an inquiry escalated to a person.",
     sourceType: "generated",
     desktopDimensions: { width: 2528, height: 1696 },
     mobileDimensions: { width: 1138, height: 1696 },
@@ -187,7 +187,7 @@ export const serviceImageUses: ServiceImageUse[] = [
     desktopAsset: "Real_Estate_1.jpeg",
     mobileAsset: "Real_Estate_1_Mobile.jpeg",
     rationale:
-      "Approved estate-agency set (Real_Estate_1/2/3 pairs) showing branch command, enquiry workflow and viewing coordination surfaces.",
+      "Approved estate-agency set (Real_Estate_1/2/3 pairs) showing branch command, inquiry workflow and viewing coordination surfaces.",
     alt: "Illustrative branch command panel capturing valuation, portal-lead and viewing activity.",
     sourceType: "approved-zip",
     desktopDimensions: { width: 2528, height: 1696 },
@@ -213,7 +213,7 @@ export const serviceImageUses: ServiceImageUse[] = [
     desktopAsset: "ecommerce-1.png",
     mobileAsset: "ecommerce-1-mobile.png",
     rationale:
-      "Bespoke generated set (gpt-image-2-mcp, 2026-07-01: ecommerce-1/2/3.png; portrait variants ecommerce-1/2/3-mobile.png generated 2026-07-06 once billing was restored) — the approved zip contained no ecommerce imagery.",
+      "Custom generated set (gpt-image-2-mcp, 2026-07-01: ecommerce-1/2/3.png; portrait variants ecommerce-1/2/3-mobile.png generated 2026-07-06 once billing was restored) — the approved zip contained no ecommerce imagery.",
     alt: "Illustrative order-intelligence panel matching customer questions to live order state.",
     sourceType: "generated",
     desktopDimensions: { width: 2528, height: 1696 },
@@ -291,7 +291,7 @@ export const serviceImageUses: ServiceImageUse[] = [
     desktopAsset: "about-standard.png",
     mobileAsset: "about-standard-mobile.png",
     rationale:
-      "Bespoke generated pair (gpt-image-2-mcp, 2026-07-06) — an engagement-ledger panel (assumptions, dependencies, ownership) beside the 'Premium is a standard of attention' copy; replaces the home page's studio-mission.webp, which was duplicated across routes.",
+      "Custom generated pair (gpt-image-2-mcp, 2026-07-06) — an engagement-ledger panel (assumptions, dependencies, ownership) beside the 'Premium is a standard of attention' copy; replaces the home page's studio-mission.webp, which was duplicated across routes.",
     alt: "Illustrative engagement-ledger panel — assumptions, dependencies and ownership made visible — in a Silverstone studio scene overlooking London at night.",
     sourceType: "generated",
     desktopDimensions: { width: 2528, height: 1696 },
@@ -300,12 +300,12 @@ export const serviceImageUses: ServiceImageUse[] = [
   },
   {
     route: "/industry/aesthetic-clinics",
-    section: "enquiry split + deposit/recall gallery",
+    section: "inquiry split + deposit/recall gallery",
     desktopAsset: "aesthetic-1.png",
     mobileAsset: "aesthetic-1-mobile.png",
     rationale:
-      "Purpose-generated aesthetic-clinic set (aesthetic-1/2/3) commissioned 2026-08-05 for the new sector page; the preserved catalogue holds no aesthetic-clinic scenes, and the physiotherapy placeholders carried their own conflicting baked-in headline. Each still is a self-contained panel: multi-channel enquiry capture, deposit-secured confirmation, treatment-cycle recall. Every label and figure inside the artwork is illustrative mock content, never a verified result. Mobile counterparts are same-aspect 1080-wide downscales rather than portrait recompositions, because a portrait crop would cut the landscape-composed headline (see route-art.ts decision log).",
-    alt: "Illustrative aesthetic clinic panel titled “Zero Missed Consultations”, showing DM, WhatsApp and web-form enquiries routed to a booking calendar with mock “Reply < 2s”, “Deposit Secured” and “Consult Booked” states.",
+      "Purpose-generated aesthetic-clinic set (aesthetic-1/2/3) commissioned 2026-08-05 for the new sector page; the preserved catalog holds no aesthetic-clinic scenes, and the physiotherapy placeholders carried their own conflicting baked-in headline. Each still is a self-contained panel: multi-channel inquiry capture, deposit-secured confirmation, treatment-cycle recall. Every label and figure inside the artwork is illustrative mock content, never a verified result. Mobile counterparts are same-aspect 1080-wide downscales rather than portrait recompositions, because a portrait crop would cut the landscape-composed headline (see route-art.ts decision log).",
+    alt: "Illustrative aesthetic clinic panel titled “Zero Missed Consultations”, showing DM, WhatsApp and web-form inquiries routed to a booking calendar with mock “Reply < 2s”, “Deposit Secured” and “Consult Booked” states.",
     sourceType: "generated",
     desktopDimensions: { width: 2528, height: 1696 },
     mobileDimensions: { width: 1080, height: 725 },

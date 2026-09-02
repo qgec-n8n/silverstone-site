@@ -1,7 +1,7 @@
 /**
  * Skin & Aesthetic Clinics signature — "Consultation Ladder".
  *
- * An enquiry enters from one of four channels, then climbs a ladder of rungs
+ * An inquiry enters from one of four channels, then climbs a ladder of rungs
  * — replied, qualified, deposit held, consultation confirmed — with a
  * compliance filter sitting *on* the ladder rather than beside it: a public
  * reply drafted with a prescription-only brand name is visibly rewritten to
@@ -26,7 +26,7 @@ const CHANNELS = ["DM", "Form", "Call", "WhatsApp"];
 const CHANNEL_X = [104, 216, 328, 448];
 const CHANNEL_Y = 470;
 
-/** Ladder rungs, bottom-up. `y` is the rung's centre line. */
+/** Ladder rungs, bottom-up. `y` is the rung's center line. */
 const RUNGS = [
   { label: "Replied in seconds", y: 380 },
   { label: "Qualified to your rules", y: 300 },
@@ -70,7 +70,7 @@ export function ConsultLadder({
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: an aesthetic clinic enquiry arriving by DM, form, call or WhatsApp climbs a ladder — replied, qualified, deposit held, consultation confirmed — passing a filter that rewrites prescription-only brand names into approved treatment language, with a prescriber gate above."
+      aria-label="Diagram: an aesthetic clinic inquiry arriving by DM, form, call or WhatsApp climbs a ladder — replied, qualified, deposit held, consultation confirmed — passing a filter that rewrites prescription-only brand names into approved treatment language, with a prescriber gate above."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
@@ -131,7 +131,7 @@ export function ConsultLadder({
             </m.g>
           ))}
 
-          {/* The climbing enquiry */}
+          {/* The climbing inquiry */}
           {!reducedMotion ? (
             <m.circle
               r="7"
@@ -253,7 +253,7 @@ export function ConsultLadder({
               fontSize="15"
               fontFamily="var(--ss-font-mono)"
             >
-              Prescriber gate — clinical judgement
+              Prescriber gate — clinical judgment
             </text>
           </m.g>
 

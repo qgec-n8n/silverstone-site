@@ -2,8 +2,8 @@
  * Industry detail template — mirrors the ServicePage experience shell exactly:
  * CoreSpin loader gate → full-screen Aether intro (Industries palette) →
  * expandable shared-layout hero button → body with Particles background,
- * secondary hero, bespoke composition and reverse-return control. The shared
- * app-experience state machine drives the same open/close/replay behaviour
+ * secondary hero, custom composition and reverse-return control. The shared
+ * app-experience state machine drives the same open/close/replay behavior
  * used by Home and Services.
  */
 import "~/styles/visual/home-v2.css";

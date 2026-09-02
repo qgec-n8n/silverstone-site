@@ -1,5 +1,5 @@
 /**
- * Content Creation — bespoke composition.
+ * Content Creation — custom composition.
  * Visual concept: Editorial Intelligence System.
  *
  * No reserved external demo surface for this route — the fan-out signature is

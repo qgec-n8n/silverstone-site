@@ -11,9 +11,9 @@ const servicePages = [
     id: "route-service-web-design-development",
     path: "/services/web-design-development",
     label: "Web Design & Development",
-    title: "Bespoke Web Design & Development UK | Silverstone AI",
+    title: "Custom Web Design & Development UK | Silverstone AI",
     description:
-      "Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one system.",
+      "Custom web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one system.",
     h1: "A website engineered to move buyers forward",
     primaryIntent: "web design and development for UK small businesses",
     contentId: "content-service-web-design-development",
@@ -33,9 +33,9 @@ const servicePages = [
     id: "route-service-app-development",
     path: "/services/app-development",
     label: "App Development",
-    title: "Bespoke App Development UK | Silverstone AI",
+    title: "Custom App Development UK | Silverstone AI",
     description:
-      "Bespoke app development for UK businesses: product discovery, UX architecture, data, integrations, AI features and release planning around one core workflow.",
+      "Custom app development for UK businesses: product discovery, UX architecture, data, integrations, AI features and release planning around one core workflow.",
     h1: "Build the smallest app that proves the value",
     primaryIntent: "custom app development for UK businesses",
     contentId: "content-service-app-development",
@@ -145,7 +145,7 @@ const servicePages = [
     label: "AI & Automation Consulting",
     title: "AI & Automation Consulting UK | Silverstone AI",
     description:
-      "AI and automation consulting for UK businesses: opportunity audits, workflow prioritisation, data readiness, governance and build-versus-buy roadmaps.",
+      "AI and automation consulting for UK businesses: opportunity audits, workflow prioritization, data readiness, governance and build-versus-buy roadmaps.",
     h1: "Decide what to automate before you buy the tools",
     primaryIntent: "AI automation consulting UK",
     contentId: "content-service-ai-consulting",
@@ -535,7 +535,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
       "Connect portal, phone and website inquiries to qualification, showing requests, CRM updates and human follow-up. Built for UK estate agents and US real estate brokerages.",
     h1: "Turn property enquiries into owned branch conversations",
     headingPlan: {
-      h1: "Turn property enquiries into owned branch conversations",
+      h1: "Turn property inquiries into owned branch conversations",
       h1Source:
         "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
@@ -755,7 +755,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
       "Connect membership inquiries, trial bookings, class questions, onboarding, follow-up and reactivation with gym automation built around your staff and member systems.",
     h1: "Every enquiry, tracked to membership",
     headingPlan: {
-      h1: "Every enquiry, tracked to membership",
+      h1: "Every inquiry, tracked to membership",
       h1Source:
         "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",

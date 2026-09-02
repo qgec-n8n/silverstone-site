@@ -156,9 +156,9 @@ export function CoreSpinLoader() {
       return undefined;
     }
 
-    let cancelled = false;
+    let canceled = false;
     const beginExit = () => {
-      if (!cancelled) {
+      if (!canceled) {
         setPhase((current) => (current === "active" ? "exiting" : current));
       }
     };
@@ -166,7 +166,7 @@ export function CoreSpinLoader() {
     preloadRouteAssets(activePathname);
     void wait(HOLD_MS).then(beginExit);
     return () => {
-      cancelled = true;
+      canceled = true;
     };
   }, [activePathname, dismissLoader, gateFree]);
 

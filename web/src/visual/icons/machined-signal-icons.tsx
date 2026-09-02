@@ -89,17 +89,17 @@ type MachinedSignalIconProps = {
 };
 
 export function MachinedSignalIcon({ name, title }: MachinedSignalIconProps) {
-  const labelled = typeof title === "string" && title.length > 0;
+  const labeled = typeof title === "string" && title.length > 0;
 
   return (
     <svg
       className="ss-icon"
       viewBox="0 0 30 30"
       role="img"
-      aria-hidden={labelled ? undefined : true}
-      aria-label={labelled ? title : undefined}
+      aria-hidden={labeled ? undefined : true}
+      aria-label={labeled ? title : undefined}
     >
-      {labelled ? <title>{title}</title> : null}
+      {labeled ? <title>{title}</title> : null}
       {ICON_PATHS[name]}
     </svg>
   );

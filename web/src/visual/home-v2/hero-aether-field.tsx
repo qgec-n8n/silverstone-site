@@ -34,7 +34,7 @@ export type AetherPalette = {
 
 /**
  * The Industries route family renders the same Aether field — identical
- * displacement, line-breaking and reforming behaviour — in a violet palette,
+ * displacement, line-breaking and reforming behavior — in a violet palette,
  * signalling a different page family against the same dark background.
  */
 export const AETHER_INDUSTRIES_PALETTE: AetherPalette = {
@@ -44,13 +44,13 @@ export const AETHER_INDUSTRIES_PALETTE: AetherPalette = {
 };
 
 /**
- * The standalone core pages each carry their own two-colour Aether scheme —
- * one colour for the resting dots + lines, one for pointer proximity — so
+ * The standalone core pages each carry their own two-color Aether scheme —
+ * one color for the resting dots + lines, one for pointer proximity — so
  * arriving on Home, How we work, Insights, About, Pricing, Contact or Book
  * reads as entering a distinct main page rather than another Services or
  * Industries route. Every base is tuned for contrast against the #05070d void,
  * and every proximity value shifts hue *and* lifts toward light so the field
- * visibly re-colours the instant the pointer approaches. Home carries the
+ * visibly re-colors the instant the pointer approaches. Home carries the
  * signature cyan→ultraviolet signal; How we work inverts it (ultraviolet
  * resting → ice-cyan proximity). /book is gate-free today (no Aether intro),
  * but its scheme is registered so the palette holds if that ever changes.
@@ -123,8 +123,8 @@ export const AETHER_SERVICE_PALETTES: Record<string, AetherPalette> = {
 /**
  * The ten Industries routes each carry their own hue pairing, derived from
  * that sector's copy accent (industries-v2 route-art accentFrom → accentTo):
- * resting base takes the accent's leading colour, proximity lifts toward the
- * trailing colour as a light tint. The /industry hub keeps the shared violet
+ * resting base takes the accent's leading color, proximity lifts toward the
+ * trailing color as a light tint. The /industry hub keeps the shared violet
  * family signature ({@link AETHER_INDUSTRIES_PALETTE}).
  */
 export const AETHER_INDUSTRY_PALETTES: Record<string, AetherPalette> = {
@@ -181,11 +181,11 @@ export const AETHER_INDUSTRY_PALETTES: Record<string, AetherPalette> = {
 };
 
 /**
- * Field colours for a route with no registered scheme. Exported because the
+ * Field colors for a route with no registered scheme. Exported because the
  * Explore CTA tints itself from the same pair the field behind it is drawing
  * with — an unmatched route has to fall back to *this*, not to the cinematic
  * cyan/violet tokens, or the button would be the one thing on the page not
- * wearing its own hero's colour.
+ * wearing its own hero's color.
  */
 export const DEFAULT_AETHER_PALETTE: AetherPalette = {
   particle: AETHER_PARTICLE_COLOR,

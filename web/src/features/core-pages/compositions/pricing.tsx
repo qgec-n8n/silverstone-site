@@ -11,7 +11,7 @@
  *
  * Secondary-hero feature: PricingModelOverviewSignature — a DOM instrument, not
  * an SVG diagram, so the headline prices are real selectable text.
- * Verified-results display keeps the bespoke PricingMetricInstrument: the only
+ * Verified-results display keeps the custom PricingMetricInstrument: the only
  * page allowed a second results row, and only in its balanced 3-over-2 shape.
  */
 import {
@@ -77,7 +77,7 @@ export function PricingComposition() {
         lead={`Published bands for US and UK businesses, in the currency you choose: focused pilots from ${money("£3,000")}, most full implementations between ${money("£10,000")} and ${money("£25,000")}, and ongoing support from ${money("£350")} per month. Start with one workflow, prove the value, then scale.`}
         points={[
           "No hidden implementation costs",
-          "ROI modelled before build",
+          "ROI modeled before build",
           "24/7 support on Premium and Enterprise retainers",
         ]}
         primaryCtaLabel="Get a custom quote"
@@ -121,7 +121,7 @@ export function PricingComposition() {
             icon={Headset}
             heading="Support that *protects the value* after launch"
             headingId="pricing-support"
-            lead="Monthly retainers keep AI systems monitored, maintained and improving through structured support, optimisation and enhancement."
+            lead="Monthly retainers keep AI systems monitored, maintained and improving through structured support, optimization and enhancement."
           />
           <SupportRetainerGrid />
         </div>
@@ -176,7 +176,7 @@ export function PricingComposition() {
       <section className="ss-srv2-section" aria-labelledby="pricing-bespoke">
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Bespoke engagements"
+            eyebrow="Custom engagements"
             icon={Building2}
             heading="When scope matters more than a *published band*"
             headingId="pricing-bespoke"

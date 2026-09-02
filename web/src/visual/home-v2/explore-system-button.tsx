@@ -34,7 +34,7 @@ type ExploreSystemButtonProps = {
   onActivate: () => void;
   /**
    * The Aether field this button is sitting on. The pill takes its gradient,
-   * glow and focus ring from the very colours drawn behind it — resting base
+   * glow and focus ring from the very colors drawn behind it — resting base
    * for the dots and lines, proximity flare for the second stop — so every
    * route's CTA wears that route's signal rather than the homepage cyan.
    */

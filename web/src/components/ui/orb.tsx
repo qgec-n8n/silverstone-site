@@ -494,7 +494,7 @@ void main() {
     vec3 ringColor = vec3(1.0); // White ring color
     color.rgb = 1.0 - (1.0 - color.rgb) * (1.0 - ringColor * totalRingAlpha);
 
-    // Define colours to ramp against greyscale (could increase the amount of colours in the ramp)
+    // Define colors to ramp against greyscale (could increase the amount of colors in the ramp)
     vec3 color1 = vec3(0.0, 0.0, 0.0); // Black
     vec3 color2 = uColor1; // Darker Color
     vec3 color3 = uColor2; // Lighter Color

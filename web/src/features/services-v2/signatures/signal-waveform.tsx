@@ -3,7 +3,7 @@
  * waveform above a four-state call-routing timeline (Answered → Understood →
  * Action Taken → Escalated), closing with an abstract live-transcript panel.
  * Distinct animation language: a continuous amplitude pulse (audio-visualiser
- * feel) rather than a single travelling dot. The transcript uses abstract
+ * feel) rather than a single traveling dot. The transcript uses abstract
  * skeleton bars, never invented dialogue — consistent with the reserved
  * demo-surface rule elsewhere on this page.
  */

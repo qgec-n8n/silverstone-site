@@ -69,7 +69,7 @@ export function Hero({
    * staged reveal exactly as it did when the hero was mounted on demand.
    *
    * With motion disabled (reduced motion / low power) the hero simply stays at
-   * `show` and never animates, matching the previous behaviour.
+   * `show` and never animates, matching the previous behavior.
    */
   const atRest = !motionEnabled || !hydrated || revealed;
 

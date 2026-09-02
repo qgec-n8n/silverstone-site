@@ -77,13 +77,13 @@ const coreRouteEntries: Record<
     pill: "Silverstone Intelligence",
     title: "Read before you build.",
     subtitle:
-      "Practical analysis for leaders deciding what to automate, what to design, what to measure and where human judgement still matters.",
+      "Practical analysis for leaders deciding what to automate, what to design, what to measure and where human judgment still matters.",
     buttonLabel: "Open the Insights library",
   },
   "/about": {
     loaderText: "Resolving the Silverstone standard",
     pill: "The Silverstone standard",
-    title: "Capability is common. Judgement is rare.",
+    title: "Capability is common. Judgment is rare.",
     subtitle:
       "Silverstone AI joins commercial strategy, digital craft, engineering, AI and automation, then applies the restraint to use each only where it belongs.",
     buttonLabel: "Discover the standard",
@@ -102,7 +102,7 @@ const coreRouteEntries: Record<
     title: "Put the problem in writing.",
     subtitle:
       "Send the context that matters so Silverstone AI can decide whether a written answer, discovery call or different route makes sense.",
-    buttonLabel: "Open the enquiry form",
+    buttonLabel: "Open the inquiry form",
   },
   "/book": {
     loaderText: "Preparing your discovery call",

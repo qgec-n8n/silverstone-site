@@ -3,7 +3,7 @@
  * morphs while the demo visuals rail between projects.
  *
  * Two callers, one component. /services/web-design-development mounts the full
- * catalogue as a portfolio rail. An industry page passes `only=<site id>` to
+ * catalog as a portfolio rail. An industry page passes `only=<site id>` to
  * mount a single build as sector proof; that drops the project switcher and
  * the "01 / 02" counter, and everything below about railing between projects
  * simply never happens. Each route's CSP `frame-src` allow-list (root
@@ -17,7 +17,7 @@
  * cross-morph in place while each complete browser-and-phone composition
  * travels on one horizontal rail. The domain therefore remains attached to
  * the browser chrome it identifies. The client tint
- * variables (`--demo-tint`/`--demo-tint-2`) are colour-interpolated per frame,
+ * variables (`--demo-tint`/`--demo-tint-2`) are color-interpolated per frame,
  * so every derived accent — chips, dots, buttons, glows, beams — transforms
  * with them. Both projects' copy and visual captures stay in the prerendered
  * HTML, which pins the scene's height and makes both rail directions
@@ -166,7 +166,7 @@ const sites: ShowcaseSite[] = [
     headline: "A serene clinic journey that closes with a deposit",
     line: "Thirty-eight treatments across four categories, moving each visitor from discovery to a deposit-secured consultation.",
     chips: [
-      { icon: HeartPulse, label: "38-treatment catalogue" },
+      { icon: HeartPulse, label: "38-treatment catalog" },
       { icon: CalendarCheck, label: "Deposit-secured booking" },
       { icon: Sparkles, label: "Free consultation funnel" },
       { icon: Workflow, label: "Nested booking portal" },
@@ -251,7 +251,7 @@ function readDeviceClass(): ShowcaseDeviceClass {
 const serverDeviceClass = (): ShowcaseDeviceClass => "desktop";
 
 /** Mirrors the stylesheet's three presentation families; "desktop" during
- * prerender/hydration (behaviour-only — presentation is media-query CSS). */
+ * prerender/hydration (behavior-only — presentation is media-query CSS). */
 function useDeviceClass(): ShowcaseDeviceClass {
   return useSyncExternalStore(subscribeDeviceClass, readDeviceClass, serverDeviceClass);
 }
@@ -951,7 +951,7 @@ type SceneProps = {
   onViewChange: (site: ShowcaseSiteId, focus: ShowcaseSurface) => void;
   onSelectScene: (index: number) => void;
   /**
-   * The scenes this instance presents. Usually every site in the catalogue;
+   * The scenes this instance presents. Usually every site in the catalog;
    * a single-site instance (the aesthetic-clinics page shows only its own
    * sector's build) passes one, which drops the project switcher and the
    * "01 / 02" counter rather than rendering a one-option control.
@@ -1071,7 +1071,7 @@ function ShowcaseScene({
     return () => controls.stop();
   }, [orbit, windowFront, orbitProgress]);
 
-  // Interpolating the tint variables per frame morphs every derived colour
+  // Interpolating the tint variables per frame morphs every derived color
   // (chips, dots, active pills, glows, beams) between the client palettes in
   // place — one interface transforming into the other, never a slide.
   const tintTarget = {
@@ -1355,7 +1355,7 @@ function ShowcaseScene({
 /**
  * `only` restricts the showcase to a single client build. The
  * /services/web-design-development portfolio omits it and presents the whole
- * catalogue; an industry page passes its own sector's build so the section is
+ * catalog; an industry page passes its own sector's build so the section is
  * proof for that sector rather than a portfolio rail — no switcher, no
  * unrelated second project.
  */
@@ -1367,7 +1367,7 @@ export function BrowserShowcase({ only }: { only?: ShowcaseSiteId } = {}): React
   const [state, dispatch] = useReducer(showcaseReducer, initialShowcaseState);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Falls back to the full catalogue rather than rendering nothing if `only`
+  // Falls back to the full catalog rather than rendering nothing if `only`
   // ever names a site that has been removed from showcase-sites.json.
   const scenes = useMemo(() => {
     if (!only) return sites;
@@ -1411,7 +1411,7 @@ export function BrowserShowcase({ only }: { only?: ShowcaseSiteId } = {}): React
     onExit: useCallback(() => dispatch({ type: "section-exit" }), []),
   });
 
-  // Scoped to `scenes`, not the whole catalogue: an instance must never warm a
+  // Scoped to `scenes`, not the whole catalog: an instance must never warm a
   // connection to an origin it does not present — and cannot frame, since each
   // route's CSP allow-lists only the origins that route mounts.
   const activate = useCallback(

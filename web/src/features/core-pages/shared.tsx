@@ -1,5 +1,5 @@
 /**
- * Low-level primitives shared across the six bespoke core-page compositions
+ * Low-level primitives shared across the six custom core-page compositions
  * (how-we-work, insights, about, pricing, contact, book). Each composition
  * owns its own section architecture and copy — these are only the small
  * reusable building blocks (a linked card, a numbered rail item), the same
@@ -54,7 +54,7 @@ export function coreSectionStyle(index: number): AccentCssVars {
 /**
  * The core pages take the whole Silverstone signal spectrum — a cyan→violet→rose
  * arc of brand accents — and cycle it across a section's cards and rail items,
- * so the copy reads as "all brand colours" (the /pricing treatment) rather than
+ * so the copy reads as "all brand colors" (the /pricing treatment) rather than
  * one flat cyan. Each item's icon, index badge, marker border, hover arrow and
  * inline emphasis inherit its assigned hue through `--srv2-accent`.
  */

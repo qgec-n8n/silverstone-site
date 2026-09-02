@@ -1,6 +1,6 @@
 /**
  * industries-v2 entry point. Renders the dark cinematic industry body for a
- * canonical industry route via its fully bespoke composition.
+ * canonical industry route via its fully custom composition.
  *
  * Mirrors services-v2: each composition is dynamically imported so its code
  * (signature diagrams, Motion choreography) code-splits into its own chunk.

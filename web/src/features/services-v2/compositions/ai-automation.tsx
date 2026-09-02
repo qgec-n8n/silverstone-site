@@ -1,5 +1,5 @@
 /**
- * AI Automation — bespoke composition.
+ * AI Automation — custom composition.
  * Visual concept: Operational Orchestration Lattice.
  */
 import type { CSSProperties } from "react";

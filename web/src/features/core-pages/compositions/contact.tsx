@@ -1,6 +1,6 @@
 /**
- * /contact — calm, high-conversion enquiry experience.
- * Secondary-hero feature: SignalRouteSignature, a written enquiry travelling
+ * /contact — calm, high-conversion inquiry experience.
+ * Secondary-hero feature: SignalRouteSignature, a written inquiry traveling
  * through received/reviewed/routed checkpoints to a monitored inbox (built
  * for this page only).
  */
@@ -55,7 +55,7 @@ export function ContactComposition() {
           { icon: Mail, text: "A short form, answered across US and UK hours" },
           { icon: MapPin, text: "The London studio, if you'd rather visit" },
         ]}
-        primaryCtaLabel="Open the enquiry form"
+        primaryCtaLabel="Open the inquiry form"
         primaryCtaHref="/contact#contact-form"
         secondaryCtaLabel="Book a call instead"
         secondaryCtaHref="/book#booking-calendar"

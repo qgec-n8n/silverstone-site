@@ -20,7 +20,7 @@ const entranceEase = [0.22, 1, 0.36, 1] as const;
  * the brand block and the column headers form the first visual row (left →
  * right), then the link rows cascade downward as a diagonal wave (each row
  * slightly after the previous, each column slightly after its left
- * neighbour). All offsets hang off one scheduler-gated start, so the footer
+ * neighbor). All offsets hang off one scheduler-gated start, so the footer
  * can never begin before page content above it has started its own reveal.
  */
 const HEADER_STEP_S = 0.09;

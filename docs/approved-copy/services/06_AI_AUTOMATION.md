@@ -11,8 +11,8 @@
 - **Secondary keyword clusters:** n8n automation; Make automation; Zapier automation; agentic workflows; document automation; human-in-the-loop; workflow orchestration; API integration
 - **London variants:** workflow automation agency London; business process automation London — supporting only, with broad local agency intent reserved for the London/core page.
 - **UK variants:** custom AI automation UK; workflow automation UK; business process automation UK
-- **Semantic entities:** triggers, deterministic logic, AI judgement, APIs, data transformation, actions, orchestration, exception handling, approvals, human-in-the-loop, observability, credentials, run logs, reporting
-- **Conversion objective:** Move a buyer from a vague wish to “automate the business” into a discovery call centred on one valuable handoff, its data, owners, exception paths and measurable baseline.
+- **Semantic entities:** triggers, deterministic logic, AI judgment, APIs, data transformation, actions, orchestration, exception handling, approvals, human-in-the-loop, observability, credentials, run logs, reporting
+- **Conversion objective:** Move a buyer from a vague wish to “automate the business” into a discovery call centered on one valuable handoff, its data, owners, exception paths and measurable baseline.
 - **Primary CTA:** Book a discovery call
 - **Recommended public-copy length:** 1,200–1,800 words excluding editorial and implementation appendices
 - **Selected CSV rows:** 72, 71, 70
@@ -36,7 +36,7 @@
 - The operating layer behind reliable workflows
 - Published evidence, interpreted responsibly
 - From one handoff to a monitored automation system
-- Use AI where judgement helps—and rules where they are stronger
+- Use AI where judgment helps—and rules where they are stronger
 - Where automation creates value
 - Questions before the first workflow runs
 - Choose the first workflow with enough care to scale
@@ -45,7 +45,7 @@
 
 - Triggers and source systems
 - Deterministic logic and data movement
-- AI judgement and approved context
+- AI judgment and approved context
 - Actions, approvals and human-in-the-loop
 - Exception handling and recovery
 - Observability, security and reporting
@@ -60,7 +60,7 @@
 
 ### Internal-link targets and natural anchors
 
-- `/services/ai-consulting` — “prioritise the right automation opportunities”
+- `/services/ai-consulting` — “prioritize the right automation opportunities”
 - `/services/app-development` — “build a dedicated interface around the workflow”
 - `/services/ai-receptionists` — “connect front-desk intake to operations”
 - `/services/ai-voice-agents` — “connect call outcomes to business systems”
@@ -123,7 +123,7 @@
 
 ### Short-answer definition
 
-> AI workflow automation combines triggers, connected data, deterministic rules and bounded AI judgement to complete defined business tasks, while routing exceptions and consequential actions through visible human controls.
+> AI workflow automation combines triggers, connected data, deterministic rules and bounded AI judgment to complete defined business tasks, while routing exceptions and consequential actions through visible human controls.
 
 ### Terms that should not be repeated excessively
 
@@ -137,7 +137,7 @@ AI automation agency UK, automate everything, intelligent workflows, agentic, se
 
 - **Pill:** Operational systems / Automation
 - **Title:** Make the handoffs work without hiding the exceptions
-- **Subtitle:** Custom workflows that connect triggers, data, rules, AI judgement, approvals and reporting into an operating layer your team can inspect.
+- **Subtitle:** Custom workflows that connect triggers, data, rules, AI judgment, approvals and reporting into an operating layer your team can inspect.
 - **Route-entry button:** Trace the automation system
 
 ## 5. Complete public page copy
@@ -148,9 +148,9 @@ Most operational waste does not sit inside one tool. It sits between tools, team
 
 A lead arrives but is copied into a spreadsheet later. A document reaches an inbox but waits for someone to extract the same fields. A booking changes but the follow-up sequence continues. A report depends on several exports. An employee becomes the integration layer because no system owns the handoff.
 
-Silverstone designs custom AI automation and agent workflows for UK businesses that need those handoffs to become more reliable. Triggers, data, deterministic logic, bounded AI judgement, connected actions, approvals, exception handling, monitoring and reporting are engineered as one operating layer.
+Silverstone designs custom AI automation and agent workflows for UK businesses that need those handoffs to become more reliable. Triggers, data, deterministic logic, bounded AI judgment, connected actions, approvals, exception handling, monitoring and reporting are engineered as one operating layer.
 
-The purpose is not to automate everything. It is to remove repeated work where the rules, data and ownership are strong enough—and to keep people in control where judgement or consequence requires them.
+The purpose is not to automate everything. It is to remove repeated work where the rules, data and ownership are strong enough—and to keep people in control where judgment or consequence requires them.
 
 **Primary action: Book a discovery call**
 
@@ -184,11 +184,11 @@ Required fields, date calculations, thresholds, routing tables, validation, dedu
 
 Data may need to be cleaned, normalised, enriched or mapped between systems. Each transformation should preserve traceability so the team can see where a value came from and why an action occurred.
 
-### AI judgement and approved context
+### AI judgment and approved context
 
-AI becomes useful when the workflow needs interpretation rather than a fixed calculation: classifying a free-text enquiry, extracting fields from varied documents, summarising a conversation, matching content to an approved category or drafting a response for review.
+AI becomes useful when the workflow needs interpretation rather than a fixed calculation: classifying a free-text inquiry, extracting fields from varied documents, summarizing a conversation, matching content to an approved category or drafting a response for review.
 
-The model should receive only the context required for the task. Outputs are structured where possible. Confidence, validation and fallback behaviour are defined. An LLM is not allowed to turn uncertainty into an irreversible action simply because the response sounds plausible.
+The model should receive only the context required for the task. Outputs are structured where possible. Confidence, validation and fallback behavior are defined. An LLM is not allowed to turn uncertainty into an irreversible action simply because the response sounds plausible.
 
 Agents can use tools and maintain state across a task, but “agentic” is not a substitute for architecture. Tool permissions, memory, retrieval sources, evaluation and maximum autonomy must remain visible.
 
@@ -250,17 +250,17 @@ Runs, failures, exceptions and business outcomes are reviewed after release. Doc
 
 A useful first call can identify whether the opportunity is ready for a workflow build, needs a broader **AI opportunity audit**, belongs inside an application or should remain manual.
 
-## Use AI where judgement helps—and rules where they are stronger
+## Use AI where judgment helps—and rules where they are stronger
 
 ### Deterministic workflow
 
 Use deterministic logic when inputs are structured and the rule is known. Examples include routing by region, validating required fields, calculating dates, updating a status after payment or moving a record through an approved sequence.
 
-The advantage is predictable behaviour and straightforward testing.
+The advantage is predictable behavior and straightforward testing.
 
 ### AI-assisted workflow
 
-Use AI for bounded interpretation: extracting information from varied layouts, classifying language, summarising content, selecting from approved categories or preparing a draft for review.
+Use AI for bounded interpretation: extracting information from varied layouts, classifying language, summarizing content, selecting from approved categories or preparing a draft for review.
 
 The advantage is flexibility across unstructured inputs. The cost is the need for evaluation, validation and fallback.
 
@@ -274,11 +274,11 @@ Silverstone selects the least complex system capable of delivering the required 
 
 ## Where automation creates value
 
-Strong starting points include structured lead handoff, document intake, customer follow-up, booking administration, status synchronisation, report assembly, content approvals, task creation and repeated data movement.
+Strong starting points include structured lead handoff, document intake, customer follow-up, booking administration, status synchronization, report assembly, content approvals, task creation and repeated data movement.
 
-Automation is a poor fit where the process changes constantly, the source data is untrustworthy, nobody owns exceptions, professional judgement dominates, or the main problem is a broken policy rather than manual execution.
+Automation is a poor fit where the process changes constantly, the source data is untrustworthy, nobody owns exceptions, professional judgment dominates, or the main problem is a broken policy rather than manual execution.
 
-**AI & Automation Consulting** can prioritise opportunities and assess build versus buy. **App Development** can provide a dedicated interface where staff or customers need to interact with the workflow. **AI Receptionists** and **AI Voice Agents** can become controlled entry points into the operating layer.
+**AI & Automation Consulting** can prioritize opportunities and assess build versus buy. **App Development** can provide a dedicated interface where staff or customers need to interact with the workflow. **AI Receptionists** and **AI Voice Agents** can become controlled entry points into the operating layer.
 
 ## Questions before the first workflow runs
 
@@ -304,11 +304,11 @@ Dependencies are documented and monitored. Updates may require workflow changes 
 
 ## Choose the first workflow with enough care to scale
 
-The best first automation is not necessarily the largest cost centre. It is a meaningful, repeated handoff with clear ownership, accessible data and enough consequence to matter without being unsafe to test.
+The best first automation is not necessarily the largest cost center. It is a meaningful, repeated handoff with clear ownership, accessible data and enough consequence to matter without being unsafe to test.
 
 **Book a discovery call**
 
-Review **How We Work** for the delivery model, **Pricing** for scoping, or send a process map through **Contact**. Explore **AI & Automation Consulting** when the opportunity set needs prioritisation before a build.
+Review **How We Work** for the delivery model, **Pricing** for scoping, or send a process map through **Contact**. Explore **AI & Automation Consulting** when the opportunity set needs prioritization before a build.
 
 *Reliable automation does not remove ownership. It makes ownership visible at every trigger, decision, action and exception.*
 
@@ -478,7 +478,7 @@ Rows 72, 71 and 70 cover different external automation cases. Structured-documen
 ### Claude research ideas applied
 
 - Exception handling, human-in-the-loop, orchestration and observability used as primary differentiators.
-- AI judgement separated from deterministic logic.
+- AI judgment separated from deterministic logic.
 - n8n, Make and Zapier discussed only to clarify architecture selection.
 - Automation-chaos risk addressed by mapping the process before tool choice.
 

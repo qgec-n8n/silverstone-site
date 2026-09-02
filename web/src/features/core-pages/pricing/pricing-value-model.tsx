@@ -3,7 +3,7 @@
  *
  * The reference design's ROI arithmetic did not reconcile, so the numbers here
  * are a corrected, internally consistent worked example (see `ROI_MODEL` for
- * the check) and are labelled "Illustrative model" in the frame itself rather
+ * the check) and are labeled "Illustrative model" in the frame itself rather
  * than in a footnote a reader can miss. The figures are static text on purpose:
  * a count-up on a four-step calculation makes it harder, not easier, to verify.
  */

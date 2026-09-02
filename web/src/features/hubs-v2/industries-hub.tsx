@@ -75,7 +75,7 @@ function wrapSectorLabel(label: string): string[] {
 /*
  * Board geometry. Four rows of three fit the 600-unit board once the row pitch
  * drops to 112 (card height 96 + a 16 gutter): first row top 48, last row
- * bottom 480, clear of the 520 caption. Rows are centred rather than
+ * bottom 480, clear of the 520 caption. Rows are centered rather than
  * left-aligned so a short final row — ten sectors leaves one — sits in the
  * middle of the board instead of hanging off the left edge.
  */
@@ -197,7 +197,7 @@ function SectorSignalGrid() {
             fontSize="12.5"
             fontFamily="var(--ss-font-mono)"
           >
-            Ten sectors · one operating standard · human judgement kept
+            Ten sectors · one operating standard · human judgment kept
           </text>
         </m.svg>
       </div>
@@ -234,7 +234,7 @@ export function IndustriesHubExperience() {
             icon={Layers}
             heading="Ten industries, ten *purpose-built systems*"
             headingId="hub2-sectors"
-            lead="Each page opens a complete operating experience: the sector's costly problem, the journey that fixes it, verified results and the boundaries that keep judgement with your people."
+            lead="Each page opens a complete operating experience: the sector's costly problem, the journey that fixes it, verified results and the boundaries that keep judgment with your people."
           />
           <div className="ss-hub2-grid">
             {industryRoutes.map((route, index) => {
@@ -316,7 +316,7 @@ export function IndustriesHubExperience() {
           <FinalCta
             heading="Start with the journey your sector *loses money on*"
             body={
-              <LinkedText text="Bring one real enquiry, booking, recall or quote that went wrong. A 30-minute discovery call maps the system around it — and tells you honestly whether automation belongs there." />
+              <LinkedText text="Bring one real inquiry, booking, recall or quote that went wrong. A 30-minute discovery call maps the system around it — and tells you honestly whether automation belongs there." />
             }
             reassurance="No technical preparation required. Scope begins with one journey. A no-fit answer is a perfectly good outcome."
             buttonLabel="Book a discovery call"

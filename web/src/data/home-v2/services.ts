@@ -16,7 +16,7 @@ export type ServiceUniverseCard = {
   /**
    * Token-driven accent used for the card glow, title and iconography. The six
    * universe cards each take a distinct hue so the grid skims as a spectrum of
-   * capabilities rather than three repeated colours.
+   * capabilities rather than three repeated colors.
    */
   accent: "cyan" | "blue" | "violet" | "platinum" | "aqua" | "indigo" | "orchid";
 };
@@ -38,7 +38,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
     id: "receptionists",
     index: "02",
     title: "AI Receptionists",
-    tagline: "Qualified enquiry routing",
+    tagline: "Qualified inquiry routing",
     description:
       "Calls, chat and messages handled against your rules, with bookings routed into the right calendar or handoff.",
     href: "/services/ai-receptionists",
@@ -64,7 +64,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
     title: "Web Design & Development",
     tagline: "Sites engineered to convert",
     description:
-      "Fast, considered websites built around the journey that turns a first visit into a booked enquiry.",
+      "Fast, considered websites built around the journey that turns a first visit into a booked inquiry.",
     href: "/services/web-design-development",
     icon: "Globe",
     highlights: ["Conversion-first", "Core Web Vitals", "Booking flows"],
@@ -76,7 +76,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
     title: "App Development",
     tagline: "Product-grade mobile & web apps",
     description:
-      "Bespoke applications that extend your operation — from member portals to internal operating tools.",
+      "Custom applications that extend your operation — from member portals to internal operating tools.",
     href: "/services/app-development",
     icon: "Smartphone",
     highlights: ["Mobile & web", "Secure by design", "Built to scale"],

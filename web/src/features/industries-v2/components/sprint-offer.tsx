@@ -232,7 +232,7 @@ export function SprintBanner({
                       before the diary never has to leave. Routed as a full
                       `path#id` Link rather than a bare `#id` anchor: only a
                       router navigation reaches DeepLinkScrollHandler, which
-                      owns the shared header-offset landing behaviour. */}
+                      owns the shared header-offset landing behavior. */}
                   <ServiceButton href={`${route}#${sprint.id}`} variant="ghost">
                     {sprint.bannerDetailLabel}
                   </ServiceButton>

@@ -20,8 +20,8 @@ export const PROCESS_STEPS: readonly ProcessStep[] = [
     title: "Audit",
     summary: "We map where time and revenue leak.",
     detail:
-      "A free, structured automation audit traces every call, enquiry and admin loop across your operation to find the highest-leverage wins.",
-    outcome: "A prioritised opportunity map",
+      "A free, structured automation audit traces every call, inquiry and admin loop across your operation to find the highest-leverage wins.",
+    outcome: "A prioritized opportunity map",
     icon: "Search",
   },
   {
@@ -45,9 +45,9 @@ export const PROCESS_STEPS: readonly ProcessStep[] = [
     icon: "Workflow",
   },
   {
-    id: "optimise",
+    id: "optimize",
     number: "04",
-    title: "Launch & optimise",
+    title: "Launch & optimize",
     summary: "We watch it run and tune what matters.",
     detail:
       "After go-live we monitor performance, refine prompts and routing, and compound results — with a human always reviewing the signal.",

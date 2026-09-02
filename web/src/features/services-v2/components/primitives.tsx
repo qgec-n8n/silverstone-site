@@ -49,7 +49,7 @@ const entranceEase = [0.22, 1, 0.36, 1] as const;
  * When a `Reveal`/`PanelReveal` sits inside a `RevealGroup`, this carries the
  * group's "has the group scrolled into view yet" flag. `null` means there is no
  * surrounding group, so the child falls back to observing its own element — the
- * original per-element behaviour.
+ * original per-element behavior.
  */
 const RevealGroupContext = createContext<boolean | null>(null);
 
@@ -589,9 +589,9 @@ function ImageReveal({
  *
  * `*italic*` doubles as the site's established gradient-emphasis marker: CSS
  * scoped to hero titles, section headings and CTA titles (see
- * `.ss-srv2-hero__title em` and siblings) renders it as a colour sweep, while
+ * `.ss-srv2-hero__title em` and siblings) renders it as a color sweep, while
  * the same token in body prose renders as a plain accent tint — one markdown
- * token, context-appropriate colour, no separate syntax to remember.
+ * token, context-appropriate color, no separate syntax to remember.
  */
 export function RichText({ text }: { text: string }): ReactNode {
   const nodes: ReactNode[] = [];
@@ -888,7 +888,7 @@ export function ServiceButton({
 }
 
 /**
- * Editorial marker-stroke emphasis: a soft colour wash reveals behind the
+ * Editorial marker-stroke emphasis: a soft color wash reveals behind the
  * phrase on scroll-in, like a highlighter mark — not a typewriter or
  * character-scramble effect. Used sparingly, on Content Creation only.
  */

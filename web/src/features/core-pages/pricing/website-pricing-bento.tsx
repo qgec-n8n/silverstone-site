@@ -15,7 +15,7 @@
  *
  * Hosting, the maintenance ladder and the pricing disclosure follow as their
  * own quieter blocks — the disclosure collapsed into a native `<details>` so it
- * reads as fine print a reader can open, not a wall of grey.
+ * reads as fine print a reader can open, not a wall of gray.
  */
 import { useRef, useState, type KeyboardEvent } from "react";
 

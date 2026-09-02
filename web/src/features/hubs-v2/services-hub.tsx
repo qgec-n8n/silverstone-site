@@ -3,7 +3,7 @@
  * Visual concept: Service Constellation — seven disciplines orbiting one
  * commercial objective. Each discovery card carries its own service accent
  * (drawn from the services-v2 route art), so the hub previews every page's
- * identity without flattening them into one colour.
+ * identity without flattening them into one color.
  */
 import "~/styles/services-v2/services-v2.css";
 import "~/styles/industries-v2/industries-v2.css";
@@ -43,7 +43,7 @@ const HUB_ACCENT: CSSProperties = {
 
 /** Verified Silverstone AI figures reused from the approved service registers. */
 const HUB_METRICS = [
-  "<10 seconds — Enquiry response time (after implementation)",
+  "<10 seconds — Inquiry response time (after implementation)",
   "+66% — Increase in phone availability",
   "15 hours — Saved per week",
 ];
@@ -317,7 +317,7 @@ export function ServicesHubExperience() {
         lead="Seven disciplines, one operating standard: every system is scoped around a costly problem, wired into your source of truth and measured after launch. Choose the entry point — the architecture connects behind it."
         points={[
           "Scoped before anything is built",
-          "Human judgement designed in, not bolted on",
+          "Human judgment designed in, not bolted on",
           "Measured against your baseline, not our slides",
         ]}
         primaryCtaLabel="Book a discovery call"

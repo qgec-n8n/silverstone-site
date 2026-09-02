@@ -1,5 +1,5 @@
 /**
- * Dental Practices — bespoke composition.
+ * Dental Practices — custom composition.
  * Visual concept: Patient-Admin Recall Orbit — a safety-first page. The
  * clinical boundary console lands immediately after the journey (before any
  * commercial argument), the four-metric proof console follows, and the
@@ -18,6 +18,7 @@ import {
   Sparkles,
   TrendingUp,
   UserCheck,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -45,6 +46,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -85,6 +87,19 @@ export function DentistsComposition({
       />
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
+
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
 
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">

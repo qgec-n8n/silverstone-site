@@ -46,7 +46,7 @@ function SignatureShell({
 }
 
 /** /how-we-work — a gated delivery pipeline: five stages separated by explicit
- * diamond decision gates, with a pulse travelling the rail only as far as the
+ * diamond decision gates, with a pulse traveling the rail only as far as the
  * current gate allows. Distinct from a routing timeline: the diamonds are the
  * point, not the nodes. */
 export function DeliveryRouteSignature({
@@ -281,7 +281,7 @@ export function EditorialIndexSignature({
   );
 }
 
-/** /about — six disciplines orbiting a fixed centre mark, joined by faint
+/** /about — six disciplines orbiting a fixed center mark, joined by faint
  * radii and enclosed by a slow-rotating ring. Distinct from a hex diagram: a
  * true circular orbit with the ring — not the connectors — carrying the
  * motion. */
@@ -300,7 +300,7 @@ export function StudioOrbitSignature({
 
   return (
     <SignatureShell
-      ariaLabel="Diagram: six disciplines — strategy, copy, design, engineering, AI, automation — arranged on an orbit ring around a fixed Silverstone centre mark."
+      ariaLabel="Diagram: six disciplines — strategy, copy, design, engineering, AI, automation — arranged on an orbit ring around a fixed Silverstone center mark."
       label={label}
       metrics={metrics}
     >
@@ -502,7 +502,7 @@ export function StudioOrbitSignature({
   );
 }
 
-/** /contact — a correspondence route: a written message travelling from a
+/** /contact — a correspondence route: a written message traveling from a
  * form node to a reviewed inbox across three checkpoints. Distinct from the
  * voice-agent call-routing timeline elsewhere in the system: framed as
  * asynchronous written correspondence, not a live call.
@@ -525,7 +525,7 @@ export function SignalRouteSignature({
   const ROUTE_Y = 210;
   // Checkpoints sit 114px apart (186 / 300 / 414) — wide enough that even the
   // longest sub-label ("To the owner", ~72px wide at this font) never
-  // touches its neighbour, with room to spare either side.
+  // touches its neighbor, with room to spare either side.
   const checkpoints = [
     { x: 186, name: "Received", detail: "Logged" },
     { x: 300, name: "Reviewed", detail: "By a person" },
@@ -535,7 +535,7 @@ export function SignalRouteSignature({
 
   return (
     <SignatureShell
-      ariaLabel="Diagram: a written enquiry travelling from a form node through received, reviewed and routed checkpoints to a monitored inbox, arriving with a confirmed read receipt."
+      ariaLabel="Diagram: a written inquiry traveling from a form node through received, reviewed and routed checkpoints to a monitored inbox, arriving with a confirmed read receipt."
       label={label}
       metrics={metrics}
     >
@@ -593,7 +593,7 @@ export function SignalRouteSignature({
         fontFamily="var(--ss-font-body)"
         fontSize="10.5"
       >
-        Web enquiry
+        Web inquiry
       </text>
 
       {/* INBOX node — mirrors FORM, plus a read-receipt badge. */}
@@ -819,7 +819,7 @@ export function SignalRouteSignature({
 }
 
 /** /book — the dial's pink signal dot traces a continuous figure eight
- * centred on the blue 30-minute hub, sweeping the four agenda quadrants in
+ * centered on the blue 30-minute hub, sweeping the four agenda quadrants in
  * order: next step → current reality → decision boundary → commercial
  * consequence → repeat. Parametrised as x = cx − A·sin(2t), y = cy − B·sin(t):
  * sin(2t)/sin(t) draw the two lobes and the sign choices fix that exact
@@ -841,7 +841,7 @@ function FigureEightSignal({ cx, cy }: { cx: number; cy: number }) {
   };
 
   // Both circles need an explicit `initial` (equal to the first keyframe —
-  // sin(0) = 0 puts it at the hub centre): motion resolves keyframe arrays
+  // sin(0) = 0 puts it at the hub center): motion resolves keyframe arrays
   // asynchronously, and without it the first frame renders cx/cy as
   // "undefined", logging four SVG attribute errors in the console.
   return (

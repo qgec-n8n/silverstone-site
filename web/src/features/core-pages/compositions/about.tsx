@@ -1,7 +1,7 @@
 /**
  * /about — premium studio narrative.
  * Secondary-hero feature: StudioOrbitSignature, six disciplines on a slow
- * orbit ring around a fixed Silverstone centre mark (built for this page
+ * orbit ring around a fixed Silverstone center mark (built for this page
  * only).
  */
 import {
@@ -192,7 +192,7 @@ export function AboutComposition() {
       <section className="ss-srv2-section" style={coreSectionStyle(3)}>
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
-            heading="See the judgement become a *working system*"
+            heading="See the judgment become a *working system*"
             body="The clearest way to understand Silverstone AI is to examine how the work is diagnosed, scoped, designed, tested and handed over."
             buttonLabel="Explore the delivery framework"
             bookHref="/how-we-work"

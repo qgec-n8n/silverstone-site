@@ -1,5 +1,5 @@
 /**
- * AI Receptionists — bespoke composition.
+ * AI Receptionists — custom composition.
  * Visual concept: Front-Desk Convergence.
  */
 import type { CSSProperties } from "react";

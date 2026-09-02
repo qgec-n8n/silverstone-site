@@ -7,7 +7,7 @@
  * structured microcopy (feature/outcome cards, process steps, benchmark).
  *
  * This module converts `publicCopy` into an explicit, typed view model so the
- * services-v2 UI can compose bespoke editorial layouts instead of dumping raw
+ * services-v2 UI can compose custom editorial layouts instead of dumping raw
  * markdown. It deliberately extracts ONLY public prose — no authoring labels,
  * SEO handoff notes, benchmark disclaimers-as-markdown, or configuration slots
  * ever flow through here.

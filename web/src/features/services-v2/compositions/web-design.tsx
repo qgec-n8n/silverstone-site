@@ -1,5 +1,5 @@
 /**
- * Web Design & Development — bespoke composition.
+ * Web Design & Development — custom composition.
  * Visual concept: Conversion Architecture / Living Interface.
  *
  * Concise, conversion-led structure (British English): opening → costly problem

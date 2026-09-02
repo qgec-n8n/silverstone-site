@@ -2,7 +2,7 @@
  * Dental Practices signature — "Patient-Admin Recall Orbit". Patients orbit
  * the practice on two rings (routine admin inner, recall-due outer). Each
  * cycle one due patient is drawn off the orbit into the "Booked" dock; the
- * clinical-stop shield at the centre never rotates — clinical judgement is
+ * clinical-stop shield at the center never rotates — clinical judgment is
  * the fixed point of the system. Distinct language: orbital mechanics, not
  * lanes or belts.
  */
@@ -39,7 +39,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: patients orbit the practice on routine-admin and recall-due rings; due patients are drawn into a booked dock while the clinical-judgement shield remains fixed at the centre."
+      aria-label="Diagram: patients orbit the practice on routine-admin and recall-due rings; due patients are drawn into a booked dock while the clinical-judgment shield remains fixed at the center."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
@@ -135,7 +135,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
             ))}
           </m.g>
 
-          {/* Clinical shield — fixed centre */}
+          {/* Clinical shield — fixed center */}
           <circle cx={CENTER.x} cy={CENTER.y} r="52" fill="url(#ind2-orbit-glow)" />
           <m.g
             initial={reducedMotion ? false : { opacity: 0, scale: 0.85 }}
