@@ -156,7 +156,7 @@ export function WebDesignComposition({
           <div className="ss-srv2-split ss-srv2-split--wide-copy">
             <div>
               <SectionHead
-                eyebrow="Why Silverstone"
+                eyebrow="Why Silverstone AI"
                 icon={Sparkles}
                 heading={copy.differentiator.heading}
                 headingId="srv2-different"

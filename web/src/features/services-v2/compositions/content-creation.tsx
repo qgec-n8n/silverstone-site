@@ -147,7 +147,7 @@ export function ContentCreationComposition({
           <div className="ss-srv2-split">
             <div>
               <SectionHead
-                eyebrow="Why Silverstone"
+                eyebrow="Why Silverstone AI"
                 icon={Sparkles}
                 heading={copy.differentiator.heading}
                 headingId="srv2-different"

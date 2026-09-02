@@ -28,7 +28,7 @@ type CurrencyToggleProps = {
   size?: "default" | "compact" | "instrument";
   tone?: "light" | "dark";
   /** Show the small mono "Currency" label beside the capsule. */
-  labelled?: boolean;
+  labeled?: boolean;
   className?: string;
 };
 
@@ -36,7 +36,7 @@ export function CurrencyToggle({
   context = "header",
   size = "default",
   tone = "light",
-  labelled = false,
+  labeled = false,
   className,
 }: CurrencyToggleProps) {
   const [currency, setCurrency] = useCurrency();
@@ -62,7 +62,7 @@ export function CurrencyToggle({
       data-tone={tone === "dark" ? "dark" : undefined}
     >
       <legend className="ss-cur__legend">Display currency</legend>
-      {labelled ? (
+      {labeled ? (
         <span aria-hidden="true" className="ss-cur__label">
           Currency
         </span>

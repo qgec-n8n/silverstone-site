@@ -116,7 +116,7 @@ export function PricingModelOverviewSignature() {
         </div>
 
         <div className="ss-pri-model__currency">
-          <CurrencyToggle context="pricing" labelled size="instrument" tone="dark" />
+          <CurrencyToggle context="pricing" labeled size="instrument" tone="dark" />
           <p className="ss-pri-model__note">
             USD at fixed pairs, reviewed quarterly. Quoted and invoiced in the currency
             agreed.

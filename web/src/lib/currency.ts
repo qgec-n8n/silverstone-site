@@ -6,7 +6,7 @@
  * `[[£|$]]` pair (see styles/currency.css); React reads it through
  * `useCurrency()` for the few places that need the value as data (budget
  * bands). It persists in localStorage across pages and sessions, and in a
- * cookie so an edge function could honour it later without a new contract.
+ * cookie so an edge function could honor it later without a new contract.
  *
  * The pre-hydration boot script in root.tsx applies the stored value before
  * first paint, so a returning USD reader never sees sterling flash.

@@ -46,7 +46,9 @@ describe("route SEO generation", () => {
       "FAQPage",
       "BreadcrumbList",
     ]);
-    const service = graph["@graph"].find((entry) => entry["@type"] === "Service") as {
+    const service = graph["@graph"].find(
+      (entry) => entry["@type"] === "Service",
+    ) as unknown as {
       areaServed: { name: string }[];
       provider: { "@id": string };
     };

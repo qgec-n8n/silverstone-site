@@ -310,7 +310,7 @@ export function ServicesHubExperience() {
   return (
     <div className="ss-srv2 ss-hub2" data-hub="services" style={HUB_ACCENT}>
       <SecondaryHero
-        eyebrow="Silverstone service architecture"
+        eyebrow="Silverstone AI service architecture"
         icon={Workflow}
         title="Services built around *real business workflows*"
         titleId="hub2-lead"

@@ -36,7 +36,7 @@ const AREA_SERVED = [
 ];
 
 /**
- * The organisation as an AI answer engine should resolve it: the full name
+ * The organization as an AI answer engine should resolve it: the full name
  * (never bare "Silverstone", which the racing circuit owns in general
  * retrieval), a category anchor in the description, a stable `@id`, and the
  * same address, contact and profile facts on every route rather than only

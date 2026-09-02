@@ -166,7 +166,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
-              CLINICAL JUDGEMENT
+              CLINICAL JUDGMENT
             </text>
             <text
               x={CENTER.x}

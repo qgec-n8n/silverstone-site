@@ -67,7 +67,7 @@ export const webDesignCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "One studio, not *five suppliers*",
-    body: "Silverstone combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is *the visible edge of a working commercial system* — designed around the decision a qualified buyer needs to make.",
+    body: "Silverstone AI combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is *the visible edge of a working commercial system* — designed around the decision a qualified buyer needs to make.",
   },
   comparison: {
     before: {
@@ -75,7 +75,7 @@ export const webDesignCopy: ServiceCopy = {
       body: "Starts with appearance; treats copy, SEO and integration as later problems.",
     },
     after: {
-      title: "Silverstone website system",
+      title: "Silverstone AI website system",
       body: "Starts with the buyer’s decision; builds copy, design, engineering and operations together.",
     },
   },

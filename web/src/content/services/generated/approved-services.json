@@ -3,7 +3,7 @@
     "route": "/services/web-design-development",
     "sourceFilename": "01_WEB_DESIGN_AND_DEVELOPMENT.md",
     "sourcePath": "docs/approved-copy/services/01_WEB_DESIGN_AND_DEVELOPMENT.md",
-    "sourceSha256": "11993678a1a6fc261b625b97ed6cf6820ebb389909a77c5072263b7078aa81ba",
+    "sourceSha256": "a67359f4bbceda8f0382541f416fcf6ffeb83207c5ca142dc4153d92fc791db6",
     "metadata": {
       "title": "Custom Web Design & Development | Silverstone AI",
       "metaDescription": "Custom web design and development for US and UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.",
@@ -164,7 +164,7 @@
     "route": "/services/app-development",
     "sourceFilename": "02_APP_DEVELOPMENT.md",
     "sourcePath": "docs/approved-copy/services/02_APP_DEVELOPMENT.md",
-    "sourceSha256": "6ab4eea6d60f8757c7bc2d0ed610ba5e0f51042b9702c82e706014a7ac891058",
+    "sourceSha256": "df4c59a7a8fbb463037681be075f48c6362031a43ffa7c41a11ca4cfdcb6a7d2",
     "metadata": {
       "title": "Custom App Development | Silverstone AI",
       "metaDescription": "Custom app development for US and UK businesses: discovery, UX, data, permissions, integrations, reliable engineering and a focused first release built around real user value.",
@@ -326,7 +326,7 @@
     "route": "/services/ai-voice-agents",
     "sourceFilename": "03_AI_VOICE_AGENTS.md",
     "sourcePath": "docs/approved-copy/services/03_AI_VOICE_AGENTS.md",
-    "sourceSha256": "d22e02966e8d1f551828c8c8e6b78216ce08bbd9f020e1a1dcce4ca5235bb29b",
+    "sourceSha256": "ff0c9259fab31879b7efff236f89179ecca7b35e230c1414dbf6010f67765f7a",
     "metadata": {
       "title": "AI Voice Agent Development | Silverstone AI",
       "metaDescription": "Custom AI voice-agent development for US and UK businesses: conversation design, telephony, approved knowledge, CRM actions, human escalation, monitoring and responsible disclosure.",
@@ -497,7 +497,7 @@
     "route": "/services/ai-receptionists",
     "sourceFilename": "04_AI_RECEPTIONISTS.md",
     "sourcePath": "docs/approved-copy/services/04_AI_RECEPTIONISTS.md",
-    "sourceSha256": "05549c1f1b96aadc9afc71c460f1f7028c8f6046aaafdd412074fcfa171df1f2",
+    "sourceSha256": "f2a66940100efcf89a46f8388eeb2ebd01ca80a2dc2672d4618e3fb16d16d7ad",
     "metadata": {
       "title": "AI Receptionist Services for Small Business | Silverstone AI",
       "metaDescription": "AI receptionist services for US and UK businesses across calls and chat, with structured intake, qualification, booking, reminders, CRM updates and reliable human handoff.",
@@ -666,7 +666,7 @@
     "route": "/services/content-creation",
     "sourceFilename": "05_CONTENT_CREATION.md",
     "sourcePath": "docs/approved-copy/services/05_CONTENT_CREATION.md",
-    "sourceSha256": "b5203b55facbb6e0fe253432faa819cfb7cfb6a4a1427901adeec48bf44b8772",
+    "sourceSha256": "4f03159757995f397094f711de33bec476a45873f6bffd1120bd3660d8b3b521",
     "metadata": {
       "title": "AI Content Systems & Repurposing | Silverstone AI",
       "metaDescription": "Build a governed content operating system from approved expertise: pillar content, channel-specific repurposing, SEO intent, internal links, human review and measured improvement.",
@@ -836,7 +836,7 @@
     "route": "/services/ai-automation",
     "sourceFilename": "06_AI_AUTOMATION.md",
     "sourcePath": "docs/approved-copy/services/06_AI_AUTOMATION.md",
-    "sourceSha256": "0076f58b1efcd26c80db4cefc3afad1ac28833b98351d7485644abfde2001c67",
+    "sourceSha256": "524cba91e8029d457f29cc189ab9ca840778ecb056f05e99822ee2d441794822",
     "metadata": {
       "title": "Workflow & AI Automation Agency | Silverstone AI",
       "metaDescription": "Custom AI automation for US and UK businesses: triggers, deterministic logic, AI judgment, integrations, approvals, exception handling, monitoring and reporting engineered as one operating layer.",
@@ -1002,7 +1002,7 @@
     "route": "/services/ai-consulting",
     "sourceFilename": "07_AI_AND_AUTOMATION_CONSULTING.md",
     "sourcePath": "docs/approved-copy/services/07_AI_AND_AUTOMATION_CONSULTING.md",
-    "sourceSha256": "76144a28282a8c1c7fbd97ff27b813e46da30e3bdc6981151aa63b7913f20800",
+    "sourceSha256": "01632320cb92bcab7b5a7253210de11feb80e40f7108f74686236d5e924c1fbd",
     "metadata": {
       "title": "AI & Automation Consulting | Silverstone AI",
       "metaDescription": "AI and automation consulting for US and UK businesses: opportunity audits, readiness, value-risk prioritization, build-versus-buy, governance and a practical implementation roadmap.",

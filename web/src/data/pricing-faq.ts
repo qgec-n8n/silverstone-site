@@ -33,7 +33,7 @@ export const PRICING_FAQ: readonly PricingFaqItem[] = [
   {
     question: "Are there any long-term contracts?",
     answer:
-      "Standard support retainers run on monthly rolling agreements and can be canceled with 30 days’ notice. Bespoke enterprise SLAs or fixed-term programmes are agreed separately in writing.",
+      "Standard support retainers run on monthly rolling agreements and can be canceled with 30 days’ notice. Custom enterprise SLAs or fixed-term programs are agreed separately in writing.",
   },
   {
     question: "What’s included in the monthly retainer?",
@@ -53,7 +53,7 @@ export const PRICING_FAQ: readonly PricingFaqItem[] = [
   {
     question: "What happens after the project is delivered?",
     answer:
-      "You receive the agreed documentation, training and handover materials. You can then manage the system internally, select ongoing Silverstone support or agree a separate enhancement roadmap.",
+      "You receive the agreed documentation, training and handover materials. You can then manage the system internally, select ongoing Silverstone AI support or agree a separate enhancement roadmap.",
   },
   {
     question: "Are there any hidden costs?",

@@ -291,7 +291,7 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
           </h3>
           <p>
             Choose a verified time, add four quick cues so we arrive prepared, and
-            confirm — all without leaving Silverstone.
+            confirm — all without leaving Silverstone AI.
           </p>
         </div>
         <div className="ss-booking-shell__security">

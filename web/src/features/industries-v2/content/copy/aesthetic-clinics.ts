@@ -120,7 +120,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
     windowNote:
       "This week's intake closes Friday at 23:59. One clinic is taken on per week — the price and the scope do not change when the clock resets.",
     bannerBody:
-      "One clinic, one week. We rebuild the part of your site that decides whether an enquiry becomes a consultation — then answer every new enquiry the moment it lands. **Live in seven business days, or the final [[£750|$975]] is not due until it is.**",
+      "One clinic, one week. We rebuild the part of your site that decides whether an inquiry becomes a consultation — then answer every new inquiry the moment it lands. **Live in seven business days, or the final [[£750|$975]] is not due until it is.**",
     bannerCtaLabel: "Claim this week's sprint",
     bannerDetailLabel: "See what's included",
     section: {
@@ -383,7 +383,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
       },
       {
         q: "What does the [[£1,500|$1,950]] seven-day sprint actually include?",
-        a: "Six things: a website conversion redesign, a rebuilt mobile booking journey, immediate response to new website enquiries, a three-message enquiry follow-up sequence, booking and conversion tracking, and delivery inside seven business days. **[[£750|$975]] to begin and [[£750|$975]] when it launches**, with maintenance or wider automation optional afterwards.",
+        a: "Six things: a website conversion redesign, a rebuilt mobile booking journey, immediate response to new website inquiries, a three-message inquiry follow-up sequence, booking and conversion tracking, and delivery inside seven business days. **[[£750|$975]] to begin and [[£750|$975]] when it launches**, with maintenance or wider automation optional afterwards.",
       },
       {
         q: "What happens if it is not live in seven days?",

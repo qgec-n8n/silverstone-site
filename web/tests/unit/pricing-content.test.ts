@@ -207,7 +207,7 @@ describe("pricing FAQ structured data", () => {
 
     const catalog = graph["@graph"].find(
       (entry) => entry["@type"] === "OfferCatalog",
-    ) as {
+    ) as unknown as {
       itemListElement: {
         priceSpecification: { price: string; priceCurrency: string }[];
       }[];

@@ -19,7 +19,7 @@ export const STORY_PANELS: readonly StoryPanel[] = [
     id: "operating-surface",
     eyebrow: "One surface",
     title: "Every channel, one calm operating surface",
-    body: "Calls, messages, bookings and follow-up stop living in separate apps and disconnected inboxes. Silverstone unifies every channel into a single operating surface your team can actually see, search and steer. Nothing falls between tools, no inquiry waits for someone to notice it, and the full history of each customer travels with the conversation. The result is a calmer day: fewer tabs, fewer handovers, and one source of truth for everyone who touches the work.",
+    body: "Calls, messages, bookings and follow-up stop living in separate apps and disconnected inboxes. Silverstone AI unifies every channel into a single operating surface your team can actually see, search and steer. Nothing falls between tools, no inquiry waits for someone to notice it, and the full history of each customer travels with the conversation. The result is a calmer day: fewer tabs, fewer handovers, and one source of truth for everyone who touches the work.",
     image: "/home-v2/story-operating-surface.png",
     alt: "Layered translucent control planes glowing in dark space, representing one unified operating surface.",
     align: "right",
