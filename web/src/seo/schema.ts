@@ -49,7 +49,7 @@ export function buildOrganizationNode(): SchemaEntry {
     name: "Silverstone AI",
     url: "https://silverstone-ai.com/",
     description:
-      "Silverstone AI is a London-based AI systems studio that designs and builds AI receptionists, AI voice agents, workflow automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom.",
+      "Silverstone AI is a London-based AI automation agency that designs and builds AI receptionists, AI voice agents, workflow automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom.",
     logo: {
       "@type": "ImageObject",
       url: "https://silverstone-ai.com/brand/silverstone-logo.png",
