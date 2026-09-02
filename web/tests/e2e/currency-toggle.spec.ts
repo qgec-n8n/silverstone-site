@@ -36,7 +36,8 @@ async function visibleGroup(page: Page) {
     status: page
       .locator(`input[name='ss-currency-${group}']`)
       .first()
-      .locator("xpath=ancestor::fieldset//*[@role='status']"),
+      .locator("xpath=ancestor::fieldset")
+      .locator(".ss-cur__status"),
   };
 }
 

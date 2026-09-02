@@ -95,7 +95,12 @@ export function CurrencyToggle({
           );
         })}
       </span>
-      <span aria-live="polite" className="ss-cur__status" role="status">
+      {/* aria-live alone, deliberately no role="status": a status role here
+          would add a second live landmark to every page, and page-level
+          queries for the one status region (the blog filter's, for example)
+          would then resolve to two elements. The announcement behaviour is
+          identical. */}
+      <span aria-live="polite" className="ss-cur__status">
         {announcement}
       </span>
     </fieldset>
