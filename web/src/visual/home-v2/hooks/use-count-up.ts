@@ -20,6 +20,12 @@ const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
  * hook returns the final value immediately and never schedules a frame. State is
  * only written inside the rAF callback — never synchronously in the effect body —
  * which keeps it clear of the react-hooks set-state-in-effect rule.
+ *
+ * The initial state is always the final `value`, never `from`: the prerendered
+ * HTML is what non-rendering crawlers (GPTBot, ClaudeBot, PerplexityBot,
+ * OAI-SearchBot) store, and a counter that starts at zero ships "0 hrs" and
+ * "0%" as the page's facts. The client resets to `from` inside the first
+ * animation frame, so the visible count-up is unchanged.
  */
 export function useCountUp({
   value,
@@ -29,7 +35,7 @@ export function useCountUp({
   durationMs = 1800,
   decimals = 0,
 }: UseCountUpInput): number {
-  const [display, setDisplay] = useState(enabled ? from : value);
+  const [display, setDisplay] = useState(value);
   const frameRef = useRef(0);
 
   useEffect(() => {
