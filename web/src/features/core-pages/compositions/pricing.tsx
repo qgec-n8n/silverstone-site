@@ -35,6 +35,7 @@ import { PricingValueModel } from "~/features/core-pages/pricing/pricing-value-m
 import { SupportRetainerGrid } from "~/features/core-pages/pricing/support-retainer-grid";
 import { WebsitePricingBento } from "~/features/core-pages/pricing/website-pricing-bento";
 import { VERIFIED_METRICS } from "~/features/core-pages/pricing/pricing-content";
+import { CurrencyToggle } from "~/components/ui/currency-toggle";
 import { money } from "~/data/currency";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
@@ -97,6 +98,15 @@ export function PricingComposition() {
             headingId="pricing-packages"
             lead="Flexible pricing based on workflow scope, integrations, assurance and complexity. Begin with one valuable use case, prove it in operation, then expand with evidence."
           />
+          {/* The hero instrument that carries the desktop toggle sits in the
+              showcase panel, which phones do not render — so the packages
+              section opens with its own control below that breakpoint. */}
+          <div className="ss-pri-currency-inline">
+            <CurrencyToggle context="pricing-inline" labeled tone="dark" />
+            <p className="ss-pri-currency-inline__note">
+              USD at fixed pairs, reviewed quarterly.
+            </p>
+          </div>
           <ImplementationPackages />
         </div>
       </section>

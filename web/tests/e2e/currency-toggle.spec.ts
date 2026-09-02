@@ -24,10 +24,12 @@ function stripTags(html: string) {
  * showcase is not shown on phones, where the compact header toggle is used.
  */
 async function visibleGroup(page: Page) {
+  // Desktop shows the hero instrument; phones and tablets get the packages
+  // section's own control, because the hero showcase is not rendered there.
   const hero = page.locator(
     ".ss-pri-model input[name='ss-currency-pricing'][value='gbp']",
   );
-  const group = (await hero.isVisible()) ? "pricing" : "header";
+  const group = (await hero.isVisible()) ? "pricing" : "pricing-inline";
   return {
     gbp: page.locator(`input[name='ss-currency-${group}'][value='gbp']`),
     usd: page.locator(`input[name='ss-currency-${group}'][value='usd']`),
@@ -104,18 +106,15 @@ test("the toggle switches every price, persists, and is keyboard operable", asyn
   );
   expect(early).toBe("usd");
 
-  // And back, through the header instrument.
+  // And back, through whichever instrument this viewport shows.
+  await page.goto("/pricing#pricing-packages", { waitUntil: "networkidle" });
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page
-    .locator("input[name='ss-currency-header'][value='gbp']")
-    .dispatchEvent("click");
+  const back = await visibleGroup(page);
+  await back.gbp.dispatchEvent("click");
   await expect(page.locator("html")).toHaveAttribute("data-currency", "gbp");
-  if (hasBudgetRow) {
-    await expect(page.locator('input[name="budget"][value="£3k–£10k"]')).toHaveCount(1);
-    await expect(
-      page.locator('input[name="budget"][value="$4,000–$12,500"]'),
-    ).toHaveCount(0);
-  }
+  await expect(page.locator(".ss-pri-ladder__point").nth(1)).toHaveText("£3,000", {
+    useInnerText: true,
+  });
 });
 
 test("with JavaScript off, the radio still switches the visible price", async ({

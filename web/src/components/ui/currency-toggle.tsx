@@ -24,7 +24,7 @@ import { useCurrency } from "~/lib/currency";
 
 type CurrencyToggleProps = {
   /** Where the toggle sits; the header build collapses to symbols on phones. */
-  context?: "header" | "drawer" | "pricing";
+  context?: "header" | "drawer" | "pricing" | "pricing-inline";
   size?: "default" | "compact" | "instrument";
   tone?: "light" | "dark";
   /** Show the small mono "Currency" label beside the capsule. */

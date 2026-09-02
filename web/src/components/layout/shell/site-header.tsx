@@ -489,6 +489,15 @@ function MobileDrawer({
           </div>
         </nav>
         <div className="shrink-0 border-t border-[color:var(--ss-v2-header-border)] px-5 pt-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]">
+          {/* The phone and tablet display-currency control. It sits with the
+              drawer's own actions rather than in the top bar, where a third
+              control clipped the menu button at 320px. */}
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <span className="ss-eyebrow font-mono text-[10px] text-[color:var(--ss-v2-header-muted)]">
+              Display currency
+            </span>
+            <CurrencyToggle context="drawer" />
+          </div>
           <Link
             className={cn(ctaClass, "ss-mobile-nav-link w-full justify-center")}
             data-pending={pendingHref === PRIMARY_CTA.href || undefined}
@@ -936,9 +945,13 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
           </nav>
         </LayoutGroup>
         <div className="ml-auto flex items-center gap-2 lg:gap-3">
-          {/* Display currency: one instrument, persistent on every route, so a
-              US reader who switched on /pricing sees dollars everywhere. */}
-          <CurrencyToggle context="header" />
+          {/* Display currency. Desktop only: below `lg` the top bar is brand +
+              menu, and at 320px a third control pushes the menu button off
+              screen. The drawer carries the phone/tablet toggle, where the
+              site already keeps navigation. */}
+          <div className="hidden lg:block">
+            <CurrencyToggle context="header" />
+          </div>
           <m.div
             className="hidden lg:block"
             initial="rest"
