@@ -40,7 +40,12 @@ export const meta: MetaFunction = ({ params }) => {
     { tagName: "link", rel: "canonical", href: canonical },
     { property: "og:type", content: "article" },
     { property: "og:site_name", content: "Silverstone AI" },
-    { property: "og:locale", content: "en_GB" },
+    // Matches the sitewide pair in `~/seo/metadata` — articles are part of the
+    // same US-primary entity, and this route builds its own descriptor array
+    // rather than going through `buildRouteMetadata`, so the pair is repeated
+    // here rather than inherited.
+    { property: "og:locale", content: "en_US" },
+    { property: "og:locale:alternate", content: "en_GB" },
     { property: "og:title", content: post.metaTitle },
     { property: "og:description", content: post.metaDescription },
     { property: "og:url", content: canonical },
