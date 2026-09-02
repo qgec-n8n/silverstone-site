@@ -208,7 +208,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
   eyebrow: "AI voice agents",
   h1: "Voice agents built for real conversations — and *real consequences*",
   heroSub:
-    "Custom voice workflows that listen, respond, act and escalate within rules your business can inspect — not a demo voice bolted onto a talking FAQ.",
+    "An AI voice agent is a custom call workflow that listens, responds, acts and escalates within rules your business can inspect, not a demo voice bolted onto a talking FAQ. Built for US and UK phone lines, monitored in your time zone.",
   heroPoints: [
     "Answers, books and escalates within rules you set",
     "Under 10 seconds response time",
@@ -446,7 +446,7 @@ export const aiAutomationCopy: ServiceCopy = {
   eyebrow: "AI automation",
   h1: "Engineer the work *between your systems*",
   heroSub:
-    "Custom workflows connecting triggers, data, rules, AI judgment and approvals into an operating layer your team can actually inspect.",
+    "AI automation is a custom workflow connecting triggers, data, rules, AI judgment and approvals into an operating layer your team can actually inspect. Built on the tools US and UK businesses already run.",
   heroPoints: [
     "Built around consequence, not blanket autonomy",
     "98% extraction accuracy on structured documents",
@@ -520,7 +520,7 @@ export const aiConsultingCopy: ServiceCopy = {
   eyebrow: "AI & automation consulting",
   h1: "Decide what to automate *before you buy the tools*",
   heroSub:
-    "A senior decision layer for prioritizing use cases, testing readiness, choosing build-versus-buy, and defining the controls delivery will need.",
+    "AI and automation consulting is a senior decision layer for prioritizing use cases, testing readiness, choosing build-versus-buy and defining the controls delivery will need, for leadership teams in the US and the UK.",
   heroPoints: [
     "An independent view before you commit budget",
     "60% average reduction in manual operations overhead",
