@@ -16,7 +16,7 @@ export const dentistsCopy: IndustryCopy = {
     buttonLabel: "Explore the patient-admin journey",
   },
   seo: {
-    title: "Dental Practice Automation UK | Silverstone AI",
+    title: "Dental Practice Automation | Silverstone AI",
     description:
       "Improve missed-call recovery, new-patient booking, recalls, reminders and administrative follow-up with dental automation that keeps clinical judgement with the practice.",
     h1: "Recover patient demand without automating clinical judgement",

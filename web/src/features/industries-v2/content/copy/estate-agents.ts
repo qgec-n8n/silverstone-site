@@ -12,13 +12,13 @@ export const estateAgentsCopy: IndustryCopy = {
     pill: "Property enquiry operating system",
     title: "Respond while the opportunity is still live",
     subtitle:
-      "A connected layer for portal leads, calls, viewing requests, valuation enquiries and branch follow-up—built around the way UK agencies actually work.",
+      "A connected layer for portal leads, calls, showing and viewing requests, valuation and listing inquiries and agent follow-up, built around the way agencies and brokerages actually work.",
     buttonLabel: "Explore the enquiry journey",
   },
   seo: {
-    title: "AI Automation for Estate Agents UK | Silverstone AI",
+    title: "AI Automation for Estate Agents and Real Estate Teams | Silverstone AI",
     description:
-      "Connect portal, phone and website enquiries to qualification, viewing requests, CRM updates and human branch follow-up with estate agent automation built for UK workflows.",
+      "Connect portal, phone and website inquiries to qualification, showing requests, CRM updates and human follow-up. Built for UK estate agents and US real estate brokerages.",
     h1: "Turn property enquiries into owned branch conversations",
   },
   eyebrow: "AI automation for estate agents",

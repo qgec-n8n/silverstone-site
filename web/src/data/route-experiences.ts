@@ -85,7 +85,7 @@ const coreRouteEntries: Record<
     pill: "The Silverstone standard",
     title: "Capability is common. Judgement is rare.",
     subtitle:
-      "Silverstone joins commercial strategy, digital craft, engineering, AI and automation, then applies the restraint to use each only where it belongs.",
+      "Silverstone AI joins commercial strategy, digital craft, engineering, AI and automation, then applies the restraint to use each only where it belongs.",
     buttonLabel: "Discover the standard",
   },
   "/pricing": {
@@ -101,7 +101,7 @@ const coreRouteEntries: Record<
     pill: "Direct correspondence",
     title: "Put the problem in writing.",
     subtitle:
-      "Send the context that matters so Silverstone can decide whether a written answer, discovery call or different route makes sense.",
+      "Send the context that matters so Silverstone AI can decide whether a written answer, discovery call or different route makes sense.",
     buttonLabel: "Open the enquiry form",
   },
   "/book": {
@@ -109,7 +109,7 @@ const coreRouteEntries: Record<
     pill: "30-minute discovery",
     title: "One problem. One focused conversation.",
     subtitle:
-      "Bring the process, journey or digital decision that matters most. Silverstone will use the call to understand fit and define the most sensible next step.",
+      "Bring the process, journey or digital decision that matters most. Silverstone AI will use the call to understand fit and define the most sensible next step.",
     buttonLabel: "Continue to booking",
   },
 };

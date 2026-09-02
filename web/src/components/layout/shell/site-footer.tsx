@@ -106,12 +106,13 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
               <span className="sr-only">Silverstone AI — home</span>
             </Link>
             <p className="mt-3 max-w-[23rem] text-body-sm text-titanium">
-              Web, app, content and AI workflow systems for ambitious UK businesses —
-              designed, engineered and assured in-house.
+              Silverstone AI builds AI reception, voice, automation, web, app and
+              content systems for businesses in the US and UK, designed, engineered and
+              assured in-house.
             </p>
             <p className="mt-3 inline-flex items-center gap-2 text-body-sm text-titanium">
               <MapPin aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
-              London, United Kingdom
+              London studio · US-based team · 24-hour coverage
             </p>
             <p className="mt-2">
               <a

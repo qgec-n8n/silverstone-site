@@ -16,7 +16,8 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     buttonLabel: "Explore the clinic journey",
   },
   seo: {
-    title: "Physio and Chiropractic Practice Automation UK",
+    title:
+      "Physical Therapy, Physio and Chiropractic Practice Automation | Silverstone AI",
     description:
       "Improve new-patient enquiries, booking, reminders, intake and rebooking with non-clinical automation designed for physio and chiropractic practices.",
     h1: "Make the clinic easier to access without automating care",

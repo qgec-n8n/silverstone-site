@@ -49,11 +49,11 @@ export function ContactComposition() {
         icon={MessageSquare}
         title="Start with the question that *matters*"
         titleId="core-contact-title"
-        lead="Built for a written start: when to write rather than book, a short enquiry form and where to find the studio."
+        lead="Built for a written start: when to write rather than book, a short inquiry form and where to find the studio. Replies come across US and UK business hours."
         points={[
           { icon: GitBranch, text: "Contact or Book — which route fits your question" },
-          { icon: Mail, text: "A short form, routed straight to the team" },
-          { icon: MapPin, text: "The studio's location, if you'd rather visit" },
+          { icon: Mail, text: "A short form, answered across US and UK hours" },
+          { icon: MapPin, text: "The London studio, if you'd rather visit" },
         ]}
         primaryCtaLabel="Open the enquiry form"
         primaryCtaHref="/contact#contact-form"
@@ -89,9 +89,9 @@ export function ContactComposition() {
       >
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Send an enquiry"
+            eyebrow="Send an inquiry"
             icon={MessageSquare}
-            heading="Tell Silverstone what is happening *now*"
+            heading="Tell Silverstone AI what is happening *now*"
             headingId="core-contact-form"
             lead="A concise message is enough. Explain *the current situation, the intended outcome* and anything that materially affects the decision."
           />
@@ -119,7 +119,7 @@ export function ContactComposition() {
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
             heading="Prefer a *conversation*?"
-            body="Use Contact for a written question, partnership enquiry or scheduler fallback. Use Book when a focused 30-minute conversation is the more direct route."
+            body="Use Contact for a written question, partnership inquiry or scheduler fallback. Use Book when a focused 30-minute conversation is the more direct route, in your time zone."
             buttonLabel="Book a discovery call"
           />
         </div>

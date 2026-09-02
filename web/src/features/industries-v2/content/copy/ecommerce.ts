@@ -16,7 +16,7 @@ export const ecommerceCopy: IndustryCopy = {
     buttonLabel: "Explore the commerce system",
   },
   seo: {
-    title: "eCommerce Automation Agency UK | Silverstone AI",
+    title: "Ecommerce Automation for Shopify and DTC Brands | Silverstone AI",
     description:
       "Connect product questions, order status, returns, support, post-purchase and retention workflows with bespoke ecommerce automation built around authoritative data.",
     h1: "Scale customer experience without multiplying operational friction",

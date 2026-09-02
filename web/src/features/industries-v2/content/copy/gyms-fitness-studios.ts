@@ -16,7 +16,8 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     buttonLabel: "Explore the member journey",
   },
   seo: {
-    title: "Gym Automation UK for Leads, Trials and Retention",
+    title:
+      "Gym & Fitness Studio Automation for Leads, Trials and Retention | Silverstone AI",
     description:
       "Connect membership enquiries, trial bookings, class questions, onboarding, follow-up and reactivation with gym automation built around staff and member systems.",
     h1: "Connect the journey from first enquiry to active membership",

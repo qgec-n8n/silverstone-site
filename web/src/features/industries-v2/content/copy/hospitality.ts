@@ -16,7 +16,7 @@ export const hospitalityCopy: IndustryCopy = {
     buttonLabel: "Explore the guest journey",
   },
   seo: {
-    title: "Hospitality Automation UK for Reservations and Guests",
+    title: "Hospitality Automation for Reservations and Guests | Silverstone AI",
     description:
       "Coordinate reservations, guest enquiries, confirmations, groups, pre-arrival communication and staff handoffs with hospitality automation designed around service and safety.",
     h1: "Coordinate guest demand without flattening the service",

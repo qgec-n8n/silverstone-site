@@ -22,7 +22,7 @@ export function IndustryRelevance() {
           matters.
         </>
       }
-      lead="Silverstone adapts the same system architecture to different operating realities: appointments, bookings, enquiries, quotes, support and follow-up."
+      lead="Silverstone AI adapts the same system architecture to different operating realities: appointments, bookings, inquiries, quotes, support and follow-up."
       containerSize="wide"
     >
       <div className="ss-hv2-industries mt-14">

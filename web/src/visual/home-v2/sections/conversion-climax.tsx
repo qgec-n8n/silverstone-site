@@ -60,7 +60,7 @@ export function ConversionClimax() {
               </div>
               <Reveal delayMs={390}>
                 <p className="text-sm ss-hv2-copy">
-                  London-based · Working with UK businesses nationwide
+                  London studio · US-based team members · Clients across the US and UK
                 </p>
               </Reveal>
             </div>

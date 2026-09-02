@@ -90,7 +90,7 @@ export function Hero({
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-            UK AI systems studio
+            AI systems studio · London · US & UK
           </m.span>
 
           <m.h1
@@ -108,14 +108,15 @@ export function Hero({
             className="ss-lead ss-hv2-hero__lead text-[color:var(--ss-v2-titanium)]"
           >
             <span className="ss-hv2-hero__lead-full">
-              Silverstone designs AI voice, reception and automation systems that answer
-              every call, capture every enquiry and run the repetitive work — so small
-              UK teams respond faster, deliver more and grow without adding headcount.
+              Silverstone AI designs AI voice, reception and automation systems that
+              answer every call, capture every inquiry and run the repetitive work, so
+              small teams in the US and UK respond faster, deliver more and grow without
+              adding headcount.
             </span>
             <span className="ss-hv2-hero__lead-short">
-              Silverstone designs AI voice, reception and automation systems that answer
-              every call and run the repetitive work — so small UK teams respond faster
-              and grow without adding headcount.
+              Silverstone AI designs AI voice, reception and automation systems that
+              answer every call and run the repetitive work, so small teams in the US
+              and UK respond faster and grow without adding headcount.
             </span>
           </m.p>
 

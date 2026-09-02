@@ -41,7 +41,7 @@ const DISCIPLINE_CARDS = [
   },
   {
     label: "Copy",
-    body: "Give propositions, interfaces and journeys *language precise enough* to reduce uncertainty.",
+    body: "Give propositions, interfaces and journeys *language precise enough* to reduce uncertainty, in the vocabulary of the reader's own market.",
     icon: FileText,
   },
   {
@@ -97,15 +97,15 @@ export function AboutComposition() {
       <SecondaryHero
         eyebrow="The Silverstone standard"
         icon={Sparkles}
-        title="A premium technology partner built around *better judgement*"
+        title="A premium technology partner built around *better judgment*"
         titleId="core-about-title"
-        lead="The standard behind the work: six connected disciplines, what premium means in practice and the principles every engagement follows."
+        lead="Silverstone AI is an AI systems studio in London that designs and builds AI receptionists, voice agents, automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom. Six connected disciplines, one line of accountability, and US-based team members covering US hours."
         points={[
           { icon: Layers, text: "Six disciplines, one line of accountability" },
-          { icon: Sparkles, text: "What premium attention actually means here" },
+          { icon: Sparkles, text: "A London studio with US and UK clients" },
           {
             icon: CheckCircle2Icon,
-            text: "Four principles that shape every engagement",
+            text: "A team trained at Yale, Princeton and the University of Texas",
           },
         ]}
         primaryCtaLabel="Book a discovery call"
@@ -126,7 +126,7 @@ export function AboutComposition() {
             icon={Layers}
             heading="Six disciplines, one line of *accountability*"
             headingId="about-disciplines"
-            lead="Capability across six disciplines is common. What's rare is applying the restraint to use each one only where it belongs."
+            lead="Capability across six disciplines is common. What's rare is applying the restraint to use each one only where it belongs. Silverstone AI's team trained at Yale, Princeton and the University of Texas, works from a London studio with US-based members, and serves clients on both sides of the Atlantic from one system."
           />
           <ServiceCards
             cards={DISCIPLINE_CARDS}
@@ -153,7 +153,7 @@ export function AboutComposition() {
               <Prose
                 paragraphs={[
                   "Premium does not mean adding complexity or withholding clarity. It means treating *the important details as important*.",
-                  "Assumptions, dependencies, exclusions, third-party costs and human responsibilities are made visible before they can become points of dispute — the same standard of attention behind every engagement, at any scale.",
+                  "Assumptions, dependencies, exclusions, third-party costs and human responsibilities are made visible before they can become points of dispute, the same standard of attention behind every engagement, at any scale, in Dallas or in Manchester.",
                 ]}
               />
             </Reveal>
@@ -193,7 +193,7 @@ export function AboutComposition() {
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
             heading="See the judgement become a *working system*"
-            body="The clearest way to understand Silverstone is to examine how the work is diagnosed, scoped, designed, tested and handed over."
+            body="The clearest way to understand Silverstone AI is to examine how the work is diagnosed, scoped, designed, tested and handed over."
             buttonLabel="Explore the delivery framework"
             bookHref="/how-we-work"
           />

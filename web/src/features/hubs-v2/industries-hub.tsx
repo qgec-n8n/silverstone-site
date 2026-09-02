@@ -214,9 +214,9 @@ export function IndustriesHubExperience() {
         icon={Layers}
         title="Technology shaped around your *operating reality*"
         titleId="hub2-lead"
-        lead="Generic automation fails at the edges of a real trade. Silverstone builds sector-specific systems around your diary, CRM, reservation book or patient records — with the judgement calls your industry demands kept firmly human."
+        lead="Generic automation fails at the edges of a real trade. Silverstone AI builds sector-specific systems around your calendar, CRM, reservation book or patient records, for the way each sector runs in the US and the UK, with the judgment calls your industry demands kept firmly human."
         points={[
-          "Ten UK sectors, each with a purpose-built system",
+          "Ten sectors, each with a purpose-built system for US and UK operators",
           "Grounded in your source of truth, not a script",
           "Verified Silverstone AI results on every page",
         ]}
@@ -305,7 +305,7 @@ export function IndustriesHubExperience() {
           />
           <Reveal kind="cta" className="ss-hub2-disciplines__next">
             <p className="ss-srv2-lead">
-              <LinkedText text="Browse the [service architecture](/services), see [how Silverstone designs and delivers](/how-we-work), or review [how scope shapes pricing](/pricing)." />
+              <LinkedText text="Browse the [service architecture](/services), see [how Silverstone AI designs and delivers](/how-we-work), or review [how scope shapes pricing](/pricing)." />
             </p>
           </Reveal>
         </div>

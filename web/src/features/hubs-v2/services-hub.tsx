@@ -406,11 +406,11 @@ export function ServicesHubExperience() {
             eyebrow="Sector systems"
             heading="Built for the way your industry *actually operates*"
             headingId="hub2-industries"
-            lead="Ten UK sectors have *their own dedicated operating systems* — estate agency enquiry switchboards, salon diaries, aesthetic-clinic consultations, trades dispatch and more."
+            lead="Ten sectors have *their own dedicated operating systems*, built for how each runs in the US and the UK: real estate and estate agency inquiry switchboards, salon and barbershop calendars, aesthetic-clinic and med-spa consultations, contractor and trades dispatch, and more."
           />
           <Reveal kind="cta">
             <p className="ss-srv2-lead">
-              <LinkedText text="Explore the [industry operating systems](/industry), or go straight to [how Silverstone designs and delivers](/how-we-work) and [how scope shapes pricing](/pricing)." />
+              <LinkedText text="Explore the [industry operating systems](/industry), or go straight to [how Silverstone AI designs and delivers](/how-we-work) and [how scope shapes pricing](/pricing)." />
             </p>
           </Reveal>
         </div>

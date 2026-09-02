@@ -38,7 +38,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
     buttonLabel: "Open the clinic system",
   },
   seo: {
-    title: "Aesthetic Clinic Automation UK | Silverstone AI",
+    title: "Aesthetic Clinic & Med Spa Automation | Silverstone AI",
     description:
       "Seven-Day Booking Conversion Sprint for aesthetic clinics and med spas: £1,500 ($1,950), half to begin. Turn inquiries into deposit-secured consultations, with clinical judgment kept with your prescriber or provider.",
     h1: "Turn interest into booked, deposit-backed consultations",

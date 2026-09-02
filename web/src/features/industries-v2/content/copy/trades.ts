@@ -16,7 +16,7 @@ export const tradesCopy: IndustryCopy = {
     buttonLabel: "Explore the job journey",
   },
   seo: {
-    title: "AI Automation for Trades and Home Services UK",
+    title: "AI Automation for Trades, Contractors and Home Services | Silverstone AI",
     description:
       "Capture missed calls, qualify jobs, check service areas, coordinate callbacks, follow up quotes and connect office-to-field workflows with trades automation.",
     h1: "Capture the job properly before the opportunity goes cold",

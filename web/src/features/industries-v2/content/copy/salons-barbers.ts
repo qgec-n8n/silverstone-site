@@ -16,7 +16,7 @@ export const salonsBarbersCopy: IndustryCopy = {
     buttonLabel: "Open the diary system",
   },
   seo: {
-    title: "Salon Automation UK for Bookings and Rebooking | Silverstone",
+    title: "Salon & Barbershop Automation for Bookings and Rebooking | Silverstone AI",
     description:
       "Connect calls, messages, booking rules, deposits, waitlists and rebooking with salon automation designed around your existing diary and human suitability decisions.",
     h1: "Protect sellable chair time without adding front-desk pressure",

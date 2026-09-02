@@ -3,12 +3,12 @@ import { expect, test, type Page } from "@playwright/test";
 test.describe.configure({ mode: "serial" });
 
 const trustSignals = [
-  "UK-built",
-  "London-based",
+  "US & UK clients",
+  "London studio, US-based team",
   "Human-reviewed automation",
   "Scoped before build",
   "Staged implementation",
-  "GDPR-conscious by design",
+  "24-hour team coverage",
 ] as const;
 
 async function waitForIntro(page: Page) {

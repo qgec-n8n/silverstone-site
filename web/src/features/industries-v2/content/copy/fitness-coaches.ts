@@ -16,7 +16,7 @@ export const fitnessCoachesCopy: IndustryCopy = {
     buttonLabel: "Explore the coaching journey",
   },
   seo: {
-    title: "Automation for Online Fitness Coaches UK | Silverstone",
+    title: "Automation for Online Fitness Coaches | Silverstone AI",
     description:
       "Move website and social leads into qualified consultations, onboarding and follow-up with fitness-coach automation that preserves personal coaching judgement.",
     h1: "Move more of the right leads from message to consultation",
