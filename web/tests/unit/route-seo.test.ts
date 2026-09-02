@@ -39,9 +39,10 @@ describe("route SEO generation", () => {
 
     const graph = buildRouteSchemaGraph(route);
     // The Organization node travels with every route so an answer engine
-    // can resolve the entity from any page it lands on.
+    // can resolve the entity from any page it lands on. It carries both its
+    // types at one `@id` rather than shipping a second local-business node.
     expect(graph["@graph"].map((entry) => entry["@type"])).toEqual([
-      "Organization",
+      ["Organization", "ProfessionalService"],
       "Service",
       "FAQPage",
       "BreadcrumbList",
