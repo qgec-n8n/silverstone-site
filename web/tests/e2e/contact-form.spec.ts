@@ -101,7 +101,7 @@ test("desktop console walks three dossier stages beside a live brief rail", asyn
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/contact#contact-form");
 
-  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const form = page.getByRole("form", { name: "Silverstone inquiry form" });
   await expect(form).toHaveAttribute("data-enq-shell", "desktop");
 
   // Rail chrome: step list, empty manifest, reply promise.
@@ -131,7 +131,7 @@ test("desktop console walks three dossier stages beside a live brief rail", asyn
   await expectButtonCopyMaxTwoLines(form);
 
   await advance(form);
-  await expect(page.getByRole("heading", { name: "Send your enquiry" })).toBeFocused();
+  await expect(page.getByRole("heading", { name: "Send your inquiry" })).toBeFocused();
   await expect(page.getByLabel("Name")).toBeVisible();
   await expect(page.getByLabel("Work email")).toBeVisible();
   await expectNoInternalScroll(form);
@@ -153,11 +153,11 @@ test("desktop console fits a short laptop viewport on every stage", async ({
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto("/contact#contact-form");
 
-  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const form = page.getByRole("form", { name: "Silverstone inquiry form" });
   const headings = [
     "What should we look at?",
     "How you operate today",
-    "Send your enquiry",
+    "Send your inquiry",
   ];
   for (const [index, heading] of headings.entries()) {
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
@@ -175,10 +175,10 @@ test("desktop send stage validates identity, message and consent in place", asyn
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/contact#contact-form");
 
-  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const form = page.getByRole("form", { name: "Silverstone inquiry form" });
   await advance(form);
   await advance(form);
-  await expect(page.getByRole("heading", { name: "Send your enquiry" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Send your inquiry" })).toBeVisible();
 
   await advance(form);
   await expect(page.getByText("Add the name we should reply to.")).toBeVisible();
@@ -191,7 +191,7 @@ test("desktop send stage validates identity, message and consent in place", asyn
   ).toBeVisible();
 
   await fillRequiredSendFields(page);
-  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeEnabled();
+  await expect(page.getByRole("button", { name: "Send inquiry" })).toBeEnabled();
 });
 
 test("mobile flow runs four content-sized steps with honest skip labels", async ({
@@ -202,7 +202,7 @@ test("mobile flow runs four content-sized steps with honest skip labels", async 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/contact#contact-form");
 
-  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const form = page.getByRole("form", { name: "Silverstone inquiry form" });
   await expect(form).toHaveAttribute("data-enq-shell", "mobile");
   await expect(form.locator(".ss-enq__rail")).toHaveCount(0);
 
@@ -210,7 +210,7 @@ test("mobile flow runs four content-sized steps with honest skip labels", async 
     { heading: "What should we look at?", skippable: false },
     { heading: "Scope and timing", skippable: true },
     { heading: "Your operation today", skippable: true },
-    { heading: "Send your enquiry", skippable: false },
+    { heading: "Send your inquiry", skippable: false },
   ];
 
   for (const [index, stepDef] of steps.entries()) {
@@ -228,7 +228,7 @@ test("mobile flow runs four content-sized steps with honest skip labels", async 
     }
   }
 
-  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Send inquiry" })).toBeVisible();
 });
 
 test("mobile qualifier answers flip Skip to Continue and surface in the brief", async ({
@@ -239,7 +239,7 @@ test("mobile qualifier answers flip Skip to Continue and surface in the brief", 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/contact#contact-form");
 
-  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const form = page.getByRole("form", { name: "Silverstone inquiry form" });
   await advance(form);
   await expect(page.getByRole("heading", { name: "Scope and timing" })).toBeVisible();
 
@@ -250,7 +250,7 @@ test("mobile qualifier answers flip Skip to Continue and surface in the brief", 
 
   await advance(form);
   await advance(form);
-  await expect(page.getByRole("heading", { name: "Send your enquiry" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Send your inquiry" })).toBeVisible();
   await expect(form.locator(".ss-enq__brief-line")).toContainText("£3k–£10k");
 });
 
@@ -262,12 +262,12 @@ test("mobile flow fits a compact 667px phone on every step", async ({
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto("/contact#contact-form");
 
-  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const form = page.getByRole("form", { name: "Silverstone inquiry form" });
   const headings = [
     "What should we look at?",
     "Scope and timing",
     "Your operation today",
-    "Send your enquiry",
+    "Send your inquiry",
   ];
   for (const [index, heading] of headings.entries()) {
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
@@ -285,12 +285,12 @@ test("mobile flow fits a 320px viewport without horizontal overflow", async ({
   await page.setViewportSize({ width: 320, height: 568 });
   await page.goto("/contact#contact-form");
 
-  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const form = page.getByRole("form", { name: "Silverstone inquiry form" });
   const headings = [
     "What should we look at?",
     "Scope and timing",
     "Your operation today",
-    "Send your enquiry",
+    "Send your inquiry",
   ];
   for (const [index, heading] of headings.entries()) {
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();

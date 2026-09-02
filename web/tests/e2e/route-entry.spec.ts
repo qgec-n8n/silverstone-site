@@ -139,7 +139,7 @@ test("route-entry sequence remains usable with reduced motion", async ({ page })
   await page.goto("/services/ai-receptionists");
 
   await expect(loaderStatus(page)).toContainText(
-    "Converging every enquiry into the right next action",
+    "Converging every inquiry into the right next action",
   );
   await waitForRouteIntro(page);
   await openBody(page, "Open the front-desk system");

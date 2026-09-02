@@ -46,7 +46,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
   eyebrow: "Skin & aesthetic clinic automation",
   h1: "Turn interest into *booked, deposit-backed consultations*",
   heroSub:
-    "Aesthetic inquiries do not wait. They arrive by DM, form and phone while your hands are gloved, and **the clinic that answers first usually takes the booking.** Silverstone AI answers, qualifies and books, inside your rules, for aesthetic clinics and med spas in the US and UK.",
+    "Aesthetic inquiries do not wait. They arrive by DM, form and phone while your hands are gloved, and **the clinic that answers first usually takes the booking.** Silverstone AI answers, qualifies and books, inside your rules.",
   heroPoints: [
     "Every DM, form and missed call answered in seconds",
     "Consultations confirmed with your deposit already held",

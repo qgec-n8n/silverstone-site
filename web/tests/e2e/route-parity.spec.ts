@@ -16,7 +16,7 @@ const representativeRoutes = [
 const representativeSourceCopy = [
   {
     path: "/about",
-    text: "A premium technology partner built around better judgement",
+    text: "A premium technology partner built around better judgment",
   },
   {
     path: "/industry/dentists",
@@ -104,7 +104,7 @@ test("rebuilt contact route renders a staging-safe enquiry form", async ({
   ).toBeVisible();
   await expect(page.getByRole("form")).toHaveCount(1);
   const advanceButton = page.locator(
-    'form[aria-label="Silverstone enquiry form"] button[type="submit"]',
+    'form[aria-label="Silverstone inquiry form"] button[type="submit"]',
   );
   await advanceButton.click();
   await expect(
@@ -118,7 +118,7 @@ test("rebuilt contact route renders a staging-safe enquiry form", async ({
   }
   await expect(page.getByLabel("Name")).toBeVisible();
   await expect(page.getByLabel("Work email")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Send inquiry" })).toBeVisible();
 });
 
 test("rebuilt book route exposes the native staging-safe booking console", async ({
