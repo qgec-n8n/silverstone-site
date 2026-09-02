@@ -296,9 +296,7 @@ test.describe("pricing FAQ", () => {
         node.textContent.trim(),
       ),
     );
-    expect(answers).toEqual(
-      PRICING_FAQ.map((item) => plainCurrencyText(item.answer)),
-    );
+    expect(answers).toEqual(PRICING_FAQ.map((item) => plainCurrencyText(item.answer)));
 
     // Polled: the prerendered markup and the hydrated tree both carry `inert`,
     // but asserting on a single snapshot can land mid-hydration.
