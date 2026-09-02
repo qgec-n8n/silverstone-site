@@ -28,7 +28,7 @@ export const BOTPRESS_DEMO_DISCLOSURE =
  */
 export const SAM_OPENING_MESSAGE =
   "Hi, I'm Sam — Silverstone AI's messaging receptionist. I handle written " +
-  "enquiries the way Grace handles calls: instantly, in your brand's words, " +
+  "inquiries the way Grace handles calls: instantly, in your brand's words, " +
   "any hour of the day. Pick a question below or write your own.";
 
 /**
