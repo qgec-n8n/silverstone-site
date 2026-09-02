@@ -72,11 +72,11 @@ export function RouteExperienceIntro({
   const motion = familyMotion[experience.family];
   // Each page family signals itself through the Aether palette: the standalone
   // core pages, the seven Services routes and the nine Industries routes each
-  // carry their own registered two-colour scheme (matched to that page's copy
+  // carry their own registered two-color scheme (matched to that page's copy
   // accent). The /industry hub falls back to the shared violet family
   // signature; anything still unmatched uses the default cyan field. The same
   // pair also tints the Explore CTA below, so the button never reads as a
-  // different page's colour to the field it is standing on.
+  // different page's color to the field it is standing on.
   const industriesFamily =
     experience.family === "industry" || experience.path === "/industry";
   const palette =

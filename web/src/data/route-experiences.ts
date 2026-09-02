@@ -77,15 +77,15 @@ const coreRouteEntries: Record<
     pill: "Silverstone Intelligence",
     title: "Read before you build.",
     subtitle:
-      "Practical analysis for leaders deciding what to automate, what to design, what to measure and where human judgement still matters.",
+      "Practical analysis for leaders deciding what to automate, what to design, what to measure and where human judgment still matters.",
     buttonLabel: "Open the Insights library",
   },
   "/about": {
     loaderText: "Resolving the Silverstone standard",
     pill: "The Silverstone standard",
-    title: "Capability is common. Judgement is rare.",
+    title: "Capability is common. Judgment is rare.",
     subtitle:
-      "Silverstone joins commercial strategy, digital craft, engineering, AI and automation, then applies the restraint to use each only where it belongs.",
+      "Silverstone AI joins commercial strategy, digital craft, engineering, AI and automation, then applies the restraint to use each only where it belongs.",
     buttonLabel: "Discover the standard",
   },
   "/pricing": {
@@ -101,15 +101,15 @@ const coreRouteEntries: Record<
     pill: "Direct correspondence",
     title: "Put the problem in writing.",
     subtitle:
-      "Send the context that matters so Silverstone can decide whether a written answer, discovery call or different route makes sense.",
-    buttonLabel: "Open the enquiry form",
+      "Send the context that matters so Silverstone AI can decide whether a written answer, discovery call or different route makes sense.",
+    buttonLabel: "Open the inquiry form",
   },
   "/book": {
     loaderText: "Preparing your discovery call",
     pill: "30-minute discovery",
     title: "One problem. One focused conversation.",
     subtitle:
-      "Bring the process, journey or digital decision that matters most. Silverstone will use the call to understand fit and define the most sensible next step.",
+      "Bring the process, journey or digital decision that matters most. Silverstone AI will use the call to understand fit and define the most sensible next step.",
     buttonLabel: "Continue to booking",
   },
 };

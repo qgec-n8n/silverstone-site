@@ -34,13 +34,13 @@ type RoutePageFrameProps = {
   showRelated?: boolean;
   /**
    * When false, the default eyebrow + H1 + description header is suppressed so a
-   * bespoke body (e.g. services-v2) can own the single visible H1. Schema and
+   * custom body (e.g. services-v2) can own the single visible H1. Schema and
    * layout are preserved.
    */
   showHeader?: boolean;
   /**
    * When false, this frame's own breadcrumb bar is suppressed because the
-   * bespoke body renders its own route-integrated breadcrumb trail (see
+   * custom body renders its own route-integrated breadcrumb trail (see
    * `SecondaryHero`) styled to match its hero rhythm instead.
    */
   showBreadcrumbs?: boolean;

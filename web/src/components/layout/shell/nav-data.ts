@@ -67,7 +67,7 @@ export const SERVICES_MENU: NavMenu = {
     {
       href: "/services/ai-receptionists",
       label: "AI Receptionists",
-      description: "Qualified enquiry routing",
+      description: "Qualified inquiry routing",
       icon: Headset,
     },
     {
@@ -101,7 +101,7 @@ export const INDUSTRIES_MENU: NavMenu = {
     {
       href: "/industry/estate-agents",
       label: "For Estate Agents",
-      description: "Enquiry-to-viewing pipeline",
+      description: "Inquiry-to-viewing pipeline",
       icon: Building2,
     },
     {

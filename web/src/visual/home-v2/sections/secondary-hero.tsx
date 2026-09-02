@@ -151,8 +151,8 @@ export function SecondaryHero() {
               <p className="ss-lead ss-hv2-secondary__lead ss-hv2-copy">
                 <span className="ss-hv2-secondary__lead-full">
                   Calls, messages, bookings and follow-ups converge into a single
-                  operating layer. Silverstone answers in seconds, captures the detail
-                  and routes the work — while your team keeps oversight of every
+                  operating layer. Silverstone AI answers in seconds, captures the
+                  detail and routes the work — while your team keeps oversight of every
                   outcome.
                 </span>
                 <span className="ss-hv2-secondary__lead-short">

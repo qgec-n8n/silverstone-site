@@ -3,7 +3,7 @@
  *
  * Each card is a `PanelReveal` root, so the frame itself materialises with the
  * system's existing edge-light ignition and single diagonal sheen rather than a
- * bespoke entrance; the featured card adds the resident `BorderBeam` so exactly
+ * custom entrance; the featured card adds the resident `BorderBeam` so exactly
  * one card in the row carries continuous perimeter energy. Everything else —
  * price hierarchy, inclusion lists, hover lift — is CSS, so nothing here
  * animates layout.
@@ -22,6 +22,7 @@ import {
   PAGE_PRICING_DISCLOSURE,
   type PricingCssVars,
 } from "./pricing-content";
+import { Money } from "~/components/ui/money";
 
 export function ImplementationPackages() {
   return (
@@ -57,7 +58,9 @@ export function ImplementationPackages() {
             </div>
 
             <p className="ss-pri-tier__price">
-              <span className="ss-pri-tier__figure">{tier.price}</span>
+              <span className="ss-pri-tier__figure">
+                <Money text={tier.price} />
+              </span>
               <span className="ss-pri-tier__qualifier">{tier.priceNote}</span>
             </p>
 
@@ -108,7 +111,9 @@ export function ImplementationPackages() {
                 style={{ "--pri-i": index } as PricingCssVars}
               >
                 <span className="ss-pri-ladder__node" aria-hidden="true" />
-                <span className="ss-pri-ladder__point">{stop.point}</span>
+                <span className="ss-pri-ladder__point">
+                  <Money text={stop.point} />
+                </span>
                 <span className="ss-pri-ladder__label">{stop.label}</span>
                 {stop.emphasis ? (
                   <span className="ss-pri-ladder__flag">Most SMEs land here</span>
@@ -124,7 +129,9 @@ export function ImplementationPackages() {
               <span className="ss-pri-disclosure__hint">Read the fine print</span>
               <ChevronDown aria-hidden="true" className="ss-pri-disclosure__chevron" />
             </summary>
-            <p className="ss-pri-disclosure__body">{PAGE_PRICING_DISCLOSURE}</p>
+            <p className="ss-pri-disclosure__body">
+              <Money text={PAGE_PRICING_DISCLOSURE} />
+            </p>
           </details>
         </div>
       </Reveal>

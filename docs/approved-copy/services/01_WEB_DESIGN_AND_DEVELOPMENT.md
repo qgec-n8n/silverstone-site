@@ -6,11 +6,11 @@
 - **Canonical route:** `/services/web-design-development`
 - **Target audience:** Owner-led and growing UK businesses whose website no longer explains the offer, supports the sales process or connects cleanly to operations.
 - **Buyer awareness:** Problem-aware to solution-aware; the buyer may be comparing agencies, considering a rebuild or trying to understand why an existing site underperforms.
-- **Primary search intent:** Commercial investigation and transactional intent for a conversion-focused, bespoke website partner.
-- **Primary keyword cluster:** web design and development agency UK; bespoke website development UK; conversion-focused web design
+- **Primary search intent:** Commercial investigation and transactional intent for a conversion-focused, custom website partner.
+- **Primary keyword cluster:** web design and development agency UK; custom website development UK; conversion-focused web design
 - **Secondary keyword clusters:** premium web design; responsive web development; technical SEO; Core Web Vitals; CMS integration; website conversion strategy
 - **London variants:** web design and development agency London; premium web design London — supporting only, with broad London agency intent reserved for the genuine London/core page.
-- **UK variants:** UK web design agency; bespoke website development UK; conversion-focused web design UK
+- **UK variants:** UK web design agency; custom website development UK; conversion-focused web design UK
 - **Semantic entities:** information architecture, conversion copy, responsive engineering, accessibility, Core Web Vitals, CMS, analytics, CRM, booking calendar, technical SEO
 - **Conversion objective:** Move a qualified buyer from “we need a better site” to a discovery call framed around commercial goals, evidence, constraints and integration requirements.
 - **Primary CTA:** Book a discovery call
@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** Bespoke Web Design & Development UK | Silverstone AI
+- **Preferred SEO title:** Custom Web Design & Development | Silverstone AI
 - **Alternative SEO title 1:** Conversion-Focused Web Design & Development | Silverstone AI
 - **Alternative SEO title 2:** Premium Web Design for UK Businesses | Silverstone AI
-- **Meta description:** Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.
+- **Meta description:** Custom web design and development for US and UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.
 - **Open Graph title:** Websites engineered around the decision to buy
-- **Open Graph description:** Silverstone combines strategy, copy, premium design, responsive development, technical SEO and operational integrations into one website system.
+- **Open Graph description:** Silverstone AI combines strategy, copy, premium design, responsive development, technical SEO and operational integrations into one website system.
 - **Canonical route:** `/services/web-design-development`
 - **H1:** A website engineered to move buyers forward
 
@@ -51,7 +51,7 @@
 - Discovery
 - Content and structure
 - Design and engineering
-- Launch, measurement and optimisation
+- Launch, measurement and optimization
 
 ### Breadcrumb labels
 
@@ -60,7 +60,7 @@
 ### Internal-link targets and natural anchors
 
 - `/services/content-creation` — “a governed content system”
-- `/services/ai-automation` — “connect enquiries to operational workflows”
+- `/services/ai-automation` — “connect inquiries to operational workflows”
 - `/how-we-work` — “how discovery becomes a working website”
 - `/pricing` — “how Silverstone scopes website investment”
 - `/book` — “Book a discovery call”
@@ -89,7 +89,7 @@
 
 ### Related Insights links
 
-- Bespoke website vs template website
+- Custom website vs template website
 - Core Web Vitals for service businesses
 - How to write a website discovery brief
 - Webflow vs WordPress vs a custom stack
@@ -104,14 +104,14 @@
 
 ### Image-alt guidance
 
-- Primary approved asset: “Illustrative reception and enquiry-capture panel.”
+- Primary approved asset: “Illustrative reception and inquiry-capture panel.”
 - Do not describe conceptual UI as a client dashboard or live deployment.
 - Reserved browser-window showcases should use the real site name and purpose only after client permission.
 
 ### Featured-snippet opportunities
 
 - What is conversion-focused web design?
-- What is included in bespoke website development?
+- What is included in custom website development?
 - How is web design different from web development?
 
 ### Short-answer definition
@@ -120,7 +120,7 @@
 
 ### Terms that should not be repeated excessively
 
-web design agency UK, bespoke, premium, conversion-focused, London, stunning websites, high-converting website
+web design agency UK, custom, premium, conversion-focused, London, stunning websites, high-converting website
 
 ## 3. CoreSpin Loader copy
 
@@ -128,9 +128,9 @@ web design agency UK, bespoke, premium, conversion-focused, London, stunning web
 
 ## 4. Aether Flow route-entry hero
 
-- **Pill:** Bespoke digital experience
+- **Pill:** Custom digital experience
 - **Title:** Make the website earn its place
-- **Subtitle:** Strategy, copy, design and engineering shaped into one clear route from first visit to qualified enquiry.
+- **Subtitle:** Strategy, copy, design and engineering shaped into one clear route from first visit to qualified inquiry.
 - **Route-entry button:** Explore the commercial website system
 
 ## 5. Complete public page copy
@@ -139,7 +139,7 @@ web design agency UK, bespoke, premium, conversion-focused, London, stunning web
 
 A premium website should do more than look expensive. It should make a complex offer easier to understand, give the right buyer confidence, remove avoidable doubt and route the next action into a working commercial process.
 
-Silverstone designs and develops bespoke websites for UK businesses that need the message, interface and underlying system to work together. Positioning, conversion copy, information architecture, responsive engineering, accessibility, technical SEO, CMS structure, analytics and integrations are treated as one programme—not separate hand-offs between disconnected suppliers.
+Silverstone designs and develops custom websites for UK businesses that need the message, interface and underlying system to work together. Positioning, conversion copy, information architecture, responsive engineering, accessibility, technical SEO, CMS structure, analytics and integrations are treated as one program—not separate hand-offs between disconnected suppliers.
 
 The result is a site built around a business decision: what a qualified visitor needs to understand, believe and do next.
 
@@ -151,7 +151,7 @@ We use the first conversation to understand the offer, buyer, current website, c
 
 Most website problems are not purely visual. The page may be attractive but still leave the buyer asking basic questions. Services overlap. Navigation reflects the company chart rather than the customer journey. Forms disappear into an inbox. Mobile visitors receive a compressed version of a desktop idea. Analytics record traffic without explaining where intent breaks down.
 
-A redesign that begins with colours and components can preserve all of those problems beneath a new surface.
+A redesign that begins with colors and components can preserve all of those problems beneath a new surface.
 
 Silverstone begins further upstream. We clarify the audience, proposition, evidence, objections and decision path before the interface is treated as finished. That creates a stronger foundation for both human visitors and search systems: one clear page purpose, one primary action and enough substance to answer the questions that delay contact.
 
@@ -179,9 +179,9 @@ Typography, spacing, image use, motion and interface patterns are developed as a
 
 ### Responsive development and accessibility
 
-The site is engineered for real viewports, not resized screenshots. Content order, line length, touch targets, navigation behaviour and image choices are reviewed on small phones, tablets and large displays.
+The site is engineered for real viewports, not resized screenshots. Content order, line length, touch targets, navigation behavior and image choices are reviewed on small phones, tablets and large displays.
 
-Accessibility is treated as part of quality. Semantic structure, keyboard navigation, contrast, labels, focus states and reduced-motion behaviour are considered during implementation. The objective is a robust experience that remains understandable when the visitor’s device, connection or method of interaction changes.
+Accessibility is treated as part of quality. Semantic structure, keyboard navigation, contrast, labels, focus states and reduced-motion behavior are considered during implementation. The objective is a robust experience that remains understandable when the visitor’s device, connection or method of interaction changes.
 
 ### Technical SEO, CMS and integrations
 
@@ -193,7 +193,7 @@ Where a CMS is required, the editing model is designed around the content the te
 
 External case data in the approved benchmark register includes an **850% reported conversion increase**, a **70% reported lead increase** and a **1,324% reported increase in online sales** across published web-development cases.
 
-These are not Silverstone results, typical outcomes or forecasts. They illustrate why the website should be treated as a commercial system rather than a cosmetic asset. The size of any real improvement depends on the starting point, traffic quality, offer, market, evidence, implementation and what happens after an enquiry.
+These are not Silverstone results, typical outcomes or forecasts. They illustrate why the website should be treated as a commercial system rather than a cosmetic asset. The size of any real improvement depends on the starting point, traffic quality, offer, market, evidence, implementation and what happens after an inquiry.
 
 > Benchmark outcomes drawn from published case data across AI automation engagements and industry sources. Figures illustrate what well-scoped automation can achieve; they are not guarantees of individual results.
 
@@ -211,17 +211,17 @@ The sitemap, page ownership, navigation and content hierarchy are mapped before 
 
 The interface is developed through reusable patterns, responsive rules and production components. Copy, imagery and interaction are tested together. Technical SEO, accessibility, analytics readiness and integration hand-offs are built into the implementation rather than added during a final checklist.
 
-### 4. Launch and optimisation: observe real behaviour
+### 4. Launch and optimization: observe real behavior
 
-Launch is the beginning of evidence, not the end of the project. Search performance, form completion, navigation paths, booking behaviour and qualitative feedback reveal where the next improvement belongs. Optimisation should respond to observed friction, not design fashion.
+Launch is the beginning of evidence, not the end of the project. Search performance, form completion, navigation paths, booking behavior and qualitative feedback reveal where the next improvement belongs. Optimization should respond to observed friction, not design fashion.
 
 ## What makes the work different
 
 Silverstone can combine strategy, copy, visual design, engineering, AI and automation within one commercial frame. That matters when the website is only the visible edge of a larger process.
 
-A lead-generation page may need qualification logic behind the form. A booking experience may require reminders and CRM updates. A content programme may need templates, approvals and internal-link rules. A complex service may need a focused application rather than another static page.
+A lead-generation page may need qualification logic behind the form. A booking experience may require reminders and CRM updates. A content program may need templates, approvals and internal-link rules. A complex service may need a focused application rather than another static page.
 
-We do not force every requirement into the website. Sometimes the correct recommendation is a smaller first release, a better content system, a dedicated app surface or an automation workflow behind the existing interface. The build is shaped around the business problem, not around maximising the number of pages.
+We do not force every requirement into the website. Sometimes the correct recommendation is a smaller first release, a better content system, a dedicated app surface or an automation workflow behind the existing interface. The build is shaped around the business problem, not around maximizing the number of pages.
 
 ## Where the service fits—and where it does not
 
@@ -259,7 +259,7 @@ We will discuss the audience, offer, current friction, required content, integra
 
 **Book a discovery call**
 
-For a clearer view of delivery, review **how Silverstone works**. For source-led publishing and ongoing authority, explore **Content Creation**. When enquiries need to move into CRM, scheduling or follow-up automatically, see **AI Automation**.
+For a clearer view of delivery, review **how Silverstone works**. For source-led publishing and ongoing authority, explore **Content Creation**. When inquiries need to move into CRM, scheduling or follow-up automatically, see **AI Automation**.
 
 *The strongest website is not the one with the most effects. It is the one that makes the right next action feel obvious and credible.*
 
@@ -275,7 +275,7 @@ For a clearer view of delivery, review **how Silverstone works**. For source-led
 ### Outcome cards
 
 - **Clearer buyer understanding** — The right visitor can identify fit, value and next step without interpreting vague claims.
-- **More reliable enquiry handling** — Forms and bookings reach a defined system with ownership and context.
+- **More reliable inquiry handling** — Forms and bookings reach a defined system with ownership and context.
 - **A platform the team can extend** — Reusable patterns and governed content reduce dependence on ad hoc rebuilds.
 
 ### Benchmark panel
@@ -291,7 +291,7 @@ For a clearer view of delivery, review **how Silverstone works**. For source-led
 1. **Define the commercial decision** — Align audience, proposition, evidence and action.
 2. **Map the path** — Build page ownership, journeys and content hierarchy.
 3. **Design and engineer** — Create the responsive system, technical foundation and integrations.
-4. **Observe and improve** — Use real behaviour to prioritise the next change.
+4. **Observe and improve** — Use real behavior to prioritize the next change.
 
 ### Comparison block
 
@@ -334,7 +334,7 @@ For a clearer view of delivery, review **how Silverstone works**. For source-led
 
 **Two live website showcases are reserved for this page.**
 
-The final section will let visitors move beyond static portfolio imagery and explore two distinct production websites in a controlled browser-frame presentation. Each showcase will be added only when the live URL, client permission, loading behaviour and descriptive copy have been approved.
+The final section will let visitors move beyond static portfolio imagery and explore two distinct production websites in a controlled browser-frame presentation. Each showcase will be added only when the live URL, client permission, loading behavior and descriptive copy have been approved.
 
 ### Browser-window placeholder one
 
@@ -421,7 +421,7 @@ The H1, opening proposition, core service scope, benchmark context, process, saf
 - Keep the H1, value proposition and primary CTA within the first meaningful screen sequence.
 - Collapse capability cards after the first two but keep their text in the DOM.
 - Stack benchmark metrics vertically with the disclaimer immediately visible.
-- Reserved browser previews should use static labelled frames on narrow screens until embeds are performance-safe.
+- Reserved browser previews should use static labeled frames on narrow screens until embeds are performance-safe.
 
 ### Copy that must not be publicly rendered
 
@@ -447,9 +447,9 @@ Rows 0, 1 and 2 are high-end published web-development case figures. They are re
 
 ### Claude research ideas applied
 
-- Bespoke and premium language used where buyer search supports it.
+- Custom and premium language used where buyer search supports it.
 - Core Web Vitals, accessibility, CMS, technical SEO and conversion outcomes used as differentiators.
-- One canonical owner for conversion-focused web design and bespoke website development.
+- One canonical owner for conversion-focused web design and custom website development.
 - Single low-anxiety booking CTA and visible objection handling.
 
 ### Repository ideas retained
@@ -484,7 +484,7 @@ Rows 0, 1 and 2 are high-end published web-development case figures. They are re
 
 - Any live website URL, client name, logo, quote or result.
 - Fixed project duration, investment or post-launch support period.
-- Specific CMS/platform specialisation claims.
+- Specific CMS/platform specialization claims.
 - Accessibility conformance claim beyond describing the implementation approach.
 
 ### Prohibited unsupported claims

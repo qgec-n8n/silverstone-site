@@ -8,10 +8,13 @@
  * lazily-code-split pricing feature module there would drag the whole page's
  * copy into shared foundation code.
  *
- * Answers are deliberately plain prose with no rich-text markers — Google
- * requires the structured data to match the visible answer exactly, and the
- * accordion renders these same strings verbatim.
+ * Answers are plain prose apart from currency pairs (`[[£3,000|$3,900]]`,
+ * see `~/data/currency`). Google requires the structured data to match the
+ * visible answer, so the schema builder reduces each pair to the same
+ * "£3,000 / $3,900" text a crawler reads from the rendered accordion.
  */
+import { money, perCurrency } from "~/data/currency";
+
 export type PricingFaqItem = {
   question: string;
   answer: string;
@@ -19,9 +22,8 @@ export type PricingFaqItem = {
 
 export const PRICING_FAQ: readonly PricingFaqItem[] = [
   {
-    question: "How much does AI automation cost for a UK SME?",
-    answer:
-      "Most sensible projects start with a focused pilot from £3,000 plus VAT. Wider implementations typically sit between £10,000 and £25,000 plus VAT, depending on integrations, data quality, testing, training and support needs.",
+    question: "How much does AI automation cost for a small business?",
+    answer: `Most sensible projects start with a focused pilot from ${money("£3,000")} plus ${perCurrency("VAT", "applicable sales tax")}. Wider implementations typically sit between ${money("£10,000")} and ${money("£25,000")}, depending on integrations, data quality, testing, training and support needs. US and UK clients pay the same published bands; USD figures are fixed pairs reviewed quarterly.`,
   },
   {
     question: "What changes the quote?",
@@ -31,12 +33,12 @@ export const PRICING_FAQ: readonly PricingFaqItem[] = [
   {
     question: "Are there any long-term contracts?",
     answer:
-      "Standard support retainers run on monthly rolling agreements and can be cancelled with 30 days’ notice. Bespoke enterprise SLAs or fixed-term programmes are agreed separately in writing.",
+      "Standard support retainers run on monthly rolling agreements and can be canceled with 30 days’ notice. Custom enterprise SLAs or fixed-term programs are agreed separately in writing.",
   },
   {
     question: "What’s included in the monthly retainer?",
     answer:
-      "Monitoring, maintenance, priority support and regular optimisation reviews. Relevant plans can also include employee training, reporting, enhancement work and defined response times.",
+      "Monitoring, maintenance, priority support and regular optimization reviews. Relevant plans can also include employee training, reporting, enhancement work and defined response times.",
   },
   {
     question: "Do you offer payment plans?",
@@ -44,9 +46,14 @@ export const PRICING_FAQ: readonly PricingFaqItem[] = [
       "Yes. Larger projects can be divided into milestone-based payments spread across the implementation timeline.",
   },
   {
+    question: "Do you work with US businesses, and can you invoice in dollars?",
+    answer:
+      "Yes. Silverstone AI works with clients in the United States and the United Kingdom from its London studio, with US-based team members covering US business hours. Proposals are quoted and invoiced in GBP or USD, whichever is agreed at proposal, and Stripe card payments settle in either currency.",
+  },
+  {
     question: "What happens after the project is delivered?",
     answer:
-      "You receive the agreed documentation, training and handover materials. You can then manage the system internally, select ongoing Silverstone support or agree a separate enhancement roadmap.",
+      "You receive the agreed documentation, training and handover materials. You can then manage the system internally, select ongoing Silverstone AI support or agree a separate enhancement roadmap.",
   },
   {
     question: "Are there any hidden costs?",

@@ -75,7 +75,7 @@ function wrapSectorLabel(label: string): string[] {
 /*
  * Board geometry. Four rows of three fit the 600-unit board once the row pitch
  * drops to 112 (card height 96 + a 16 gutter): first row top 48, last row
- * bottom 480, clear of the 520 caption. Rows are centred rather than
+ * bottom 480, clear of the 520 caption. Rows are centered rather than
  * left-aligned so a short final row — ten sectors leaves one — sits in the
  * middle of the board instead of hanging off the left edge.
  */
@@ -197,7 +197,7 @@ function SectorSignalGrid() {
             fontSize="12.5"
             fontFamily="var(--ss-font-mono)"
           >
-            Ten sectors · one operating standard · human judgement kept
+            Ten sectors · one operating standard · human judgment kept
           </text>
         </m.svg>
       </div>
@@ -214,9 +214,9 @@ export function IndustriesHubExperience() {
         icon={Layers}
         title="Technology shaped around your *operating reality*"
         titleId="hub2-lead"
-        lead="Generic automation fails at the edges of a real trade. Silverstone builds sector-specific systems around your diary, CRM, reservation book or patient records — with the judgement calls your industry demands kept firmly human."
+        lead="Generic automation fails at the edges of a real trade. Silverstone AI builds sector-specific systems around your calendar, CRM, reservation book or patient records, for the way each sector runs in the US and the UK, with the judgment calls your industry demands kept firmly human."
         points={[
-          "Ten UK sectors, each with a purpose-built system",
+          "Ten sectors, each with a purpose-built system for US and UK operators",
           "Grounded in your source of truth, not a script",
           "Verified Silverstone AI results on every page",
         ]}
@@ -234,7 +234,7 @@ export function IndustriesHubExperience() {
             icon={Layers}
             heading="Ten industries, ten *purpose-built systems*"
             headingId="hub2-sectors"
-            lead="Each page opens a complete operating experience: the sector's costly problem, the journey that fixes it, verified results and the boundaries that keep judgement with your people."
+            lead="Each page opens a complete operating experience: the sector's costly problem, the journey that fixes it, verified results and the boundaries that keep judgment with your people."
           />
           <div className="ss-hub2-grid">
             {industryRoutes.map((route, index) => {
@@ -305,7 +305,7 @@ export function IndustriesHubExperience() {
           />
           <Reveal kind="cta" className="ss-hub2-disciplines__next">
             <p className="ss-srv2-lead">
-              <LinkedText text="Browse the [service architecture](/services), see [how Silverstone designs and delivers](/how-we-work), or review [how scope shapes pricing](/pricing)." />
+              <LinkedText text="Browse the [service architecture](/services), see [how Silverstone AI designs and delivers](/how-we-work), or review [how scope shapes pricing](/pricing)." />
             </p>
           </Reveal>
         </div>
@@ -316,7 +316,7 @@ export function IndustriesHubExperience() {
           <FinalCta
             heading="Start with the journey your sector *loses money on*"
             body={
-              <LinkedText text="Bring one real enquiry, booking, recall or quote that went wrong. A 30-minute discovery call maps the system around it — and tells you honestly whether automation belongs there." />
+              <LinkedText text="Bring one real inquiry, booking, recall or quote that went wrong. A 30-minute discovery call maps the system around it — and tells you honestly whether automation belongs there." />
             }
             reassurance="No technical preparation required. Scope begins with one journey. A no-fit answer is a perfectly good outcome."
             buttonLabel="Book a discovery call"

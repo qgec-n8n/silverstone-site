@@ -32,7 +32,7 @@ function resolveEyebrow(route: FutureRouteRecord): string {
     return "About";
   }
   if (route.path === "/") {
-    return "Digital systems for UK businesses";
+    return "Digital systems for US and UK businesses";
   }
   return route.routeGroup.replace("-", " ");
 }

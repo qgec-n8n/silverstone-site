@@ -11,9 +11,9 @@ const servicePages = [
     id: "route-service-web-design-development",
     path: "/services/web-design-development",
     label: "Web Design & Development",
-    title: "Bespoke Web Design & Development UK | Silverstone AI",
+    title: "Custom Web Design & Development | Silverstone AI",
     description:
-      "Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one system.",
+      "Custom web design and development for US and UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one system.",
     h1: "A website engineered to move buyers forward",
     primaryIntent: "web design and development for UK small businesses",
     contentId: "content-service-web-design-development",
@@ -33,9 +33,9 @@ const servicePages = [
     id: "route-service-app-development",
     path: "/services/app-development",
     label: "App Development",
-    title: "Bespoke App Development UK | Silverstone AI",
+    title: "Custom App Development | Silverstone AI",
     description:
-      "Bespoke app development for UK businesses: product discovery, UX architecture, data, integrations, AI features and release planning around one core workflow.",
+      "Custom app development for US and UK businesses: product discovery, UX architecture, data, integrations, AI features and release planning around one core workflow.",
     h1: "Build the smallest app that proves the value",
     primaryIntent: "custom app development for UK businesses",
     contentId: "content-service-app-development",
@@ -55,9 +55,9 @@ const servicePages = [
     id: "route-service-ai-voice-agents",
     path: "/services/ai-voice-agents",
     label: "AI Voice Agents",
-    title: "AI Voice Agent Development UK | Silverstone AI",
+    title: "AI Voice Agent Development | Silverstone AI",
     description:
-      "AI voice agent development for UK businesses: conversation design, telephony, approved actions, transcripts, monitoring and human escalation for real calls.",
+      "AI voice agent development for US and UK businesses: conversation design, telephony, approved actions, transcripts, monitoring and human escalation for real calls.",
     h1: "Voice agents built for real conversations — and real consequences",
     primaryIntent: "AI voice agents for UK businesses",
     contentId: "content-service-ai-voice-agents",
@@ -77,9 +77,9 @@ const servicePages = [
     id: "route-service-ai-receptionists",
     path: "/services/ai-receptionists",
     label: "AI Receptionists",
-    title: "AI Receptionist Services UK | Silverstone AI",
+    title: "AI Receptionist Services for Small Business | Silverstone AI",
     description:
-      "AI receptionist services for UK businesses: calls, web chat, booking, reminders, CRM routing and human handoff designed around approved operating rules.",
+      "AI receptionist services for US and UK businesses: calls, web chat, booking, reminders, CRM routing and human handoff designed around approved operating rules.",
     h1: "A front desk that answers, qualifies, and knows when to hand over",
     primaryIntent: "AI receptionist for UK small businesses",
     contentId: "content-service-ai-receptionists",
@@ -99,9 +99,9 @@ const servicePages = [
     id: "route-service-content-creation",
     path: "/services/content-creation",
     label: "Content Creation",
-    title: "AI Content Systems & Repurposing UK | Silverstone AI",
+    title: "AI Content Systems & Repurposing | Silverstone AI",
     description:
-      "AI-assisted content creation and repurposing for UK businesses: source capture, search intent, channel adaptation, approval gates and performance feedback.",
+      "AI-assisted content creation and repurposing for US and UK businesses: source capture, search intent, channel adaptation, approval gates and performance feedback.",
     h1: "Turn expertise into a governed content engine",
     primaryIntent: "content creation and repurposing for UK businesses",
     contentId: "content-service-content-creation",
@@ -121,9 +121,9 @@ const servicePages = [
     id: "route-service-ai-automation",
     path: "/services/ai-automation",
     label: "AI Automation",
-    title: "Workflow & AI Automation Agency UK | Silverstone AI",
+    title: "Workflow & AI Automation Agency | Silverstone AI",
     description:
-      "AI automation and workflow systems for UK businesses: triggers, data movement, AI-assisted decisions, approvals, exceptions, observability and secure actions.",
+      "AI automation and workflow systems for US and UK businesses: triggers, data movement, AI-assisted decisions, approvals, exceptions, observability and secure actions.",
     h1: "Engineer the work between your systems",
     primaryIntent: "AI automation agency UK and AI agent workflows",
     contentId: "content-service-ai-automation",
@@ -143,9 +143,9 @@ const servicePages = [
     id: "route-service-ai-consulting",
     path: "/services/ai-consulting",
     label: "AI & Automation Consulting",
-    title: "AI & Automation Consulting UK | Silverstone AI",
+    title: "AI & Automation Consulting | Silverstone AI",
     description:
-      "AI and automation consulting for UK businesses: opportunity audits, workflow prioritisation, data readiness, governance and build-versus-buy roadmaps.",
+      "AI and automation consulting for US and UK businesses: opportunity audits, workflow prioritization, data readiness, governance and build-versus-buy roadmaps.",
     h1: "Decide what to automate before you buy the tools",
     primaryIntent: "AI automation consulting UK",
     contentId: "content-service-ai-consulting",
@@ -176,7 +176,7 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
     contentDisposition: "create",
     title: "Industries We Support | Silverstone AI",
     description:
-      "Explore practical website, app and AI workflow ideas for ten UK business sectors, with industry-specific use cases and safeguards.",
+      "Sector-specific AI reception, booking, follow-up and back-office systems for ten industries across the US and UK, with the judgment calls kept human.",
     h1: "Technology shaped around your operating reality",
     headingPlan: {
       h1: "Technology shaped around your operating reality",
@@ -227,9 +227,9 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
     legacyDisposition: "new",
     implementationDisposition: "create",
     contentDisposition: "create",
-    title: "How Silverstone Works | Discovery to Delivery",
+    title: "How Silverstone AI Works | Discovery to Delivery",
     description:
-      "See how Silverstone defines, designs, builds and reviews websites, apps and AI workflows for UK businesses.",
+      "How Silverstone AI diagnoses, scopes, designs, builds and governs AI voice, reception, automation, website and app systems for US and UK businesses.",
     h1: "A clear route from problem to working system",
     headingPlan: {
       h1: "A clear route from problem to working system",
@@ -321,9 +321,9 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
     legacyDisposition: "new",
     implementationDisposition: "create",
     contentDisposition: "create",
-    title: "Aesthetic Clinic Automation UK | Silverstone AI",
+    title: "Aesthetic Clinic & Med Spa Automation | Silverstone AI",
     description:
-      "Seven-Day Booking Conversion Sprint for UK aesthetic clinics — £1,500, £750 to begin. Turn enquiries into deposit-secured consultations, with clinical judgement kept with your prescriber.",
+      "Seven-Day Booking Conversion Sprint for aesthetic clinics and med spas: £1,500 ($1,950), half to begin. Turn inquiries into deposit-secured consultations, with clinical judgment kept with your prescriber or provider.",
     h1: "Turn interest into booked, deposit-backed consultations",
     headingPlan: {
       h1: "Turn interest into booked, deposit-backed consultations",
@@ -379,9 +379,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     // "Home | Silverstone AI"; phrasing mirrors the approved description and
     // the social-card alt ("websites, apps and AI workflows for UK
     // businesses"). Metadata only — the visible H1 is unchanged.
-    title: "Silverstone AI | Websites, Apps & AI Workflows for UK Businesses",
+    title: "Silverstone AI | AI Automation Studio for US & UK Businesses",
     description:
-      "Web, app, content and AI workflow services for UK businesses, designed around clear problems, connected systems and human oversight.",
+      "Silverstone AI is a London-based AI systems studio building AI receptionists, voice agents, automation, websites and apps for small and mid-sized businesses in the US and UK.",
     h1: "Practical technology that helps small teams respond, deliver and grow",
     headingPlan: {
       h1: "Practical technology that helps small teams respond, deliver and grow",
@@ -404,9 +404,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
   },
   {
     id: "route-about",
-    title: "About Silverstone AI | Practical Digital Systems",
+    title: "About Silverstone AI | London Studio, US and UK Clients",
     description:
-      "Learn how Silverstone approaches websites, apps and AI workflows for UK businesses, with clear scope, human oversight and evidence-led delivery.",
+      "Silverstone AI is an AI systems studio in London with US-based team members, serving businesses in the US and UK with clear scope, human oversight and evidence-led delivery.",
     h1: "Practical systems, clearly explained",
     headingPlan: {
       h1: "Practical systems, clearly explained",
@@ -427,9 +427,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
   },
   {
     id: "route-services",
-    title: "Digital Services for UK Businesses | Silverstone AI",
+    title: "AI, Automation, Web & App Services | Silverstone AI",
     description:
-      "Explore Silverstone’s web, app, content and AI services for UK businesses, with clear scopes, human safeguards and practical next steps.",
+      "Silverstone AI’s seven services for US and UK businesses: AI receptionists, voice agents, automation, consulting, web design, app development and content systems.",
     h1: "Services built around real business workflows",
     headingPlan: {
       h1: "Services built around real business workflows",
@@ -445,12 +445,12 @@ export const approvedRouteOverrides: RouteOverride[] = [
   },
   {
     id: "route-pricing",
-    title: "AI Automation & Website Pricing UK | Silverstone AI",
+    title: "AI Automation & Website Pricing (GBP and USD) | Silverstone AI",
     description:
-      "Transparent UK pricing for AI automation, voice agents, AI receptionists and websites. Pilots from £3,000, websites from £1,500, support from £350/month.",
-    h1: "AI automation pricing for UK SMEs",
+      "Transparent pricing in GBP and USD for AI automation, voice agents, AI receptionists and websites. Pilots from £3,000 ($3,900), websites from £1,500 ($1,950).",
+    h1: "AI automation pricing for small and mid-sized businesses",
     headingPlan: {
-      h1: "AI automation pricing for UK SMEs",
+      h1: "AI automation pricing for small and mid-sized businesses",
       h1Source: "2026-07-23 transparent-pricing rebuild",
       supportingHeadingsStatus: "approved editorial overlay",
     },
@@ -472,7 +472,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-blog",
     title: "Practical AI and Digital Guides | Silverstone AI",
     description:
-      "Read practical UK guides on websites, AI reception, voice agents, automation, content and workflow design.",
+      "Practical guides on AI reception, voice agents, automation, websites, content and workflow design for US and UK business owners.",
     h1: "Practical guides for better digital decisions",
     headingPlan: {
       h1: "Practical guides for better digital decisions",
@@ -494,7 +494,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-book",
     title: "Book a Discovery Call | Silverstone AI",
     description:
-      "Book a 30-minute discovery call to discuss a website, app, content or AI workflow problem with Silverstone.",
+      "Book a 30-minute discovery call with Silverstone AI to discuss a website, app, content or AI workflow problem. US and UK time zones covered.",
     h1: "Book a discovery call",
     headingPlan: {
       h1: "Book a discovery call",
@@ -510,9 +510,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
   },
   {
     id: "route-contact",
-    title: "Contact Silverstone AI | London and UK",
+    title: "Contact Silverstone AI | London Studio, US and UK Hours",
     description:
-      "Contact Silverstone to discuss web design, app development, content, AI reception, voice agents or workflow automation.",
+      "Contact Silverstone AI about web design, app development, content, AI reception, voice agents or workflow automation. Replies across US and UK business hours.",
     h1: "Contact Silverstone",
     headingPlan: {
       h1: "Contact Silverstone",
@@ -530,12 +530,12 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-estate-agents",
     path: "/industry/estate-agents",
     canonical: "https://silverstone-ai.com/industry/estate-agents",
-    title: "AI Automation for Estate Agents UK | Silverstone AI",
+    title: "AI Automation for Estate Agents and Real Estate Teams | Silverstone AI",
     description:
-      "Connect portal, phone and website enquiries to qualification, viewing requests, CRM updates and human branch follow-up with UK estate agent automation.",
-    h1: "Turn property enquiries into owned branch conversations",
+      "Connect portal, phone and website inquiries to qualification, showing requests, CRM updates and human follow-up. Built for UK estate agents and US real estate brokerages.",
+    h1: "Turn property inquiries into conversations your agents own",
     headingPlan: {
-      h1: "Turn property enquiries into owned branch conversations",
+      h1: "Turn property inquiries into conversations your agents own",
       h1Source:
         "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
@@ -561,9 +561,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-hospitality",
     path: "/industry/hospitality",
     canonical: "https://silverstone-ai.com/industry/hospitality",
-    title: "Hospitality Automation UK for Reservations and Guests",
+    title: "Hospitality Automation for Reservations and Guests | Silverstone AI",
     description:
-      "Coordinate reservations, guest enquiries, confirmations, groups and staff handoffs with hospitality automation designed around service and safety.",
+      "Coordinate reservations, guest inquiries, confirmations, groups and staff handoffs with hospitality automation designed around service and safety, for US and UK venues.",
     h1: "Never miss a guest. Never feel automated.",
     headingPlan: {
       h1: "Never miss a guest. Never feel automated.",
@@ -592,9 +592,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-salons-barbers",
     path: "/industry/salons-barbers",
     canonical: "https://silverstone-ai.com/industry/salons-barbers",
-    title: "Salon Automation UK for Bookings and Rebooking | Silverstone",
+    title: "Salon & Barbershop Automation for Bookings and Rebooking | Silverstone AI",
     description:
-      "Connect calls, messages, booking rules, deposits, waitlists and rebooking with salon automation designed around your diary and human suitability calls.",
+      "Connect calls, messages, booking rules, deposits, waitlists and rebooking with salon and barbershop automation built around your calendar and human suitability calls.",
     h1: "Protect sellable chair time without adding front-desk pressure",
     headingPlan: {
       h1: "Protect sellable chair time without adding front-desk pressure",
@@ -623,9 +623,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-trades",
     path: "/industry/trades",
     canonical: "https://silverstone-ai.com/industry/trades",
-    title: "AI Automation for Trades and Home Services UK",
+    title: "AI Automation for Trades, Contractors and Home Services | Silverstone AI",
     description:
-      "Capture missed calls, qualify jobs, check service areas, coordinate callbacks, follow up quotes and connect office-to-field workflows with trades automation.",
+      "Capture missed calls, qualify jobs, check service areas, coordinate callbacks, follow up quotes and connect office-to-field workflows for trades and contractors in the US and UK.",
     h1: "Win the job before the callback ever happens",
     headingPlan: {
       h1: "Win the job before the callback ever happens",
@@ -654,9 +654,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-ecommerce",
     path: "/industry/ecommerce",
     canonical: "https://silverstone-ai.com/industry/ecommerce",
-    title: "eCommerce Automation Agency UK | Silverstone AI",
+    title: "Ecommerce Automation for Shopify and DTC Brands | Silverstone AI",
     description:
-      "Connect product questions, order status, returns, support and retention workflows with bespoke ecommerce automation built around authoritative data.",
+      "Connect product questions, order status, returns, support and retention workflows with custom ecommerce automation built around authoritative order data.",
     h1: "Scale the experience without scaling the chaos",
     headingPlan: {
       h1: "Scale the experience without scaling the chaos",
@@ -685,9 +685,10 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-physios-chiropractors",
     path: "/industry/physios-chiropractors",
     canonical: "https://silverstone-ai.com/industry/physios-chiropractors",
-    title: "Physio and Chiropractic Practice Automation UK",
+    title:
+      "Physical Therapy, Physio and Chiropractic Practice Automation | Silverstone AI",
     description:
-      "Improve new-patient enquiries, booking, reminders, intake and rebooking with non-clinical automation designed for physio and chiropractic practices.",
+      "Improve new-patient inquiries, booking, reminders, intake and rebooking with non-clinical automation designed for physical therapy, physio and chiropractic practices.",
     h1: "Easier access. Care stays entirely yours.",
     headingPlan: {
       h1: "Easier access. Care stays entirely yours.",
@@ -717,9 +718,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-dentists",
     path: "/industry/dentists",
     canonical: "https://silverstone-ai.com/industry/dentists",
-    title: "Dental Practice Automation UK | Silverstone AI",
+    title: "Dental Practice Automation | Silverstone AI",
     description:
-      "Improve missed-call recovery, new-patient booking, recalls and reminders with dental automation that keeps clinical judgement with the practice.",
+      "Improve missed-call recovery, new-patient booking, recalls and reminders with dental automation that keeps clinical judgment with the practice, in the US and UK.",
     h1: "Recover every patient. Automate none of the care.",
     headingPlan: {
       h1: "Recover every patient. Automate none of the care.",
@@ -748,12 +749,13 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-gyms-fitness-studios",
     path: "/industry/gyms-fitness-studios",
     canonical: "https://silverstone-ai.com/industry/gyms-fitness-studios",
-    title: "Gym Automation UK for Leads, Trials and Retention",
+    title:
+      "Gym & Fitness Studio Automation for Leads, Trials and Retention | Silverstone AI",
     description:
-      "Connect membership enquiries, trial bookings, class questions, onboarding, follow-up and reactivation with gym automation built around staff and member systems.",
-    h1: "Every enquiry, tracked to membership",
+      "Connect membership inquiries, trial bookings, class questions, onboarding, follow-up and reactivation with gym automation built around your staff and member systems.",
+    h1: "Every inquiry, tracked to membership",
     headingPlan: {
-      h1: "Every enquiry, tracked to membership",
+      h1: "Every inquiry, tracked to membership",
       h1Source:
         "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
@@ -779,9 +781,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-services-fitness-coaches",
     path: "/industry/fitness-coaches",
     canonical: "https://silverstone-ai.com/industry/fitness-coaches",
-    title: "Automation for Online Fitness Coaches UK | Silverstone",
+    title: "Automation for Online Fitness Coaches | Silverstone AI",
     description:
-      "Move website and social leads into qualified consultations, onboarding and follow-up with fitness-coach automation that preserves personal coaching judgement.",
+      "Move website and social leads into qualified consultations, onboarding and follow-up with fitness-coach automation that preserves personal coaching judgment.",
     h1: "More consultations. Zero lost DMs.",
     headingPlan: {
       h1: "More consultations. Zero lost DMs.",

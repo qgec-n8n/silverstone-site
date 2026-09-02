@@ -50,8 +50,8 @@ export const SYSTEM_LAYERS: readonly SystemLayer[] = [
     accent: "cyan",
   },
   {
-    id: "optimisation",
-    title: "Optimisation",
+    id: "optimization",
+    title: "Optimization",
     summary: "Review the signal, tune the system and improve the operating rhythm.",
     icon: "TrendingUp",
     accent: "platinum",
@@ -69,7 +69,7 @@ export type OutcomePattern = {
 export const OUTCOME_PATTERNS: readonly OutcomePattern[] = [
   {
     id: "missed-enquiries",
-    problem: "Missed enquiries",
+    problem: "Missed inquiries",
     outcome: "Respond while intent is still fresh",
     detail:
       "Voice, form and message workflows can capture the request, ask the next question and route it to the right place.",
@@ -80,7 +80,7 @@ export const OUTCOME_PATTERNS: readonly OutcomePattern[] = [
     problem: "Admin drag",
     outcome: "Move repetitive work out of the team queue",
     detail:
-      "Document handling, follow-up, reminders and internal updates can be standardised without losing human review.",
+      "Document handling, follow-up, reminders and internal updates can be standardized without losing human review.",
     icon: "Workflow",
   },
   {
@@ -119,7 +119,7 @@ export const INDUSTRY_SIGNALS: readonly IndustrySignal[] = [
   {
     id: "estate-agents",
     name: "Estate agents",
-    need: "Property enquiries, viewing requests and follow-up that need fast routing.",
+    need: "Property inquiries, viewing requests and follow-up that need fast routing.",
     href: "/industry/estate-agents",
   },
   {
@@ -137,13 +137,13 @@ export const INDUSTRY_SIGNALS: readonly IndustrySignal[] = [
   {
     id: "fitness",
     name: "Gyms and studios",
-    need: "Membership enquiries, class interest and reminders across busy front desks.",
+    need: "Membership inquiries, class interest and reminders across busy front desks.",
     href: "/industry/gyms-fitness-studios",
   },
   {
     id: "clinics",
     name: "Clinics and practices",
-    need: "Patient and aesthetic consultation enquiries, appointment intent and admin handoffs that need care.",
+    need: "Patient and aesthetic consultation inquiries, appointment intent and admin handoffs that need care.",
     href: "/industry/physios-chiropractors",
   },
   {

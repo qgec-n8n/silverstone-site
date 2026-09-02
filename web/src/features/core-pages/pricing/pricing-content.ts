@@ -14,6 +14,8 @@
  */
 import type { CSSProperties } from "react";
 
+import { money, perCurrency } from "~/data/currency";
+
 /**
  * Inline style object that also carries the `--pri-*` custom properties the
  * pricing stylesheet reads for stagger indices and meter geometry.
@@ -47,7 +49,7 @@ export const IMPLEMENTATION_TIERS: readonly PricingTier[] = [
     id: "simple-automation",
     title: "Simple Automation",
     description: "One focused workflow, automated end to end.",
-    price: "£2,000–£10,000",
+    price: money("£2,000–£10,000"),
     priceNote: "One-time implementation",
     includedLabel: "What’s included",
     included: [
@@ -70,14 +72,14 @@ export const IMPLEMENTATION_TIERS: readonly PricingTier[] = [
     featured: true,
     title: "Multi-System Solution",
     description: "Coordinated automation across workflows and touchpoints.",
-    price: "£10,000–£50,000",
+    price: money("£10,000–£50,000"),
     priceNote: "Implementation + support",
     includedLabel: "What’s included",
     included: [
       "Full process audit",
       "Multiple workflow automations",
       "AI agent development",
-      "Training programme",
+      "Training program",
       "Multi-system integration",
       "Performance monitoring",
     ],
@@ -91,15 +93,15 @@ export const IMPLEMENTATION_TIERS: readonly PricingTier[] = [
   {
     id: "enterprise",
     title: "Enterprise Solution",
-    description: "Governed, higher-risk AI for larger organisations.",
-    price: "£50,000+",
+    description: "Governed, higher-risk AI for larger organizations.",
+    price: money("£50,000+"),
     priceNote: "Custom-scoped implementation",
     includedLabel: "What’s included",
     included: [
       "Strategic AI roadmap",
-      "Bespoke AI development",
+      "Custom AI development",
       "Dedicated project management",
-      "Ongoing optimisation",
+      "Ongoing optimization",
       "Enterprise-grade security",
       "Custom SLA agreements",
     ],
@@ -122,14 +124,17 @@ export const BAND_LADDER: readonly {
   label: string;
   emphasis: boolean;
 }[] = [
-  { point: "£2,000", label: "Narrow standalone automation", emphasis: false },
-  { point: "£3,000", label: "Most structured pilots", emphasis: false },
-  { point: "£10,000–£25,000", label: "Most SME implementations", emphasis: true },
-  { point: "£50,000+", label: "Multi-system & enterprise", emphasis: false },
+  { point: money("£2,000"), label: "Narrow standalone automation", emphasis: false },
+  { point: money("£3,000"), label: "Most structured pilots", emphasis: false },
+  {
+    point: money("£10,000–£25,000"),
+    label: "Most SME implementations",
+    emphasis: true,
+  },
+  { point: money("£50,000+"), label: "Multi-system & enterprise", emphasis: false },
 ];
 
-export const PAGE_PRICING_DISCLOSURE =
-  "All prices exclude VAT unless stated. Final quotations depend on confirmed scope. Third-party software, API, telephony, hosting and usage costs are identified separately before work begins.";
+export const PAGE_PRICING_DISCLOSURE = `All prices exclude ${perCurrency("VAT", "applicable sales tax")} unless stated. USD figures are fixed pairs reviewed quarterly, not live conversions; proposals are quoted and invoiced in the currency agreed. Final quotations depend on confirmed scope. Third-party software, API, telephony, hosting and usage costs are identified separately before work begins.`;
 
 /* ---- Implementation breakdown ------------------------------------------ */
 
@@ -169,7 +174,7 @@ export const PAYMENT_MILESTONES = [
 
 export const BREAKDOWN_INSTRUMENTS = [
   {
-    value: "£150",
+    value: money("£150"),
     label: "Per hour",
     note: "Senior AI engineer · hourly work only",
   },
@@ -185,8 +190,7 @@ export const BREAKDOWN_INSTRUMENTS = [
   },
 ] as const;
 
-export const HOURLY_RATE_NOTE =
-  "Most projects are scoped and quoted as a defined project fee. The £150 per hour Senior AI engineer rate applies only where specialist work is explicitly priced hourly.";
+export const HOURLY_RATE_NOTE = `Most projects are scoped and quoted as a defined project fee. The ${money("£150")} per hour senior AI engineer rate applies only where specialist work is explicitly priced hourly.`;
 
 /* ---- Support retainers -------------------------------------------------- */
 
@@ -205,14 +209,14 @@ export const SUPPORT_TIERS: readonly SupportTier[] = [
   {
     id: "essential",
     title: "Essential Support",
-    price: "From £350",
+    price: `From ${money("£350")}`,
     priceNote: "per month",
     included: [
-      "Business-hours support, 9:00–17:00 GMT",
+      "Business-hours support across UK and US time zones",
       "Monthly performance reviews",
       "Basic system monitoring",
       "Email and ticket support",
-      "Quarterly optimisation recommendations",
+      "Quarterly optimization recommendations",
       "Software updates and maintenance",
     ],
     responses: [
@@ -226,11 +230,11 @@ export const SUPPORT_TIERS: readonly SupportTier[] = [
     badge: "Recommended",
     featured: true,
     title: "Premium Support",
-    price: "From £1,250",
+    price: `From ${money("£1,250")}`,
     priceNote: "per month",
     included: [
       "24/7 priority support",
-      "Weekly optimisation reviews",
+      "Weekly optimization reviews",
       "Advanced monitoring and alerting",
       "Dedicated account manager",
       "Monthly strategy sessions",
@@ -246,7 +250,7 @@ export const SUPPORT_TIERS: readonly SupportTier[] = [
   {
     id: "enterprise-support",
     title: "Enterprise Support",
-    price: "£10,000+",
+    price: money("£10,000+"),
     priceNote: "per month",
     included: [
       "24/7 dedicated support team",
@@ -267,8 +271,8 @@ export const SUPPORT_TIERS: readonly SupportTier[] = [
 
 export const SUPPORT_PRINCIPLES = [
   {
-    title: "Continuous optimisation",
-    body: "Regular performance tuning and enhancement designed to maximise ROI.",
+    title: "Continuous optimization",
+    body: "Regular performance tuning and enhancement designed to maximize ROI.",
   },
   {
     title: "Predictable costs",
@@ -290,7 +294,7 @@ export const SUPPORT_PRINCIPLES = [
 export const SUPPORT_COMMITMENTS = [
   { value: "Agreed", label: "Response times set in your SLA" },
   { value: "Monitored", label: "Alerting across every live workflow" },
-  { value: "Reviewed", label: "Scheduled optimisation cadence" },
+  { value: "Reviewed", label: "Scheduled optimization cadence" },
   { value: "Reported", label: "Written performance summaries" },
 ] as const;
 
@@ -300,6 +304,9 @@ export const SUPPORT_COMMITMENTS = [
  * Illustrative, and internally consistent: £15,000 + £4,200 = £19,200;
  * 75% of a £50,000 baseline = £37,500; £37,500 − £19,200 = £18,300; and
  * £19,200 ÷ (£37,500 ÷ 12) = 6.1 months, so break-even falls inside month 7.
+ * The USD side reconciles the same way at the fixed pairs in ~/data/currency:
+ * $19,500 + $5,400 (12 × $450) = $24,900; 75% of $65,000 = $48,750;
+ * $48,750 − $24,900 = $23,850; 24,900 ÷ 4,062.5 = 6.1 months.
  */
 export const ROI_MODEL: readonly {
   title: string;
@@ -311,30 +318,30 @@ export const ROI_MODEL: readonly {
   {
     emphasis: false,
     title: "Manual cost today",
-    figure: "£50,000",
+    figure: money("£50,000"),
     unit: "per year",
     body: "5 people · ~20 hrs/week on manual work.",
   },
   {
     emphasis: false,
     title: "First-year investment",
-    figure: "£19,200",
+    figure: money("£19,200"),
     unit: "one-off + support",
-    body: "£15,000 build plus £4,200 Essential Support.",
+    body: `${money("£15,000")} build plus ${money("£4,200")} Essential Support.`,
   },
   {
     emphasis: false,
     title: "Time value recovered",
-    figure: "£37,500",
+    figure: money("£37,500"),
     unit: "per year",
     body: "75% of the manual workload removed.",
   },
   {
     emphasis: true,
     title: "Net ROI — year one",
-    figure: "£18,300",
+    figure: money("£18,300"),
     unit: "net · year one",
-    body: "£37,500 value − £19,200 cost = £18,300 net. Break-even ~ month seven.",
+    body: `${money("£37,500")} value − ${money("£19,200")} cost = ${money("£18,300")} net. Break-even ~ month seven.`,
   },
 ];
 
@@ -388,43 +395,43 @@ export const WEBSITE_TIERS: readonly WebsiteTier[] = [
     title: "Foundation",
     band: "1–10 pages",
     bandRange: [1, 10],
-    price: "£1,500",
+    price: money("£1,500"),
     priceNote: "One-off build",
     description:
       "A lean brochure website designed around one clear proposition and focused conversion journey.",
-    payment: "£750 before MVP and £750 after MVP review, before the final build.",
-    maintenance: { name: "Essential Maintenance", price: "£65/month" },
+    payment: `${money("£750 before MVP and £750 after MVP review")}, before the final build.`,
+    maintenance: { name: "Essential Maintenance", price: money("£65/month") },
   },
   {
     id: "professional",
     title: "Professional",
     band: "11–25 pages",
     bandRange: [11, 25],
-    price: "£2,750",
+    price: money("£2,750"),
     priceNote: "One-off build",
     description:
       "A premium SME website with a broader sitemap, multiple service or audience pages and stronger conversion depth.",
     payment: "50% before MVP and 50% before the final build.",
-    maintenance: { name: "Professional Maintenance", price: "£125/month" },
+    maintenance: { name: "Professional Maintenance", price: money("£125/month") },
   },
   {
     id: "growth",
     title: "Growth",
     band: "26–50 pages",
     bandRange: [26, 50],
-    price: "£4,750",
+    price: money("£4,750"),
     priceNote: "One-off build",
     description:
       "A content-rich business website with resource pages, SEO-led structure and a larger service or content library.",
     payment: "50% before MVP and 50% before the final build.",
-    maintenance: { name: "Growth Maintenance", price: "£225/month" },
+    maintenance: { name: "Growth Maintenance", price: money("£225/month") },
   },
   {
     id: "enterprise-web",
     title: "Enterprise",
     band: "51–100+ pages",
     bandRange: [51, 100],
-    price: "From £7,500",
+    price: `From ${money("£7,500")}`,
     priceNote: "Phased build",
     description:
       "A complex corporate website with a broad page library, stakeholder review and phased delivery.",
@@ -436,17 +443,17 @@ export const WEBSITE_TIERS: readonly WebsiteTier[] = [
 export const MAINTENANCE_PLANS = [
   {
     name: "Essential Maintenance",
-    price: "£65/month",
+    price: money("£65/month"),
     body: "Monitoring, basic content changes, link checks and minor updates.",
   },
   {
     name: "Professional Maintenance",
-    price: "£125/month",
+    price: money("£125/month"),
     body: "Priority support, regular updates, minor copy or page edits and monthly health checks.",
   },
   {
     name: "Growth Maintenance",
-    price: "£225/month",
+    price: money("£225/month"),
     body: "A higher update allowance, content support, reporting and priority issue response.",
   },
   {
@@ -459,17 +466,17 @@ export const MAINTENANCE_PLANS = [
 export const HOSTING_OPTIONS = [
   {
     title: "Managed hosting — small site",
-    price: "£15/month",
+    price: money("£15/month"),
     body: "Fully managed on Netlify, under 15 pages. Billed from go-live.",
   },
   {
     title: "Managed hosting — larger site",
-    price: "£25/month",
+    price: money("£25/month"),
     body: "Fully managed on Netlify, over 15 pages. Billed from go-live.",
   },
   {
     title: "Self-hosting handover",
-    price: "£350 one-off",
+    price: money("£350 one-off"),
     body: "Handover call, DNS and deploy guidance, plus two capped support hours.",
   },
 ] as const;
@@ -477,13 +484,12 @@ export const HOSTING_OPTIONS = [
 export const HOSTING_NOTE =
   "Hosting is optional. Final project files are always supplied after full payment.";
 
-export const WEBSITE_DISCLOSURE =
-  "Build fees exclude VAT, third-party services and separately quoted functionality. Milestone payments may be made by Stripe Payment Link or the business-account details shown on the invoice.";
+export const WEBSITE_DISCLOSURE = `Build fees exclude ${perCurrency("VAT", "applicable sales tax")}, third-party services and separately quoted functionality. Milestone payments may be made by Stripe Payment Link (card, in GBP or USD) or by bank transfer or wire to the account details shown on the invoice.`;
 
 export const MAINTENANCE_NOTE =
   "Maintenance is optional and separate from the one-off build price. Each plan below is a recommended pairing, never an automatic charge.";
 
-/* ---- Bespoke engagements ------------------------------------------------ */
+/* ---- Custom-scoped engagements ------------------------------------------ */
 
 export type BespokeEngagement = {
   id: string;
@@ -523,7 +529,7 @@ export const BESPOKE_ENGAGEMENTS: readonly BespokeEngagement[] = [
     scope: [
       "Focused review",
       "Full workflow audit",
-      "Roadmap and prioritisation",
+      "Roadmap and prioritization",
       "Hourly, daily or fixed fee",
     ],
     ctaLabel: "Discuss consulting",
@@ -550,14 +556,19 @@ export const VERIFIED_METRICS = [
 /* ---- Secondary-hero pricing model --------------------------------------- */
 
 export const PRICING_MODEL_ROWS = [
-  { title: "Focused pilot", prefix: "From", value: "£3,000", suffix: "" },
+  { title: "Focused pilot", prefix: "From", value: money("£3,000"), suffix: "" },
   {
     title: "Full implementation",
     prefix: "",
-    value: "£10,000–£25,000",
+    value: money("£10,000–£25,000"),
     suffix: "typical",
   },
-  { title: "Support retainer", prefix: "From", value: "£350", suffix: "per month" },
+  {
+    title: "Support retainer",
+    prefix: "From",
+    value: money("£350"),
+    suffix: "per month",
+  },
 ] as const;
 
 export const PRICING_MODEL_BEST_STEP = {

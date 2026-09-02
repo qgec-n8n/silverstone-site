@@ -1,8 +1,8 @@
 /**
- * Concise, conversion-focused service copy (British English).
+ * Concise, conversion-focused service copy (US English, for readers in the US and the UK).
  *
  * This is the rewritten public voice for services-v2: shorter, scannable and
- * persuasive, organised around a clear commercial argument rather than the long
+ * persuasive, organized around a clear commercial argument rather than the long
  * approved narrative. Benchmark *values* are still sourced from the verified
  * metrics data so exact figures/units are never altered here — this module owns
  * prose only.
@@ -39,10 +39,10 @@ const SILVERSTONE_CLARIFICATION =
   "Results vary by scope, data quality, implementation and operating environment.";
 
 export const webDesignCopy: ServiceCopy = {
-  eyebrow: "Bespoke web design & development",
+  eyebrow: "Custom web design & development",
   h1: "A website engineered to *move buyers forward*",
   heroSub:
-    "Strategy, copy, design and engineering built as one commercial system — a bespoke site that turns qualified visitors into booked calls, not just compliments.",
+    "Strategy, copy, design and engineering built as one commercial system — a custom site that turns qualified visitors into booked calls, not just compliments.",
   heroPoints: [
     "Scoped before we build — no guesswork",
     "From brief to launch in weeks, not quarters",
@@ -53,21 +53,21 @@ export const webDesignCopy: ServiceCopy = {
     body: "Most sites look the part and still lose the sale. The positioning is vague, the navigation follows your org chart, forms vanish into an inbox, and mobile gets a squeezed desktop layout. Every unanswered question is a buyer who quietly leaves — a cost that never shows up on the invoice.",
     painPoints: [
       "Visitors can’t tell what you do — or why it should be you",
-      "Enquiries stall because proof and trust arrive too late",
+      "Inquiries stall because proof and trust arrive too late",
       "Leads land in an inbox with no owner and no follow-up",
     ],
   },
   outcome: {
     heading: "What changes when the system *works*",
-    body: "A site that makes a complex offer obvious, earns trust early, and routes *every qualified enquiry straight into your calendar, CRM and follow-up*. Fewer dead ends, more booked calls, and a platform your team can extend without another rebuild.",
+    body: "A site that makes a complex offer obvious, earns trust early, and routes *every qualified inquiry straight into your calendar, CRM and follow-up*. Fewer dead ends, more booked calls, and a platform your team can extend without another rebuild.",
   },
   capabilities: {
     heading: "What you *receive*",
-    lead: "A complete commercial website programme — not a set of disconnected hand-offs.",
+    lead: "A complete commercial website program — not a set of disconnected hand-offs.",
   },
   differentiator: {
     heading: "One studio, not *five suppliers*",
-    body: "Silverstone combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is *the visible edge of a working commercial system* — designed around the decision a qualified buyer needs to make.",
+    body: "Silverstone AI combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is *the visible edge of a working commercial system* — designed around the decision a qualified buyer needs to make.",
   },
   comparison: {
     before: {
@@ -75,7 +75,7 @@ export const webDesignCopy: ServiceCopy = {
       body: "Starts with appearance; treats copy, SEO and integration as later problems.",
     },
     after: {
-      title: "Silverstone website system",
+      title: "Silverstone AI website system",
       body: "Starts with the buyer’s decision; builds copy, design, engineering and operations together.",
     },
   },
@@ -109,6 +109,10 @@ export const webDesignCopy: ServiceCopy = {
         a: "No one can promise a ranking. We build a fast, people-first, technically sound foundation with a deliberate keyword-to-page structure; performance also depends on competition, authority and demand.",
       },
       {
+        q: "Do you build websites for US businesses as well as UK ones?",
+        a: "Yes. The studio is in London with US-based team members, and the site is built for the market it sells into: US or UK spelling, currency, time zones, address formats and the tools your team already runs, whether that is HubSpot, Calendly, Stripe or Shopify.",
+      },
+      {
         q: "Who maintains the site after launch?",
         a: "Routine content stays easy to edit while higher-risk changes stay controlled. Exact support and hand-over terms are set out in the proposal.",
       },
@@ -122,12 +126,12 @@ export const webDesignCopy: ServiceCopy = {
     heading: "Turn your next website decision into a *commercial* one",
     body: "Bring a URL, a rough brief, or just the problem. We’ll map the offer, the evidence, the pages and the integrations worth building first.",
     urgency:
-      "Every month a weak site stays live, it quietly costs you enquiries. The first conversation is exploratory and commits you to nothing.",
+      "Every month a weak site stays live, it quietly costs you inquiries. The first conversation is exploratory and commits you to nothing.",
   },
 };
 
 export const appDevelopmentCopy: ServiceCopy = {
-  eyebrow: "Bespoke app development",
+  eyebrow: "Custom app development",
   h1: "Build the smallest app that *proves the value*",
   heroSub:
     "A focused application built around one real user, one valuable task, and the system states needed to deliver it reliably — not a feature backlog dressed up as a strategy.",
@@ -204,7 +208,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
   eyebrow: "AI voice agents",
   h1: "Voice agents built for real conversations — and *real consequences*",
   heroSub:
-    "Custom voice workflows that listen, respond, act and escalate within rules your business can inspect — not a demo voice bolted onto a talking FAQ.",
+    "An AI voice agent is a custom call workflow that listens, responds, acts and escalates within rules your business can inspect, not a demo voice bolted onto a talking FAQ. Built for US and UK phone lines, monitored in your time zone.",
   heroPoints: [
     "Answers, books and escalates within rules you set",
     "Under 10 seconds response time",
@@ -246,7 +250,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
     items: [
       {
         q: "Can the agent use our existing phone number?",
-        a: "Usually, yes — depending on your carrier and telephony setup. We confirm porting, forwarding and routing during technical discovery.",
+        a: "Usually, yes, for US and UK numbers alike. Porting, forwarding and routing depend on your carrier, and we confirm them during technical discovery before anything is promised.",
       },
       {
         q: "Can it book appointments during the call?",
@@ -258,7 +262,11 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
       },
       {
         q: "Will it replace the team?",
-        a: "No — it handles bounded, repeatable call work so your team spends their time on the calls that actually need a person.",
+        a: "No. It handles bounded, repeatable call work so your team spends their time on the calls that actually need a person.",
+      },
+      {
+        q: "Does it cover US and UK hours?",
+        a: "Yes. The agent answers around the clock on either side of the Atlantic, and escalation windows follow your team's time zone. Silverstone AI has US-based team members, so a US deployment is monitored during US business hours, not from a London desk at night.",
       },
       {
         q: "Will it understand every caller?",
@@ -282,17 +290,17 @@ export const aiReceptionistsCopy: ServiceCopy = {
   eyebrow: "AI receptionists",
   h1: "A front desk that answers, qualifies, and knows *when to hand over*",
   heroSub:
-    "One governed reception layer for calls, chat and intake — answering what it should, and routing the rest to a person with full context.",
+    "An AI receptionist is one governed reception layer for calls, chat and intake: it answers what it should, books what it is allowed to book, and routes the rest to a person with full context. Built for front desks in the US and the UK.",
   heroPoints: [
     "Every channel converges into one governed layer",
     "+66% increase in phone availability",
-    "Routine enquiries handled; the rest routed to a person",
+    "Routine inquiries handled; the rest routed to a person",
   ],
   problem: {
     heading: "Your front desk is a system of *decisions*, not a script",
-    body: "Callers, chat messages and web enquiries all arrive with different urgency, different detail, and different next steps. Treat them all the same way and routine requests clog your team while genuine emergencies wait in a queue.",
+    body: "Callers, chat messages and web inquiries all arrive with different urgency, different detail, and different next steps. Treat them all the same way and routine requests clog your team while genuine emergencies wait in a queue.",
     painPoints: [
-      "Out-of-hours enquiries go unanswered until morning",
+      "Out-of-hours inquiries go unanswered until morning",
       "Simple requests still need a human to type them up",
       "There's no single record of what was asked, and answered, where",
     ],
@@ -307,7 +315,7 @@ export const aiReceptionistsCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "*Answering* versus *operating*",
-    body: "A generic answering bot recites information. An operating front desk *qualifies the enquiry, checks availability, updates your systems*, and knows precisely when a decision needs a human — every time, not most of the time.",
+    body: "A generic answering bot recites information. An operating front desk *qualifies the inquiry, checks availability, updates your systems*, and knows precisely when a decision needs a human — every time, not most of the time.",
   },
   proof: {
     heading: "*Proof*, not promises",
@@ -328,11 +336,11 @@ export const aiReceptionistsCopy: ServiceCopy = {
       },
       {
         q: "Can it book directly into our existing calendar?",
-        a: "Often, yes. We test availability rules, confirmations and duplicate-prevention before direct booking goes live.",
+        a: "Often, yes, whether that is Google Calendar, Outlook, Calendly, Acuity, Vagaro, Mindbody, Jane or your practice-management system. We test availability rules, confirmations and duplicate prevention before direct booking goes live.",
       },
       {
         q: "How is personal data handled?",
-        a: "Data minimisation, retention and access are reviewed for your exact implementation — never treated as a blanket compliance guarantee.",
+        a: "Data minimization, retention and access are reviewed for your exact implementation — never treated as a blanket compliance guarantee.",
       },
       {
         q: "Can customers always reach a person?",
@@ -342,6 +350,10 @@ export const aiReceptionistsCopy: ServiceCopy = {
         q: "Will it understand every caller?",
         a: "No system understands every accent or phrasing perfectly. It confirms important details back and hands over the moment confidence drops.",
       },
+      {
+        q: "How much does an AI receptionist cost?",
+        a: "A focused pilot starts from [[£3,000|$3,900]], with most full front-desk implementations landing between [[£10,000|$12,500]] and [[£25,000|$32,500]], plus a support retainer from [[£350|$450]] per month. Telephony and usage costs are itemized separately. See the pricing page for every band in GBP and USD.",
+      },
     ],
   },
   midCta: {
@@ -349,10 +361,10 @@ export const aiReceptionistsCopy: ServiceCopy = {
     body: "Use a discovery call to map what should be automated, what should stay human, and where the two need to meet.",
   },
   finalCta: {
-    heading: "Make every routine enquiry reach a *defined destination*",
+    heading: "Make every routine inquiry reach a *defined destination*",
     body: "Bring your call notes, FAQs, or just the booking process as it stands today. We'll identify the smallest valuable front-desk route to start with.",
     urgency:
-      "Every enquiry that goes unanswered tonight is a booking your competitor takes tomorrow. The first conversation is exploratory and commits you to nothing.",
+      "Every inquiry that goes unanswered tonight is a booking your competitor takes tomorrow. The first conversation is exploratory and commits you to nothing.",
   },
 };
 
@@ -364,13 +376,13 @@ export const contentCreationCopy: ServiceCopy = {
   heroPoints: [
     "Every asset traces back to an approved source",
     "500+ campaigns run through the same operating system",
-    "Human judgement stays in every approval gate",
+    "Human judgment stays in every approval gate",
   ],
   problem: {
     heading: "More content isn't the same as more *authority*",
-    body: "Volume is the easy problem. The harder one is producing material that stays credible, distinct, and recognisably yours — instead of generic output that quietly erodes the trust you're trying to build.",
+    body: "Volume is the easy problem. The harder one is producing material that stays credible, distinct, and recognizably yours — instead of generic output that quietly erodes the trust you're trying to build.",
     painPoints: [
-      "Publishing more, but rankings and enquiries stay flat",
+      "Publishing more, but rankings and inquiries stay flat",
       "Nobody owns the source material or the approval step",
       "Content reads like everyone else's AI-generated filler",
     ],
@@ -384,12 +396,12 @@ export const contentCreationCopy: ServiceCopy = {
     lead: "Source capture, editorial structure, channel adaptation and approval workflow — built as one repeatable cycle.",
   },
   differentiator: {
-    heading: "Atomise the idea without *diluting it*",
+    heading: "Atomize the idea without *diluting it*",
     body: "AI accelerates extraction, structuring and drafting. It doesn't replace the point of view, the accountable source, or the human sign-off that keeps every asset distinct instead of generic.",
   },
   proof: {
     heading: "*Proof*, not promises",
-    lead: "Representative figures observed across Silverstone AI content programmes.",
+    lead: "Representative figures observed across Silverstone AI content programs.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
@@ -402,7 +414,7 @@ export const contentCreationCopy: ServiceCopy = {
     items: [
       {
         q: "Will AI write all the content?",
-        a: "AI supports extraction, structuring and drafting from your approved sources — human judgement decides what actually publishes.",
+        a: "AI supports extraction, structuring and drafting from your approved sources — human judgment decides what actually publishes.",
       },
       {
         q: "How do you keep it original?",
@@ -434,7 +446,7 @@ export const aiAutomationCopy: ServiceCopy = {
   eyebrow: "AI automation",
   h1: "Engineer the work *between your systems*",
   heroSub:
-    "Custom workflows connecting triggers, data, rules, AI judgement and approvals into an operating layer your team can actually inspect.",
+    "AI automation is a custom workflow connecting triggers, data, rules, AI judgment and approvals into an operating layer your team can actually inspect. Built on the tools US and UK businesses already run.",
   heroPoints: [
     "Built around consequence, not blanket autonomy",
     "98% extraction accuracy on structured documents",
@@ -446,20 +458,20 @@ export const aiAutomationCopy: ServiceCopy = {
     painPoints: [
       "The same manual handoff, repeated every single day",
       "No one can say why a workflow failed last Tuesday",
-      "Every new automation feels like a bespoke, unrepeatable project",
+      "Every new automation feels like a custom, unrepeatable project",
     ],
   },
   outcome: {
     heading: "What an *engineered operating layer* changes",
-    body: "*Triggers, data and deterministic rules do the repeatable work.* Bounded AI judgement handles what rules can't. Exceptions route to a person — and everything is logged, so your team can see exactly what happened and why.",
+    body: "*Triggers, data and deterministic rules do the repeatable work.* Bounded AI judgment handles what rules can't. Exceptions route to a person — and everything is logged, so your team can see exactly what happened and why.",
   },
   capabilities: {
     heading: "What you *receive*",
-    lead: "Triggers, data pipelines, deterministic logic, bounded AI judgement and human approval gates — engineered as one inspectable system.",
+    lead: "Triggers, data pipelines, deterministic logic, bounded AI judgment and human approval gates — engineered as one inspectable system.",
   },
   differentiator: {
-    heading: "AI where *judgement* helps",
-    body: "We don't default to AI for everything. Deterministic logic runs wherever the rule is already known — AI earns its place only *where judgement genuinely adds value*, and every exception has a defined human owner.",
+    heading: "AI where *judgment* helps",
+    body: "We don't default to AI for everything. Deterministic logic runs wherever the rule is already known — AI earns its place only *where judgment genuinely adds value*, and every exception has a defined human owner.",
   },
   proof: {
     heading: "*Proof*, not promises",
@@ -480,7 +492,7 @@ export const aiAutomationCopy: ServiceCopy = {
       },
       {
         q: "Can you connect to any tool we use?",
-        a: "Wherever it offers a suitable API, webhook or approved interface. We verify access and rate limits during discovery, before anything is promised.",
+        a: "Wherever it offers a suitable API, webhook or approved interface: HubSpot, Salesforce, Pipedrive, QuickBooks, Xero, ServiceTitan, Jobber, Shopify, Stripe and the rest. We verify access and rate limits during discovery, before anything is promised.",
       },
       {
         q: "Will it run without any human involvement?",
@@ -508,7 +520,7 @@ export const aiConsultingCopy: ServiceCopy = {
   eyebrow: "AI & automation consulting",
   h1: "Decide what to automate *before you buy the tools*",
   heroSub:
-    "A senior decision layer for prioritising use cases, testing readiness, choosing build-versus-buy, and defining the controls delivery will need.",
+    "AI and automation consulting is a senior decision layer for prioritizing use cases, testing readiness, choosing build-versus-buy and defining the controls delivery will need, for leadership teams in the US and the UK.",
   heroPoints: [
     "An independent view before you commit budget",
     "60% average reduction in manual operations overhead",
@@ -525,7 +537,7 @@ export const aiConsultingCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What an *independent decision layer* changes",
-    body: "A *prioritised, evidence-based view of where automation actually pays off* — with build-versus-buy decided, risk and governance defined, and a sequenced roadmap your team can execute with confidence.",
+    body: "A *prioritized, evidence-based view of where automation actually pays off* — with build-versus-buy decided, risk and governance defined, and a sequenced roadmap your team can execute with confidence.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -550,15 +562,15 @@ export const aiConsultingCopy: ServiceCopy = {
     items: [
       {
         q: "What do we actually get from an opportunity audit?",
-        a: "Typically a workflow inventory, a prioritisation matrix, readiness findings, a build-versus-buy view, and a sequenced roadmap — scoped to what you need.",
+        a: "Typically a workflow inventory, a prioritization matrix, readiness findings, a build-versus-buy view, and a sequenced roadmap — scoped to what you need.",
       },
       {
-        q: "Is Silverstone tied to a particular vendor?",
-        a: "No — the recommendation follows the operating requirement, and any commercial relationship is disclosed upfront.",
+        q: "Is Silverstone AI tied to a particular vendor?",
+        a: "No. The recommendation follows the operating requirement, and any commercial relationship is disclosed upfront.",
       },
       {
         q: "Can this support our internal technical team?",
-        a: "Yes — we provide prioritisation, architecture challenge and governance while your team retains implementation ownership.",
+        a: "Yes. We provide prioritization, architecture challenge and governance while your team retains implementation ownership, in the US or the UK.",
       },
       {
         q: "What happens after the roadmap is delivered?",
@@ -574,7 +586,7 @@ export const aiConsultingCopy: ServiceCopy = {
     heading: "Leave with a clearer route — even when the answer is *no*",
     body: "Bring a list of ideas, a vendor proposal, or just the pressure to act. We'll help you find the decision route that actually holds up.",
     urgency:
-      "Every quarter without a prioritised roadmap is another quarter of scattered, overlapping bets. The first conversation is exploratory and commits you to nothing.",
+      "Every quarter without a prioritized roadmap is another quarter of scattered, overlapping bets. The first conversation is exploratory and commits you to nothing.",
   },
 };
 

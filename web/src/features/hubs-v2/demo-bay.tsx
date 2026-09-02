@@ -12,7 +12,7 @@
  * load would replay the destination's route gate and drop the visitor at the
  * top of the page rather than on the demo.
  *
- * Each pod carries its own bespoke signature animation (waveform, thread,
+ * Each pod carries its own custom signature animation (waveform, thread,
  * pulse rings, build frame) so the four destinations read as four distinct
  * instruments rather than one repeated card. All of it is CSS keyframes on
  * transform/opacity — compositor-friendly, no per-frame JS — and every loop
@@ -50,7 +50,7 @@ type BayArt = {
 /**
  * A deliberate left-to-right spectrum sweep (aqua → azure → ultraviolet →
  * orchid) rather than each destination route's own accent pair: the seven
- * discipline cards below already skim as a spectrum of route colours, and
+ * discipline cards below already skim as a spectrum of route colors, and
  * repeating that trick here would flatten the two blocks into one. The bay
  * reads instead as a single machined object with four differently-lit bays.
  */

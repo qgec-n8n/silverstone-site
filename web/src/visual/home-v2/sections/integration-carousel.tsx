@@ -11,7 +11,7 @@ type IntegrationCarouselProps = {
   marqueeEnabled: boolean;
 };
 
-/** Three counter-scrolling rows of coloured, icon-only integration marks. */
+/** Three counter-scrolling rows of colored, icon-only integration marks. */
 export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps) {
   return (
     <SectionShell
@@ -26,7 +26,7 @@ export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps
           .
         </>
       }
-      lead="No rip-and-replace assumption. Silverstone starts by mapping your existing stack, then confirms the safest connection points for voice, messaging, calendars, CRM, commerce, automation and data."
+      lead="No rip-and-replace assumption. Silverstone AI starts by mapping your existing stack, then confirms the safest connection points for voice, messaging, calendars, CRM, commerce, automation and data."
       align="center"
       containerSize="wide"
     >

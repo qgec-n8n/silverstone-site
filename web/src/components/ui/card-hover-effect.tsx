@@ -52,7 +52,7 @@ function isSamePosition(
 /**
  * Aceternity's Card Hover Effect adapted for arbitrary, semantic card content.
  * One grid-level listener moves a shared surface by stable item ID and mirrors
- * the pointer behaviour for keyboard focus without introducing nested links.
+ * the pointer behavior for keyboard focus without introducing nested links.
  */
 export function CardHoverEffect({
   className,

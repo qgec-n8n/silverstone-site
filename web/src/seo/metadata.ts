@@ -23,7 +23,7 @@ export type MetadataDescriptor =
  */
 const SOCIAL_CARD_URL = "https://silverstone-ai.com/brand/social-card.png";
 const SOCIAL_CARD_ALT =
-  "Silverstone AI — websites, apps and AI workflows for UK businesses";
+  "Silverstone AI — AI receptionists, voice agents, automation, websites and apps for US and UK businesses";
 
 function getMetadataEnvironment(): { isStaging: boolean; robotsMeta: string } {
   try {
@@ -89,7 +89,10 @@ export function buildRouteMetadata(route: FutureRouteRecord): MetadataDescriptor
     { tagName: "link", rel: "canonical", href: route.canonical },
     { property: "og:type", content: socialType },
     { property: "og:site_name", content: "Silverstone AI" },
-    { property: "og:locale", content: "en_GB" },
+    // US English is the site's spelling; the alternate tells social and search
+    // crawlers the same page serves British readers rather than a UK-only one.
+    { property: "og:locale", content: "en_US" },
+    { property: "og:locale:alternate", content: "en_GB" },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:url", content: route.canonical },

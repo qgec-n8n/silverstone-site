@@ -48,7 +48,7 @@ export function FrontDeskConvergence({
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: calls, chat and web intake converge into a single triage point, which routes each enquiry to an automated resolution or a human handoff, with a routing-mix panel below showing each channel's relative share."
+      aria-label="Diagram: calls, chat and web intake converge into a single triage point, which routes each inquiry to an automated resolution or a human handoff, with a routing-mix panel below showing each channel's relative share."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">

@@ -2,7 +2,7 @@
  * Web Design & Development signature — "Conversion Architecture / Living
  * Interface". A desktop interface assembles from planes, a phone frame shows the
  * responsive reflow, a conversion path (Discover → Experience → Convert →
- * Optimise) carries a travelling signal, and a performance-signal row of three
+ * Optimize) carries a traveling signal, and a performance-signal row of three
  * animated rings closes out the panel. No magnifying glass; unrelated to the
  * removed ConversionPathLens prototype. Reduced-motion renders the completed
  * state with no looping animation.
@@ -20,7 +20,7 @@ const stages = [
   { x: 96, label: "Discover" },
   { x: 236, label: "Experience" },
   { x: 380, label: "Convert" },
-  { x: 516, label: "Optimise" },
+  { x: 516, label: "Optimize" },
 ];
 
 const RING_RADIUS = 34;
@@ -65,7 +65,7 @@ export function ConversionArchitecture({
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: a website interface assembles across desktop and mobile, feeding a conversion path from discover to experience to convert to optimise, closing with speed, SEO and accessibility signal rings."
+      aria-label="Diagram: a website interface assembles across desktop and mobile, feeding a conversion path from discover to experience to convert to optimize, closing with speed, SEO and accessibility signal rings."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">

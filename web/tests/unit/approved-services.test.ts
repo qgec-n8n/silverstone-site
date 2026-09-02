@@ -52,7 +52,7 @@ describe("approved service content pack", () => {
     expect(web.routeEntry.loaderText).toBe(
       "Aligning message, movement and measurement",
     );
-    expect(web.routeEntry.pill).toBe("Bespoke digital experience");
+    expect(web.routeEntry.pill).toBe("Custom digital experience");
     expect(web.routeEntry.title).toBe("Make the website earn its place");
     expect(web.routeEntry.buttonLabel).toBe("Explore the commercial website system");
 

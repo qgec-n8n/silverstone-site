@@ -12,32 +12,72 @@ export const dentistsCopy: IndustryCopy = {
     pill: "Patient access, clinically bounded",
     title: "Protect reception capacity. Preserve clinical responsibility.",
     subtitle:
-      "A governed layer for calls, booking, recall, forms and follow-up—designed to stop wherever patient safety or professional judgement begins.",
+      "A governed layer for calls, booking, recall, forms and follow-up—designed to stop wherever patient safety or professional judgment begins.",
     buttonLabel: "Explore the patient-admin journey",
   },
   seo: {
-    title: "Dental Practice Automation UK | Silverstone AI",
+    title: "Dental Practice Automation | Silverstone AI",
     description:
-      "Improve missed-call recovery, new-patient booking, recalls, reminders and administrative follow-up with dental automation that keeps clinical judgement with the practice.",
-    h1: "Recover patient demand without automating clinical judgement",
+      "Improve missed-call recovery, new-patient booking, recalls, reminders and administrative follow-up with dental automation that keeps clinical judgment with the practice.",
+    h1: "Recover patient demand without automating clinical judgment",
   },
   eyebrow: "Dental practice automation",
   h1: "Recover every patient. *Automate none of the care.*",
   heroSub:
-    "A missed call could be a new patient or a stalled recall. Silverstone handles the admin **instantly** — and always knows when to stop.",
+    "A missed call could be a new patient or a stalled recall. Silverstone AI handles the admin **instantly**, and always knows when to stop. Built for dental practices and dental offices in the US and UK.",
   heroPoints: [
     "Every missed call recovered, same day",
     "Recall and rebooking with a named owner",
-    "Clinical judgement never leaves the practice",
+    "Clinical judgment never leaves the practice",
   ],
-  trustTokens: ["Non-clinical", "Data-minimised", "Escalation-led", "Practice-owned"],
+  trustTokens: ["Non-clinical", "Data-minimized", "Escalation-led", "Practice-owned"],
+  markets: {
+    eyebrow: "Built for your market",
+    heading: "Same missed recall. *Your* practice system.",
+    lead: "A dental office in Denver and a practice in Bristol lose the same recall the same way: no visible owner. The admin workflow is identical; the practice-management system and the plan names change.",
+    lanes: [
+      {
+        market: "US",
+        label: "United States",
+        operators:
+          "General and specialty dental practices and DSO groups, from a single office to multiple locations.",
+        tooling: [
+          "Dentrix, Eaglesoft, Open Dental or Curve",
+          "Your patient portal and digital intake forms",
+          "Insurance verification and recall lists",
+        ],
+        vocabulary:
+          "New-patient exams, hygiene recall, unscheduled treatment, insurance, PPO and fee-for-service.",
+        keepsHuman: "Diagnosis, treatment planning, consent and anything clinical.",
+      },
+      {
+        market: "UK",
+        label: "United Kingdom",
+        operators:
+          "Private and mixed NHS practices, from a single surgery to a multi-site group.",
+        tooling: [
+          "Dentally, SOE Exact or Systems for Dentists",
+          "Your online booking and intake forms",
+          "Recall lists and plan memberships",
+        ],
+        vocabulary:
+          "Check-ups, hygiene recalls, treatment plans, private and NHS patients, plan members.",
+        keepsHuman: "Diagnosis, treatment planning, consent and anything clinical.",
+      },
+    ],
+    shared: [
+      "Every missed call is recovered the same day and sorted into new patient, change or recall.",
+      "The practice-management system is the only source of truth for the schedule and the record.",
+      "Any clinical language stops the automation and reaches a person with a concise handoff.",
+    ],
+  },
   problem: {
     heading: "Reception pressure is *lost revenue*",
-    body: "The goal is simple: **make the practice easier to reach, cut repetitive admin, and never touch clinical judgement.** Each one is a non-negotiable design requirement — never a trade-off.",
+    body: "The goal is simple: **make the practice easier to reach, cut repetitive admin, and never touch clinical judgment.** Each one is a non-negotiable design requirement, never a trade-off.",
     cards: [
       {
         title: "Desk busy, demand still arriving",
-        body: "Every enquiry captured with an owned next step — even at peak.",
+        body: "Every inquiry captured with an owned next step, even at peak.",
       },
       {
         title: "Recall lists, no visible owner",
@@ -54,16 +94,16 @@ export const dentistsCopy: IndustryCopy = {
     ],
   },
   journey: {
-    heading: "Admin handled. *Clinical judgement untouched.*",
-    lead: "The first-contact layer sorts routine demand from clinical need — **never assesses it.**",
+    heading: "Admin handled. *Clinical judgment untouched.*",
+    lead: "The first-contact layer sorts routine demand from clinical need and **never assesses it.**",
     stages: [
       {
         title: "Contact received",
-        body: "Every call, web or message captured instantly — nobody waits for the desk.",
+        body: "Every call, web or message captured instantly; nobody waits for the desk.",
       },
       {
         title: "Intent identified",
-        body: "New patient, appointment change or recall response — sorted by approved rules.",
+        body: "New patient, appointment change or recall response, sorted by approved rules.",
       },
       {
         title: "Record checked",
@@ -71,7 +111,7 @@ export const dentistsCopy: IndustryCopy = {
       },
       {
         title: "Next step offered",
-        body: "The right booking route or information — no repeated details, ever.",
+        body: "The right booking route or information, with no repeated details, ever.",
       },
       {
         title: "Clinical stop",
@@ -85,7 +125,7 @@ export const dentistsCopy: IndustryCopy = {
     items: [
       {
         title: "New-patient intake",
-        body: "Contact, location and consent — with full visibility on who owns the next step.",
+        body: "Contact, location and consent, with full visibility on who owns the next step.",
       },
       {
         title: "Recall & rebooking",
@@ -97,21 +137,21 @@ export const dentistsCopy: IndustryCopy = {
       },
       {
         title: "Treatment follow-up",
-        body: "Reminders and routing — no pressure, no outcome claims, ever.",
+        body: "Reminders and routing, with no pressure and no outcome claims, ever.",
       },
     ],
   },
   services: {
     heading: "The system around your clinical team",
-    lead: "Built only where the practice needs it — never a fixed stack.",
+    lead: "Built only where the practice needs it, never a fixed stack.",
     paragraphs: [
       "An [AI receptionist](/services/ai-receptionists) handles routine demand, while [call handling](/services/ai-voice-agents) captures every missed call.",
-      "[Recall and admin workflows](/services/ai-automation) run reminders and ownership; [custom applications](/services/app-development) suit multi-site groups, with [governance consulting](/services/ai-consulting) setting the boundaries first.",
+      "[Recall and admin workflows](/services/ai-automation) run reminders and ownership in Dentrix, Open Dental, Dentally or whichever system holds the record; [custom applications](/services/app-development) suit multi-site groups and DSOs, with [governance consulting](/services/ai-consulting) setting the boundaries first.",
     ],
   },
   proof: {
     heading: "Verified results, *four ways*",
-    lead: "Verified Silverstone AI delivery results — access, recovery and capacity, never clinical outcomes.",
+    lead: "Verified Silverstone AI delivery results: access, recovery and capacity, never clinical outcomes.",
     metrics: [
       {
         id: "benchmark-087",
@@ -138,10 +178,10 @@ export const dentistsCopy: IndustryCopy = {
   },
   boundary: {
     heading: "Privacy and safety, *built in*",
-    body: "Health data demands more, not less. **Automation captures, confirms and routes. People decide everything else.** Every clinical stop condition is defined before launch — never assumed.",
+    body: "Health data demands more, not less. **Automation captures, confirms and routes. People decide everything else.** Every clinical stop condition is defined before launch, never assumed.",
     keeps: [
       "Urgency, diagnosis, treatment",
-      "Consent — always a human process",
+      "Consent, always a human process",
       "Medication & medical history",
       "Complaints and discretion",
       "Any response to clinical language",
@@ -152,7 +192,10 @@ export const dentistsCopy: IndustryCopy = {
     lead: "One bounded journey, proven safe before anything expands.",
     steps: [
       { title: "Select the problem", body: "Missed calls, intake, recall or forms." },
-      { title: "Map systems", body: "Phone, diary, forms and messaging — confirmed." },
+      {
+        title: "Map systems",
+        body: "Phone, schedule, forms and messaging, confirmed.",
+      },
       { title: "Define data", body: "Minimum necessary, access and retention." },
       {
         title: "Set clinical stops",
@@ -173,8 +216,8 @@ export const dentistsCopy: IndustryCopy = {
     lead: "A strong fit has demand worth recovering and owners ready to define the boundary.",
     right: [
       "Repeated admin demand at reception",
-      "A named diary or PMS owner",
-      "Escalation rules — written or ready to write",
+      "A named schedule or PMS owner",
+      "Escalation rules, written or ready to write",
       "Leadership open to reviewing privacy",
     ],
     caution:
@@ -185,23 +228,23 @@ export const dentistsCopy: IndustryCopy = {
     items: [
       {
         q: "Can it handle dental emergencies?",
-        a: "It never assesses or diagnoses. It recognises approved stop conditions and routes to your urgent-care policy — instantly.",
+        a: "It never assesses or diagnoses. It recognizes approved stop conditions and routes to your urgent-care policy, instantly.",
       },
       {
         q: "Can it book new patients directly?",
-        a: "For defined appointment types where your diary is authoritative, yes. Otherwise it creates a confirmed request for staff sign-off.",
+        a: "For defined appointment types where your schedule is authoritative, yes. Otherwise it creates a confirmed request for staff sign-off.",
       },
       {
         q: "Does digital intake replace consent?",
-        a: "No. Forms support administration only — **consent stays a professional process, always.**",
+        a: "No. Forms support administration only; **consent stays a professional process, always.**",
       },
       {
         q: "How is patient data protected?",
-        a: "Minimised, access-restricted, retained on your terms, with logs and named owners throughout.",
+        a: "Minimized, access-restricted, retained on your terms, with logs and named owners throughout.",
       },
       {
-        q: "Will it work with our PMS?",
-        a: "Depends on available integration methods — we verify what can be read and written before scoping anything.",
+        q: "Will it work with our practice-management system?",
+        a: "It depends on the integration methods available. Dentrix, Eaglesoft, Open Dental, Curve, Dentally and SOE Exact each expose different read and write paths, and we verify what can be read and written before scoping anything.",
       },
     ],
   },
@@ -212,7 +255,7 @@ export const dentistsCopy: IndustryCopy = {
   },
   finalCta: {
     heading: "Review one patient-admin journey",
-    body: "One call examines the boundary around care — whether a governed workflow can improve access without ever crossing into clinical territory. See [how we deliver](/how-we-work) and [how scope is set](/pricing).",
+    body: "One call examines the boundary around care, and whether a governed workflow can improve access without ever crossing into clinical territory. See [how we deliver](/how-we-work) and [how scope is set](/pricing).",
     reassurance: "Non-clinical scope · clear escalation · no obligation to proceed.",
     buttonLabel: "Book a discovery call",
   },

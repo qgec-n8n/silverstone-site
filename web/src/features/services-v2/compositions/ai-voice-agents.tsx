@@ -1,5 +1,5 @@
 /**
- * AI Voice Agents — bespoke composition.
+ * AI Voice Agents — custom composition.
  * Visual concept: Conversation Signal Intelligence.
  */
 import type { CSSProperties } from "react";
@@ -141,7 +141,7 @@ export function AiVoiceAgentsComposition({
         <div className="ss-srv2__container">
           <div className="ss-srv2-split">
             <SectionHead
-              eyebrow="Why Silverstone"
+              eyebrow="Why Silverstone AI"
               icon={Sparkles}
               heading={copy.differentiator.heading}
               headingId="srv2-different"

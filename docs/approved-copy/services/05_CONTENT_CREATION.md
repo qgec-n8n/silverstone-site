@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** AI Content Systems & Repurposing UK | Silverstone AI
+- **Preferred SEO title:** AI Content Systems & Repurposing | Silverstone AI
 - **Alternative SEO title 1:** Content Automation Agency UK | Governed Content Operations
 - **Alternative SEO title 2:** Content Repurposing Systems for UK Businesses | Silverstone
 - **Meta description:** Build a governed content operating system from approved expertise: pillar content, channel-specific repurposing, SEO intent, internal links, human review and measured improvement.
 - **Open Graph title:** Turn expertise into a governed content engine
-- **Open Graph description:** Silverstone designs source-led content operations that turn approved knowledge into useful website, email and social assets without sacrificing brand control or human review.
+- **Open Graph description:** Silverstone AI designs source-led content operations that turn approved knowledge into useful website, email and social assets without sacrificing brand control or human review.
 - **Canonical route:** `/services/content-creation`
 - **H1:** Turn expertise into a governed content engine
 
@@ -141,7 +141,7 @@ AI content generation, content automation agency UK, content at scale, thought l
 
 # Turn expertise into a governed content engine
 
-The easiest content problem to solve is volume. The harder problem is creating material that remains useful, credible, distinct and recognisably yours.
+The easiest content problem to solve is volume. The harder problem is creating material that remains useful, credible, distinct and recognizably yours.
 
 Silverstone designs content operating systems for UK businesses with valuable expertise but an inconsistent route from source material to publication. We combine content strategy, knowledge capture, search intent, editorial structure, channel-specific adaptation, approval workflows, internal linking and performance feedback.
 
@@ -205,7 +205,7 @@ Internal links are selected for the reader’s next question, not inserted as an
 
 ### Performance feedback
 
-Metrics should answer whether the content is helping the intended audience and commercial route. Depending on the asset, that may include qualified search visibility, engaged reading, internal-link use, newsletter response, enquiry quality, assisted conversion or repeated customer questions.
+Metrics should answer whether the content is helping the intended audience and commercial route. Depending on the asset, that may include qualified search visibility, engaged reading, internal-link use, newsletter response, inquiry quality, assisted conversion or repeated customer questions.
 
 Vanity reach alone does not tell the team what to create next. Performance evidence is combined with sales conversations, search demand and operational insight to refine the editorial plan.
 
@@ -275,7 +275,7 @@ It is a poor fit when the objective is to flood search results, copy competitors
 
 ### Will AI write all the content?
 
-AI may support extraction, structuring, drafting, adaptation and quality checks. It should work from approved sources and remain subject to human judgement. The service is not positioned as unlimited autonomous content generation.
+AI may support extraction, structuring, drafting, adaptation and quality checks. It should work from approved sources and remain subject to human judgment. The service is not positioned as unlimited autonomous content generation.
 
 ### How do you keep the content original?
 
@@ -335,8 +335,8 @@ Review **How We Work** for the operating route, **Pricing** for scoping, or shar
 
 ### Comparison block
 
-- **AI content factory:** optimises for output volume and generic consistency.
-- **Silverstone content system:** optimises for source quality, distinct intent, governance and commercial usefulness.
+- **AI content factory:** optimizes for output volume and generic consistency.
+- **Silverstone content system:** optimizes for source quality, distinct intent, governance and commercial usefulness.
 
 ### Trust strip
 
@@ -409,7 +409,7 @@ Use the selected benchmark panel after the service capabilities and before the i
 ### Image placement
 
 - Use `general-services-2a.png` / `general-services-2a-mobile.png` in the modular-content or channel-adaptation section.
-- Keep the Editorial Loom clearly labelled as a synthetic planning view.
+- Keep the Editorial Loom clearly labeled as a synthetic planning view.
 - Never pair conceptual campaign visuals with metrics in a way that implies the visual produced those results.
 
 ### Demo placement

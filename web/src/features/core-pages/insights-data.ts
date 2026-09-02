@@ -12,7 +12,7 @@
 import { BLOG_CARD_ARTICLES } from "~/data/blog-posts";
 
 /**
- * `topic` joins the original service/industry split so the editorial programme
+ * `topic` joins the original service/industry split so the editorial program
  * has somewhere to file the ~380 planned titles that are about a subject rather
  * than about something Silverstone sells. "What Is Agentic AI?" is not a service
  * page and not a vertical; filing it under AI Automation with everything else
@@ -133,7 +133,7 @@ export const INSIGHT_CATEGORIES: InsightCategory[] = [
     group: "industry",
     href: "/industry/fitness-coaches",
   },
-  // Editorial topic pills. Ordered by how a reader browses the programme:
+  // Editorial topic pills. Ordered by how a reader browses the program:
   // what it is, what it runs on, what it costs, how it is governed, what
   // breaks, what is changing. `href` is the article's categoryTarget internal
   // link, so each points at the live page that best serves that reader.

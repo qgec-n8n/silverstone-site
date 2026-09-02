@@ -1,7 +1,7 @@
 /**
- * Skin & Aesthetic Clinics — bespoke composition.
+ * Skin & Aesthetic Clinics — custom composition.
  *
- * Visual concept: Consultation Ladder — an enquiry climbing from any channel
+ * Visual concept: Consultation Ladder — an inquiry climbing from any channel
  * to a deposit-secured consultation, through a compliance filter and under a
  * prescriber gate.
  *
@@ -17,7 +17,7 @@
  * ladder descends by commitment rather than repeating one ask: the offer
  * banner follows the trust strip and operating-principle pills, immediately
  * before the live build; the full sprint section follows the verified figures,
- * the softer "bring one week of enquiries" ask sits *after* the implementation
+ * the softer "bring one week of inquiries" ask sits *after* the implementation
  * detail for readers not ready to commit today, and the final CTA closes on
  * the sprint again. See `copy.sprint` for every figure.
  */
@@ -35,6 +35,7 @@ import {
   TrendingUp,
   UserCheck,
   Users,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -64,6 +65,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -116,6 +118,19 @@ export function AestheticClinicsComposition({
       />
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
+
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
 
       {/* Keep the offer next to the proof it leads into, after the shared trust
           strip and this sector's four operating-principle pills. */}

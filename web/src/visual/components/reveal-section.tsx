@@ -15,7 +15,7 @@ type RevealSectionProps = {
  * Reveals a content block the first time it scrolls into view, mirroring the
  * prototype's `[data-reveal]` settle. Content is fully present without JS or
  * under reduced motion (both gated in CSS); only the settle transition is
- * deferred. When disabled it renders a plain wrapper with no reveal behaviour.
+ * deferred. When disabled it renders a plain wrapper with no reveal behavior.
  *
  * Uses `amount: "some"` rather than a fractional threshold so blocks taller
  * than the viewport — e.g. a full service body — still settle: a fractional

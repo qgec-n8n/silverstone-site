@@ -4,7 +4,7 @@
 
 - **Page name:** AI Receptionists
 - **Canonical route:** `/services/ai-receptionists`
-- **Target audience:** UK service businesses that lose enquiries through missed calls, fragmented channels, slow response, inconsistent intake or manual booking administration.
+- **Target audience:** UK service businesses that lose inquiries through missed calls, fragmented channels, slow response, inconsistent intake or manual booking administration.
 - **Buyer awareness:** Solution-aware to vendor-aware; the buyer is comparing AI receptionists, answering services, chat tools or internal staffing and needs to understand integration depth and human handoff.
 - **Primary search intent:** Transactional intent for AI receptionist services, virtual phone reception and an integrated digital front desk.
 - **Primary keyword cluster:** AI receptionist UK; AI receptionist services; virtual phone receptionist
@@ -17,16 +17,16 @@
 - **Recommended public-copy length:** 1,200–1,800 words excluding editorial and implementation appendices
 - **Selected CSV rows:** 33, 43, 34
 - **Claims requiring owner approval:** 24/7 production availability, exact response time, supported channels, voice/accent performance, GDPR compliance, cost savings, human escalation staffing, launch time and client outcomes.
-- **Prohibited claims:** Replacement of professional judgement, guaranteed zero missed calls, universal 24/7 availability without infrastructure, invented live conversations, hidden AI identity or guaranteed savings.
+- **Prohibited claims:** Replacement of professional judgment, guaranteed zero missed calls, universal 24/7 availability without infrastructure, invented live conversations, hidden AI identity or guaranteed savings.
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** AI Receptionist Services UK | Silverstone AI
+- **Preferred SEO title:** AI Receptionist Services for Small Business | Silverstone AI
 - **Alternative SEO title 1:** AI Receptionists for UK Businesses | Calls, Chat & Booking
 - **Alternative SEO title 2:** Virtual Phone Receptionist & AI Front Desk | Silverstone
-- **Meta description:** AI receptionist services for UK businesses across calls and chat, with structured intake, qualification, booking, reminders, CRM updates and reliable human handoff.
+- **Meta description:** AI receptionist services for US and UK businesses across calls and chat, with structured intake, qualification, booking, reminders, CRM updates and reliable human handoff.
 - **Open Graph title:** A front desk that answers, qualifies and knows when to hand over
-- **Open Graph description:** Silverstone builds integrated AI reception systems for calls, chat, intake, booking, routing and CRM updates—within approved rules and human escalation paths.
+- **Open Graph description:** Silverstone AI builds integrated AI reception systems for calls, chat, intake, booking, routing and CRM updates—within approved rules and human escalation paths.
 - **Canonical route:** `/services/ai-receptionists`
 - **H1:** A front desk that answers, qualifies, and knows when to hand over
 
@@ -39,7 +39,7 @@
 - The difference between answering and operating
 - Where an AI receptionist fits
 - Questions buyers should ask before choosing a provider
-- Make every routine enquiry reach a defined destination
+- Make every routine inquiry reach a defined destination
 
 ### H3 structure
 
@@ -47,7 +47,7 @@
 - Web chat and messaging
 - Approved answers and qualification
 - Booking, reminders and routing
-- CRM and operational synchronisation
+- CRM and operational synchronization
 - Human handoff and sensitive matters
 - Map
 - Approve
@@ -110,9 +110,9 @@
 
 ### Image-alt guidance
 
-- Primary approved asset: “Illustrative reception and enquiry-capture panel.”
+- Primary approved asset: “Illustrative reception and inquiry-capture panel.”
 - Describe the front-desk console as illustrative, not a live customer inbox.
-- Chat and call placeholders must state that no real enquiry, microphone or production integration is connected.
+- Chat and call placeholders must state that no real inquiry, microphone or production integration is connected.
 
 ### Featured-snippet opportunities
 
@@ -122,7 +122,7 @@
 
 ### Short-answer definition
 
-> An AI receptionist is a software-based front-desk system that handles defined calls and digital enquiries, captures structured information, answers approved questions, books or routes requests and escalates matters that need a person.
+> An AI receptionist is a software-based front-desk system that handles defined calls and digital inquiries, captures structured information, answers approved questions, books or routes requests and escalates matters that need a person.
 
 ### Terms that should not be repeated excessively
 
@@ -130,12 +130,12 @@ AI receptionist UK, 24/7, never miss a call, virtual receptionist, human-like, s
 
 ## 3. CoreSpin Loader copy
 
-**Converging every enquiry into the right next action.**
+**Converging every inquiry into the right next action.**
 
 ## 4. Aether Flow route-entry hero
 
 - **Pill:** Customer operations / Front desk
-- **Title:** Turn every routine enquiry into a controlled handoff
+- **Title:** Turn every routine inquiry into a controlled handoff
 - **Subtitle:** One governed reception layer for calls, chat, intake, booking, routing and the moments that still need a person.
 - **Route-entry button:** Open the front-desk system
 
@@ -145,9 +145,9 @@ AI receptionist UK, 24/7, never miss a call, virtual receptionist, human-like, s
 
 An AI receptionist should not try to answer everything. It should make the first stage of customer contact more reliable.
 
-Silverstone designs AI receptionist systems for UK businesses across phone calls, web chat and structured digital intake. The system can answer approved questions, collect the right details, qualify routine requests, offer appointments, route messages, update connected records and trigger reminders or follow-up. When an enquiry becomes sensitive, unusual or dependent on professional judgement, it moves to a person with context.
+Silverstone designs AI receptionist systems for UK businesses across phone calls, web chat and structured digital intake. The system can answer approved questions, collect the right details, qualify routine requests, offer appointments, route messages, update connected records and trigger reminders or follow-up. When an inquiry becomes sensitive, unusual or dependent on professional judgment, it moves to a person with context.
 
-The distinction matters. A generic answering tool may produce a response. An integrated front desk moves the enquiry to a defined destination without pretending that automation is qualified to make every decision.
+The distinction matters. A generic answering tool may produce a response. An integrated front desk moves the inquiry to a defined destination without pretending that automation is qualified to make every decision.
 
 **Primary action: Book a discovery call**
 
@@ -167,9 +167,9 @@ Silverstone begins by mapping the desk. The technology follows the operating mod
 
 ### Calls and conversational intake
 
-A phone receptionist can respond to routine inbound calls, identify the reason for contact, collect approved details and direct the caller towards an answer, booking or handoff.
+A phone receptionist can respond to routine inbound calls, identify the reason for contact, collect approved details and direct the caller toward an answer, booking or handoff.
 
-The call flow is designed around explicit states and limits. Critical details are confirmed. Retry behaviour is defined. The system does not claim an action succeeded when the calendar, CRM or transfer failed. UK voices, names, accents, addresses and postcodes are tested against the intended audience rather than assumed from a provider’s marketing page.
+The call flow is designed around explicit states and limits. Critical details are confirmed. Retry behavior is defined. The system does not claim an action succeeded when the calendar, CRM or transfer failed. UK voices, names, accents, addresses and postcodes are tested against the intended audience rather than assumed from a provider’s marketing page.
 
 For broader inbound or outbound call use cases, **AI Voice Agents** provides the more general architecture. The receptionist page owns the dedicated front-desk application: first response, intake, scheduling and routing.
 
@@ -177,15 +177,15 @@ For broader inbound or outbound call use cases, **AI Voice Agents** provides the
 
 Reception does not begin and end on the telephone. Web chat, messaging and forms can enter the same intake model so customers receive consistent questions and the team receives a common record.
 
-A chat route might answer opening hours, explain the next step for a service, collect a callback request or begin an appointment enquiry. It should not expose internal information, improvise professional advice or pressure the visitor into a booking that has not been validated.
+A chat route might answer opening hours, explain the next step for a service, collect a callback request or begin an appointment inquiry. It should not expose internal information, improvise professional advice or pressure the visitor into a booking that has not been validated.
 
 ### Approved answers and qualification
 
-The receptionist answers from material the business has reviewed: service descriptions, availability, locations, accepted enquiry types, preparation guidance, policies and routine administrative questions.
+The receptionist answers from material the business has reviewed: service descriptions, availability, locations, accepted inquiry types, preparation guidance, policies and routine administrative questions.
 
 Qualification is used to route, not to create artificial scarcity or make unapproved decisions. Questions should be limited to information the business genuinely needs. Sensitive data should not be collected merely because the conversational interface makes it possible.
 
-Blocked topics and urgent routes are documented. Clinical symptoms, legal positions, financial decisions, complaints, safeguarding issues and other high-consequence matters belong with authorised people.
+Blocked topics and urgent routes are documented. Clinical symptoms, legal positions, financial decisions, complaints, safeguarding issues and other high-consequence matters belong with authorized people.
 
 ### Booking, reminders and routing
 
@@ -195,11 +195,11 @@ A useful booking flow also covers change. Cancellations, rescheduling, failed pa
 
 Reminders and confirmations can be triggered through approved channels, subject to consent and communication preferences. Messages, callbacks and exceptions are routed to an inbox, helpdesk or task queue with an owner and expected next action.
 
-### CRM and operational synchronisation
+### CRM and operational synchronization
 
 A receptionist creates value when captured information reaches the systems staff already use.
 
-Contact details, enquiry type, qualification answers, booking status, transcript summary and handoff reason can be written to a CRM or another source of truth where appropriate. **AI Automation** can support the workflows after intake: follow-up, document requests, task creation, reporting and recovery of incomplete enquiries.
+Contact details, inquiry type, qualification answers, booking status, transcript summary and handoff reason can be written to a CRM or another source of truth where appropriate. **AI Automation** can support the workflows after intake: follow-up, document requests, task creation, reporting and recovery of incomplete inquiries.
 
 Every connection needs validation and observability. Duplicate records, missing required fields, failed API calls and permission errors cannot be hidden behind a polite response.
 
@@ -207,21 +207,21 @@ Every connection needs validation and observability. Duplicate records, missing 
 
 Human escalation is not a failure of the system. It is part of the system.
 
-A caller or visitor may ask to speak to someone, express distress, raise a complaint, provide ambiguous information or request an action outside the approved rules. The receptionist should recognise the boundary, explain the next step and transfer or queue the matter with the context already collected.
+A caller or visitor may ask to speak to someone, express distress, raise a complaint, provide ambiguous information or request an action outside the approved rules. The receptionist should recognize the boundary, explain the next step and transfer or queue the matter with the context already collected.
 
 ## Published evidence, kept separate from promises
 
 The approved benchmark register includes external AI-receptionist cases reporting a **66% increase in phone availability**, **response in under 10 seconds** and **£16,800 in direct annual cost savings**.
 
-These figures illustrate why organisations consider front-desk automation: greater coverage, faster first response and reduced manual handling. They are not Silverstone client outcomes and they do not guarantee that a specific receptionist will generate savings.
+These figures illustrate why organizations consider front-desk automation: greater coverage, faster first response and reduced manual handling. They are not Silverstone client outcomes and they do not guarantee that a specific receptionist will generate savings.
 
-The relevant baseline should be established for the business: missed and answered calls, first-response time, bookings, qualified enquiries, staff handling time, transfers, unresolved requests, no-shows and customer feedback. A system should be evaluated against those measures and its exception rate—not against the most dramatic number found in a market comparison.
+The relevant baseline should be established for the business: missed and answered calls, first-response time, bookings, qualified inquiries, staff handling time, transfers, unresolved requests, no-shows and customer feedback. A system should be evaluated against those measures and its exception rate—not against the most dramatic number found in a market comparison.
 
 ## Design the desk before connecting the channels
 
 ### 1. Map
 
-We document the enquiry channels, common intents, current scripts, required details, booking paths, destinations and human owners. High-risk and excluded topics are made visible before a build begins.
+We document the inquiry channels, common intents, current scripts, required details, booking paths, destinations and human owners. High-risk and excluded topics are made visible before a build begins.
 
 ### 2. Approve
 
@@ -245,13 +245,13 @@ A discovery call can establish whether the first useful route is phone reception
 
 A human answering service provides real people to answer and pass on calls. It may be the right route when conversations require human nuance from the first moment or the business wants outsourced staffing rather than software.
 
-An AI receptionist offers consistent, software-based handling of defined enquiries and can integrate directly with booking and data systems. Its value depends on rule quality, integration depth and escalation—not on being the cheapest per-minute option.
+An AI receptionist offers consistent, software-based handling of defined inquiries and can integrate directly with booking and data systems. Its value depends on rule quality, integration depth and escalation—not on being the cheapest per-minute option.
 
 A hybrid model may be appropriate: automation handles routine demand, while people receive sensitive or unusual matters. Silverstone’s role is to design the operating boundary, not to declare that one model is universally superior.
 
 ### AI receptionist versus a general voice agent
 
-An AI voice agent is the broader technology category. It may support outbound qualification, surveys, status updates or specialised call workflows. An AI receptionist is a productised use of voice and conversational automation focused on front-desk tasks across one or more channels.
+An AI voice agent is the broader technology category. It may support outbound qualification, surveys, status updates or specialized call workflows. An AI receptionist is a productised use of voice and conversational automation focused on front-desk tasks across one or more channels.
 
 This separation prevents keyword and product confusion. The receptionist page owns reception, intake, booking and routing. The voice page owns broader custom call-agent development.
 
@@ -263,7 +263,7 @@ A simple chatbot usually answers questions or collects a message inside one chan
 
 This service is a strong fit when the business receives repeated calls or messages, has clear administrative answers, uses a structured booking or CRM system, and can name the people who own exceptions.
 
-It is a poor fit when most enquiries require professional judgement, source information changes without governance, the team cannot support handoffs, no system of record exists, or the business expects automation to conceal understaffing while delivering unlimited service.
+It is a poor fit when most inquiries require professional judgment, source information changes without governance, the team cannot support handoffs, no system of record exists, or the business expects automation to conceal understaffing while delivering unlimited service.
 
 ## Questions buyers should ask before choosing a provider
 
@@ -277,7 +277,7 @@ Potentially. The system, API or approved embed must support the required actions
 
 ### How is personal data handled?
 
-Data minimisation, access, retention, provider roles, lawful basis and security requirements are reviewed for the implementation. “GDPR compliant” should not be used as a blanket marketing guarantee. The final posture depends on the selected vendors, configuration and business process.
+Data minimization, access, retention, provider roles, lawful basis and security requirements are reviewed for the implementation. “GDPR compliant” should not be used as a blanket marketing guarantee. The final posture depends on the selected vendors, configuration and business process.
 
 ### Can customers always reach a person?
 
@@ -287,7 +287,7 @@ A human route should be designed for requests that require it. Whether that mean
 
 No voice system should be presented as universal. Accents, background noise, names, postcodes and unusual phrasing need realistic testing. The agent should confirm important details and hand over when confidence is insufficient.
 
-## Make every routine enquiry reach a defined destination
+## Make every routine inquiry reach a defined destination
 
 A reliable front desk is not measured by how many conversations remain automated. It is measured by whether customers receive the right next step and the business can see what happened.
 
@@ -295,7 +295,7 @@ A reliable front desk is not measured by how many conversations remain automated
 
 Review **How We Work** for the delivery route, **Pricing** for the scoping model, or share scripts and FAQs through **Contact**. Explore **AI Voice Agents** for broader call workflows and **AI Automation** for the operational follow-up behind reception.
 
-*The premium front desk is not the one that keeps people away from humans. It is the one that uses people where their judgement matters most.*
+*The premium front desk is not the one that keeps people away from humans. It is the one that uses people where their judgment matters most.*
 
 ## 6. Complete component microcopy
 
@@ -308,7 +308,7 @@ Review **How We Work** for the delivery route, **Pricing** for the scoping model
 
 ### Outcome cards
 
-- **Greater enquiry coverage** — Routine demand can enter a defined route beyond the moments staff are immediately available.
+- **Greater inquiry coverage** — Routine demand can enter a defined route beyond the moments staff are immediately available.
 - **Faster structured response** — Customers receive a useful first step while the business captures the right context.
 - **Less reception rework** — Connected records reduce repeated copying and incomplete internal messages.
 
@@ -334,12 +334,12 @@ Review **How We Work** for the delivery route, **Pricing** for the scoping model
 
 ### Trust strip
 
-**Approved content · Data minimisation · Verified actions · Visible audit trail · Human judgement preserved**
+**Approved content · Data minimization · Verified actions · Visible audit trail · Human judgment preserved**
 
 ### Callout panel
 
-- **Heading:** The goal is not to keep every enquiry automated.
-- **Body:** The goal is to give each routine enquiry a reliable destination and move sensitive matters to the right person without losing context.
+- **Heading:** The goal is not to keep every inquiry automated.
+- **Body:** The goal is to give each routine inquiry a reliable destination and move sensitive matters to the right person without losing context.
 
 ### FAQ accordion labels
 
@@ -374,9 +374,9 @@ This section reserves a future AI chat window and an ElevenLabs-ready call featu
 ### Future AI chat-window placeholder
 
 - **Label:** Reserved front-desk experience · Chat
-- **Heading:** Follow a routine enquiry from question to destination
-- **Body:** This window is prepared for an approved AI receptionist chat flow covering a bounded scenario such as a service question, callback request or appointment enquiry. The final flow will show what is answered, what is collected and when a person takes over.
-- **Privacy note:** No real enquiry, visitor identity, CRM record or production conversation is connected.
+- **Heading:** Follow a routine inquiry from question to destination
+- **Body:** This window is prepared for an approved AI receptionist chat flow covering a bounded scenario such as a service question, callback request or appointment inquiry. The final flow will show what is answered, what is collected and when a person takes over.
+- **Privacy note:** No real inquiry, visitor identity, CRM record or production conversation is connected.
 - **Status:** Chat integration reserved. Awaiting approved content, rules and destination systems.
 - **Configuration slot:** `futureReceptionistChatEmbedUrl`
 
@@ -496,7 +496,7 @@ Rows 33, 43 and 34 cover published availability, response-time and direct-cost f
 - Approved reception image pairing.
 - Current benchmark selection and disclaimer.
 - Reserved chat and ElevenLabs configuration slots.
-- Current safeguard that professional judgement remains with authorised people.
+- Current safeguard that professional judgment remains with authorized people.
 
 ### Legacy ideas retained
 
@@ -508,7 +508,7 @@ Rows 33, 43 and 34 cover published availability, response-time and direct-cost f
 
 - Hybrid AI-plus-human strength retained without copying Moneypenny wording.
 - Live demo appeal balanced by explicit non-live and privacy status.
-- Integration and source-of-truth writing emphasised over headline monthly price.
+- Integration and source-of-truth writing emphasized over headline monthly price.
 - Loss framing kept factual and non-manipulative.
 
 ### External sources
@@ -527,7 +527,7 @@ Rows 33, 43 and 34 cover published availability, response-time and direct-cost f
 
 ### Prohibited unsupported claims
 
-- Claims that professional, clinical, legal or financial judgement is automated.
+- Claims that professional, clinical, legal or financial judgment is automated.
 - Guaranteed zero missed calls or uninterrupted availability.
 - Synthetic chats or calls presented as real customer interactions.
 - External benchmarks presented as Silverstone results.

@@ -3,7 +3,7 @@
  * Visual concept: Service Constellation — seven disciplines orbiting one
  * commercial objective. Each discovery card carries its own service accent
  * (drawn from the services-v2 route art), so the hub previews every page's
- * identity without flattening them into one colour.
+ * identity without flattening them into one color.
  */
 import "~/styles/services-v2/services-v2.css";
 import "~/styles/industries-v2/industries-v2.css";
@@ -43,7 +43,7 @@ const HUB_ACCENT: CSSProperties = {
 
 /** Verified Silverstone AI figures reused from the approved service registers. */
 const HUB_METRICS = [
-  "<10 seconds — Enquiry response time (after implementation)",
+  "<10 seconds — Inquiry response time (after implementation)",
   "+66% — Increase in phone availability",
   "15 hours — Saved per week",
 ];
@@ -310,14 +310,14 @@ export function ServicesHubExperience() {
   return (
     <div className="ss-srv2 ss-hub2" data-hub="services" style={HUB_ACCENT}>
       <SecondaryHero
-        eyebrow="Silverstone service architecture"
+        eyebrow="Silverstone AI service architecture"
         icon={Workflow}
         title="Services built around *real business workflows*"
         titleId="hub2-lead"
         lead="Seven disciplines, one operating standard: every system is scoped around a costly problem, wired into your source of truth and measured after launch. Choose the entry point — the architecture connects behind it."
         points={[
           "Scoped before anything is built",
-          "Human judgement designed in, not bolted on",
+          "Human judgment designed in, not bolted on",
           "Measured against your baseline, not our slides",
         ]}
         primaryCtaLabel="Book a discovery call"
@@ -406,11 +406,11 @@ export function ServicesHubExperience() {
             eyebrow="Sector systems"
             heading="Built for the way your industry *actually operates*"
             headingId="hub2-industries"
-            lead="Ten UK sectors have *their own dedicated operating systems* — estate agency enquiry switchboards, salon diaries, aesthetic-clinic consultations, trades dispatch and more."
+            lead="Ten sectors have *their own dedicated operating systems*, built for how each runs in the US and the UK: real estate and estate agency inquiry switchboards, salon and barbershop calendars, aesthetic-clinic and med-spa consultations, contractor and trades dispatch, and more."
           />
           <Reveal kind="cta">
             <p className="ss-srv2-lead">
-              <LinkedText text="Explore the [industry operating systems](/industry), or go straight to [how Silverstone designs and delivers](/how-we-work) and [how scope shapes pricing](/pricing)." />
+              <LinkedText text="Explore the [industry operating systems](/industry), or go straight to [how Silverstone AI designs and delivers](/how-we-work) and [how scope shapes pricing](/pricing)." />
             </p>
           </Reveal>
         </div>

@@ -73,7 +73,7 @@ import {
 } from "~/features/services-v2/components/primitives";
 import { ScrollCue } from "~/features/services-v2/components/secondary-hero";
 import { RouteExperienceFrame } from "~/routes/templates/route-experience-frame";
-import { serializeJsonLd } from "~/seo/schema";
+import { buildOrganizationNode, ORGANIZATION_ID, serializeJsonLd } from "~/seo/schema";
 
 type ArticlePageProps = {
   post: SilverstoneBlogPost;
@@ -87,7 +87,7 @@ function escapeRegExp(value: string): string {
  * Section headings arrive from the automation pipeline as plain strings, so
  * the single gradient accent every other page's headings carry (`*phrase*`
  * emphasis → gradient `em`) is applied here: the closing phrase of the
- * heading is emphasised, skipping leading connective words so the gradient
+ * heading is emphasized, skipping leading connective words so the gradient
  * never starts on "and"/"the". Headings that already carry `*emphasis*`
  * markers, or are too short to split, are left untouched.
  */
@@ -1498,8 +1498,8 @@ function ArticleSection({
        * Both tables render as siblings of the section rather than inside its
        * card: the section card closes after the icon bullet list / grid, and
        * each table stands as its own card below. Sitting directly in the
-       * Reveal grid item (a full-width, page-centred block) lets their desktop
-       * breakout (margin-inline-start:50% + translateX(-50%)) centre cleanly on
+       * Reveal grid item (a full-width, page-centered block) lets their desktop
+       * breakout (margin-inline-start:50% + translateX(-50%)) center cleanly on
        * the column instead of the padded section content box. Inside the card
        * that same breakout resolves against the 62rem content box and the
        * 70rem table hangs 4rem past each edge — which is exactly what the
@@ -1543,21 +1543,14 @@ function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
         datePublished: post.publishedIsoDate,
         dateModified: post.updatedIsoDate,
         mainEntityOfPage: articleUrl,
-        author: {
-          "@type": "Organization",
-          name: "Silverstone AI",
-          url: `${baseUrl}/`,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "Silverstone AI",
-          url: `${baseUrl}/`,
-          logo: {
-            "@type": "ImageObject",
-            url: `${baseUrl}/brand/silverstone-logo.png`,
-          },
-        },
+        // Both point at the one Organization node below by @id rather than
+        // repeating a thinner copy: an answer engine resolving this article
+        // gets the studio's full entity (address, profiles, both markets
+        // served) from the same document.
+        author: { "@id": ORGANIZATION_ID },
+        publisher: { "@id": ORGANIZATION_ID },
       },
+      buildOrganizationNode(),
       // Mirrors the visible Home → Blog → article trail in the hero and the
       // BreadcrumbList pattern used by every other page template
       // (~/seo/schema.ts) — names and URLs must stay canonical.

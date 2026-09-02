@@ -30,6 +30,7 @@ import {
   SUPPORT_TIERS,
   type PricingCssVars,
 } from "./pricing-content";
+import { Money } from "~/components/ui/money";
 
 /** One metaphor per principle, in SUPPORT_PRINCIPLES order. */
 const PRINCIPLE_ICONS: readonly LucideIcon[] = [Gauge, Wrench, Users];
@@ -37,8 +38,8 @@ const PRINCIPLE_ICONS: readonly LucideIcon[] = [Gauge, Wrench, Users];
 /**
  * A spectral accent per principle — the same cyan→violet arc the rest of
  * /pricing cycles through — so each retainer benefit's marker and title carry
- * their own on-brand colour and the card reads as fast-to-skim rather than a
- * flat grey list.
+ * their own on-brand color and the card reads as fast-to-skim rather than a
+ * flat gray list.
  */
 const PRINCIPLE_ACCENTS: readonly string[] = [
   "var(--ss-v2-aqua)",
@@ -76,7 +77,9 @@ export function SupportRetainerGrid() {
             <h3 className="ss-pri-retainer__title">{tier.title}</h3>
 
             <p className="ss-pri-retainer__price">
-              <span className="ss-pri-retainer__figure">{tier.price}</span>
+              <span className="ss-pri-retainer__figure">
+                <Money text={tier.price} />
+              </span>
               <span className="ss-pri-retainer__qualifier">{tier.priceNote}</span>
             </p>
 

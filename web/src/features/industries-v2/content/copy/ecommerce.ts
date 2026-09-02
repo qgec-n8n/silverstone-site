@@ -6,9 +6,9 @@ import {
 
 export const ecommerceCopy: IndustryCopy = {
   route: "/industry/ecommerce",
-  sector: "eCommerce brands",
+  sector: "Ecommerce brands",
   routeEntry: {
-    loaderText: "Synchronising store and service",
+    loaderText: "Synchronizing store and service",
     pill: "Commerce operations intelligence",
     title: "Scale the experience, not the queue",
     subtitle:
@@ -16,24 +16,66 @@ export const ecommerceCopy: IndustryCopy = {
     buttonLabel: "Explore the commerce system",
   },
   seo: {
-    title: "eCommerce Automation Agency UK | Silverstone AI",
+    title: "Ecommerce Automation for Shopify and DTC Brands | Silverstone AI",
     description:
-      "Connect product questions, order status, returns, support, post-purchase and retention workflows with bespoke ecommerce automation built around authoritative data.",
+      "Connect product questions, order status, returns, support, post-purchase and retention workflows with custom ecommerce automation built around authoritative data.",
     h1: "Scale customer experience without multiplying operational friction",
   },
-  eyebrow: "AI automation for eCommerce",
+  eyebrow: "AI automation for ecommerce",
   h1: "Scale the experience *without scaling the chaos*",
   heroSub:
-    "Every order creates another question. Silverstone answers instantly from live order data — **and hands every money decision to your team.**",
+    "Every order creates another question. Silverstone AI answers instantly from live order data, **and hands every money decision to your team.** Built for Shopify and DTC brands in the US and UK.",
   heroPoints: [
     "Answers grounded in live order & stock data",
     "Returns triaged in seconds, not tickets",
     "Refunds and disputes stay human, always",
   ],
   trustTokens: ["State-aware", "Policy-controlled", "Exception-owned", "Measurable"],
+  markets: {
+    eyebrow: "Built for your market",
+    heading: "Same where-is-my-order ticket. *Your* stack.",
+    lead: "A where-is-my-order ticket in Los Angeles and one in Leeds touch the same four systems. The workflow is identical; the help desk, the returns app and the carrier change.",
+    lanes: [
+      {
+        market: "US",
+        label: "United States",
+        operators:
+          "Shopify and DTC brands, Amazon sellers and omnichannel retailers, from a founder-run store to a scaling team.",
+        tooling: [
+          "Shopify, BigCommerce or WooCommerce",
+          "Gorgias, Zendesk or Kustomer",
+          "Klaviyo, Loop Returns, ShipStation and your 3PL",
+        ],
+        vocabulary:
+          "WISMO tickets, RMAs, chargebacks, 3PLs, carrier scans, subscriptions.",
+        keepsHuman:
+          "Discretionary refunds, chargebacks, fraud calls and high-value exceptions.",
+      },
+      {
+        market: "UK",
+        label: "United Kingdom",
+        operators:
+          "Shopify and DTC brands, marketplace sellers and multichannel retailers, from a founder-run store to a scaling team.",
+        tooling: [
+          "Shopify, BigCommerce or WooCommerce",
+          "Gorgias, Zendesk or Freshdesk",
+          "Klaviyo, ZigZag, Royal Mail and your fulfillment partner",
+        ],
+        vocabulary:
+          "Where-is-my-order queries, returns, chargebacks, fulfillment, carrier scans, subscriptions.",
+        keepsHuman:
+          "Discretionary refunds, chargebacks, fraud calls and high-value exceptions.",
+      },
+    ],
+    shared: [
+      "Every answer is read live from the storefront, order, warehouse and carrier, never invented from confidence.",
+      "Standard returns and address changes act within your policy; discretion becomes an owned case with a name on it.",
+      "Retention journeys read order state first, so a delayed parcel never gets a cross-sell.",
+    ],
+  },
   problem: {
     heading: "Growth is creating *operational debt*",
-    body: "Every fragmented app is a gap your customer feels — even on a beautiful storefront. **The real question isn't “can AI answer this?”** It's which system holds the truth, and when a human must step in.",
+    body: "Every fragmented app is a gap your customer feels, even on a beautiful storefront. **The real question isn't “can AI answer this?”** It's which system holds the truth, and when a human must step in.",
     cards: [
       {
         title: "Status they already have to repeat",
@@ -49,13 +91,13 @@ export const ecommerceCopy: IndustryCopy = {
       },
       {
         title: "More apps, less visibility",
-        body: "We orchestrate the stack you have — before you buy another one.",
+        body: "We orchestrate the stack you have, before you buy another one.",
       },
     ],
   },
   journey: {
     heading: "One question, *instantly resolved*",
-    lead: "“Where's my order?” touches four systems. Silverstone reads them all — **in one motion.**",
+    lead: "“Where's my order?” touches four systems. Silverstone AI reads them all, **in one motion.**",
     stages: [
       {
         title: "Identify",
@@ -67,25 +109,25 @@ export const ecommerceCopy: IndustryCopy = {
       },
       {
         title: "Apply your policy",
-        body: "Every response reflects your rules, consumer rights and your brand's voice.",
+        body: "Every response reflects your rules, your customers' rights in their market and your brand's voice.",
       },
       {
         title: "Act within limits",
-        body: "Only permitted actions fire — address changes, return labels, status updates.",
+        body: "Only permitted actions fire: address changes, return labels, status updates.",
       },
       {
         title: "Own the exception",
-        body: "Anything outside the rules becomes an owned case with full context — nothing drops.",
+        body: "Anything outside the rules becomes an owned case with full context; nothing drops.",
       },
     ],
   },
   workflows: {
     heading: "Support that knows *exactly when to stop*",
-    lead: "The fastest answer only matters if it's right — and discretion always stays with your team.",
+    lead: "The fastest answer only matters if it's right, and discretion always stays with your team.",
     items: [
       {
         title: "Product & pre-purchase",
-        body: "Sizing and product questions answered from your approved catalogue — **never guessed.**",
+        body: "Sizing and product questions answered from your approved catalog, **never guessed.**",
       },
       {
         title: "Order & delivery",
@@ -93,7 +135,7 @@ export const ecommerceCopy: IndustryCopy = {
       },
       {
         title: "Returns & exchanges",
-        body: "Facts gathered, the standard route explained, labels issued where permitted — **exceptions owned by name.**",
+        body: "Facts gathered, the standard route explained, labels issued where permitted, **exceptions owned by name.**",
       },
       {
         title: "Retention & win-back",
@@ -105,8 +147,8 @@ export const ecommerceCopy: IndustryCopy = {
     heading: "Architecture *before* another app",
     lead: "Tool accumulation is the real ecommerce failure. We start with your operating model, not another login.",
     paragraphs: [
-      "[Automation workflows](/services/ai-automation) orchestrate the system; an [AI receptionist](/services/ai-receptionists) manages routine web and messaging enquiries; [custom applications](/services/app-development) power a unified exception console where you need one.",
-      "[Governed content systems](/services/content-creation) keep product and policy copy consistent, and [AI consulting](/services/ai-consulting) settles build-versus-buy — **before** you commit.",
+      "[Automation workflows](/services/ai-automation) orchestrate Shopify, Gorgias, Klaviyo and your carrier data; an [AI receptionist](/services/ai-receptionists) manages routine web and messaging inquiries; [custom applications](/services/app-development) power a unified exception console where you need one.",
+      "[Governed content systems](/services/content-creation) keep product and policy copy consistent, and [AI consulting](/services/ai-consulting) settles build-versus-buy **before** you commit.",
     ],
   },
   proof: {
@@ -135,7 +177,7 @@ export const ecommerceCopy: IndustryCopy = {
   },
   boundary: {
     heading: "Where automation stops, *by design*",
-    body: "Availability, delivery and returns come from the source of truth. **Everything discretionary stays human** — that's what separates a real operating layer from another support widget.",
+    body: "Availability, delivery and returns come from the source of truth. **Everything discretionary stays human**; that's what separates a real operating layer from another support widget.",
     keeps: [
       "Discretionary refunds & goodwill",
       "Chargebacks and fraud calls",
@@ -146,10 +188,10 @@ export const ecommerceCopy: IndustryCopy = {
   },
   process: {
     heading: "The first-release discipline",
-    lead: "One journey. One source of truth. One measurable win — then we expand.",
+    lead: "One journey. One source of truth. One measurable win, then we expand.",
     steps: [
       { title: "Map the journeys", body: "Where volume and value actually live." },
-      { title: "Identify authority", body: "Product, order and policy — confirmed." },
+      { title: "Identify authority", body: "Product, order and policy, confirmed." },
       { title: "Define thresholds", body: "Actions, approvals, communication rules." },
       { title: "Design for failure", body: "Retry and human-exception paths, tested." },
       { title: "Connect and measure", body: "One workflow live, outcomes tracked." },
@@ -158,7 +200,7 @@ export const ecommerceCopy: IndustryCopy = {
   },
   fit: {
     heading: "Is this *your brand*?",
-    lead: "You don't need perfect systems — just the will to name what's authoritative.",
+    lead: "You don't need perfect systems, just the will to name what's authoritative.",
     right: [
       "Repeated support volume",
       "Reliable order data",
@@ -173,34 +215,34 @@ export const ecommerceCopy: IndustryCopy = {
     items: [
       {
         q: "Will it work with our current stack?",
-        a: "Usually — we confirm your APIs, webhooks and data quality first, then build on the systems that already hold reliable state.",
+        a: "Usually. Shopify, BigCommerce, Gorgias, Zendesk, Klaviyo and most returns and shipping apps expose what we need; we confirm your APIs, webhooks and data quality first, then build on the systems that already hold reliable state.",
       },
       {
         q: "Does this replace our support team?",
-        a: "No. It removes repetitive collection and routine action. **Judgement, discretion and recovery stay with your specialists.**",
+        a: "No. It removes repetitive collection and routine action. **Judgment, discretion and recovery stay with your specialists.**",
       },
       {
         q: "Can it issue refunds on its own?",
-        a: "Only within tightly defined limits — most brands keep approval with people, matched to policy and transaction value.",
+        a: "Only within tightly defined limits. Most brands keep approval with people, matched to policy and transaction value.",
       },
       {
         q: "How do you stop inaccurate answers?",
-        a: "Every response is grounded in approved content and live systems. Missing evidence escalates — it's never guessed.",
+        a: "Every response is grounded in approved content and live systems. Missing evidence escalates; it's never guessed.",
       },
       {
         q: "Where do we start?",
-        a: "The highest-volume journey with clean-enough data — usually order status, returns triage or support classification.",
+        a: "The highest-volume journey with clean-enough data, usually order status, returns triage or support classification.",
       },
     ],
   },
   midCta: {
     heading: "Map *your* support journey",
-    body: "Bring one recurring ticket type or return path. We'll show you exactly where it's costing you time — live, on the call.",
+    body: "Bring one recurring ticket type or return path. We'll show you exactly where it's costing you time, live, on the call.",
     buttonLabel: "Book a discovery call",
   },
   finalCta: {
     heading: "Pick one journey worth *fixing properly*",
-    body: "One call, one measurable journey — product questions, returns or retention — and a clear plan for what a controlled first release needs. See [how we deliver](/how-we-work) or [how scope shapes pricing](/pricing).",
+    body: "One call, one measurable journey, whether product questions, returns or retention, and a clear plan for what a controlled first release needs. See [how we deliver](/how-we-work) or [how scope shapes pricing](/pricing).",
     reassurance:
       "One workflow first · no forced migration · no autonomous money decisions.",
     buttonLabel: "Book a discovery call",

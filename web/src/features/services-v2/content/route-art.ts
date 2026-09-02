@@ -58,7 +58,7 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       mobile: "/approved-images/general-services-1-mobile.png",
       width: 2528,
       height: 1696,
-      alt: "Illustrative reception and enquiry-capture panel.",
+      alt: "Illustrative reception and inquiry-capture panel.",
     },
   },
   "/services/app-development": {
@@ -103,7 +103,7 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       mobile: "/approved-images/receptionists-hero-mobile.png",
       width: 2528,
       height: 1696,
-      alt: "Illustrative front-desk reception panel showing a call being answered, a booking confirmed, and an enquiry escalated to a person.",
+      alt: "Illustrative front-desk reception panel showing a call being answered, a booking confirmed, and an inquiry escalated to a person.",
     },
   },
   "/services/content-creation": {
@@ -125,7 +125,7 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
     discipline: "AI automation",
     // Leads with ultraviolet (the same pair as before, reversed) so this route's
     // dominant accent stays distinct from Web Design's cyan — with the accent now
-    // driving titles, figures and body copy, a shared lead colour made the two
+    // driving titles, figures and body copy, a shared lead color made the two
     // pages read as the same theme.
     accentFrom: "#7c5cff",
     accentTo: "#22d3ee",

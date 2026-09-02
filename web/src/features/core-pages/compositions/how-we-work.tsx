@@ -86,10 +86,10 @@ export function HowWeWorkComposition() {
         icon={Workflow}
         title="From business problem to *working system*"
         titleId="core-hww-title"
-        lead="The full delivery method: five gated stages, the judgement that stays human, the failure modes we design against — and the results."
+        lead="The full delivery method: five gated stages, the judgment that stays human, the failure modes we design against, and the results. The same method runs for a clinic in Austin and an agency in Leeds; only the tooling differs."
         points={[
           { icon: Workflow, text: "Five stages, from diagnosis to governed launch" },
-          { icon: UserCheck, text: "Where human judgement stays in charge" },
+          { icon: UserCheck, text: "Where human judgment stays in charge" },
           {
             icon: CheckCircle2Icon,
             text: "Verified results from live client systems",
@@ -139,7 +139,7 @@ export function HowWeWorkComposition() {
             headingId="hww-human"
           />
           <BoundaryPanel
-            body="Where a decision carries financial, legal, reputational or personal consequence, the workflow needs a *named owner and a working escalation path*. Silverstone designs that boundary up front — what can happen automatically, and what a person must decide."
+            body="Where a decision carries financial, legal, reputational or personal consequence, the workflow needs a *named owner and a working escalation path*. Silverstone AI designs that boundary up front: what can happen automatically, and what a person must decide."
             keeps={[
               "Sign-off on financial, legal or reputational exceptions",
               "A named owner for every escalation path",

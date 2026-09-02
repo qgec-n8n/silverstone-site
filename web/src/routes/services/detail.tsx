@@ -36,7 +36,7 @@ export async function loader({
     route.template === "service" &&
     Boolean(getApprovedServiceContent(route.path));
 
-  // Industry routes render the bespoke industries-v2 experience; their legacy
+  // Industry routes render the custom industries-v2 experience; their legacy
   // migrated copy must never reach the DOM or the prerendered HTML.
   const usesMigratedContent =
     route.lifecycle === "retained" &&

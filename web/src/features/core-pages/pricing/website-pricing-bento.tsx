@@ -15,7 +15,7 @@
  *
  * Hosting, the maintenance ladder and the pricing disclosure follow as their
  * own quieter blocks — the disclosure collapsed into a native `<details>` so it
- * reads as fine print a reader can open, not a wall of grey.
+ * reads as fine print a reader can open, not a wall of gray.
  */
 import { useRef, useState, type KeyboardEvent } from "react";
 
@@ -37,6 +37,7 @@ import {
   WEBSITE_TIERS,
   type PricingCssVars,
 } from "./pricing-content";
+import { Money } from "~/components/ui/money";
 
 /** Upper bound of the shared page scale every band meter is drawn against. */
 const PAGE_SCALE_MAX = 100;
@@ -137,7 +138,9 @@ export function WebsitePricingBento() {
                   <h3 className="ss-pri-tierx__panel-title">{tier.title}</h3>
                 </div>
                 <p className="ss-pri-tierx__price">
-                  <span className="ss-pri-tierx__price-value">{tier.price}</span>
+                  <span className="ss-pri-tierx__price-value">
+                    <Money text={tier.price} />
+                  </span>
                   <span className="ss-pri-tierx__price-note">{tier.priceNote}</span>
                 </p>
               </div>
@@ -165,7 +168,9 @@ export function WebsitePricingBento() {
               <dl className="ss-pri-tierx__meta">
                 <div>
                   <dt>Payment</dt>
-                  <dd>{tier.payment}</dd>
+                  <dd>
+                    <Money text={tier.payment} />
+                  </dd>
                 </div>
                 <div className="ss-pri-tierx__maint">
                   <dt>Optional maintenance</dt>
@@ -174,7 +179,7 @@ export function WebsitePricingBento() {
                       {tier.maintenance.name}
                     </span>
                     <span className="ss-pri-tierx__maint-price">
-                      {tier.maintenance.price}
+                      <Money text={tier.maintenance.price} />
                     </span>
                   </dd>
                 </div>
@@ -202,7 +207,9 @@ export function WebsitePricingBento() {
                 {option.title.startsWith("Self-hosting") ? <Wrench /> : <Monitor />}
               </span>
               <h4>{option.title}</h4>
-              <p className="ss-pri-hosting__price">{option.price}</p>
+              <p className="ss-pri-hosting__price">
+                <Money text={option.price} />
+              </p>
               <p className="ss-pri-hosting__body">{option.body}</p>
             </li>
           ))}
@@ -227,7 +234,9 @@ export function WebsitePricingBento() {
               role="listitem"
               style={{ "--pri-i": index } as PricingCssVars}
             >
-              <p className="ss-pri-maint__price">{plan.price}</p>
+              <p className="ss-pri-maint__price">
+                <Money text={plan.price} />
+              </p>
               <h4>{plan.name}</h4>
               <p className="ss-pri-maint__body">{plan.body}</p>
             </li>
@@ -243,7 +252,9 @@ export function WebsitePricingBento() {
             <span className="ss-pri-disclosure__hint">Read the fine print</span>
             <ChevronDown aria-hidden="true" className="ss-pri-disclosure__chevron" />
           </summary>
-          <p className="ss-pri-disclosure__body">{WEBSITE_DISCLOSURE}</p>
+          <p className="ss-pri-disclosure__body">
+            <Money text={WEBSITE_DISCLOSURE} />
+          </p>
         </details>
       </Reveal>
     </div>

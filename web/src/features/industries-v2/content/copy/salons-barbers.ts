@@ -6,43 +6,83 @@ import {
 
 export const salonsBarbersCopy: IndustryCopy = {
   route: "/industry/salons-barbers",
-  sector: "Salons & barbers",
+  sector: "Salons & barbershops",
   routeEntry: {
-    loaderText: "Aligning diary and chair time",
-    pill: "Diary intelligence for client-service businesses",
+    loaderText: "Aligning the calendar and chair time",
+    pill: "Calendar intelligence for client-service businesses",
     title: "Make every available hour easier to sell",
     subtitle:
-      "Connect enquiries, deposits, cancellations, waitlists and rebooking without interrupting the experience in the chair.",
-    buttonLabel: "Open the diary system",
+      "Connect inquiries, deposits, cancellations, waitlists and rebooking without interrupting the experience in the chair.",
+    buttonLabel: "Open the booking system",
   },
   seo: {
-    title: "Salon Automation UK for Bookings and Rebooking | Silverstone",
+    title: "Salon & Barbershop Automation for Bookings and Rebooking | Silverstone AI",
     description:
       "Connect calls, messages, booking rules, deposits, waitlists and rebooking with salon automation designed around your existing diary and human suitability decisions.",
     h1: "Protect sellable chair time without adding front-desk pressure",
   },
-  eyebrow: "Salon & barber automation",
+  eyebrow: "Salon & barbershop automation",
   h1: "Protect *sellable chair time* without adding front-desk pressure",
   heroSub:
-    "An empty chair earns nothing. Silverstone answers every call, refills cancellations **while the slot still has value**, and rebooks before clients drift.",
+    "An empty chair earns nothing. Silverstone AI answers every call, refills cancellations **while the slot still has value**, and rebooks before clients drift, for salons and barbershops in the US and UK.",
   heroPoints: [
     "Missed calls captured while hands are busy",
-    "Cancellations refilled from your waitlist — fast",
+    "Cancellations refilled from your waitlist, fast",
     "Patch tests and suitability stay with practitioners",
   ],
   trustTokens: [
-    "Diary-controlled",
+    "Calendar-controlled",
     "Deposit-aware",
     "Consent-led",
     "Practitioner-owned",
   ],
+  markets: {
+    eyebrow: "Built for your market",
+    heading: "Same empty chair. *Your* booking platform.",
+    lead: "A 3pm cancellation in Brooklyn and one in Birmingham die the same way, in a group chat. The refill workflow is identical; the booking platform and the words for the schedule change.",
+    lanes: [
+      {
+        market: "US",
+        label: "United States",
+        operators:
+          "Hair salons, barbershops, nail studios and lash and brow bars, from a single chair to multiple locations.",
+        tooling: [
+          "Vagaro, Booksy, GlossGenius or Square Appointments",
+          "Instagram and Google Business Profile bookings",
+          "Your waitlist and deposit rules",
+        ],
+        vocabulary:
+          "Appointments, no-show fees, stylists and barbers, walk-ins, rebooking.",
+        keepsHuman: "Consultations, patch tests, contraindications and refunds.",
+      },
+      {
+        market: "UK",
+        label: "United Kingdom",
+        operators:
+          "Hair and beauty salons and barbers, from a single chair to a multi-site group.",
+        tooling: [
+          "Fresha, Phorest, Timely or Booksy",
+          "Instagram, Treatwell and your own booking page",
+          "Your waitlist and deposit rules",
+        ],
+        vocabulary:
+          "The diary, cancellations, patch tests, stylists and barbers, rebooking.",
+        keepsHuman: "Consultations, patch tests, contraindications and refunds.",
+      },
+    ],
+    shared: [
+      "A call that rings out mid-service is answered and booked without pulling anyone off a client.",
+      "A cancellation is offered to the waitlist within minutes, in your order; the first valid acceptance wins.",
+      "The booking platform you already run is the only source of truth for the chair.",
+    ],
+  },
   problem: {
-    heading: "A full diary can *still leak revenue*",
-    body: "Calls ring out mid-service. DMs sit unread. A 3pm cancellation dies in the group chat. **Every gap is money the chair never earns back** — and none of it is a demand problem.",
+    heading: "A full calendar can *still leak revenue*",
+    body: "Calls ring out mid-service. DMs sit unread. A 3pm cancellation dies in the group chat. **Every gap is money the chair never earns back**, and none of it is a demand problem.",
     cards: [
       {
         title: "The phone rings mid-service",
-        body: "Captured, qualified and booked — without pulling anyone off a client.",
+        body: "Captured, qualified and booked, without pulling anyone off a client.",
       },
       {
         title: "Cancellation becomes dead time",
@@ -53,14 +93,14 @@ export const salonsBarbersCopy: IndustryCopy = {
         body: "The right prompt fires at the right service cadence.",
       },
       {
-        title: "Unwritten diary rules",
-        body: "Service, stylist, deposit and suitability logic — made explicit.",
+        title: "Unwritten booking rules",
+        body: "Service, stylist, deposit and suitability logic, made explicit.",
       },
     ],
   },
   journey: {
     heading: "The rules behind a booking that *actually works*",
-    lead: "A colour appointment and a skin fade never share one script. We encode your real rules first — then automate.",
+    lead: "A color appointment and a skin fade never share one script. We encode your real rules first, then automate.",
     stages: [
       {
         title: "Service fit",
@@ -68,15 +108,15 @@ export const salonsBarbersCopy: IndustryCopy = {
       },
       {
         title: "Commercial terms",
-        body: "Your deposit and notice rules applied exactly — failures reach a person.",
+        body: "Your deposit and notice rules applied exactly; failures reach a person.",
       },
       {
         title: "Client status",
-        body: "New, returning, waitlisted or lapsed — each gets the right offer, with consent.",
+        body: "New, returning, waitlisted or lapsed: each gets the right offer, with consent.",
       },
       {
         title: "Valid next step",
-        body: "The right slot from your authoritative diary. Double-booking is engineered out.",
+        body: "The right slot from your authoritative calendar. Double-booking is engineered out.",
       },
       {
         title: "Human gate",
@@ -90,7 +130,7 @@ export const salonsBarbersCopy: IndustryCopy = {
     items: [
       {
         title: "Cancellation refill",
-        body: "Released time offered to eligible waitlist clients in your order — **first valid acceptance wins**, everyone else gets closure.",
+        body: "Released time offered to eligible waitlist clients in your order; **first valid acceptance wins**, everyone else gets closure.",
       },
       {
         title: "One-message reschedules",
@@ -98,7 +138,7 @@ export const salonsBarbersCopy: IndustryCopy = {
       },
       {
         title: "Rebooking that feels personal",
-        body: "Six-week colour cycles and four-week fades each get their own cadence — never a blast.",
+        body: "Six-week color cycles and four-week fades each get their own cadence, never a blast.",
       },
       {
         title: "Consent-led reactivation",
@@ -107,15 +147,15 @@ export const salonsBarbersCopy: IndustryCopy = {
     ],
   },
   services: {
-    heading: "Built around the diary you already use",
-    lead: "We don't start by replacing your booking platform — we start by testing it.",
+    heading: "Built around the booking platform you already use",
+    lead: "We don't start by replacing your booking platform; we start by testing it.",
     paragraphs: [
-      "An [AI receptionist for salon enquiries](/services/ai-receptionists) answers routine questions while [voice handling](/services/ai-voice-agents) captures the calls that ring out mid-service.",
-      "[Cancellation and rebooking workflows](/services/ai-automation) coordinate diary, payments and client records; a governed [content system](/services/content-creation) keeps aftercare and seasonal messaging on-brand.",
+      "An [AI receptionist for salon inquiries](/services/ai-receptionists) answers routine questions while [voice handling](/services/ai-voice-agents) captures the calls that ring out mid-service.",
+      "[Cancellation and rebooking workflows](/services/ai-automation) coordinate the calendar, payments and client records in Vagaro, Fresha, Booksy or Phorest; a governed [content system](/services/content-creation) keeps aftercare and seasonal messaging on-brand.",
     ],
   },
   proof: {
-    heading: "Diary performance, *measured*",
+    heading: "Calendar performance, *measured*",
     lead: "Verified Silverstone AI delivery results across attendance, reachability and admin.",
     metrics: [
       { id: "benchmark-012", value: "-75%", label: "No-shows" },
@@ -132,7 +172,7 @@ export const salonsBarbersCopy: IndustryCopy = {
   },
   boundary: {
     heading: "Suitability stays *in the chair*",
-    body: "Automation arranges the slot — **your practitioner makes the call.** A client raising a suitability issue is never pushed through a funnel; the system pauses and hands over with context.",
+    body: "Automation arranges the slot; **your practitioner makes the call.** A client raising a suitability issue is never pushed through a funnel; the system pauses and hands over with context.",
     keeps: [
       "Patch tests and contraindications",
       "Health disclosures",
@@ -142,10 +182,13 @@ export const salonsBarbersCopy: IndustryCopy = {
     ],
   },
   process: {
-    heading: "From rule map to live diary, *fast*",
-    lead: "Replacement is a last resort — configuration comes first.",
+    heading: "From rule map to live calendar, *fast*",
+    lead: "Replacement is a last resort; configuration comes first.",
     steps: [
-      { title: "Diary review", body: "Services, durations, practitioners, locations." },
+      {
+        title: "Calendar review",
+        body: "Services, durations, practitioners, locations.",
+      },
       {
         title: "Rule definition",
         body: "Deposits, cancellations, waitlists, escalation.",
@@ -156,11 +199,11 @@ export const salonsBarbersCopy: IndustryCopy = {
       },
       {
         title: "Integration test",
-        body: "Availability, payments, client status — proven.",
+        body: "Availability, payments, client status, proven.",
       },
       { title: "Controlled launch", body: "Double-book risk monitored live." },
       {
-        title: "Refine on behaviour",
+        title: "Refine on behavior",
         body: "Timing and segments tuned from real data.",
       },
     ],
@@ -169,24 +212,24 @@ export const salonsBarbersCopy: IndustryCopy = {
     heading: "Is this *your salon*?",
     lead: "The best results come from owners ready to write the rules down.",
     right: [
-      "Steady enquiry volume",
-      "Defined services and stable diary",
+      "Steady inquiry volume",
+      "Defined services and a stable calendar",
       "No-shows or gaps you can name",
       "Rules currently held in heads",
     ],
     caution:
-      "Not a fit where the diary is routinely overridden, suitability is expected to be automated, or lapsed clients would be messaged without consent.",
+      "Not a fit where the calendar is routinely overridden, suitability is expected to be automated, or lapsed clients would be messaged without consent.",
   },
   faqs: {
     heading: "Common questions",
     items: [
       {
-        q: "Will it double-book our diary?",
-        a: "No. One authoritative booking source, with conflict states proven before launch — **nothing ships until it's safe.**",
+        q: "Will it double-book our calendar?",
+        a: "No. One authoritative booking source, whether Vagaro, Fresha, Booksy, GlossGenius or Phorest, with conflict states proven before launch; **nothing ships until it's safe.**",
       },
       {
         q: "Does it understand service lengths and stylists?",
-        a: "Yes — documented rules drive it. Suitability-dependent services route to staff automatically.",
+        a: "Yes, documented rules drive it. Suitability-dependent services route to staff automatically.",
       },
       {
         q: "How are deposits handled?",
@@ -194,21 +237,21 @@ export const salonsBarbersCopy: IndustryCopy = {
       },
       {
         q: "Will clients find it impersonal?",
-        a: "Messages fire from real booking status and service cadence — timely and personal, never bulk.",
+        a: "Messages fire from real booking status and service cadence: timely and personal, never bulk.",
       },
       {
         q: "Can it win back lapsed clients?",
-        a: "Yes — segmented by service and consent, with suppression and one-tap opt-out.",
+        a: "Yes, segmented by service and consent, with suppression and one-tap opt-out.",
       },
     ],
   },
   midCta: {
     heading: "Map *your* cancellation recovery",
-    body: "Bring one week of diary friction. We'll show you which gaps were recoverable — and what that's worth per chair.",
+    body: "Bring one week of calendar friction. We'll show you which gaps were recoverable, and what that's worth per chair.",
     buttonLabel: "Book a discovery call",
   },
   finalCta: {
-    heading: "Review the diary *before* buying another tool",
+    heading: "Review the calendar *before* buying another tool",
     body: "One call examines your booking journey end to end: missed calls, cancellations, waitlists, rebooking. See [how we deliver](/how-we-work) and [how scope shapes pricing](/pricing).",
     reassurance:
       "No obligation · no platform migration assumed · no automated treatment advice, ever.",

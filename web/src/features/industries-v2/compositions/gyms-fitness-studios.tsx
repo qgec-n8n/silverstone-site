@@ -1,5 +1,5 @@
 /**
- * Gyms & Fitness Studios — bespoke composition.
+ * Gyms & Fitness Studios — custom composition.
  * Visual concept: Member Pulse Grid — attendance as a living heat-map. The
  * workflows grid lands before the journey (operators think in systems), the
  * club imagery splits beside the front-desk story, and audience proof closes
@@ -18,6 +18,7 @@ import {
   TrendingUp,
   UserCheck,
   Users,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -45,6 +46,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -89,6 +91,19 @@ export function GymsFitnessStudiosComposition({
       />
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
+
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
 
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">

@@ -29,7 +29,7 @@ export function SystemVisual() {
             </h2>
             <p className="ss-lead ss-hv2-copy">
               The Silverstone System is designed around the real business process first:
-              signal capture, triage, handoff, review and optimisation. Technology is
+              signal capture, triage, handoff, review and optimization. Technology is
               selected only after the operating model is clear.
             </p>
           </Reveal>

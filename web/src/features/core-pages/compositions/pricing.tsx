@@ -11,7 +11,7 @@
  *
  * Secondary-hero feature: PricingModelOverviewSignature — a DOM instrument, not
  * an SVG diagram, so the headline prices are real selectable text.
- * Verified-results display keeps the bespoke PricingMetricInstrument: the only
+ * Verified-results display keeps the custom PricingMetricInstrument: the only
  * page allowed a second results row, and only in its balanced 3-over-2 shape.
  */
 import {
@@ -35,6 +35,8 @@ import { PricingValueModel } from "~/features/core-pages/pricing/pricing-value-m
 import { SupportRetainerGrid } from "~/features/core-pages/pricing/support-retainer-grid";
 import { WebsitePricingBento } from "~/features/core-pages/pricing/website-pricing-bento";
 import { VERIFIED_METRICS } from "~/features/core-pages/pricing/pricing-content";
+import { CurrencyToggle } from "~/components/ui/currency-toggle";
+import { money } from "~/data/currency";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
@@ -71,12 +73,12 @@ export function PricingComposition() {
       <SecondaryHero
         eyebrow="Transparent pricing"
         icon={Diamond}
-        title="AI automation pricing for *UK SMEs*"
+        title="AI automation pricing for *small and mid-sized businesses*"
         titleId="core-pricing-title"
-        lead="Straightforward pricing for UK SMEs: focused pilots from £3,000, most full implementations between £10,000 and £25,000, and ongoing support from £350 per month. Start with one workflow, prove the value, then scale."
+        lead={`Published bands for US and UK businesses, in the currency you choose: focused pilots from ${money("£3,000")}, most full implementations between ${money("£10,000")} and ${money("£25,000")}, and ongoing support from ${money("£350")} per month. Start with one workflow, prove the value, then scale.`}
         points={[
           "No hidden implementation costs",
-          "ROI modelled before build",
+          "ROI modeled before build",
           "24/7 support on Premium and Enterprise retainers",
         ]}
         primaryCtaLabel="Get a custom quote"
@@ -96,6 +98,15 @@ export function PricingComposition() {
             headingId="pricing-packages"
             lead="Flexible pricing based on workflow scope, integrations, assurance and complexity. Begin with one valuable use case, prove it in operation, then expand with evidence."
           />
+          {/* The hero instrument that carries the desktop toggle sits in the
+              showcase panel, which phones do not render — so the packages
+              section opens with its own control below that breakpoint. */}
+          <div className="ss-pri-currency-inline">
+            <CurrencyToggle context="pricing-inline" labeled tone="dark" />
+            <p className="ss-pri-currency-inline__note">
+              USD at fixed pairs, reviewed quarterly.
+            </p>
+          </div>
           <ImplementationPackages />
         </div>
       </section>
@@ -120,7 +131,7 @@ export function PricingComposition() {
             icon={Headset}
             heading="Support that *protects the value* after launch"
             headingId="pricing-support"
-            lead="Monthly retainers keep AI systems monitored, maintained and improving through structured support, optimisation and enhancement."
+            lead="Monthly retainers keep AI systems monitored, maintained and improving through structured support, optimization and enhancement."
           />
           <SupportRetainerGrid />
         </div>
@@ -175,7 +186,7 @@ export function PricingComposition() {
       <section className="ss-srv2-section" aria-labelledby="pricing-bespoke">
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Bespoke engagements"
+            eyebrow="Custom engagements"
             icon={Building2}
             heading="When scope matters more than a *published band*"
             headingId="pricing-bespoke"

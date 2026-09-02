@@ -12,7 +12,7 @@ type SectionShellProps = {
   title?: ReactNode;
   lead?: ReactNode;
   children: ReactNode;
-  /** Centre the heading block (used by full-width feature sections). */
+  /** Center the heading block (used by full-width feature sections). */
   align?: "start" | "center";
   /**
    * Heading measure. `wide` (default) lets display titles span a generous
@@ -27,7 +27,7 @@ type SectionShellProps = {
    * Brand-spectrum hue for this section. Sets `--ss-hv2-accent` on the section,
    * which tints the lead, card titles, markers, figures and bullet icons
    * beneath it — so the homepage body walks the whole palette top to bottom
-   * instead of reading as one long block of white and grey. Matches the
+   * instead of reading as one long block of white and gray. Matches the
    * `data-sig` hue on the section's own heading emphasis.
    */
   tone?: HomeTone;

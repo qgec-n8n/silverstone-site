@@ -17,7 +17,7 @@ import { useRef, useState, type KeyboardEvent } from "react";
 
 import { ChevronDown } from "~/components/icons/lucide";
 import { PRICING_FAQ } from "~/data/pricing-faq";
-import { Reveal } from "~/features/services-v2/components/primitives";
+import { Reveal, RichText } from "~/features/services-v2/components/primitives";
 
 export function PricingFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -78,7 +78,9 @@ export function PricingFaq() {
                   }}
                   type="button"
                 >
-                  <span>{item.question}</span>
+                  <span>
+                    <RichText text={item.question} />
+                  </span>
                   <ChevronDown aria-hidden="true" className="ss-pri-faq__chevron" />
                 </button>
               </h3>
@@ -91,7 +93,9 @@ export function PricingFaq() {
                 inert={!open}
               >
                 <div className="ss-pri-faq__panel-inner">
-                  <p>{item.answer}</p>
+                  <p>
+                    <RichText text={item.answer} />
+                  </p>
                 </div>
               </div>
             </div>

@@ -369,6 +369,23 @@
   color: var(--ss-v2-chrome);
 }
 
+/* Display-currency instrument inside the pricing hero: toggle + fixed-rate
+   note on one row, wrapping on narrow panels. */
+.ss-pri-model__currency {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-block: 0.9rem 0.2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-model__currency .ss-pri-model__note {
+  flex: 1 1 12rem;
+  margin: 0;
+}
+
 .ss-pri-model__note {
   margin: 0;
   color: var(--srv2-ink-faint);
@@ -3106,5 +3123,33 @@
 
   .ss-pri-tierx__panel {
     transform: none;
+  }
+}
+
+/* Phone/tablet display-currency control. The hero showcase (and the
+   instrument toggle inside it) is not rendered below the showcase
+   breakpoint, so the packages section carries its own control there. */
+.ss-pri-currency-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-bottom: clamp(1.2rem, 1rem + 1vw, 2rem);
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-graphite) 55%, transparent);
+}
+
+.ss-pri-currency-inline__note {
+  margin: 0;
+  color: var(--ss-v2-titanium);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 64rem) {
+  .ss-pri-currency-inline {
+    display: none;
   }
 }

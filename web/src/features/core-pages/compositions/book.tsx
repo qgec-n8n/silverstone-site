@@ -135,7 +135,7 @@ export function BookComposition() {
           <FinalCta
             heading="Need a *written route* instead?"
             body="No technical preparation is required. Bring one process, journey or digital problem and enough context to decide the sensible next step."
-            buttonLabel="Send a written enquiry"
+            buttonLabel="Send a written inquiry"
             bookHref="/contact#contact-form"
           />
         </div>

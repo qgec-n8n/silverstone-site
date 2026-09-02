@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** AI Voice Agent Development UK | Silverstone AI
+- **Preferred SEO title:** AI Voice Agent Development | Silverstone AI
 - **Alternative SEO title 1:** Custom AI Voice Agents for UK Businesses
 - **Alternative SEO title 2:** AI Call Automation & Voice Agent Development | Silverstone
-- **Meta description:** Custom AI voice-agent development for UK businesses: conversation design, telephony, approved knowledge, CRM actions, human escalation, monitoring and responsible disclosure.
+- **Meta description:** Custom AI voice-agent development for US and UK businesses: conversation design, telephony, approved knowledge, CRM actions, human escalation, monitoring and responsible disclosure.
 - **Open Graph title:** Voice agents built for real conversations and real consequences
-- **Open Graph description:** Silverstone designs governed voice workflows with clear call states, approved actions, telephony integration, transcripts, monitoring and human fallback.
+- **Open Graph description:** Silverstone AI designs governed voice workflows with clear call states, approved actions, telephony integration, transcripts, monitoring and human fallback.
 - **Canonical route:** `/services/ai-voice-agents`
 - **H1:** Voice agents built for real conversations — and real consequences
 
@@ -145,7 +145,7 @@ A voice agent is easy to demonstrate and difficult to operate well.
 
 The production challenge is not making a synthetic voice speak. It is designing a call system that understands defined intents, responds from approved knowledge, manages interruptions, takes permitted actions, records what happened and transfers uncertainty to a person with useful context.
 
-Silverstone develops custom AI voice agents for UK businesses with repeatable inbound or outbound call workflows. Conversation design, speech processing, telephony, integrations, evaluation, monitoring and human escalation are treated as one operating system. The objective is not to imitate a person at any cost. It is to make routine calls faster and more consistent without hiding the point at which judgement, sensitivity or risk requires a human owner.
+Silverstone develops custom AI voice agents for UK businesses with repeatable inbound or outbound call workflows. Conversation design, speech processing, telephony, integrations, evaluation, monitoring and human escalation are treated as one operating system. The objective is not to imitate a person at any cost. It is to make routine calls faster and more consistent without hiding the point at which judgment, sensitivity or risk requires a human owner.
 
 **Primary action: Book a discovery call**
 
@@ -165,27 +165,27 @@ The business process behind the call matters just as much. A booking is only com
 
 We begin with a small set of call intents that are frequent, valuable and bounded. Each intent receives an approved opening, information requirements, questions, confirmation language, stop conditions and escalation route.
 
-The call is designed around states rather than a single long prompt. That makes behaviour easier to test and reduces the chance that a model will invent a path when the conversation moves outside the expected territory.
+The call is designed around states rather than a single long prompt. That makes behavior easier to test and reduces the chance that a model will invent a path when the conversation moves outside the expected territory.
 
 ### The speech pipeline and latency
 
 A typical voice stack combines speech-to-text, a language model and text-to-speech. The quality of the experience depends on the whole sequence: recognition, reasoning, response generation, audio playback and turn management.
 
-Latency matters because long pauses make a call feel broken. Yet speed cannot be pursued by removing confirmation, safety checks or reliable tool handling. Turn-taking and barge-in behaviour must allow a caller to interrupt naturally without causing the system to lose the state of the task.
+Latency matters because long pauses make a call feel broken. Yet speed cannot be pursued by removing confirmation, safety checks or reliable tool handling. Turn-taking and barge-in behavior must allow a caller to interrupt naturally without causing the system to lose the state of the task.
 
 Provider choice is made against the use case. Voice quality, supported languages, latency, data controls, telephony options, observability, cost and integration depth all matter. Silverstone is not a reseller for one platform; the selected architecture should fit the call.
 
 ### Telephony and business actions
 
-The voice layer must connect to the real phone environment. That may involve a phone number, SIP or another telephony provider, routing rules, opening hours, transfer destinations, voicemail behaviour and call-status events.
+The voice layer must connect to the real phone environment. That may involve a phone number, SIP or another telephony provider, routing rules, opening hours, transfer destinations, voicemail behavior and call-status events.
 
-Actions are permissioned explicitly. An agent might check a calendar, offer an appointment, create a CRM record, send an SMS confirmation or open a helpdesk ticket. Each action needs validation, a success response, an error response and a fallback owner. Irreversible or consequential actions should not be hidden inside free-form model behaviour.
+Actions are permissioned explicitly. An agent might check a calendar, offer an appointment, create a CRM record, send an SMS confirmation or open a helpdesk ticket. Each action needs validation, a success response, an error response and a fallback owner. Irreversible or consequential actions should not be hidden inside free-form model behavior.
 
 ### Approved knowledge and guardrails
 
 The agent should answer from material the business has approved: service information, opening hours, locations, policies, qualification rules and scripted explanations. Retrieval should narrow the knowledge available to the conversation rather than invite the model to answer from general memory.
 
-Blocked topics are as important as approved topics. Clinical, legal, financial, complaint, safeguarding or other sensitive matters should move to an authorised person. The system should be designed to say that it cannot complete a request rather than manufacture confidence.
+Blocked topics are as important as approved topics. Clinical, legal, financial, complaint, safeguarding or other sensitive matters should move to an authorized person. The system should be designed to say that it cannot complete a request rather than manufacture confidence.
 
 ### Transcripts, evaluation and monitoring
 
@@ -207,7 +207,7 @@ The system should identify itself as automated where required and, as a design p
 
 The approved benchmark register contains published voice-agent examples reporting **response in under 10 seconds**, **15 hours saved per week** and a **22% increase in new-patient bookings**.
 
-These are external case figures, not Silverstone outcomes. They show why organisations investigate voice automation: speed, staff capacity and conversion of routine demand. They do not establish what a particular implementation will achieve. Call mix, volume, existing response performance, booking rules, integration quality and human adoption all change the result.
+These are external case figures, not Silverstone outcomes. They show why organizations investigate voice automation: speed, staff capacity and conversion of routine demand. They do not establish what a particular implementation will achieve. Call mix, volume, existing response performance, booking rules, integration quality and human adoption all change the result.
 
 A responsible project defines its own baseline before launch: answer rate, response time, qualified outcomes, successful actions, transfers, abandoned calls, staff time and exception rate.
 
@@ -223,7 +223,7 @@ Conversation paths are written and exercised with synthetic calls. We test inter
 
 ### 3. Connect
 
-Telephony, knowledge, calendar, CRM, messaging or helpdesk actions are integrated only after the call logic is approved. Credentials, environments, logging and fallback behaviour are treated as production requirements.
+Telephony, knowledge, calendar, CRM, messaging or helpdesk actions are integrated only after the call logic is approved. Credentials, environments, logging and fallback behavior are treated as production requirements.
 
 ### 4. Evaluate
 
@@ -237,7 +237,7 @@ A discovery call can determine whether the right starting point is a general voi
 
 ### What happens when the caller interrupts?
 
-Barge-in behaviour should stop playback, preserve the relevant context and let the caller redirect the conversation. The exact behaviour depends on the provider and state model, which is why interruption testing belongs in the evaluation plan.
+Barge-in behavior should stop playback, preserve the relevant context and let the caller redirect the conversation. The exact behavior depends on the provider and state model, which is why interruption testing belongs in the evaluation plan.
 
 ### What happens when speech is unclear?
 
@@ -249,13 +249,13 @@ The caller receives a truthful response. The system records the failure, avoids 
 
 ### What happens on a sensitive request?
 
-The agent does not provide professional judgement. It follows the approved handoff path, captures only the information needed for that handoff and avoids unnecessary exposure of sensitive data.
+The agent does not provide professional judgment. It follows the approved handoff path, captures only the information needed for that handoff and avoids unnecessary exposure of sensitive data.
 
 ## Where voice agents fit
 
-This service is suited to organisations with repeated, high-volume or time-sensitive calls such as availability checks, appointment requests, lead qualification, status updates, routine outbound confirmations and structured follow-up.
+This service is suited to organizations with repeated, high-volume or time-sensitive calls such as availability checks, appointment requests, lead qualification, status updates, routine outbound confirmations and structured follow-up.
 
-It is less suitable when most conversations require nuanced professional judgement, the source information is unreliable, there is no human fallback, call recording and data handling cannot be governed, or the business expects one unconstrained agent to answer every possible question.
+It is less suitable when most conversations require nuanced professional judgment, the source information is unreliable, there is no human fallback, call recording and data handling cannot be governed, or the business expects one unconstrained agent to answer every possible question.
 
 An **AI Receptionist** is the better product frame when the primary task is a unified front desk across calls, chat, intake, booking and routing. **AI Automation** is relevant when the call needs to trigger downstream data and operational workflows. **AI & Automation Consulting** can assess the route before a provider or architecture is selected.
 
@@ -267,7 +267,7 @@ Potentially, depending on the carrier, telephony setup and chosen voice platform
 
 ### Can it book appointments during the call?
 
-Yes, where calendar access, availability rules, confirmation language and fallback behaviour are approved. The system should confirm the selected details before writing the booking.
+Yes, where calendar access, availability rules, confirmation language and fallback behavior are approved. The system should confirm the selected details before writing the booking.
 
 ### Can it speak with a UK voice or understand UK details?
 
@@ -323,7 +323,7 @@ Review **How We Work** for the delivery route, **Pricing** for the scoping model
 
 ### Comparison block
 
-- **Voice demo:** optimised for a short expected conversation with no operational consequence.
+- **Voice demo:** optimized for a short expected conversation with no operational consequence.
 - **Silverstone voice system:** designed around real call states, tool outcomes, monitoring and human ownership.
 
 ### Trust strip
@@ -418,7 +418,7 @@ Use the selected benchmark panel after the service capabilities and before the i
 ### Image placement
 
 - Use `services_lead_followup.jpg` / `services_lead_followup_mobile.jpg` beside call-routing and downstream-action content.
-- Keep the Call Flow Oscilloscope labelled as a conceptual system view.
+- Keep the Call Flow Oscilloscope labeled as a conceptual system view.
 - Do not use human portrait imagery to imply a real caller, employee or client without permission.
 
 ### Demo placement

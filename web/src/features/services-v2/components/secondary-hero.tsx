@@ -97,7 +97,7 @@ const FALLBACK_POINT_ICONS = [Target, Workflow, ShieldCheck] as const;
  */
 function inferPointIcon(text: string, index: number): LucideIcon {
   const normalized = text.toLowerCase();
-  if (/human|judgement|oversight|people|team/.test(normalized)) {
+  if (/human|judgment|oversight|people|team/.test(normalized)) {
     return UserCheck;
   }
   if (/source of truth|crm|record|data|diary|reservation|patient/.test(normalized)) {

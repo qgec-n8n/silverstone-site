@@ -1,5 +1,5 @@
 /**
- * AI Automation — bespoke composition.
+ * AI Automation — custom composition.
  * Visual concept: Operational Orchestration Lattice.
  */
 import type { CSSProperties } from "react";
@@ -142,7 +142,7 @@ export function AiAutomationComposition({
         <div className="ss-srv2__container">
           <div className="ss-srv2-split">
             <SectionHead
-              eyebrow="Why Silverstone"
+              eyebrow="Why Silverstone AI"
               icon={Sparkles}
               heading={copy.differentiator.heading}
               headingId="srv2-different"

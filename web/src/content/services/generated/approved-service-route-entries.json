@@ -1,9 +1,9 @@
 {
   "/services/web-design-development": {
     "loaderText": "Aligning message, movement and measurement",
-    "pill": "Bespoke digital experience",
+    "pill": "Custom digital experience",
     "title": "Make the website earn its place",
-    "subtitle": "Strategy, copy, design and engineering shaped into one clear route from first visit to qualified enquiry.",
+    "subtitle": "Strategy, copy, design and engineering shaped into one clear route from first visit to qualified inquiry.",
     "buttonLabel": "Explore the commercial website system"
   },
   "/services/app-development": {
@@ -21,9 +21,9 @@
     "buttonLabel": "Explore the call architecture"
   },
   "/services/ai-receptionists": {
-    "loaderText": "Converging every enquiry into the right next action",
+    "loaderText": "Converging every inquiry into the right next action",
     "pill": "Customer operations / Front desk",
-    "title": "Turn every routine enquiry into a controlled handoff",
+    "title": "Turn every routine inquiry into a controlled handoff",
     "subtitle": "One governed reception layer for calls, chat, intake, booking, routing and the moments that still need a person.",
     "buttonLabel": "Open the front-desk system"
   },
@@ -38,14 +38,14 @@
     "loaderText": "Orchestrating data, decisions and accountable action",
     "pill": "Operational systems / Automation",
     "title": "Make the handoffs work without hiding the exceptions",
-    "subtitle": "Custom workflows that connect triggers, data, rules, AI judgement, approvals and reporting into an operating layer your team can inspect.",
+    "subtitle": "Custom workflows that connect triggers, data, rules, AI judgment, approvals and reporting into an operating layer your team can inspect.",
     "buttonLabel": "Trace the automation system"
   },
   "/services/ai-consulting": {
     "loaderText": "Converting ambition into an ordered set of decisions",
     "pill": "Leadership advisory / Opportunity audit",
-    "title": "Put judgement before implementation",
-    "subtitle": "A senior decision layer for prioritising use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.",
+    "title": "Put judgment before implementation",
+    "subtitle": "A senior decision layer for prioritizing use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.",
     "buttonLabel": "Explore the advisory route"
   }
 }

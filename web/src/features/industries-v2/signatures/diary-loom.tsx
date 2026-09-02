@@ -26,14 +26,14 @@ const WAITLIST = { x: 60, y: 430 };
 
 export function DiaryLoom({ label, metrics }: { label: string; metrics: string[] }) {
   const reducedMotion = useReducedMotion() ?? false;
-  const [phase, setPhase] = useState<"booked" | "cancelled" | "refilled">("booked");
+  const [phase, setPhase] = useState<"booked" | "canceled" | "refilled">("booked");
 
   useEffect(() => {
     if (reducedMotion) {
       return undefined;
     }
     const timers = [
-      window.setTimeout(() => setPhase("cancelled"), 2200),
+      window.setTimeout(() => setPhase("canceled"), 2200),
       window.setTimeout(() => setPhase("refilled"), 4600),
       window.setTimeout(() => setPhase("booked"), 8200),
     ];
@@ -47,7 +47,7 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: a woven week of salon chair slots; a cancelled appointment is offered to the waitlist and refilled while deposits and practitioner suitability gates stay in place."
+      aria-label="Diagram: a woven week of salon chair slots; a canceled appointment is offered to the waitlist and refilled while deposits and practitioner suitability gates stay in place."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
@@ -109,7 +109,7 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
                 );
               }
               if (isCancelCell) {
-                const filled = phase !== "cancelled";
+                const filled = phase !== "canceled";
                 return (
                   <m.rect
                     key={key}
@@ -129,11 +129,11 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
                     animate={
                       reducedMotion
                         ? {}
-                        : { opacity: phase === "cancelled" ? [1, 0.35, 1] : 1 }
+                        : { opacity: phase === "canceled" ? [1, 0.35, 1] : 1 }
                     }
                     transition={{
                       duration: 1.1,
-                      repeat: phase === "cancelled" ? 2 : 0,
+                      repeat: phase === "canceled" ? 2 : 0,
                     }}
                   />
                 );

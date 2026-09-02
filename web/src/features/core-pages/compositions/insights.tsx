@@ -33,7 +33,7 @@ const TOPIC_CARDS: CoreCard[] = [
   {
     href: "/services/ai-receptionists",
     title: "AI receptionists",
-    body: "Enquiry handling, booking, escalation and operating rules.",
+    body: "Inquiry handling, booking, escalation and operating rules.",
     icon: Layers,
   },
   {
@@ -57,7 +57,7 @@ const TOPIC_CARDS: CoreCard[] = [
   {
     href: "/industry",
     title: "Industry applications",
-    body: "Sector-specific systems for ten UK operating realities.",
+    body: "Sector-specific systems for ten operating realities across the US and UK.",
     icon: Layers,
   },
 ];
@@ -76,7 +76,7 @@ export function InsightsComposition() {
         icon={FileText}
         title="Intelligence for *better* technology decisions"
         titleId="core-insights-title"
-        lead="A searchable library of practical guides, organised by the services and industries we build for — find the topic behind your next decision."
+        lead="A searchable library of practical guides, organized by the services and industries we build for — find the topic behind your next decision."
         points={[
           { icon: Search, text: "Search and filter every guide by service or sector" },
           {

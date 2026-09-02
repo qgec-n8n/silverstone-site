@@ -1,6 +1,6 @@
 /**
- * Estate Agents — bespoke composition.
- * Visual concept: Property Enquiry Switchboard — demand converging into owned
+ * Estate Agents — custom composition.
+ * Visual concept: Property Inquiry Switchboard — demand converging into owned
  * branch conversations. Journey rail leads the page; the diary-and-branch
  * imagery anchors the workflows; boundary and proof close the argument.
  */
@@ -17,6 +17,7 @@ import {
   TrendingUp,
   UserCheck,
   Users,
+  Globe,
 } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
@@ -44,6 +45,7 @@ import {
   JourneyRail,
   LinkedProse,
   LinkedText,
+  MarketLanes,
   TrustTokens,
   WorkflowCards,
 } from "../components/industry-sections";
@@ -87,6 +89,19 @@ export function EstateAgentsComposition({
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
 
+      <section className="ss-srv2-section" aria-labelledby="ind2-markets">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow={copy.markets.eyebrow}
+            icon={Globe}
+            heading={copy.markets.heading}
+            headingId="ind2-markets"
+            lead={copy.markets.lead}
+          />
+          <MarketLanes markets={copy.markets} />
+        </div>
+      </section>
+
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">
           <SectionHead
@@ -112,7 +127,7 @@ export function EstateAgentsComposition({
       <section className="ss-srv2-section" aria-labelledby="ind2-journey">
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
-            eyebrow="The enquiry journey"
+            eyebrow="The inquiry journey"
             icon={GitBranch}
             heading={copy.journey.heading}
             headingId="ind2-journey"
@@ -175,7 +190,7 @@ export function EstateAgentsComposition({
       <section className="ss-srv2-section" aria-labelledby="ind2-boundary">
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Human judgement"
+            eyebrow="Human judgment"
             icon={UserCheck}
             heading={copy.boundary.heading}
             headingId="ind2-boundary"

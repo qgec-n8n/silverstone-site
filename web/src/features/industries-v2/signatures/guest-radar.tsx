@@ -39,7 +39,7 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: a service radar sweeps guest requests as they appear — routine questions are answered from approved information, group enquiries route to the events owner, and safety matters draw a direct line to the staff desk anchored by the reservation source of truth."
+      aria-label="Diagram: a service radar sweeps guest requests as they appear — routine questions are answered from approved information, group inquiries route to the events owner, and safety matters draw a direct line to the staff desk anchored by the reservation source of truth."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">

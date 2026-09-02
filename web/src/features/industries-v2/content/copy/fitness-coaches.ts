@@ -16,36 +16,78 @@ export const fitnessCoachesCopy: IndustryCopy = {
     buttonLabel: "Explore the coaching journey",
   },
   seo: {
-    title: "Automation for Online Fitness Coaches UK | Silverstone",
+    title: "Automation for Online Fitness Coaches | Silverstone AI",
     description:
-      "Move website and social leads into qualified consultations, onboarding and follow-up with fitness-coach automation that preserves personal coaching judgement.",
+      "Move website and social leads into qualified consultations, onboarding and follow-up with fitness-coach automation that preserves personal coaching judgment.",
     h1: "Move more of the right leads from message to consultation",
   },
   eyebrow: "Automation for online coaches",
   h1: "More consultations. *Zero lost DMs.*",
   heroSub:
-    "A story reply dies between sessions. Silverstone qualifies every enquiry **instantly** — you walk into consultations with context, not a cold open.",
+    "A story reply dies between sessions. Silverstone AI qualifies every inquiry **instantly**, so you walk into consultations with context, not a cold open. For online coaches in the US and UK.",
   heroPoints: [
     "Every DM qualified, transparently, in seconds",
     "Consultations booked from real calendar capacity",
-    "Health and programme decisions — always yours",
+    "Health and program decisions, always yours",
   ],
   trustTokens: [
     "Transparent qualification",
     "Consent-aware follow-up",
-    "Coach-owned judgement",
+    "Coach-owned judgment",
   ],
+  markets: {
+    eyebrow: "Built for your market",
+    heading: "Same cold DM. *Your* coaching platform.",
+    lead: "A story reply in Austin and one in Leeds go cold the same way, three questions in. The journey is identical; the coaching platform and what you call the first call change.",
+    lanes: [
+      {
+        market: "US",
+        label: "United States",
+        operators:
+          "Online coaches and personal trainers selling programs through Instagram, TikTok and their own site.",
+        tooling: [
+          "Trainerize, TrueCoach or Kajabi",
+          "Calendly or Acuity for discovery calls",
+          "Stripe, ManyChat and your CRM",
+        ],
+        vocabulary:
+          "Discovery calls, high-ticket programs, DM setters, check-ins, macros.",
+        keepsHuman:
+          "Health screening, injury advice, program fit and every outcome promise.",
+      },
+      {
+        market: "UK",
+        label: "United Kingdom",
+        operators:
+          "Online coaches and PTs selling coaching through Instagram, TikTok and their own site.",
+        tooling: [
+          "Trainerize, TrueCoach or PT Distinction",
+          "Calendly or Acuity for consultation calls",
+          "Stripe, GoCardless, ManyChat and your CRM",
+        ],
+        vocabulary:
+          "Consultation calls, coaching packages, DM setters, check-ins, PAR-Q.",
+        keepsHuman:
+          "Health screening, injury advice, program fit and every outcome promise.",
+      },
+    ],
+    shared: [
+      "Every DM is qualified transparently in seconds, with the minimum context and no hidden score.",
+      "Consultations are offered from real calendar capacity and your booking rules, never phantom slots.",
+      "Onboarding and check-ins fire themselves; the coach interprets progress and decides every change.",
+    ],
+  },
   problem: {
     heading: "The business breaks *between conversations*",
-    body: "Three questions in, the thread goes cold — and the client books with someone else. Silverstone handles the repeatable commercial work. **It never touches health, injuries or programme fit.**",
+    body: "Three questions in, the thread goes cold, and the client books with someone else. Silverstone AI handles the repeatable commercial work. **It never touches health, injuries or program fit.**",
     cards: [
       {
         title: "“How much?” with zero context",
-        body: "Turned into a clear, transparent next step — instantly.",
+        body: "Turned into a clear, transparent next step, instantly.",
       },
       {
         title: "Consultations lost between tools",
-        body: "Messages, fit questions and booking status — one record.",
+        body: "Messages, fit questions and booking status in one record.",
       },
       {
         title: "Onboarding rebuilt every time",
@@ -59,11 +101,11 @@ export const fitnessCoachesCopy: IndustryCopy = {
   },
   journey: {
     heading: "From DM to *booked consultation*",
-    lead: "Never reconstruct a conversation again — the full context is waiting when you sit down.",
+    lead: "Never reconstruct a conversation again; the full context is waiting when you sit down.",
     stages: [
       {
         title: "Context captured",
-        body: "Channel and fit questions — transparent, brief, never a hidden score.",
+        body: "Channel and fit questions: transparent, brief, never a hidden score.",
       },
       {
         title: "Offer clarified",
@@ -79,13 +121,13 @@ export const fitnessCoachesCopy: IndustryCopy = {
       },
       {
         title: "Outcome recorded",
-        body: "Booked, rescheduled or not-ready — onboarding fires the moment they say yes.",
+        body: "Booked, rescheduled or not-ready; onboarding fires the moment they say yes.",
       },
     ],
   },
   workflows: {
     heading: "Automation *behind* the personal service",
-    lead: "Every client-facing step protects the relationship — never dilutes it.",
+    lead: "Every client-facing step protects the relationship, never dilutes it.",
     items: [
       {
         title: "Onboarding sequences",
@@ -93,7 +135,7 @@ export const fitnessCoachesCopy: IndustryCopy = {
       },
       {
         title: "Check-in collection",
-        body: "Prompted and organised — **you interpret progress, always.**",
+        body: "Prompted and organized; **you interpret progress, always.**",
       },
       {
         title: "Nurture & reactivation",
@@ -101,7 +143,7 @@ export const fitnessCoachesCopy: IndustryCopy = {
       },
       {
         title: "Stage visibility",
-        body: "Every lead, consultation and onboarding stage — in one view.",
+        body: "Every lead, consultation and onboarding stage in one view.",
       },
     ],
   },
@@ -109,7 +151,7 @@ export const fitnessCoachesCopy: IndustryCopy = {
     heading: "One source of truth, *every message*",
     lead: "Nothing you send contradicts what you offer.",
     paragraphs: [
-      "An [AI receptionist](/services/ai-receptionists) organises enquiries; [consultation-booking workflows](/services/ai-automation) connect calendar, forms and payments.",
+      "An [AI receptionist](/services/ai-receptionists) organizes inquiries; [consultation-booking workflows](/services/ai-automation) connect Calendly or Acuity, your forms, Stripe and your coaching platform.",
       "A [governed content system](/services/content-creation) turns your expertise into on-brand material; a [conversion-led website](/services/web-design-development) makes the offer clear before the first message.",
     ],
   },
@@ -132,27 +174,27 @@ export const fitnessCoachesCopy: IndustryCopy = {
   },
   boundary: {
     heading: "Health decisions stay *entirely yours*",
-    body: "The system handles calendar, forms and content. **You decide health, suitability and programme fit — every time.** Sensitive disclosures never touch an automated sales decision.",
+    body: "The system handles calendar, forms and content. **You decide health, suitability and program fit, every time.** Sensitive disclosures never touch an automated sales decision.",
     keeps: [
       "Health assessment & injury advice",
-      "Programme fit & coaching judgement",
+      "Program fit & coaching judgment",
       "Check-in interpretation",
       "Healthcare referral decisions",
-      "Every outcome promise — none automated",
+      "Every outcome promise, none automated",
     ],
   },
   process: {
     heading: "Built at *your* point of friction",
-    lead: "The smallest useful system first — never the longest feature list.",
+    lead: "The smallest useful system first, never the longest feature list.",
     steps: [
-      { title: "Map lead sources", body: "Social, web and referral — real volumes." },
+      { title: "Map lead sources", body: "Social, web and referral, at real volumes." },
       {
         title: "Define the offer",
         body: "Eligibility and no-fit routes, stated plainly.",
       },
       { title: "Choose authority", body: "The record and calendar everything obeys." },
       { title: "Write the questions", body: "Transparent, in your own voice." },
-      { title: "Connect one journey", body: "DM to consultation — tested first." },
+      { title: "Connect one journey", body: "DM to consultation, tested first." },
       {
         title: "Measure, then extend",
         body: "Content and retention follow the evidence.",
@@ -180,30 +222,30 @@ export const fitnessCoachesCopy: IndustryCopy = {
       },
       {
         q: "Can it manage Instagram DMs?",
-        a: "Depending on platform permissions, yes — we never pretend every channel supports unrestricted automation.",
+        a: "Depending on platform permissions, yes, through Meta's approved messaging tools such as ManyChat. We never pretend every channel supports unrestricted automation.",
       },
       {
         q: "Can it run client check-ins?",
-        a: "It prompts and organises. **You interpret progress and decide what changes — always.**",
+        a: "It prompts and organizes. **You interpret progress and decide what changes, always.**",
       },
       {
         q: "Will it feel less personal?",
-        a: "The opposite. Better context, less admin — the system never pretends to be you.",
+        a: "The opposite. Better context, less admin, and the system never pretends to be you.",
       },
       {
         q: "Can it reactivate old leads?",
-        a: "Yes — lawful, consent-aware, with suppression and easy opt-out.",
+        a: "Yes: consent-aware, with suppression and easy opt-out.",
       },
     ],
   },
   midCta: {
     heading: "Map *your* lead journey",
-    body: "Bring one thread that needed too much chasing. We'll show you where it broke — live.",
+    body: "Bring one thread that needed too much chasing. We'll show you where it broke, live.",
     buttonLabel: "Book a discovery call",
   },
   finalCta: {
     heading: "From interest to consultation, *reliably*",
-    body: "One call examines your real channels, questions and handoffs — then designs a disciplined journey around your personal coaching relationship. See [how we deliver](/how-we-work) and [how scope shapes pricing](/pricing).",
+    body: "One call examines your real channels, questions and handoffs, then designs a disciplined journey around your personal coaching relationship. See [how we deliver](/how-we-work) and [how scope shapes pricing](/pricing).",
     reassurance: "No body-outcome claims · no automated health assessment · ever.",
     buttonLabel: "Book a discovery call",
   },

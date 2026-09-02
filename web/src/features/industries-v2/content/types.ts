@@ -2,7 +2,8 @@
  * industries-v2 content contracts.
  *
  * Each industry route carries concise, conversion-focused copy rewritten from
- * the approved industries copy pack (British English), plus its route-entry
+ * the approved industries copy pack (US English, written for US and UK
+ * readers), plus its route-entry
  * strings (CoreSpin loader, Aether pill/title/subtitle, explore button).
  *
  * Metric values are verified Silverstone AI performance figures: exact values,
@@ -123,6 +124,36 @@ export type SprintOffer = {
   reassurance: string;
 };
 
+/**
+ * One market's operating reality for the sector. The workflow problem a page
+ * solves is identical in the US and the UK; the nouns, the tooling and the
+ * decisions kept human differ. A lane states those specifics for one market
+ * so a reader in Dallas and a reader in Manchester each see their own
+ * operation named, without the page splitting into two versions.
+ */
+export type IndustryMarketLane = {
+  market: "US" | "UK";
+  label: string;
+  /** Who runs this operation here, e.g. "Brokerages, teams and independent agents". */
+  operators: string;
+  /** Platforms the system reads from and writes to in this market. */
+  tooling: string[];
+  /** This market's words for the same workflow steps. */
+  vocabulary: string;
+  /** The decisions the page keeps with people, in this market's terms. */
+  keepsHuman: string;
+};
+
+export type IndustryMarkets = {
+  eyebrow: string;
+  heading: string;
+  /** One sentence: same leak, same mechanism, different nouns and tools. */
+  lead: string;
+  lanes: [IndustryMarketLane, IndustryMarketLane];
+  /** The mechanism, stated so it is true in both markets. Three items. */
+  shared: string[];
+};
+
 export type IndustryCopy = {
   route: IndustryRoute;
   /** Sector name, e.g. "Estate agents" — used in eyebrows and hub cards. */
@@ -135,6 +166,8 @@ export type IndustryCopy = {
   heroPoints: string[];
   /** Short trust tokens rendered under the secondary hero. */
   trustTokens: string[];
+  /** The two-market operating manifest rendered under the trust tokens. */
+  markets: IndustryMarkets;
   caseStudy?: IndustryCaseStudy;
   /** Live productised offer promoted above the fold. See `SprintOffer`. */
   sprint?: SprintOffer;

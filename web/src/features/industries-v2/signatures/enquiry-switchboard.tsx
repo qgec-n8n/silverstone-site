@@ -1,10 +1,10 @@
 /**
- * Estate Agents signature — "Property Enquiry Switchboard". Three demand
+ * Estate Agents signature — "Property Inquiry Switchboard". Three demand
  * channels (portal, phone, web) converge into a central switch, which routes
- * a travelling pulse to one of three branch lanes (sales, lettings,
+ * a traveling pulse to one of three branch lanes (sales, lettings,
  * management) — a different lane each cycle, so routing reads as genuinely
  * rule-driven. Beneath the lanes, a viewing-diary strip fills slot by slot,
- * and an escalation node holds valuation judgement with people.
+ * and an escalation node holds valuation judgment with people.
  */
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
@@ -19,7 +19,7 @@ import {
 const CHANNELS = [
   { label: "Portal lead", y: 90 },
   { label: "Missed call", y: 190 },
-  { label: "Web enquiry", y: 290 },
+  { label: "Web inquiry", y: 290 },
 ];
 const LANES = [
   { label: "Sales", y: 90 },
@@ -48,7 +48,7 @@ export function EnquirySwitchboard({
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: portal, phone and web enquiries converge into a routing switch, which assigns each one to the sales, lettings or management lane, fills the viewing diary and holds valuation judgement with the branch."
+      aria-label="Diagram: portal, phone and web inquiries converge into a routing switch, which assigns each one to the sales, lettings or management lane, fills the viewing diary and holds valuation judgment with the branch."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
@@ -83,7 +83,7 @@ export function EnquirySwitchboard({
             />
           ))}
 
-          {/* Travelling enquiry pulse: channel → switch → chosen lane */}
+          {/* Travelling inquiry pulse: channel → switch → chosen lane */}
           {!reducedMotion ? (
             <m.circle
               key={cycle}

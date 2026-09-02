@@ -1,5 +1,5 @@
 /**
- * Content Creation — bespoke composition.
+ * Content Creation — custom composition.
  * Visual concept: Editorial Intelligence System.
  *
  * No reserved external demo surface for this route — the fan-out signature is
@@ -147,7 +147,7 @@ export function ContentCreationComposition({
           <div className="ss-srv2-split">
             <div>
               <SectionHead
-                eyebrow="Why Silverstone"
+                eyebrow="Why Silverstone AI"
                 icon={Sparkles}
                 heading={copy.differentiator.heading}
                 headingId="srv2-different"

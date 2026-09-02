@@ -35,7 +35,7 @@ function randomTierPath(): [number, number, number] {
 const topRow = [
   { label: "Trigger", x: 90 },
   { label: "Condition", x: 300 },
-  { label: "Agent judgement", x: 510 },
+  { label: "Agent judgment", x: 510 },
 ];
 const middleRow = [
   { label: "API", x: 90 },
@@ -73,7 +73,7 @@ export function OrchestrationLattice({
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: a three-tier lattice running from trigger, condition and agent judgement, through API, database and human approval, down to customer notified, record updated and team alerted — all monitored by a central observability hub with connections to every node."
+      aria-label="Diagram: a three-tier lattice running from trigger, condition and agent judgment, through API, database and human approval, down to customer notified, record updated and team alerted — all monitored by a central observability hub with connections to every node."
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">

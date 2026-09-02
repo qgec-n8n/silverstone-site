@@ -3,7 +3,7 @@
  *
  * The reference design's ROI arithmetic did not reconcile, so the numbers here
  * are a corrected, internally consistent worked example (see `ROI_MODEL` for
- * the check) and are labelled "Illustrative model" in the frame itself rather
+ * the check) and are labeled "Illustrative model" in the frame itself rather
  * than in a footnote a reader can miss. The figures are static text on purpose:
  * a count-up on a four-step calculation makes it harder, not easier, to verify.
  */
@@ -52,6 +52,7 @@ import {
   VALUE_PROOF_CARDS,
   type PricingCssVars,
 } from "./pricing-content";
+import { Money } from "~/components/ui/money";
 
 export function PricingValueModel() {
   return (
@@ -77,10 +78,14 @@ export function PricingValueModel() {
                 </span>
                 <h4>{step.title}</h4>
                 <p className="ss-pri-roi__figure">
-                  <span className="ss-pri-roi__figure-value">{step.figure}</span>
+                  <span className="ss-pri-roi__figure-value">
+                    <Money text={step.figure} />
+                  </span>
                   <span className="ss-pri-roi__figure-unit">{step.unit}</span>
                 </p>
-                <p className="ss-pri-roi__note">{step.body}</p>
+                <p className="ss-pri-roi__note">
+                  <Money text={step.body} />
+                </p>
               </li>
             ))}
           </ol>

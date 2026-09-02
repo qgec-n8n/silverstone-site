@@ -64,7 +64,7 @@ export const industryArt: Record<IndustryRoute, IndustryArt> = {
       image(
         "/approved-images/Real_Estate_2.jpeg",
         "/approved-images/Real_Estate_2_Mobile.jpeg",
-        "Illustrative property-enquiry workflow with branch routing and diary context.",
+        "Illustrative property-inquiry workflow with branch routing and diary context.",
       ),
       image(
         "/approved-images/Real_Estate_3.jpeg",
@@ -100,13 +100,13 @@ export const industryArt: Record<IndustryRoute, IndustryArt> = {
    * Image decision log — /industry/aesthetic-clinics, 2026-08-05
    * (page-image-selection-policy.md Step 10).
    *
-   * Candidates: the preserved catalogue holds no aesthetic-clinic scenes, so
+   * Candidates: the preserved catalog holds no aesthetic-clinic scenes, so
    * the physiotherapy set was used as a temporary placeholder at first build
    * and rejected on 2026-08-05 — clinic-adjacent, but the wrong sector and
    * carrying its own baked-in "Automate Patient Flow" headline. Replaced with
    * three purpose-generated stills.
    *
-   * Selected: aesthetic-1 (primary, beside the problem split — an enquiry
+   * Selected: aesthetic-1 (primary, beside the problem split — an inquiry
    * arriving on DM/WhatsApp/web form and resolving to a deposit-secured
    * consultation), aesthetic-2 and aesthetic-3 (gallery duo — deposit
    * confirmation and treatment-cycle recall).
@@ -134,7 +134,7 @@ export const industryArt: Record<IndustryRoute, IndustryArt> = {
     primary: image(
       "/approved-images/aesthetic-1.png",
       "/approved-images/aesthetic-1-mobile.png",
-      "Illustrative aesthetic clinic panel titled “Zero Missed Consultations”, showing DM, WhatsApp and web-form enquiries routed to a booking calendar with mock “Reply < 2s”, “Deposit Secured” and “Consult Booked” states.",
+      "Illustrative aesthetic clinic panel titled “Zero Missed Consultations”, showing DM, WhatsApp and web-form inquiries routed to a booking calendar with mock “Reply < 2s”, “Deposit Secured” and “Consult Booked” states.",
     ),
     gallery: [
       image(

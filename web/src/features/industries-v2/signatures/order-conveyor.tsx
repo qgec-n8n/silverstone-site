@@ -1,6 +1,6 @@
 /**
  * eCommerce signature — "Order-State Conveyor". A horizontal state pipeline
- * (Question → Identified → State read → Action) with parcels travelling
+ * (Question → Identified → State read → Action) with parcels traveling
  * left-to-right; roughly one in three drops through an exception chute to the
  * human-review dock below, which pulses as it receives the case. Distinct
  * language: a working conveyor with a visible, owned exception path.

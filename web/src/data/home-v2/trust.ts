@@ -8,13 +8,18 @@ export type TrustSignal = {
   icon: string;
 };
 
+/**
+ * Six facts the studio can stand behind on every page. Deliberately no
+ * regulatory or certification claim: compliance positioning is handled
+ * outside the site, and a chip that reads as a certificate is a claim.
+ */
 export const TRUST_SIGNALS: readonly TrustSignal[] = [
-  { id: "uk-built", label: "UK-built", icon: "MapPin" },
-  { id: "london", label: "London-based", icon: "MapPin" },
+  { id: "markets", label: "US & UK clients", icon: "Globe" },
+  { id: "london", label: "London studio, US-based team", icon: "MapPin" },
   { id: "human", label: "Human-reviewed automation", icon: "UserCheck" },
   { id: "no-lock-in", label: "Scoped before build", icon: "Unlock" },
   { id: "delivery", label: "Staged implementation", icon: "Zap" },
-  { id: "gdpr", label: "GDPR-conscious by design", icon: "ShieldCheck" },
+  { id: "coverage", label: "24-hour team coverage", icon: "Headset" },
 ] as const;
 
 export type StandardPillar = {
@@ -36,7 +41,7 @@ export const SILVERSTONE_STANDARD: readonly StandardPillar[] = [
     id: "human-control",
     title: "A human always in control",
     description:
-      "Automation does the heavy lifting; people hold the judgement. Review points are built into every workflow.",
+      "Automation does the heavy lifting; people hold the judgment. Review points are built into every workflow.",
     icon: "UserCheck",
   },
   {

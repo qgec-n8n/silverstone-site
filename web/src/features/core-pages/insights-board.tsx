@@ -178,7 +178,7 @@ export function InsightsBoard() {
   const serviceCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "service");
   const industryCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "industry");
   // A pill with nothing behind it is a dead end, so topic pills only appear once
-  // that topic has published articles. The editorial programme fills these in
+  // that topic has published articles. The editorial program fills these in
   // over time and the row grows with it rather than shipping empty on day one.
   const topicCategories = INSIGHT_CATEGORIES.filter(
     (c) =>

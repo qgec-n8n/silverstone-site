@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
+import { plainCurrencyText } from "../../src/data/currency";
 import { PRICING_FAQ } from "../../src/data/pricing-faq";
 
 /**
@@ -73,7 +74,10 @@ function textOfMain(html: string) {
     main
       .replaceAll(/<(script|style)\b[^>]*>[\S\s]*?<\/\1>/gi, " ")
       .replaceAll(/<[^>]+>/g, " ")
-      .replaceAll(/\s+/g, " "),
+      .replaceAll(/\s+/g, " ")
+      // Inline currency pairs are wrapped in spans, so a tag-stripped answer
+      // reads "tax ." where the source reads "tax."
+      .replaceAll(/\s+([.,;:])/g, "$1"),
   );
 }
 
@@ -107,9 +111,14 @@ test.describe("pricing content is served, not assembled", () => {
     const html = await (await request.get("/pricing")).text();
     const text = textOfMain(html);
 
+    // Currency pairs are served as "£3,000 / $3,900" — both sides in the
+    // HTML, divided by a slash — which is also what the FAQPage graph carries.
     for (const item of PRICING_FAQ) {
-      expect(text, `question missing: ${item.question}`).toContain(item.question);
-      expect(text, `answer missing for: ${item.question}`).toContain(item.answer);
+      const question = plainCurrencyText(item.question);
+      expect(text, `question missing: ${question}`).toContain(question);
+      expect(text, `answer missing for: ${question}`).toContain(
+        plainCurrencyText(item.answer),
+      );
     }
 
     const blocks = [
@@ -132,8 +141,10 @@ test.describe("pricing content is served, not assembled", () => {
     }[];
     expect(questions).toHaveLength(PRICING_FAQ.length);
     for (const [index, question] of questions.entries()) {
-      expect(question.name).toBe(PRICING_FAQ[index]?.question);
-      expect(question.acceptedAnswer.text).toBe(PRICING_FAQ[index]?.answer);
+      expect(question.name).toBe(plainCurrencyText(PRICING_FAQ[index]?.question ?? ""));
+      expect(question.acceptedAnswer.text).toBe(
+        plainCurrencyText(PRICING_FAQ[index]?.answer ?? ""),
+      );
     }
   });
 
@@ -256,7 +267,10 @@ test.describe("pricing FAQ", () => {
     await page.keyboard.press("Enter");
     await expect(first).toHaveAttribute("aria-expanded", "true");
     await expect(firstPanel).not.toHaveAttribute("inert", /.*/);
-    await expect(page.getByText(PRICING_FAQ[0]?.answer ?? "")).toBeVisible();
+    // getByText matches textContent, which carries both sides of each pair.
+    await expect(
+      page.getByText(plainCurrencyText(PRICING_FAQ[0]?.answer ?? "")),
+    ).toBeVisible();
 
     // Arrow keys move between triggers.
     await page.keyboard.press("ArrowDown");
@@ -282,7 +296,7 @@ test.describe("pricing FAQ", () => {
         node.textContent.trim(),
       ),
     );
-    expect(answers).toEqual(PRICING_FAQ.map((item) => item.answer));
+    expect(answers).toEqual(PRICING_FAQ.map((item) => plainCurrencyText(item.answer)));
 
     // Polled: the prerendered markup and the hydrated tree both carry `inert`,
     // but asserting on a single snapshot can land mid-hydration.

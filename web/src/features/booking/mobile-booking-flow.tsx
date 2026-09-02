@@ -21,6 +21,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
+import { BUDGET_BANDS } from "~/data/currency";
+import { useCurrency } from "~/lib/currency";
 import {
   ArrowLeft,
   ArrowRight,
@@ -49,7 +51,6 @@ import {
   parseDateKey,
 } from "~/features/booking/booking-dates";
 import {
-  BUDGET_OPTIONS,
   INDUSTRY_OPTIONS,
   SERVICE_OPTIONS,
   URGENCY_OPTIONS,
@@ -211,6 +212,7 @@ export function MobileBookingFlow({
   panel,
   onPanelChange,
 }: MobileBookingFlowProps) {
+  const [currency] = useCurrency();
   const reducedMotion = useReducedMotion() ?? false;
   /* Step-level name/email validation (the parent re-validates on submit). */
   const [stepErrors, setStepErrors] = useState<DetailErrors>({});
@@ -700,13 +702,12 @@ export function MobileBookingFlow({
                         onChange={(event) =>
                           onQualificationChange({
                             ...qualification,
-                            budget: event.target
-                              .value as QualificationAnswers["budget"],
+                            budget: event.target.value,
                           })
                         }
                       >
                         <option value="">Choose a range</option>
-                        {BUDGET_OPTIONS.map((budget) => (
+                        {BUDGET_BANDS[currency].map((budget) => (
                           <option key={budget} value={budget}>
                             {budget}
                           </option>

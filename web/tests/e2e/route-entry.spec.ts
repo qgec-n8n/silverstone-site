@@ -4,7 +4,7 @@ const serviceRoutes = [
   {
     path: "/services/web-design-development",
     loader: "Aligning message, movement and measurement",
-    pill: /Bespoke digital experience/i,
+    pill: /Custom digital experience/i,
     // The Aether intro's teaser title — distinct from the body's public H1
     // by design (intro teases, body delivers); it is not repeated in <main>.
     title: "Make the website earn its place",
@@ -139,7 +139,7 @@ test("route-entry sequence remains usable with reduced motion", async ({ page })
   await page.goto("/services/ai-receptionists");
 
   await expect(loaderStatus(page)).toContainText(
-    "Converging every enquiry into the right next action",
+    "Converging every inquiry into the right next action",
   );
   await waitForRouteIntro(page);
   await openBody(page, "Open the front-desk system");
