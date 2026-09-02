@@ -533,9 +533,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "AI Automation for Estate Agents and Real Estate Teams | Silverstone AI",
     description:
       "Connect portal, phone and website inquiries to qualification, showing requests, CRM updates and human follow-up. Built for UK estate agents and US real estate brokerages.",
-    h1: "Turn property inquiries into owned branch conversations",
+    h1: "Turn property inquiries into conversations your agents own",
     headingPlan: {
-      h1: "Turn property inquiries into owned branch conversations",
+      h1: "Turn property inquiries into conversations your agents own",
       h1Source:
         "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
