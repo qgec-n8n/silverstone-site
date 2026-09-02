@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** AI Voice Agent Development UK | Silverstone AI
+- **Preferred SEO title:** AI Voice Agent Development | Silverstone AI
 - **Alternative SEO title 1:** Custom AI Voice Agents for UK Businesses
 - **Alternative SEO title 2:** AI Call Automation & Voice Agent Development | Silverstone
-- **Meta description:** Custom AI voice-agent development for UK businesses: conversation design, telephony, approved knowledge, CRM actions, human escalation, monitoring and responsible disclosure.
+- **Meta description:** Custom AI voice-agent development for US and UK businesses: conversation design, telephony, approved knowledge, CRM actions, human escalation, monitoring and responsible disclosure.
 - **Open Graph title:** Voice agents built for real conversations and real consequences
-- **Open Graph description:** Silverstone designs governed voice workflows with clear call states, approved actions, telephony integration, transcripts, monitoring and human fallback.
+- **Open Graph description:** Silverstone AI designs governed voice workflows with clear call states, approved actions, telephony integration, transcripts, monitoring and human fallback.
 - **Canonical route:** `/services/ai-voice-agents`
 - **H1:** Voice agents built for real conversations — and real consequences
 

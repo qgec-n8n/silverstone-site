@@ -23,6 +23,74 @@ type SchemaEntry = {
   [key: string]: unknown;
 };
 
+const ORGANIZATION_ID = "https://silverstone-ai.com/#organization";
+
+/**
+ * Both markets the studio serves, as the schema.org nodes every Service and
+ * the Organization assert. The studio is in London; the team includes
+ * US-based members and the client base spans both countries.
+ */
+const AREA_SERVED = [
+  { "@type": "Country", name: "United States" },
+  { "@type": "Country", name: "United Kingdom" },
+];
+
+/**
+ * The organisation as an AI answer engine should resolve it: the full name
+ * (never bare "Silverstone", which the racing circuit owns in general
+ * retrieval), a category anchor in the description, a stable `@id`, and the
+ * same address, contact and profile facts on every route rather than only
+ * the homepage. Only facts the site itself shows are asserted here.
+ */
+function buildOrganizationNode(): SchemaEntry {
+  return {
+    "@type": "Organization",
+    "@id": ORGANIZATION_ID,
+    name: "Silverstone AI",
+    url: "https://silverstone-ai.com/",
+    description:
+      "Silverstone AI is a London-based AI systems studio that designs and builds AI receptionists, AI voice agents, workflow automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom.",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://silverstone-ai.com/brand/silverstone-logo.png",
+    },
+    // Official profiles the site links to itself.
+    sameAs: [
+      "https://www.instagram.com/silverstone.ai/",
+      "https://www.facebook.com/people/Silverstone-AI/61583930930530/",
+      "https://aiagentsdirectory.com/agent/silverstone-ai",
+    ],
+    // Studio address as shown on /contact.
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "4 Deacon Street",
+      addressLocality: "London",
+      postalCode: "SE17 1GE",
+      addressCountry: "GB",
+    },
+    // Only the contact route the site actually publishes: no phone number is
+    // shown on /contact, so none is asserted here.
+    email: "info@silverstone-ai.com",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: "info@silverstone-ai.com",
+      areaServed: ["US", "GB"],
+      availableLanguage: ["en-US", "en-GB"],
+    },
+    areaServed: AREA_SERVED,
+    knowsAbout: [
+      "AI receptionists",
+      "AI voice agents",
+      "Workflow automation",
+      "AI automation consulting",
+      "Web design and development",
+      "App development",
+      "Content systems",
+    ],
+  };
+}
+
 function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
   const articleUnderReview =
     route.template === "article" && !route.claimsStatus.startsWith("safe-copy");
@@ -74,20 +142,15 @@ function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
       description: route.description,
       url: route.canonical,
       serviceType: route.h1,
-      // Matches the visible positioning ("UK businesses" sitewide) and the
-      // London studio address on /contact; broader Europe/US claims had no
-      // visible support and were removed 2026-07-15.
-      areaServed: { "@type": "Country", name: "United Kingdom" },
+      // Matches the visible positioning: clients in the US and UK, served
+      // from the London studio with US-based team coverage.
+      areaServed: AREA_SERVED,
       audience: {
         "@type": "BusinessAudience",
         audienceType:
-          "Ambitious SMEs, scale-ups, established organisations, corporate functions and internal product, operations and engineering teams.",
+          "Small and mid-sized businesses, scale-ups, established organizations, corporate functions and internal product, operations and engineering teams in the United States and the United Kingdom.",
       },
-      provider: {
-        "@type": "Organization",
-        name: "Silverstone AI",
-        url: "https://silverstone-ai.com/",
-      },
+      provider: { "@id": ORGANIZATION_ID },
     };
   }
 
@@ -132,6 +195,51 @@ function buildFaqPageSchema(): SchemaEntry {
         // DOM, divided by a slash; only one is displayed to a browser).
         text: plainCurrencyText(item.answer),
       },
+    })),
+  };
+}
+
+/**
+ * /pricing only: the published starting prices as Offer nodes in both
+ * currencies, so the figures a crawler reads in the page text are also
+ * available as data. Values mirror src/data/currency.ts and the visible
+ * pricing content; an Offer here is a published starting band, never a
+ * quote.
+ */
+function buildOfferCatalogSchema(): SchemaEntry {
+  const offers: { name: string; gbp: string; usd: string; unit?: string }[] = [
+    { name: "Focused automation pilot", gbp: "3000", usd: "3900" },
+    { name: "Simple automation implementation", gbp: "2000", usd: "2500" },
+    { name: "Multi-system implementation", gbp: "10000", usd: "12500" },
+    { name: "Enterprise implementation", gbp: "50000", usd: "65000" },
+    { name: "Essential Support retainer", gbp: "350", usd: "450", unit: "MON" },
+    { name: "Premium Support retainer", gbp: "1250", usd: "1600", unit: "MON" },
+    { name: "Foundation website", gbp: "1500", usd: "1950" },
+    { name: "Professional website", gbp: "2750", usd: "3500" },
+    { name: "Growth website", gbp: "4750", usd: "5950" },
+    { name: "Enterprise website", gbp: "7500", usd: "9500" },
+  ];
+  const priceSpec = (price: string, currency: "GBP" | "USD", unit?: string) => ({
+    "@type": "UnitPriceSpecification",
+    price,
+    priceCurrency: currency,
+    ...(unit ? { unitCode: unit } : {}),
+    valueAddedTaxIncluded: false,
+  });
+  return {
+    "@type": "OfferCatalog",
+    name: "Silverstone AI published pricing",
+    url: "https://silverstone-ai.com/pricing",
+    itemListElement: offers.map((offer) => ({
+      "@type": "Offer",
+      name: `${offer.name} (from)`,
+      url: "https://silverstone-ai.com/pricing",
+      areaServed: AREA_SERVED,
+      seller: { "@id": ORGANIZATION_ID },
+      priceSpecification: [
+        priceSpec(offer.gbp, "GBP", offer.unit),
+        priceSpec(offer.usd, "USD", offer.unit),
+      ],
     })),
   };
 }
@@ -216,66 +324,25 @@ export function buildRouteSchemaGraph(route: FutureRouteRecord): {
   const graph: SchemaEntry[] = [];
 
   if (route.path === "/") {
-    graph.push(
-      {
-        "@type": "WebSite",
-        "@id": "https://silverstone-ai.com/#website",
-        name: "Silverstone AI",
-        url: "https://silverstone-ai.com/",
-        inLanguage: "en-GB",
-        publisher: { "@id": "https://silverstone-ai.com/#organization" },
-      },
-      {
-        "@type": "Organization",
-        // Stable @id so the WebSite, and any future page-level entity, resolve
-        // to one organisation node rather than repeating a detached copy —
-        // this is what search engines and AI answer engines reconcile on.
-        "@id": "https://silverstone-ai.com/#organization",
-        name: "Silverstone AI",
-        url: "https://silverstone-ai.com/",
-        // The site's own positioning line, as shown on the homepage.
-        description:
-          "Web, app, content and AI workflow services for UK businesses, designed around clear problems, connected systems and human oversight.",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://silverstone-ai.com/brand/silverstone-logo.png",
-        },
-        // Official profiles carried over from the legacy site's own
-        // Organization schema (src/content/migrated/generated/company/home.ts).
-        sameAs: [
-          "https://www.instagram.com/silverstone.ai/",
-          "https://www.facebook.com/people/Silverstone-AI/61583930930530/",
-        ],
-        // Studio address as shown on /contact.
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "4 Deacon Street",
-          addressLocality: "London",
-          postalCode: "SE17 1GE",
-          addressCountry: "GB",
-        },
-        // Only the contact route the site actually publishes. The legacy
-        // manifest also carries a phone number, but /contact does not show one,
-        // and structured data must not assert more than the page does.
-        email: "info@silverstone-ai.com",
-        contactPoint: {
-          "@type": "ContactPoint",
-          contactType: "customer support",
-          email: "info@silverstone-ai.com",
-          areaServed: "GB",
-          availableLanguage: "en-GB",
-        },
-        // Matches the sitewide "UK businesses" positioning already asserted by
-        // every Service node.
-        areaServed: { "@type": "Country", name: "United Kingdom" },
-      },
-    );
+    graph.push({
+      "@type": "WebSite",
+      "@id": "https://silverstone-ai.com/#website",
+      name: "Silverstone AI",
+      url: "https://silverstone-ai.com/",
+      inLanguage: "en",
+      publisher: { "@id": ORGANIZATION_ID },
+    });
   }
+  // The Organization node travels with every route, not just the homepage:
+  // an answer engine that lands on a service or industry page must be able to
+  // resolve the entity from that document alone.
+  graph.push(buildOrganizationNode());
 
   graph.push(buildPageSchema(route));
 
   if (route.path === "/pricing" && route.schemaTypes.includes("FAQPage")) {
     graph.push(buildFaqPageSchema());
+    graph.push(buildOfferCatalogSchema());
   } else {
     const routeFaq = buildRouteFaqSchema(route);
     if (routeFaq) {

@@ -197,7 +197,26 @@ describe("pricing FAQ structured data", () => {
 
     const graph = buildRouteSchemaGraph(route);
     const types = graph["@graph"].map((entry) => entry["@type"]);
-    expect(types).toEqual(["WebPage", "FAQPage", "BreadcrumbList"]);
+    expect(types).toEqual([
+      "Organization",
+      "WebPage",
+      "FAQPage",
+      "OfferCatalog",
+      "BreadcrumbList",
+    ]);
+
+    const catalog = graph["@graph"].find(
+      (entry) => entry["@type"] === "OfferCatalog",
+    ) as {
+      itemListElement: {
+        priceSpecification: { price: string; priceCurrency: string }[];
+      }[];
+    };
+    const pilot = catalog.itemListElement[0]?.priceSpecification ?? [];
+    expect(pilot.map((spec) => `${spec.priceCurrency} ${spec.price}`)).toEqual([
+      "GBP 3000",
+      "USD 3900",
+    ]);
 
     const faq = graph["@graph"].find((entry) => entry["@type"] === "FAQPage");
     const questions = (faq?.mainEntity ?? []) as {

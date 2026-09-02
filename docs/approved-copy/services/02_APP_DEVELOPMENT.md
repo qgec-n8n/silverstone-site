@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** Bespoke App Development UK | Silverstone AI
+- **Preferred SEO title:** Custom App Development | Silverstone AI
 - **Alternative SEO title 1:** Custom App & MVP Development for UK Businesses
 - **Alternative SEO title 2:** App Development Agency UK | Discovery to First Release
-- **Meta description:** Bespoke app development for UK businesses: discovery, UX, data, permissions, integrations, reliable engineering and a focused first release built around real user value.
+- **Meta description:** Custom app development for US and UK businesses: discovery, UX, data, permissions, integrations, reliable engineering and a focused first release built around real user value.
 - **Open Graph title:** Build the smallest app that proves the value
-- **Open Graph description:** Silverstone turns a valuable workflow into a focused first release, with product discovery, UX, data, permissions, integrations and operational readiness designed together.
+- **Open Graph description:** Silverstone AI turns a valuable workflow into a focused first release, with product discovery, UX, data, permissions, integrations and operational readiness designed together.
 - **Canonical route:** `/services/app-development`
 - **H1:** Build the smallest app that proves the value
 

@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** AI & Automation Consulting UK | Silverstone AI
+- **Preferred SEO title:** AI & Automation Consulting | Silverstone AI
 - **Alternative SEO title 1:** AI Opportunity Audits & Automation Strategy | Silverstone
 - **Alternative SEO title 2:** AI Consultancy Services UK | Readiness to Roadmap
-- **Meta description:** AI and automation consulting for UK businesses: opportunity audits, readiness, value-risk prioritisation, build-versus-buy, governance and a practical implementation roadmap.
+- **Meta description:** AI and automation consulting for US and UK businesses: opportunity audits, readiness, value-risk prioritization, build-versus-buy, governance and a practical implementation roadmap.
 - **Open Graph title:** Decide what to automate before you buy the tools
-- **Open Graph description:** Silverstone helps leaders assess opportunity, readiness, data, build-versus-buy, governance and implementation priorities before capital and attention are committed.
+- **Open Graph description:** Silverstone AI helps leaders assess opportunity, readiness, data, build-versus-buy, governance and implementation priorities before capital and attention are committed.
 - **Canonical route:** `/services/ai-consulting`
 - **H1:** Decide what to automate before you buy the tools
 

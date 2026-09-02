@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** Bespoke Web Design & Development UK | Silverstone AI
+- **Preferred SEO title:** Custom Web Design & Development | Silverstone AI
 - **Alternative SEO title 1:** Conversion-Focused Web Design & Development | Silverstone AI
 - **Alternative SEO title 2:** Premium Web Design for UK Businesses | Silverstone AI
-- **Meta description:** Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.
+- **Meta description:** Custom web design and development for US and UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.
 - **Open Graph title:** Websites engineered around the decision to buy
-- **Open Graph description:** Silverstone combines strategy, copy, premium design, responsive development, technical SEO and operational integrations into one website system.
+- **Open Graph description:** Silverstone AI combines strategy, copy, premium design, responsive development, technical SEO and operational integrations into one website system.
 - **Canonical route:** `/services/web-design-development`
 - **H1:** A website engineered to move buyers forward
 

@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** AI Receptionist Services UK | Silverstone AI
+- **Preferred SEO title:** AI Receptionist Services for Small Business | Silverstone AI
 - **Alternative SEO title 1:** AI Receptionists for UK Businesses | Calls, Chat & Booking
 - **Alternative SEO title 2:** Virtual Phone Receptionist & AI Front Desk | Silverstone
-- **Meta description:** AI receptionist services for UK businesses across calls and chat, with structured intake, qualification, booking, reminders, CRM updates and reliable human handoff.
+- **Meta description:** AI receptionist services for US and UK businesses across calls and chat, with structured intake, qualification, booking, reminders, CRM updates and reliable human handoff.
 - **Open Graph title:** A front desk that answers, qualifies and knows when to hand over
-- **Open Graph description:** Silverstone builds integrated AI reception systems for calls, chat, intake, booking, routing and CRM updates—within approved rules and human escalation paths.
+- **Open Graph description:** Silverstone AI builds integrated AI reception systems for calls, chat, intake, booking, routing and CRM updates—within approved rules and human escalation paths.
 - **Canonical route:** `/services/ai-receptionists`
 - **H1:** A front desk that answers, qualifies, and knows when to hand over
 

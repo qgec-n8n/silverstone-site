@@ -340,12 +340,15 @@ export function renderLlmsTxt(sections, docs) {
   const lines = [
     "# Silverstone AI",
     "",
-    "> Web, app, content and AI workflow services for UK businesses, designed" +
-      " around clear problems, connected systems and human oversight.",
+    "> Silverstone AI is a London-based AI systems studio building AI" +
+      " receptionists, AI voice agents, workflow automation, websites and apps" +
+      " for small and mid-sized businesses in the United States and the United" +
+      " Kingdom, with US-based team members providing 24-hour coverage.",
     "",
-    "British English. Scopes, safeguards and published pricing bands are stated" +
-      " on the pages below; figures shown as results are verified Silverstone AI" +
-      " performance and vary by scope and operating environment.",
+    "US English. Prices are published in GBP and USD (fixed pairs, reviewed" +
+      " quarterly); scopes and safeguards are stated on the pages below; figures" +
+      " shown as results are verified Silverstone AI performance recorded in the" +
+      " client's currency and vary by scope and operating environment.",
     "",
   ];
 

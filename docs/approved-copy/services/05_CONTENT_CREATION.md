@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** AI Content Systems & Repurposing UK | Silverstone AI
+- **Preferred SEO title:** AI Content Systems & Repurposing | Silverstone AI
 - **Alternative SEO title 1:** Content Automation Agency UK | Governed Content Operations
 - **Alternative SEO title 2:** Content Repurposing Systems for UK Businesses | Silverstone
 - **Meta description:** Build a governed content operating system from approved expertise: pillar content, channel-specific repurposing, SEO intent, internal links, human review and measured improvement.
 - **Open Graph title:** Turn expertise into a governed content engine
-- **Open Graph description:** Silverstone designs source-led content operations that turn approved knowledge into useful website, email and social assets without sacrificing brand control or human review.
+- **Open Graph description:** Silverstone AI designs source-led content operations that turn approved knowledge into useful website, email and social assets without sacrificing brand control or human review.
 - **Canonical route:** `/services/content-creation`
 - **H1:** Turn expertise into a governed content engine
 

@@ -21,12 +21,12 @@
 
 ## 2. SEO metadata and search handoff
 
-- **Preferred SEO title:** Workflow & AI Automation Agency UK | Silverstone AI
+- **Preferred SEO title:** Workflow & AI Automation Agency | Silverstone AI
 - **Alternative SEO title 1:** Custom AI Automation & Agent Workflows | Silverstone
 - **Alternative SEO title 2:** Business Process Automation UK | Governed Workflows
-- **Meta description:** Custom AI automation for UK businesses: triggers, deterministic logic, AI judgement, integrations, approvals, exception handling, monitoring and reporting engineered as one operating layer.
+- **Meta description:** Custom AI automation for US and UK businesses: triggers, deterministic logic, AI judgment, integrations, approvals, exception handling, monitoring and reporting engineered as one operating layer.
 - **Open Graph title:** Engineer the work between your systems
-- **Open Graph description:** Silverstone builds governed automation and agent workflows that move data, trigger actions, handle exceptions and keep people in control of consequential decisions.
+- **Open Graph description:** Silverstone AI builds governed automation and agent workflows that move data, trigger actions, handle exceptions and keep people in control of consequential decisions.
 - **Canonical route:** `/services/ai-automation`
 - **H1:** Engineer the work between your systems
 

@@ -38,11 +38,23 @@ describe("route SEO generation", () => {
     }
 
     const graph = buildRouteSchemaGraph(route);
+    // The Organization node travels with every route so an answer engine
+    // can resolve the entity from any page it lands on.
     expect(graph["@graph"].map((entry) => entry["@type"])).toEqual([
+      "Organization",
       "Service",
       "FAQPage",
       "BreadcrumbList",
     ]);
+    const service = graph["@graph"].find((entry) => entry["@type"] === "Service") as {
+      areaServed: { name: string }[];
+      provider: { "@id": string };
+    };
+    expect(service.areaServed.map((area) => area.name)).toEqual([
+      "United States",
+      "United Kingdom",
+    ]);
+    expect(service.provider["@id"]).toBe("https://silverstone-ai.com/#organization");
     expect(serializeJsonLd({ value: "</script>" })).not.toContain("</script>");
   });
 
