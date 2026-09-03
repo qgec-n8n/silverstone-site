@@ -1,3 +1,8 @@
+import {
+  CONTACT_EMAIL,
+  CONTACT_NUMBERS,
+  PRIMARY_TELEPHONE,
+} from "~/data/contact-channels";
 import { plainCurrencyText } from "~/data/currency";
 import { PRICING_FAQ } from "~/data/pricing-faq";
 import type { FutureRouteRecord } from "~/data/route-schema";
@@ -73,6 +78,29 @@ const STUDIO_GEO = {
 };
 
 /**
+ * Round-the-clock, which is what the site's own "24-hour team coverage" claim
+ * and the Google Business Profile both state. 00:00-23:59 across all seven
+ * days is the conventional encoding of "open 24 hours"; schema.org has no
+ * dedicated flag for it.
+ */
+const OPENING_HOURS = [
+  {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+    opens: "00:00",
+    closes: "23:59",
+  },
+];
+
+/**
  * The organization as an AI answer engine should resolve it: the full name
  * (never bare "Silverstone", which the racing circuit owns in general
  * retrieval), a category anchor in the description, a stable `@id`, and the
@@ -105,17 +133,21 @@ export function buildOrganizationNode(): SchemaEntry {
     },
     // `LocalBusiness` results expect an image alongside the logo.
     image: "https://silverstone-ai.com/brand/silverstone-logo.png",
-    // Official profiles the site links to itself, and the only ones that
-    // could be confirmed to exist (checked 2026-09-02). Searched and NOT
-    // found: a LinkedIn company page, Crunchbase, a Companies House
-    // registration under this name, and a YouTube channel. Clutch and
-    // Trustpilot could not be checked either way behind their bot blocks.
-    // Add to this list only from a link the owner supplies — a guessed slug
-    // that 404s is worse for entity resolution than a short list.
+    // Every profile the owner has confirmed, verified reachable 2026-09-03.
+    // The Google Business Profile leads: it is the listing the local pack
+    // resolves against, and it is given as the stable place-id permalink
+    // rather than the share.google short link, which redirects through a
+    // lookup URL. Still absent, and not to be invented: a LinkedIn company
+    // page and a Crunchbase profile (neither exists yet), and Companies
+    // House (the company is not registered).
     sameAs: [
-      "https://www.instagram.com/silverstone.ai/",
-      "https://www.facebook.com/people/Silverstone-AI/61583930930530/",
+      "https://www.google.com/maps/place/?q=place_id:ChIJGZi5bknv7EcRx2wli22KRtI",
+      "https://clutch.co/profile/silverstone-ai",
+      "https://uk.trustpilot.com/review/silverstone-ai.com",
+      "https://www.one9founders.com/agents/silverstone-ai",
       "https://aiagentsdirectory.com/agent/silverstone-ai",
+      "https://www.instagram.com/silverstone.ai/",
+      "https://www.facebook.com/profile.php?id=61583930930530",
     ],
     // Studio address as shown on /contact.
     address: {
@@ -133,22 +165,21 @@ export function buildOrganizationNode(): SchemaEntry {
     // Both currencies /pricing publishes, and the span of its visible bands.
     currenciesAccepted: "GBP, USD",
     priceRange: PRICE_RANGE,
-    // Only the contact route the site actually publishes: no phone number is
-    // shown on /contact, so none is asserted here.
-    //
-    // `openingHoursSpecification` is deliberately absent for the same reason.
-    // The site states "replies come across US and UK business hours" and
-    // "24-hour team coverage", neither of which pins the days and clock times
-    // the property requires, and a guessed 09:00-17:00 London window would
-    // contradict the coverage claim. Both gaps need owner-supplied facts.
-    email: "info@silverstone-ai.com",
-    contactPoint: {
+    openingHoursSpecification: OPENING_HOURS,
+    // Every channel here is one the footer renders on every page, so the
+    // node never asserts a way to reach the studio that the site does not
+    // itself publish. The primary `telephone` is the UK line, matching the
+    // number on the Google Business Profile.
+    email: CONTACT_EMAIL,
+    telephone: PRIMARY_TELEPHONE,
+    contactPoint: CONTACT_NUMBERS.map((number) => ({
       "@type": "ContactPoint",
       contactType: "sales",
-      email: "info@silverstone-ai.com",
-      areaServed: ["US", "GB"],
-      availableLanguage: ["en-US", "en-GB"],
-    },
+      telephone: number.e164,
+      email: CONTACT_EMAIL,
+      areaServed: number.areaServed,
+      availableLanguage: number.areaServed === "US" ? "en-US" : "en-GB",
+    })),
     areaServed: AREA_SERVED,
     knowsAbout: [
       "AI receptionists",
