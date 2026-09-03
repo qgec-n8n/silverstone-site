@@ -38,6 +38,20 @@ async function revealRouteTextIfNeeded(page: Page, text: string) {
   if (hasRouteEntry) {
     await exploreButton.click();
   }
+
+  // Opening the route hands over to the CoreSpin loader, which paints a
+  // full-bleed overlay while it plays its exit. Route text becomes visible
+  // before that overlay leaves the DOM, so a click issued on the strength of
+  // a visible heading alone is intercepted by `.ss-loader[data-phase]`.
+  // Waiting for the overlay itself is the real signal; "hidden" covers both
+  // the detached and the still-mounted-but-finished cases.
+  await page
+    .locator(".ss-loader")
+    .waitFor({ state: "hidden", timeout: 15_000 })
+    .catch(() => {
+      // A route that never mounted a loader (a direct, gate-free entry) has
+      // nothing to wait for.
+    });
 }
 
 for (const path of representativeRoutes) {
