@@ -49,3 +49,127 @@
 [data-reveal-bypass] [data-motion-reveal-kind="image"] {
   clip-path: inset(0% 0% round 20px) !important;
 }
+
+/*
+  ── Mount-triggered reveals (CSS-driven) ───────────────────────────────────
+
+  `Reveal trigger="mount"` (services-v2 primitives) exists for content that is
+  guaranteed to already be on screen at load: the secondary hero on every
+  service/industry/core route, and a blog article's header. Those blocks are
+  the Largest Contentful Paint element on their pages.
+
+  They used to be Motion-driven, which meant the entrance could not begin
+  until the route's JS had downloaded, React had hydrated and LazyMotion's
+  `dom-max` feature chunk had resolved. Because Motion renders `initial="hidden"`
+  into the prerendered HTML as an inline `opacity:0`, and Chrome excludes
+  zero-opacity elements from LCP candidacy, the LCP element on a fully
+  prerendered page could not be *counted* until all of that finished —
+  measured at 7.1s on a throttled phone for /blog/<article>, against an FCP of
+  1.5s. The pixels were there the whole time; the page was scored on the
+  animation, not the paint.
+
+  Driving the identical entrance from CSS moves it off the JS critical path
+  entirely: the animation starts at first paint, so the element becomes an LCP
+  candidate immediately and real visitors stop staring at an invisible hero.
+  The keyframes below mirror `revealVariants` in
+  `~/features/services-v2/components/primitives` one-for-one — same offsets,
+  same scales, same easing, same durations as `transitionFor` — so the
+  choreography is unchanged; only its start moment moves earlier.
+
+  `backwards` (never `forwards`): the fill only needs to cover the pre-delay
+  window. A `forwards` fill would pin the composited transform after the
+  animation ends and silently kill any hover/press transform on the settled
+  element.
+*/
+
+.ss-mount-reveal {
+  --ss-mount-reveal-delay: 0ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js="on"] .ss-mount-reveal {
+    animation-delay: var(--ss-mount-reveal-delay);
+    animation-fill-mode: backwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html[data-js="on"] .ss-mount-reveal[data-motion-reveal-kind="section"] {
+    animation-name: ss-mount-reveal-section;
+    animation-duration: 1s;
+  }
+
+  html[data-js="on"] .ss-mount-reveal[data-motion-reveal-kind="card"] {
+    animation-name: ss-mount-reveal-card;
+    animation-duration: 1s;
+  }
+
+  html[data-js="on"] .ss-mount-reveal[data-motion-reveal-kind="cta"] {
+    animation-name: ss-mount-reveal-cta;
+    animation-duration: 1.05s;
+  }
+
+  html[data-js="on"] .ss-mount-reveal[data-motion-reveal-kind="metric"] {
+    animation-name: ss-mount-reveal-metric;
+    animation-duration: 0.85s;
+  }
+
+  html[data-js="on"] .ss-mount-reveal[data-motion-reveal-kind="image"] {
+    animation-name: ss-mount-reveal-image;
+    animation-duration: 1.4s;
+  }
+
+  /*
+    `pill` is a spring in Motion (stiffness 150, damping 19, mass 0.85) — an
+    under-damped curve that overshoots slightly before settling. The
+    back-out bezier below is the closest single-segment approximation, at
+    the duration that spring actually takes to visually settle.
+  */
+  html[data-js="on"] .ss-mount-reveal[data-motion-reveal-kind="pill"] {
+    animation-name: ss-mount-reveal-pill;
+    animation-duration: 0.78s;
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@keyframes ss-mount-reveal-section {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+}
+
+@keyframes ss-mount-reveal-card {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+}
+
+@keyframes ss-mount-reveal-cta {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.96);
+  }
+}
+
+@keyframes ss-mount-reveal-metric {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.93);
+  }
+}
+
+@keyframes ss-mount-reveal-pill {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.88);
+  }
+}
+
+@keyframes ss-mount-reveal-image {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+    clip-path: inset(10% 8% round 20px);
+  }
+}

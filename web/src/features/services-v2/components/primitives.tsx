@@ -26,6 +26,7 @@ import {
   useRef,
   useState,
   type ComponentPropsWithoutRef,
+  type CSSProperties,
   type ReactNode,
   type RefObject,
 } from "react";
@@ -39,6 +40,7 @@ import {
   Zap,
   type LucideIcon,
 } from "~/components/icons/lucide";
+import { cn } from "~/lib/utils";
 import { isRevealBypassActive } from "~/motion/reveal-bypass";
 import { useRevealStart } from "~/motion/use-reveal-start";
 import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
@@ -246,18 +248,34 @@ export function Reveal({
   }
 
   if (trigger === "mount") {
+    /*
+     * CSS-driven, deliberately not Motion-driven.
+     *
+     * A mount reveal wraps content that is already on screen when the page
+     * loads — the secondary hero, a blog article's header — which makes it the
+     * Largest Contentful Paint element on almost every route. Motion renders
+     * `initial="hidden"` into the prerendered HTML as an inline `opacity:0`,
+     * and Chrome refuses to treat a zero-opacity element as an LCP candidate,
+     * so the entrance could not even begin (nor the metric be satisfied) until
+     * the route JS had downloaded, React had hydrated and LazyMotion's
+     * `dom-max` chunk had resolved: 7.1s on a throttled phone for a blog
+     * article whose FCP was 1.5s.
+     *
+     * The keyframes in `~/styles/motion-reveal.css` reproduce
+     * `revealVariants[kind]` and `transitionFor(kind, …)` exactly, so the
+     * entrance looks the same — it simply starts at first paint instead of at
+     * hydration. Scroll-triggered reveals below the fold stay with Motion,
+     * which is where its viewport/scheduler machinery actually earns its keep.
+     */
     return (
-      <m.div
-        className={className}
+      <div
+        className={cn("ss-mount-reveal", className)}
         data-motion-reveal="true"
         data-motion-reveal-kind={kind}
-        initial="hidden"
-        animate="show"
-        variants={revealVariants[kind]}
-        transition={transitionFor(kind, delayMs)}
+        style={{ "--ss-mount-reveal-delay": `${String(delayMs)}ms` } as CSSProperties}
       >
         {children}
-      </m.div>
+      </div>
     );
   }
 

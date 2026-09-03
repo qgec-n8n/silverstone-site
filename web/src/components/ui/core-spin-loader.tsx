@@ -35,6 +35,44 @@ import "~/styles/core-spin-loader.css";
    no longer outlasts the content it is covering. */
 const HOLD_MS = 1200;
 const EXIT_MS = 450;
+/* The hold is measured from the moment the overlay actually became visible,
+   not from the moment this effect runs — but the two can coincide on a fast
+   connection, and an exit that begins in the same frame as hydration reads as
+   a glitch rather than a beat. This floor guarantees a perceptible hand-off
+   even when hydration lands long after first paint. */
+const MIN_REMAINING_HOLD_MS = 150;
+
+/**
+ * Milliseconds the loader overlay has already been on screen by the time
+ * hydration hands control to this component.
+ *
+ * The overlay ships in the prerendered HTML, so it is painted at First
+ * Contentful Paint — well before React hydrates. The hold used to start when
+ * this component's effect first ran, which made the overlay's real visible
+ * lifetime `(hydration - FCP) + HOLD_MS + EXIT_MS` rather than the ~1.65s this
+ * module documents. On a throttled phone profile that is the difference
+ * between the intended 1.65s and roughly 3.0s, and because the route intro is
+ * the Largest Contentful Paint element on every core page, the whole overrun
+ * was charged directly to LCP: /pricing measured 4.8s.
+ *
+ * Anchoring to the paint restores the documented contract exactly — the beat
+ * is unchanged on a fast connection, and on a slow one the overlay stops
+ * outstaying the budget it was tuned to.
+ */
+function elapsedSinceOverlayPainted(): number {
+  if (typeof performance === "undefined") {
+    return 0;
+  }
+  const paint = performance
+    .getEntriesByType("paint")
+    .find((entry) => entry.name === "first-contentful-paint");
+  if (!paint) {
+    // No paint entry (unsupported, or hydration beat the first paint): fall
+    // back to the full hold, which is the behaviour this replaced.
+    return 0;
+  }
+  return Math.max(0, performance.now() - paint.startTime);
+}
 // WebP directly rather than through `RasterPicture`: the loader CSS positions
 // `.ss-loader__emblem` as a child of `.ss-loader__stage`, so introducing a
 // <picture> wrapper between them would break the centring the homepage
@@ -164,7 +202,11 @@ export function CoreSpinLoader() {
     };
 
     preloadRouteAssets(activePathname);
-    void wait(HOLD_MS).then(beginExit);
+    const remainingHold = Math.max(
+      MIN_REMAINING_HOLD_MS,
+      HOLD_MS - elapsedSinceOverlayPainted(),
+    );
+    void wait(remainingHold).then(beginExit);
     return () => {
       canceled = true;
     };
