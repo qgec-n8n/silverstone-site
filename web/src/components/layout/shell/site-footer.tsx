@@ -111,7 +111,14 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
               content systems for businesses in the US and UK, designed, engineered and
               assured in-house.
             </p>
-            <p className="mt-3 inline-flex items-center gap-2 text-body-sm text-titanium">
+            {/* Hooked for the footer layout matrix in
+                tests/e2e/homepage-interaction.spec.ts, which checks this line
+                sits level with the Services column. A positional selector
+                would follow whichever contact row happens to be last. */}
+            <p
+              className="mt-3 inline-flex items-center gap-2 text-body-sm text-titanium"
+              data-footer-location
+            >
               <MapPin aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
               London studio · US-based team · 24-hour coverage
             </p>
