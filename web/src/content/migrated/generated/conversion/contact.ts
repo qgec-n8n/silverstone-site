@@ -225,11 +225,11 @@ const content: MigratedContentRecord = {
         {
           type: "paragraph",
           order: 6,
-          text: "Address: 4 Deacon Street, London, SE17 1GE, UK Email: info@silverstone-ai.com",
+          text: "Address: 4 Deacon Street, London, SE17 1GD, UK Email: info@silverstone-ai.com",
           segments: [
             {
               type: "text",
-              value: "Address: 4 Deacon Street, London, SE17 1GE, UK Email: ",
+              value: "Address: 4 Deacon Street, London, SE17 1GD, UK Email: ",
             },
             {
               type: "link",
@@ -360,7 +360,7 @@ const content: MigratedContentRecord = {
       sourceSelector: "iframe.map-iframe",
       sourceAction: null,
       sourceUrl:
-        "https://www.google.com/maps?q=4+Deacon+Street,+SE17+1GE,+London,+UK&output=embed",
+        "https://www.google.com/maps?q=4+Deacon+Street,+SE17+1GD,+London,+UK&output=embed",
       fields: [],
       active: false,
     },

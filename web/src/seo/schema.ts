@@ -65,7 +65,7 @@ export function buildOrganizationNode(): SchemaEntry {
       "@type": "PostalAddress",
       streetAddress: "4 Deacon Street",
       addressLocality: "London",
-      postalCode: "SE17 1GE",
+      postalCode: "SE17 1GD",
       addressCountry: "GB",
     },
     // Only the contact route the site actually publishes: no phone number is

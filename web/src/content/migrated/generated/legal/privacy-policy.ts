@@ -406,11 +406,11 @@ const content: MigratedContentRecord = {
         {
           type: "paragraph",
           order: 18,
-          text: "Address: 4 Deacon Street, SE17 1GE, London, UK",
+          text: "Address: 4 Deacon Street, SE17 1GD, London, UK",
           segments: [
             {
               type: "text",
-              value: " Address: 4 Deacon Street, SE17 1GE, London, UK ",
+              value: " Address: 4 Deacon Street, SE17 1GD, London, UK ",
             },
           ],
           sourceSelector: "p",
