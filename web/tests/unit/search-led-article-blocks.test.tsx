@@ -15,6 +15,13 @@ import {
 import { MotionProvider } from "~/motion";
 import { ArticlePage, sanitizeHref } from "~/routes/templates/article-page";
 
+/**
+ * The first publication date on which a post outside the search-led stream
+ * carried the v2 block vocabulary (`ecommerce-customer-service-automation-cost`).
+ * Posts published before it are the pre-block catalogue.
+ */
+const BLOCK_VOCABULARY_ADOPTED = "2026-08-13";
+
 function OpenRouteBody() {
   const { completeRouteOpening, dismissLoader, openRouteBody } = useAppExperience();
   useEffect(() => {
@@ -146,9 +153,18 @@ describe("search-led presentation blocks", () => {
      * Only this direction is asserted. A family does not imply search-led
      * blocks: a "Comparison Matrix" article can express its comparison through
      * the older `comparisonTable` block and legitimately carry none of these.
+     *
+     * "No presentation family" alone no longer identifies that older
+     * catalogue. blog-posts.ts is written by two n8n streams, and on
+     * 2026-08-13 the service-and-industry stream (commit subject
+     * `publish <slug>`, no `search-led`) began emitting the same block
+     * vocabulary while correctly stamping no family — which is exactly what
+     * keeps the `[data-family=…]` CSS off those articles. So the cutoff is the
+     * date the vocabulary spread, not the presence of a family.
      */
     const legacyPosts = PUBLISHED_BLOG_POSTS.filter(
-      (post) => !post.presentation?.family,
+      (post) =>
+        !post.presentation?.family && post.publishedIsoDate < BLOCK_VOCABULARY_ADOPTED,
     );
     // A filter that matched nothing would leave this guard silently vacuous.
     expect(legacyPosts.length).toBeGreaterThan(0);
