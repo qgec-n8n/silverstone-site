@@ -44,6 +44,67 @@ async function alignFeatureBelowHeader(page: Page) {
   });
 }
 
+/**
+ * Blocks until the featured grid has stopped moving.
+ *
+ * A viewport resize re-runs the grid and restarts the card transitions, the
+ * hero images may still be decoding, and — the input that actually breaks
+ * these assertions — a web font may still be swapping in, which changes the
+ * text-driven height of every card body. A fixed sleep covers all of that
+ * only while the machine is idle; under worker contention the measurement
+ * lands mid-settle and the sub-pixel geometry tolerances (1-3px) fail.
+ *
+ * So wait on the three real signals in order — fonts, images, then several
+ * consecutive animation frames reporting identical rects — rather than
+ * guessing a duration.
+ */
+async function settleFeatureLayout(page: Page) {
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+  await page.waitForFunction(
+    () =>
+      Array.from(
+        document.querySelectorAll<HTMLImageElement>(".ss-featured-insights img"),
+      ).every((image) => image.complete),
+    undefined,
+    { timeout: 15_000 },
+  );
+  await page.evaluate(
+    async () =>
+      new Promise<void>((resolve) => {
+        const measure = () =>
+          Array.from(
+            document.querySelectorAll(
+              ".ss-featured-primary, .ss-featured-support__link, .ss-featured-support__media",
+            ),
+            (element) => {
+              const box = element.getBoundingClientRect();
+              return `${String(box.width)}x${String(box.height)}@${String(box.top)}`;
+            },
+          ).join("|");
+
+        let previous = measure();
+        let stableFrames = 0;
+        // ~2s of frames: enough for the 360ms card transitions, and a bound so
+        // a permanently animating element cannot hang the run.
+        let framesLeft = 120;
+        const tick = () => {
+          const current = measure();
+          stableFrames = current === previous ? stableFrames + 1 : 0;
+          previous = current;
+          framesLeft -= 1;
+          if (stableFrames >= 3 || framesLeft <= 0) {
+            resolve();
+            return;
+          }
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }),
+  );
+}
+
 test("desktop Featured Intelligence is compact, ordered and viewport-fit", async ({
   page,
 }, testInfo) => {
@@ -62,7 +123,7 @@ test("desktop Featured Intelligence is compact, ordered and viewport-fit", async
   for (const viewport of viewports) {
     await page.setViewportSize(viewport);
     await alignFeatureBelowHeader(page);
-    await page.waitForTimeout(700);
+    await settleFeatureLayout(page);
 
     const geometry = await page.evaluate(() => {
       const rect = (element: Element) => {
@@ -149,8 +210,9 @@ test("desktop Featured Intelligence is compact, ordered and viewport-fit", async
         geometry.supportingMediaFrames.at(index),
         `Supporting media frame ${String(index + 1)} missing`,
       );
-      expect(Math.abs(frame.width - link.width)).toBeLessThan(3);
-      expect(Math.abs(frame.height - link.height)).toBeLessThan(3);
+      const where = `viewport ${String(viewport.width)} card ${String(index + 1)}: frame ${String(frame.width)}x${String(frame.height)} link ${String(link.width)}x${String(link.height)}`;
+      expect(Math.abs(frame.width - link.width), where).toBeLessThan(3);
+      expect(Math.abs(frame.height - link.height), where).toBeLessThan(3);
       expect(media.width).toBeGreaterThanOrEqual(frame.width);
       expect(media.height).toBeGreaterThanOrEqual(frame.height);
     }

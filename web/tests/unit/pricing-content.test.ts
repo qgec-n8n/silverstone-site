@@ -198,7 +198,7 @@ describe("pricing FAQ structured data", () => {
     const graph = buildRouteSchemaGraph(route);
     const types = graph["@graph"].map((entry) => entry["@type"]);
     expect(types).toEqual([
-      "Organization",
+      ["Organization", "ProfessionalService"],
       "WebPage",
       "FAQPage",
       "OfferCatalog",

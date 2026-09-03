@@ -379,9 +379,9 @@ export const approvedRouteOverrides: RouteOverride[] = [
     // "Home | Silverstone AI"; phrasing mirrors the approved description and
     // the social-card alt ("websites, apps and AI workflows for UK
     // businesses"). Metadata only — the visible H1 is unchanged.
-    title: "Silverstone AI | AI Automation Studio for US & UK Businesses",
+    title: "Silverstone AI | AI Automation Agency for US & UK Businesses",
     description:
-      "Silverstone AI is a London-based AI systems studio building AI receptionists, voice agents, automation, websites and apps for small and mid-sized businesses in the US and UK.",
+      "Silverstone AI is a London-based AI automation agency building AI receptionists, voice agents, automation, websites and apps for small and mid-sized businesses in the US and UK.",
     h1: "Practical technology that helps small teams respond, deliver and grow",
     headingPlan: {
       h1: "Practical technology that helps small teams respond, deliver and grow",
@@ -406,7 +406,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-about",
     title: "About Silverstone AI | London Studio, US and UK Clients",
     description:
-      "Silverstone AI is an AI systems studio in London with US-based team members, serving businesses in the US and UK with clear scope, human oversight and evidence-led delivery.",
+      "Silverstone AI is an AI automation agency in London with US-based team members, serving businesses in the US and UK with clear scope, human oversight and evidence-led delivery.",
     h1: "Practical systems, clearly explained",
     headingPlan: {
       h1: "Practical systems, clearly explained",

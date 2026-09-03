@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { useInView } from "motion/react";
 import * as m from "motion/react-m";
 import { Link } from "react-router";
-import { ArrowUpRight, Mail, MapPin } from "~/components/icons/lucide";
+import { ArrowUpRight, Mail, MapPin, PhoneCall } from "~/components/icons/lucide";
 
 import { Container } from "~/components/layout/container";
+import { CONTACT_NUMBERS } from "~/data/contact-channels";
 import { useHydrated } from "~/lib/use-hydrated";
 import { useRevealStart } from "~/motion/use-reveal-start";
 import { RasterPicture } from "~/components/ui/raster-picture";
@@ -110,7 +111,14 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
               content systems for businesses in the US and UK, designed, engineered and
               assured in-house.
             </p>
-            <p className="mt-3 inline-flex items-center gap-2 text-body-sm text-titanium">
+            {/* Hooked for the footer layout matrix in
+                tests/e2e/homepage-interaction.spec.ts, which checks this line
+                sits level with the Services column. A positional selector
+                would follow whichever contact row happens to be last. */}
+            <p
+              className="mt-3 inline-flex items-center gap-2 text-body-sm text-titanium"
+              data-footer-location
+            >
               <MapPin aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
               London studio · US-based team · 24-hour coverage
             </p>
@@ -122,6 +130,29 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
                 <Mail aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
                 info@silverstone-ai.com
               </a>
+            </p>
+            {/* One number per market, in the footer rather than only on
+                /contact: a local listing is judged on the same name, address
+                and phone appearing consistently across every page, and the
+                Organization schema's `telephone` may only assert what the
+                site itself shows. */}
+            <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+              {CONTACT_NUMBERS.map((number) => (
+                <a
+                  className="ss-focus-ring ss-transition-interactive inline-flex items-center gap-2 rounded-[var(--ss-radius-xs)] text-body-sm text-titanium no-underline hover:text-platinum"
+                  href={`tel:${number.e164}`}
+                  key={number.e164}
+                >
+                  <PhoneCall
+                    aria-hidden
+                    className="size-4 text-[var(--ss-v2-signal-cyan)]"
+                  />
+                  <span>
+                    <span className="sr-only">{number.market} telephone: </span>
+                    {number.display}
+                  </span>
+                </a>
+              ))}
             </p>
             {/* Directory recognition seal — a credential, so it belongs with
                 the brand block rather than the legal row. */}

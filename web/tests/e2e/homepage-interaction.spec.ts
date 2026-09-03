@@ -279,7 +279,7 @@ async function footerLayoutProof(page: Page) {
       .querySelector<HTMLElement>(".ss-footer__brandmark")
       ?.getBoundingClientRect();
     const location = document
-      .querySelector<HTMLElement>(".ss-footer__brand p:last-of-type")
+      .querySelector<HTMLElement>(".ss-footer__brand [data-footer-location]")
       ?.getBoundingClientRect();
     const cta = document
       .querySelector<HTMLElement>(".ss-footer__cta")

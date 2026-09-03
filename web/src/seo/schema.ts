@@ -1,3 +1,8 @@
+import {
+  CONTACT_EMAIL,
+  CONTACT_NUMBERS,
+  PRIMARY_TELEPHONE,
+} from "~/data/contact-channels";
 import { plainCurrencyText } from "~/data/currency";
 import { PRICING_FAQ } from "~/data/pricing-faq";
 import type { FutureRouteRecord } from "~/data/route-schema";
@@ -19,7 +24,9 @@ export function buildOrganizationSchema(input: OrganizationSchemaInput) {
 }
 
 type SchemaEntry = {
-  "@type": string;
+  // An array where a node carries several types at one `@id` — the
+  // Organization is also a `ProfessionalService`.
+  "@type": string | string[];
   [key: string]: unknown;
 };
 
@@ -36,6 +43,64 @@ const AREA_SERVED = [
 ];
 
 /**
+ * The published rate card, in one place: the `OfferCatalog` on /pricing and
+ * the Organization's `priceRange` both read from it, so a price change cannot
+ * leave the two disagreeing. Figures mirror the visible bands on /pricing.
+ */
+const PUBLISHED_OFFERS: { name: string; gbp: string; usd: string; unit?: string }[] = [
+  { name: "Focused automation pilot", gbp: "3000", usd: "3900" },
+  { name: "Simple automation implementation", gbp: "2000", usd: "2500" },
+  { name: "Multi-system implementation", gbp: "10000", usd: "12500" },
+  { name: "Enterprise implementation", gbp: "50000", usd: "65000" },
+  { name: "Essential Support retainer", gbp: "350", usd: "450", unit: "MON" },
+  { name: "Premium Support retainer", gbp: "1250", usd: "1600", unit: "MON" },
+  { name: "Foundation website", gbp: "1500", usd: "1950" },
+  { name: "Professional website", gbp: "2750", usd: "3500" },
+  { name: "Growth website", gbp: "4750", usd: "5950" },
+  { name: "Enterprise website", gbp: "7500", usd: "9500" },
+];
+
+const PUBLISHED_GBP = PUBLISHED_OFFERS.map((offer) => Number(offer.gbp));
+const groupThousands = (value: number) => value.toLocaleString("en-GB");
+const PRICE_RANGE = `£${groupThousands(Math.min(...PUBLISHED_GBP))}–£${groupThousands(Math.max(...PUBLISHED_GBP))}`;
+
+/**
+ * ONS grid reference for the studio postcode. 4 Deacon Street is a
+ * multi-postcode block, but every postcode in it — SE17 1GD as the site
+ * states it, plus the neighbouring 1GB/1GE/1GF — resolves to this one
+ * centroid, so the coordinates are unambiguous either way.
+ * See the postcode note in `~/features/core-pages/map-panel`.
+ */
+const STUDIO_GEO = {
+  "@type": "GeoCoordinates",
+  latitude: 51.492531,
+  longitude: -0.097884,
+};
+
+/**
+ * Round-the-clock, which is what the site's own "24-hour team coverage" claim
+ * and the Google Business Profile both state. 00:00-23:59 across all seven
+ * days is the conventional encoding of "open 24 hours"; schema.org has no
+ * dedicated flag for it.
+ */
+const OPENING_HOURS = [
+  {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+    opens: "00:00",
+    closes: "23:59",
+  },
+];
+
+/**
  * The organization as an AI answer engine should resolve it: the full name
  * (never bare "Silverstone", which the racing circuit owns in general
  * retrieval), a category anchor in the description, a stable `@id`, and the
@@ -44,21 +109,45 @@ const AREA_SERVED = [
  */
 export function buildOrganizationNode(): SchemaEntry {
   return {
-    "@type": "Organization",
+    // One multi-typed node rather than a second `#localbusiness` entity:
+    // `ProfessionalService` is a `LocalBusiness`, and both types hang off the
+    // same `@id`, so the local-pack facts below (address, geo, map) describe
+    // the organisation consumers already resolve rather than forking it into
+    // a second entity they then have to reconcile.
+    "@type": ["Organization", "ProfessionalService"],
     "@id": ORGANIZATION_ID,
     name: "Silverstone AI",
     url: "https://silverstone-ai.com/",
     description:
-      "Silverstone AI is a London-based AI systems studio that designs and builds AI receptionists, AI voice agents, workflow automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom.",
+      "Silverstone AI is a London-based AI automation agency that designs and builds AI receptionists, AI voice agents, workflow automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom.",
+    // schema.org's purpose-built field for separating an entity from
+    // similarly-named ones, which is this site's core retrieval problem:
+    // unqualified "Silverstone" resolves to the motor-racing circuit in
+    // Northamptonshire almost everywhere, so the node says plainly what this
+    // entity is not.
+    disambiguatingDescription:
+      "An AI automation agency in London, unrelated to Silverstone Circuit, the motor-racing venue in Northamptonshire.",
     logo: {
       "@type": "ImageObject",
       url: "https://silverstone-ai.com/brand/silverstone-logo.png",
     },
-    // Official profiles the site links to itself.
+    // `LocalBusiness` results expect an image alongside the logo.
+    image: "https://silverstone-ai.com/brand/silverstone-logo.png",
+    // Every profile the owner has confirmed, verified reachable 2026-09-03.
+    // The Google Business Profile leads: it is the listing the local pack
+    // resolves against, and it is given as the stable place-id permalink
+    // rather than the share.google short link, which redirects through a
+    // lookup URL. Still absent, and not to be invented: a LinkedIn company
+    // page and a Crunchbase profile (neither exists yet), and Companies
+    // House (the company is not registered).
     sameAs: [
-      "https://www.instagram.com/silverstone.ai/",
-      "https://www.facebook.com/people/Silverstone-AI/61583930930530/",
+      "https://www.google.com/maps/place/?q=place_id:ChIJGZi5bknv7EcRx2wli22KRtI",
+      "https://clutch.co/profile/silverstone-ai",
+      "https://uk.trustpilot.com/review/silverstone-ai.com",
+      "https://www.one9founders.com/agents/silverstone-ai",
       "https://aiagentsdirectory.com/agent/silverstone-ai",
+      "https://www.instagram.com/silverstone.ai/",
+      "https://www.facebook.com/profile.php?id=61583930930530",
     ],
     // Studio address as shown on /contact.
     address: {
@@ -68,16 +157,29 @@ export function buildOrganizationNode(): SchemaEntry {
       postalCode: "SE17 1GD",
       addressCountry: "GB",
     },
-    // Only the contact route the site actually publishes: no phone number is
-    // shown on /contact, so none is asserted here.
-    email: "info@silverstone-ai.com",
-    contactPoint: {
+    geo: STUDIO_GEO,
+    // The same "Open in Google Maps" target /contact links, so the local
+    // entity and the visible page point at one place.
+    hasMap:
+      "https://www.google.com/maps/search/?api=1&query=4%20Deacon%20Street%2C%20London%20SE17%201GD%2C%20United%20Kingdom",
+    // Both currencies /pricing publishes, and the span of its visible bands.
+    currenciesAccepted: "GBP, USD",
+    priceRange: PRICE_RANGE,
+    openingHoursSpecification: OPENING_HOURS,
+    // Every channel here is one the footer renders on every page, so the
+    // node never asserts a way to reach the studio that the site does not
+    // itself publish. The primary `telephone` is the UK line, matching the
+    // number on the Google Business Profile.
+    email: CONTACT_EMAIL,
+    telephone: PRIMARY_TELEPHONE,
+    contactPoint: CONTACT_NUMBERS.map((number) => ({
       "@type": "ContactPoint",
       contactType: "sales",
-      email: "info@silverstone-ai.com",
-      areaServed: ["US", "GB"],
-      availableLanguage: ["en-US", "en-GB"],
-    },
+      telephone: number.e164,
+      email: CONTACT_EMAIL,
+      areaServed: number.areaServed,
+      availableLanguage: number.areaServed === "US" ? "en-US" : "en-GB",
+    })),
     areaServed: AREA_SERVED,
     knowsAbout: [
       "AI receptionists",
@@ -207,18 +309,7 @@ function buildFaqPageSchema(): SchemaEntry {
  * quote.
  */
 function buildOfferCatalogSchema(): SchemaEntry {
-  const offers: { name: string; gbp: string; usd: string; unit?: string }[] = [
-    { name: "Focused automation pilot", gbp: "3000", usd: "3900" },
-    { name: "Simple automation implementation", gbp: "2000", usd: "2500" },
-    { name: "Multi-system implementation", gbp: "10000", usd: "12500" },
-    { name: "Enterprise implementation", gbp: "50000", usd: "65000" },
-    { name: "Essential Support retainer", gbp: "350", usd: "450", unit: "MON" },
-    { name: "Premium Support retainer", gbp: "1250", usd: "1600", unit: "MON" },
-    { name: "Foundation website", gbp: "1500", usd: "1950" },
-    { name: "Professional website", gbp: "2750", usd: "3500" },
-    { name: "Growth website", gbp: "4750", usd: "5950" },
-    { name: "Enterprise website", gbp: "7500", usd: "9500" },
-  ];
+  const offers = PUBLISHED_OFFERS;
   const priceSpec = (price: string, currency: "GBP" | "USD", unit?: string) => ({
     "@type": "UnitPriceSpecification",
     price,

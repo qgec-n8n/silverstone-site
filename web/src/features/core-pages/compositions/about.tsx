@@ -99,7 +99,7 @@ export function AboutComposition() {
         icon={Sparkles}
         title="A premium technology partner built around *better judgment*"
         titleId="core-about-title"
-        lead="Silverstone AI is an AI systems studio in London that builds AI receptionists, voice agents, automation, websites and apps for businesses in the US and the UK. Six disciplines, one line of accountability."
+        lead="Silverstone AI is an AI automation agency in London that builds AI receptionists, voice agents, automation, websites and apps for businesses in the US and the UK. Six disciplines, one line of accountability."
         points={[
           { icon: Layers, text: "Six disciplines, one line of accountability" },
           { icon: Sparkles, text: "A London studio with US and UK clients" },
