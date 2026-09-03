@@ -56,7 +56,8 @@ const PUBLISHED_OFFERS: { name: string; gbp: string; usd: string; unit?: string 
 ];
 
 const PUBLISHED_GBP = PUBLISHED_OFFERS.map((offer) => Number(offer.gbp));
-const PRICE_RANGE = `£${String(Math.min(...PUBLISHED_GBP))}–£${String(Math.max(...PUBLISHED_GBP))}`;
+const groupThousands = (value: number) => value.toLocaleString("en-GB");
+const PRICE_RANGE = `£${groupThousands(Math.min(...PUBLISHED_GBP))}–£${groupThousands(Math.max(...PUBLISHED_GBP))}`;
 
 /**
  * ONS grid reference for the studio postcode. 4 Deacon Street is a
