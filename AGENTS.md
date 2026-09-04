@@ -16,14 +16,25 @@ Permanent repository contract for agents working in `silverstone-site`.
 - When searching, prefer scoped commands such as `rg <pattern> web` or commands run from `/web`. Do not run broad repository scans unless the user explicitly asks for repository-wide forensics.
 - Read documentation surgically: open only the specific project document needed for the task, not whole docs folders.
 
-## Model Advisory Policy
+## Model And Effort Policy
 
-- Claude Sonnet 5 is the primary model for investigation, implementation, debugging, testing, copy, and routine decisions.
-- Claude Code project settings must keep `.claude/settings.json` configured with `model: "claude-sonnet-5"` and `advisorModel: "claude-fable-5"` so Sonnet 5 runs with Fable 5 as advisor.
-- Fable 5 is the advisor to Sonnet 5 for major unresolved strategic decisions only: positioning, conversion strategy, page structure, substantial webcopy direction, major visual direction, significant redesigns, or feature architecture.
-- Use no more than one Fable 5 consultation per substantial task. Before consulting Fable 5, Sonnet 5 must inspect the project and reduce the issue to the few decisions requiring strategic judgment.
-- Give Fable 5 no more than 500 words of relevant context and ask for one preferred direction in no more than 600 words.
-- Do not use Fable 5 for implementation, routine edits, CSS, minor copy changes, debugging, general reassurance, or final review unless a major strategic uncertainty remains.
+Match the model and the reasoning effort to the task. Both are cheap to change mid-session and expensive to get wrong either way: under-powering silent, hard-to-detect work costs rework, while over-powering mechanical work costs time and invites over-engineering.
+
+### Model
+
+- Claude Sonnet 5 is the default for investigation, implementation, debugging, testing, routine copy, CSS, config, and validation runs. Keep `.claude/settings.json` at `model: "claude-sonnet-5"`.
+- Escalate to Claude Opus 5 when a task holds several constraints at once and an error would be silent rather than loud: positioning and conversion strategy, page structure, substantial webcopy direction, major visual direction, significant redesigns, feature architecture, schema/metadata/routing changes spanning many routes, migrations over generated files, and any change to the n8n publishing workflows.
+- Claude Haiku 4.5 is appropriate for genuinely mechanical work — file moves, mass renames, formatting, reading a log for one value.
+- Do not use Fable 5. There is no active credit for it; any instruction naming it as an advisor is superseded by this section.
+- Escalate the model rather than repeating a failed attempt. Two Sonnet 5 passes at a problem Opus 5 solves once is the more expensive path.
+
+### Effort
+
+- Low or medium: reading, summarising, confirming state, running a documented command, mechanical edits with an obvious correct answer.
+- High: the working default for implementation. Use it for any multi-file change, and for the first turn of a long prompt so the session orients correctly before editing.
+- Max: reserve for work where an error is silent and expensive — quality-gate or publishing-chain logic, scripted rewrites over generated files, and copy that must satisfy competing constraints simultaneously. Do not run whole sessions at max.
+- Change effort between turns, at phase gates. It applies to the message it is sent with and cannot alter work already running.
+- State the model and effort in the session summary when either was escalated, so a later reader knows the change was deliberate.
 
 ## Production Protection
 
