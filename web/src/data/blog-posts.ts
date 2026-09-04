@@ -34581,6 +34581,634 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
+  {
+    slug: "outbound-ai-voice-agent-compliance",
+    title:
+      "Outbound AI Voice Agent Compliance for US Teams Running Consent-First Calling Workflows",
+    author: "Silverstone AI News & Media Team",
+    market: "US",
+    subtitle:
+      "A field guide for US teams designing outbound AI voice workflows around consent records, opt-outs, launch controls, and human review boundaries.",
+    summary: [
+      "US outbound AI voice programs need workflow controls, not just better prompts.",
+      "Consent proof, suppression logic, and human review boundaries should exist before launch.",
+      "Higher-risk outbound use cases should stay human-led until legal review and tighter controls are in place.",
+    ],
+    categoryLabel: "AI Voice Agents",
+    categoryKey: "ai-voice-agents",
+    categoryId: "ai-voice-agents",
+    categoryOrder: 3,
+    displayDate: "September 5, 2026",
+    publishedIsoDate: "2026-09-04T23:25:33.705Z",
+    updatedIsoDate: "2026-09-04T23:25:33.705Z",
+    readTime: "10 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/outbound-ai-voice-agent-compliance-hero.webp",
+    heroImageAlt:
+      "Bright editorial illustration of a US outbound AI voice workflow with consent checks, call states, suppression controls, and human approval handoff",
+    metaTitle: "Outbound AI Voice Agent Compliance for US Teams",
+    metaDescription:
+      "Design a consent-first outbound AI voice workflow for US teams with stronger TCPA controls, opt-out handling, records, approvals, and launch gates.",
+    primaryKeyword: "outbound AI voice agent TCPA compliance workflow",
+    secondaryKeywords: [
+      "AI voice agent consent workflow",
+      "outbound AI calling compliance",
+      "TCPA AI voice agent records",
+      "AI call opt-out suppression",
+      "US outbound voice agent launch checklist",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "A US sales or operations team approves a new outbound AI voice campaign, connects the CRM, and lines up SMS follow-up. The hard part is not the prompt. It is whether each number, call path, suppression rule, and handoff state is backed by **usable consent proof** before the first dial starts.",
+          "For US teams, an outbound AI voice agent can create **TCPA exposure** if consent, disclosures, records, and do-not-call handling are weak. Silverstone AI helps small and mid-sized businesses design {{accent:AI voice workflows}} that are commercially practical, but the operating model has to be **consent-first**, not speed-first.",
+          "The short answer is simple: treat compliance as a workflow design problem. If your team can prove who consented, what channel they agreed to, when they revoked it, and where humans take over, you have a far stronger foundation for outbound calling in the **United States**.",
+        ],
+      },
+      {
+        heading:
+          "When does an outbound AI voice agent trigger TCPA risk in a real calling workflow?",
+        body: [
+          "An outbound AI voice agent creates **TCPA risk** when it calls or triggers follow-up from records lacking clear consent, valid disclosures, timing controls, or reliable suppression logic. If your system cannot show why a number was callable at that moment, the workflow is exposed before the conversation even starts.",
+          "A practical way to think about it is this: the legal question becomes an operational question. Before a number reaches the dialer, your team should know the **use case**, **consent basis**, **allowed channel**, **calling window**, and **human override path**.",
+          "If any of those fields are missing, the workflow is already weak. {{chip:warning|Constraint}} An AI voice agent should not infer permission from a broad marketing record or a stale lead source.",
+          "In supplied research, [Retell AI](https://www.retellai.com/) frames compliance as the operational chassis for outbound programs, while [Klariqo](https://klariqo.com/) states that AI-generated outbound voice is regulated like other artificial or prerecorded voice calls under the TCPA. [NiCE](https://www.nice.com/) also notes that outbound calling is regulated differently by jurisdiction and use case, which is why {{underline:qualified legal review before launch}} remains sensible.",
+          "For UK teams, this article is not your operating standard. You would need separate review against **UK GDPR**, the **ICO**, and **Ofcom** rules, and you should avoid reusing a US outbound workflow without explicit UK adaptation.",
+        ],
+        lede:
+          "The risk usually starts before the call is placed: at the moment your system decides a person is callable without a complete, channel-specific permission trail.",
+        leadStyle: "lead",
+        variant: "signal",
+        grid: [
+          {
+            body:
+              "Highest scrutiny when the call is promotional and the record lacks **clear, stored consent evidence** tied to voice or text.",
+            title: "Marketing outreach",
+          },
+          {
+            body:
+              "Risk increases if the AI call triggers automated text follow-up without a **channel-specific permission rule** and revocation check.",
+            title: "Follow-up SMS",
+          },
+          {
+            body:
+              "Imported lists are dangerous when the original source, timestamp, or disclosure language cannot be reconstructed.",
+            title: "CRM imports",
+          },
+          {
+            body:
+              "Controls should not assume one national rule set is enough. Multi-state programs need **documented jurisdiction review**.",
+            title: "State-by-state operations",
+          },
+        ],
+        callout: {
+          body: [
+            "An outbound AI voice agent becomes risky in the US when it can call or text from weak records: unclear consent, missing suppression checks, poor opt-out handling, or no documented human escalation. The safer design is a gated workflow where only records that pass defined checks can enter an AI campaign.",
+          ],
+          tone: "answer",
+          title: "Direct answer",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Consent-first workflow",
+              definition:
+                "A calling design where consent status is checked and proven before a number can enter AI outreach.",
+            },
+            {
+              term: "Suppression list",
+              definition:
+                "A list of numbers that must not be called or texted because of opt-out, revocation, internal do-not-call status, or other exclusion logic.",
+            },
+            {
+              term: "Human-in-the-loop",
+              definition:
+                "A control model where a person reviews, approves, or takes over specific states rather than leaving every decision to automation.",
+              note: "*Essential for higher-risk call paths.*",
+            },
+            {
+              term: "Artificial or prerecorded voice",
+              definition:
+                "The category referenced in the supplied TCPA-related research discussing how outbound AI-generated voice is treated.",
+            },
+          ],
+          title: "Key terms in this workflow",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+        sectionNumber: "01",
+      },
+      {
+        heading:
+          "What consent proof should your team have before any AI call or text follow-up starts?",
+        body: [
+          "Before any US outbound AI call or SMS follow-up begins, your team should hold retrievable consent proof that matches the exact channel, use case, and record being acted on. If staff cannot show where consent came from, when it was captured, and what disclosures sat around it, the workflow is not ready.",
+          "The useful test is not whether consent probably existed. It is whether a manager, operator, or counsel can inspect the record quickly and understand why this number was callable today.",
+          "That means building evidence into the data model, not leaving it in inboxes, PDFs, or salesperson memory. {{chip:proof|Verified}} The supplied research repeatedly emphasizes documentation, consent layers, opt-out capture, and suppression architecture as the foundation of outbound programs.",
+        ],
+        leadStyle: "drop-cap",
+        variant: "system",
+        bullets: [
+          {
+            body:
+              "Store the original lead source, capture method, and system of record used to create the contact.",
+            label: "Source trail",
+          },
+          {
+            body:
+              "Keep the time and date of consent so your team can inspect sequence, recency, and later revocation.",
+            label: "Timestamped event",
+          },
+          {
+            body:
+              "Record whether the person agreed to voice calls, SMS, email, or a narrower form of follow-up.",
+            label: "Channel scope",
+          },
+          {
+            body:
+              "Preserve the form language, script, or on-page context associated with the permission event.",
+            label: "Disclosure context",
+          },
+          {
+            body:
+              "Tie consent to the specific contact record and phone number the AI workflow will actually use.",
+            label: "Identity link",
+          },
+        ],
+        subsections: [
+          {
+            heading:
+              "Which record fields should exist in the CRM before outreach begins?",
+            body: [
+              "A US outbound record should include consent status, `consent_channel`, capture timestamp, source, callable number, and suppression status before any AI dial attempt is allowed. A broad `marketing_ok` field is usually too vague to govern outbound voice, SMS triggers, and exception handling safely.",
+              "You also need a practical field for review ownership. If a record is disputed, expired, imported from a weak source, or manually edited, the system should route it to a named person rather than guessing.",
+            ],
+            variant: "operator",
+            checklist: {
+              items: [
+                {
+                  label: "Callable number present",
+                  detail: "The exact number to be dialed exists on the record.",
+                },
+                {
+                  label: "Consent evidence linked",
+                  detail:
+                    "A retrievable source or artifact supports the permission basis.",
+                },
+                {
+                  label: "Channel approved",
+                  detail: "Voice and SMS permissions are not assumed to be identical.",
+                },
+                {
+                  label: "Suppression check passed",
+                  detail:
+                    "The number is clear of internal exclusions and recent revocations.",
+                },
+                {
+                  label: "Owner assigned",
+                  detail: "A person can review exceptions or disputed status.",
+                },
+              ],
+              title: "Minimum pre-call record check",
+            },
+          },
+          {
+            heading:
+              "How should forms, landing pages, and sales intake connect to AI calling?",
+            body: [
+              "Forms, landing pages, and sales intake should write consent data directly into the same source of truth used by the outbound AI workflow. When the website, CRM, dialer, and SMS platform read the same permission record, your team has less ambiguity and fewer avoidable disputes.",
+              "If you are evaluating workflow design, [Silverstone AI's AI voice agent service](/services/ai-voice-agents) and [AI automation work](/services/ai-automation) are most relevant when the goal is not just voice deployment but joined-up consent routing across CRM, telephony, and follow-up channels.",
+            ],
+            variant: "system",
+            callout: {
+              body: [
+                "Use one authoritative consent layer. Do not let the website, CRM, dialer, and SMS tool each carry a slightly different truth about whether a person may be contacted.",
+              ],
+              tone: "recommendation",
+              title: "Operational recommendation",
+            },
+          },
+        ],
+        sectionNumber: "02",
+      },
+      {
+        heading:
+          "How should an AI voice workflow handle opt-outs, revocations, and do-not-call requests?",
+        body: [
+          "US outbound AI workflows should treat opt-outs and revocations as priority events that trigger rapid, shared suppression across relevant channels. If a person says stop on a call, replies stop to SMS, or requests do-not-call status, the system should block future outreach before the next automation fires.",
+          "This is where many teams create accidental risk. The AI agent records the signal, but the CRM, SMS platform, and dialing queue update on different schedules. {{chip:warning|Constraint}} A delay between capture and suppression can leave the next action live.",
+          "Your workflow should be explicit about what counts as an opt-out, how it is logged, and who handles edge cases. ==The supplied research highlights opt-out capture and suppression lists as standard compliance controls.==",
+        ],
+        lede:
+          "The safe rule is immediate suppression: once a person opts out or revokes permission, every related outbound path should recognize that state before the next automated action fires.",
+        variant: "operator",
+        steps: [
+          {
+            body:
+              "Log spoken opt-out language, keypad action, or SMS response as a structured event rather than a loose transcript note.",
+            title: "Capture the signal",
+            label: "1",
+          },
+          {
+            body:
+              "Mark whether the person revoked voice permission, SMS permission, all marketing contact, or requested internal do-not-call treatment.",
+            title: "Classify the request",
+            label: "2",
+          },
+          {
+            body:
+              "Update dialing queues, SMS automations, and audience lists before any next-step campaign fires.",
+            title: "Suppress downstream actions",
+            label: "3",
+          },
+          {
+            body:
+              "Store timestamp, channel, record ID, and the workflow or agent action that applied suppression.",
+            title: "Create an audit entry",
+            label: "4",
+          },
+          {
+            body:
+              "Send unclear cases to a human reviewer instead of allowing the system to continue outreach by default.",
+            title: "Escalate ambiguity",
+            label: "5",
+          },
+        ],
+        callout: {
+          body: [
+            "Do not assume a call-level opt-out only affects that single campaign. Your legal and operational review should define whether the request must suppress broader outreach categories, and the workflow should implement that rule consistently.",
+          ],
+          tone: "caution",
+          title: "Caution for US operators",
+        },
+        versusCard: {
+          left: {
+            title: "Weak handling",
+            body:
+              "Opt-out logic lives only in the transcript or only inside one vendor platform.",
+            points: [
+              "High risk of cross-channel mismatch",
+              "Revocations can be missed in imported audiences",
+              "Operators cannot prove what changed and when",
+            ],
+          },
+          right: {
+            title: "Stronger handling",
+            body:
+              "Opt-out status updates a shared suppression layer used by AI calling, SMS, and campaign selection.",
+            points: [
+              "Fewer conflicting records",
+              "Cleaner human review path",
+              "Better auditability when disputes arise",
+            ],
+          },
+          eyebrow: "Workflow pattern",
+          verdict:
+            "Build suppression as a shared service, not a feature hidden inside one step of the workflow.",
+        },
+        sectionNumber: "03",
+      },
+      {
+        heading:
+          "What call states, records, and approvals should exist before your team launches outbound campaigns?",
+        body: [
+          "Before launch, a US outbound AI programme should have documented call states, reviewable records, approval owners, and hard entry checks that stop weak contacts entering campaigns. The real launch standard is not how the agent sounds. It is whether the workflow can be inspected, explained, and paused when needed.",
+          "A strong launch pack usually combines call-state design, retention choices, exception routing, and sign-off ownership. That is how a small or mid-sized business keeps control while still moving quickly.",
+          "The most useful operating question is: if a single call is challenged tomorrow, can your team reconstruct what happened, why it was allowed, and who approved the policy behind it?",
+        ],
+        variant: "system",
+        comparisonTable: {
+          columns: ["What should exist before launch", "Why it matters"],
+          rows: [
+            {
+              cells: [
+                "A gated rule that only approved records enter outbound queues",
+                "Prevents weak imports and manual errors from flowing straight to AI outreach",
+              ],
+              label: "Audience entry",
+            },
+            {
+              cells: [
+                "Clear states such as queued, dialling, answered, transferred, opted out, failed, suppressed",
+                "Creates operational clarity and cleaner review",
+              ],
+              label: "Call states",
+            },
+            {
+              cells: [
+                "Named owner for scripts, disclosures, consent logic, and suppression policy",
+                "Stops responsibility being spread across vendors with no accountable operator",
+              ],
+              label: "Approvals",
+            },
+            {
+              cells: [
+                "Logs for call attempt, result, consent basis, opt-out event, and workflow action",
+                "Supports investigation and programme tuning",
+              ],
+              label: "Records",
+            },
+            {
+              cells: [
+                "Human handoff for disputed consent, sensitive requests, or unclear identity matches",
+                "Prevents over-automation in ambiguous situations",
+              ],
+              label: "Exceptions",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "Across the provided vendor and operator materials, the recurring controls are consent records, calling windows, local or branded caller ID choices, opt-out capture, suppression lists, documentation, and legal review for outbound use cases. That consistency is useful even where the sources are commercial rather than regulatory.",
+          ],
+          tone: "evidence",
+          title: "What the supplied research consistently points to",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Approved source systems",
+              value: "1-3",
+              note: "Illustrative band for keeping consent truth centralized",
+            },
+            {
+              label: "Core call states",
+              value: "6-10",
+              note: "Illustrative range for a manageable outbound state machine",
+            },
+            {
+              label: "Required sign-off owners",
+              value: "3+",
+              note: "Often operations, revenue owner, and legal/compliance reviewer",
+            },
+          ],
+          title: "Illustrative launch control panel",
+        },
+        subsections: [
+          {
+            heading: "What should your pre-launch approval route look like?",
+            body: [
+              "A practical pre-launch route for a US SMB is sequential: business owner approval, operator validation of systems and suppression logic, then qualified legal review where the risk profile requires it. Informal sign-off by message thread is rarely strong enough for outbound AI programmes with real exposure.",
+              "The supplied research from [ElevenLabs](https://elevenlabs.io/) and [NiCE](https://www.nice.com/) explicitly says their guidance is informational and that teams should consult qualified counsel on outbound calling compliance. That is a sensible boundary for Silverstone AI projects too.",
+            ],
+            variant: "signal",
+            timeline: {
+              items: [
+                {
+                  title: "Use-case definition",
+                  body:
+                    "Confirm the business purpose, channels, and numbers the workflow will touch.",
+                  label: "Week 1",
+                },
+                {
+                  title: "Consent architecture review",
+                  body:
+                    "Check fields, source systems, suppression rules, and exception owners.",
+                  label: "Week 2",
+                },
+                {
+                  title: "Script and state testing",
+                  body:
+                    "Test opt-outs, transfers, missed webhooks, and failed sync scenarios.",
+                  label: "Week 3",
+                },
+                {
+                  title: "Approval and launch gate",
+                  body:
+                    "Document sign-off and release only approved audiences into production.",
+                  label: "Week 4",
+                },
+              ],
+              title: "Simple pre-launch sequence",
+            },
+          },
+          {
+            heading: "How should teams test the workflow before real outreach begins?",
+            body: [
+              "Teams should test outbound AI workflows against edge cases, not just happy paths, before any live audience is released. The point is to prove that revocations, duplicate records, failed transfers, and delayed updates are contained safely rather than discovered after customers respond.",
+              "You should also test whether operators can locate a single call record fast. If review takes too long, the workflow is under-documented even if the call logic itself works.",
+            ],
+            variant: "operator",
+            keyTakeaways: {
+              items: [
+                "Test revocation handling before answer-rate tuning.",
+                "Confirm every campaign reads the same suppression layer.",
+                "Prove that handoff to a human works when the AI reaches a stop condition.",
+                "Check that CRM edits and dialer audience membership stay in sync.",
+                "Document who can pause campaigns when a defect appears.",
+              ],
+              title: "Pre-launch testing priorities",
+            },
+          },
+        ],
+        sectionNumber: "04",
+      },
+      {
+        heading:
+          "Which outbound use cases should stay human-led until legal review and tighter controls are in place?",
+        body: [
+          "Higher-risk outbound use cases should stay human-led when consent is unclear, disputes are more likely, or the conversation requires judgment your current workflow cannot govern safely. Early AI rollout works better on narrow, auditable scenarios than on mixed lists, sensitive subjects, or multi-state campaigns with weak records.",
+          "This is not anti-automation. It is good segmentation. Silverstone AI is most useful when the boundary between automated and human-owned actions is designed deliberately rather than discovered through complaints.",
+        ],
+        lede:
+          "If the workflow touches sensitive context, unclear permission, or higher dispute risk, keep a person in charge until the operating and legal rules are much tighter.",
+        variant: "signal",
+        scorecard: {
+          options: [
+            "Low-risk follow-up",
+            "Imported cold outreach",
+            "Sensitive service reminders",
+            "Debt or dispute collections",
+          ],
+          rows: [
+            {
+              cells: [
+                "Usually stronger",
+                "Often weak",
+                "Varies by intake design",
+                "Often complex",
+              ],
+              criterion: "Clear consent trail",
+              weight: "High",
+            },
+            {
+              cells: ["Lower", "Medium to high", "High", "High"],
+              criterion: "Dispute sensitivity",
+              weight: "High",
+            },
+            {
+              cells: ["Moderate", "Moderate", "High", "High"],
+              criterion: "Need for human judgment",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Better candidate",
+                "Needs tighter review",
+                "Often human-first",
+                "Often human-led",
+              ],
+              criterion: "Fit for early AI rollout",
+              weight: "High",
+            },
+          ],
+          totals: [
+            "Start here if records are clean",
+            "Pause for legal and data review",
+            "Add strict stop conditions first",
+            "Keep human-led unless specialist review approves",
+          ],
+        },
+        subsections: [
+          {
+            heading: "Which signs tell you a use case is not ready?",
+            body: [
+              "A use case is not ready when the permission trail is weak, cross-channel rules are unclear, or no one can explain how exceptions are resolved. If operators cannot trace consent, suppression, and escalation logic in plain language, the workflow needs redesign before launch.",
+              "- The contact list came from multiple brokers or spreadsheets with unclear provenance.",
+              "- Sales wants AI voice and SMS follow-up, but consent was collected only for one channel.",
+              "- Operators cannot explain how revocations update every downstream system.",
+              "- The campaign spans several states, yet no one has reviewed jurisdiction-specific requirements.",
+              "- Human escalation rules are vague, especially for complaints, wrong numbers, or sensitive conversations.",
+            ],
+            variant: "system",
+            callout: {
+              body: [
+                "A small or mid-sized business should assume that faster launch is not the same as lower risk. {{accent:Outbound AI voice}} works best when the underlying customer data and permission model are already disciplined.",
+              ],
+              tone: "assumption",
+              title: "Planning assumption",
+            },
+          },
+          {
+            heading:
+              "What is the practical next step for a US SMB evaluating outbound AI voice?",
+            body: [
+              "The most practical next step is to choose one narrow, auditable use case and map the controls around it before buying or launching anything broader. A consent-backed follow-up path is usually easier to govern than a broad outbound programme built from mixed records and unclear handoffs.",
+              "Then map your workflow in order:",
+              "1. Define the exact trigger for contact.",
+              "2. Name the system that holds consent truth.",
+              "3. Set suppression and opt-out rules.",
+              "4. Add human stop conditions and transfer paths.",
+              "5. Run legal review before live outbound release.",
+              "If you want a design partner, Silverstone AI can help structure the workflow, integrations, and control points around [AI voice agents](/services/ai-voice-agents) or broader [AI consulting](/services/ai-consulting) where the question is readiness rather than immediate deployment. For additional buying context, see our [AI voice agent buyer's guide](/blog/ai-voice-agent-buyers-guide).",
+            ],
+            variant: "operator",
+          },
+        ],
+        sectionNumber: "05",
+      },
+    ],
+    faqs: [
+      {
+        question: "Does TCPA only matter for large enterprise outbound programs?",
+        answer:
+          "No. For US teams, the practical issue is not company size but whether your outbound AI voice workflow has valid consent handling, suppression controls, and reviewable records. Small and mid-sized businesses still need disciplined process design.",
+      },
+      {
+        question:
+          "Can one marketing consent record cover AI calls, SMS, and email together?",
+        answer:
+          "You should not assume that. A safer operating model is to store channel-specific permission and let qualified counsel confirm whether your planned outreach matches the consent basis you rely on.",
+      },
+      {
+        question: "Should UK teams use this exact workflow?",
+        answer:
+          "No. UK teams need separate review against UK GDPR, the ICO, and Ofcom requirements. This article is written for the US market and should not be treated as a UK outbound calling standard.",
+      },
+      {
+        question:
+          "What is the first thing to audit before buying an outbound AI voice agent?",
+        answer:
+          "Audit your consent architecture first: source records, timestamps, channel permissions, suppression lists, revocation handling, and human ownership of exceptions. If those are weak, the voice layer is not the primary problem.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "Silverstone AI's AI voice agent service",
+        href: "/services/ai-voice-agents",
+      },
+      {
+        label: "AI automation work",
+        href: "/services/ai-automation",
+      },
+      {
+        label: "AI consulting",
+        href: "/services/ai-consulting",
+      },
+      {
+        label: "AI voice agent buyer's guide",
+        href: "/blog/ai-voice-agent-buyers-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title: "US Outbound AI Sales & Cold Calling | CallQuants",
+        url: "https://callquants.us/landing/ai-voice-agent-usa-sales-calls",
+        date: "",
+        summary:
+          "# TCPA-Aware US Outbound Sales & Cold Outreach Reach more prospects, qualify interests, and book sales discovery calls with natural US accent voice agents. ### Enterprise Compliance TCPA-aware campaign controls for consent records, calling windows, local caller ID configuration, opt-out capture, and suppression lists. #### Core Integrations Integrates with Salesforce, HubSpot, ZoomInfo, Outreach.io, Twilio, and Plivo. ## Short Answer CallQuants is a fit for teams looking for an AI voice agent fo",
+        relevance: "Matches: outbound, voice, agent, tcpa, compliance, workflow",
+      },
+      {
+        title: "The 2026 TCPA Compliance Playbook for Voice AI Outbound | Retell AI",
+        url: "https://www.retellai.com/blog/tcpa-compliance-playbook-voice-ai-outbound",
+        date: "",
+        summary:
+          "## How Should You Approach Outbound Compliance in 2026? Treat compliance as the chassis, not the brake. The companies running the largest AI outbound programs in the US are not the ones with the loosest interpretation of TCPA. They are the ones with the most rigorous documentation. A well-built consent layer makes everything downstream faster: better connect rates because numbers are pre-suppressed, better answer rates because branded calling is in place, better conversion because consumers know",
+        relevance: "Matches: outbound, voice, agent, tcpa, compliance, running",
+      },
+      {
+        title: "TCPA Compliance for AI Voice Agents: A 2026 Operator's Guide | Klariqo",
+        url: "https://klariqo.com/blog/tcpa-compliance-ai-voice-agents",
+        date: "",
+        summary:
+          "TCPA compliance for AI voice agents is the set of consent, disclosure, and recordkeeping rules that apply when an AI-generated voice places outbound calls, which, since a February 2024 FCC ruling, are regulated the same as any other \"artificial or prerecorded voice\" call under the Telephone Consumer Protection Act. ## Does the TCPA apply to AI voice agents? [...] ## See it for yourself The fastest way to understand a tamper-evident call record is to inspect one. Klariqo signs every AI call as a ",
+        relevance: "Matches: outbound, voice, agent, tcpa, compliance, consent",
+      },
+      {
+        title:
+          "Navigating the FCC Call-Screening Rules: Structuring Enterprise Consent Architecture Across State Lines",
+        url:
+          "https://agxntsix.ai/blog/fcc-voice-ai-compliance-outbound-consent-architecture",
+        date: "",
+        summary:
+          "A step-by-step compliance guide for enterprise operators running AI-powered outbound calling programs, covering FCC classification, California AB 2905, New York synthetic voice rules, TCPA opt-out workflows, and the penalties attached to each.Compliance-first AI calling ### The Architectural Blueprint for TCPA Compliant Conversational Consent in Outbound AI Systems A step-by-step operational guide to building a TCPA-compliant consent architecture for outbound AI voice systems, covering FCC class",
+        relevance: "Matches: outbound, voice, tcpa, compliance, running, consent",
+      },
+      {
+        title: "TCPA Compliance | ElevenLabs Documentation",
+        url: "https://elevenlabs.io/docs/eleven-agents/legal/tcpa",
+        date: "",
+        summary:
+          "Logo Logo # TCPA Compliance This guide is for informational purposes only and is not comprehensive. This guide does not constitute legal advice. The TCPA is complex and subject to interpretation. Consult with qualified legal counsel to ensure your specific use of ElevenLabs Agents for outbound calling complies with all applicable laws and regulations. Visit our Compliance Portal for comprehensive information on our certifications and practices. This guide provides a high-level overview of certai",
+        relevance: "Matches: outbound, voice, tcpa, compliance, consent, calling",
+      },
+      {
+        title: "AI Voice Agents for Outbound Calls & Campaigns | NiCE",
+        url: "https://www.nice.com/ai-voice-agents/ai-voice-agents-for-outbound-calls",
+        date: "",
+        summary:
+          "#### Compliance note Outbound calling is regulated differently across jurisdictions and use cases — for example, the Telephone Consumer Protection Act (TCPA) and Telemarketing Sales Rule in the United States, and analogous consent, disclosure, and do-not-call regimes elsewhere. This page provides general educational guidance, not legal advice. Every outbound program should be reviewed with qualified legal counsel before launch. ## Outbound Use Cases That Earn Their Keep Outbound AI voice agent u",
+        relevance: "Matches: outbound, voice, agent, tcpa, compliance, workflow",
+      },
+    ],
+    imagePrompt:
+      "Create one bright, high-key 16:9 editorial hero image for Silverstone AI showing a restrained AI voice outbound compliance workflow in a real American business context. Use white, off-white, pale stone, platinum, brushed aluminium, optical glass and pale wood with abundant daylight and soft open shadows. Center one principal system surface: a call-state machine for outbound AI voice showing consent verification, approved call routing, opt-out suppression, audit logging, and one visible human approval or exception handoff. Add two to four supporting layers such as CRM record cards, a suppression list layer, and a transcript or waveform cue, but keep all UI synthetic and textless. Emphasize elegant cyan, electric blue, teal, and a touch of violet for signal states, with a small amber accent only for warning or human intervention. Preserve generous negative space on one side for live website copy. No readable text, logos, fake dashboards, dark backgrounds, call-center rows, humanoid robots, cyberpunk effects, stock-photo posing, or obvious AI artefacts.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+  },
   // N8N_BLOG_POSTS_END
 ];
 
