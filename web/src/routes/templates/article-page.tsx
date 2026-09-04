@@ -30,6 +30,7 @@ import {
   Target,
   TrendingUp,
   TriangleAlertIcon,
+  Users,
   Workflow,
   Zap,
   type LucideIcon,
@@ -144,6 +145,16 @@ function isSilverstoneHostname(hostname: string): boolean {
     normalized === "silverstone-ai.com" || normalized.endsWith(".silverstone-ai.com")
   );
 }
+
+/**
+ * Every article carries a byline. The automation stamps `author` on new posts;
+ * the back catalogue predates the field, and an unattributed article is a
+ * measurable E-E-A-T weakness, so the same organisational byline is rendered
+ * for those rather than hiding the line. This is an organisational byline, not
+ * a person: the BlogPosting `author` in the JSON-LD below points at the
+ * Organization node for exactly that reason, and must keep doing so.
+ */
+export const DEFAULT_BLOG_AUTHOR = "Silverstone AI News & Media Team";
 
 export function sanitizeHref(href: string): SanitizedHref | null {
   const trimmed = href.trim();
@@ -1711,6 +1722,12 @@ export function ArticlePage({ post }: ArticlePageProps) {
                   trigger="mount"
                   delayMs={320}
                 >
+                  <span>
+                    <Users aria-hidden="true" />
+                    <span className="ss-blog-article__byline">
+                      {post.author ?? DEFAULT_BLOG_AUTHOR}
+                    </span>
+                  </span>
                   <span>
                     <CalendarClock aria-hidden="true" />
                     <time dateTime={post.publishedIsoDate}>{post.displayDate}</time>

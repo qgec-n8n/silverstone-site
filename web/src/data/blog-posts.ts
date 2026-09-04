@@ -263,6 +263,13 @@ export type SilverstoneBlogSource = {
 
 export type SilverstoneBlogPost = {
   articleBody: SilverstoneBlogSection[];
+  /**
+   * Visible byline. Optional because every article published before the
+   * automation carried one relies on the DEFAULT_BLOG_AUTHOR fallback in the
+   * article template, which renders the same organisational byline rather
+   * than leaving the back catalogue unattributed.
+   */
+  author?: string;
   categoryId: string;
   categoryKey: string;
   categoryLabel: string;
@@ -275,6 +282,12 @@ export type SilverstoneBlogPost = {
   heroImageAlt: string;
   imagePrompt: string;
   internalLinks: SilverstoneBlogLink[];
+  /**
+   * Which market the article was written for. Optional because the articles
+   * published before the dual-market rotation are all UK, and are treated as
+   * such wherever this is read.
+   */
+  market?: "BOTH" | "UK" | "US";
   metaDescription: string;
   metaTitle: string;
   presentation?: SilverstoneBlogPresentation;
