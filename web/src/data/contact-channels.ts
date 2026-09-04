@@ -5,8 +5,9 @@
  * page and the Organization node can never drift apart — structured data must
  * not claim a channel the site does not show.
  *
- * `display` is the national form a reader in that market expects; `e164` is
- * the form `tel:` links and schema.org `telephone` require.
+ * `display` is the dialling form shown on the page, kept in international
+ * (+country) format so a reader in either market can dial it as printed;
+ * `e164` is the unspaced form `tel:` links and schema.org `telephone` require.
  */
 export type ContactNumber = {
   market: "US" | "UK";
@@ -18,7 +19,7 @@ export type ContactNumber = {
 
 export const CONTACT_NUMBERS: ContactNumber[] = [
   { market: "US", areaServed: "US", display: "+1 213-493-8834", e164: "+12134938834" },
-  { market: "UK", areaServed: "GB", display: "07438 524862", e164: "+447438524862" },
+  { market: "UK", areaServed: "GB", display: "+44 7438 524862", e164: "+447438524862" },
 ];
 
 /**
