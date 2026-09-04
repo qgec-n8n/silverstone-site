@@ -900,11 +900,13 @@ function ArticleRankedCards({
   const usable =
     cards
       ?.filter((card) => card.name.trim() && card.summary.trim())
-      // The search-led stream composes shortlists of 5 to 10 named providers and
+      // The search-led stream composes shortlists of 8 to 12 named providers and
       // its quality gates enforce that band, so the ceiling here has to match it.
       // At 8 the last two entries were dropped on the page while the prose above
-      // still referred to them.
-      .slice(0, 10)
+      // still referred to them; the band was widened to 8-12 when ranked
+      // shortlists became the cited reference asset, and this ceiling moved with
+      // it. Changing one without the other silently truncates the list again.
+      .slice(0, 12)
       .sort((left, right) => left.rank - right.rank) ?? [];
 
   if (usable.length === 0) {
