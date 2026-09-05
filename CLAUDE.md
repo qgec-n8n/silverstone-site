@@ -30,8 +30,13 @@ invites over-engineering.
   over generated files; and any change to the n8n publishing workflows.
 - **Claude Haiku 4.5** is fine for genuinely mechanical work — file moves, mass
   renames, formatting, reading a log for one value.
-- Do not use Fable 5. There is no active credit for it; any instruction naming it
-  as an advisor is superseded by this section.
+- **Claude Fable 5** is an advisor, not a driver. Use it only for bounded questions
+  of direction — positioning, conversion strategy, page structure, substantial
+  webcopy direction, major visual direction — and never for implementation,
+  routine edits, CSS, debugging, validation, or final review. Narrow the decision
+  first on the driving model, then ask Fable 5 once, in no more than 500 words of
+  context, for one preferred direction. Hand the answer back to the driving model
+  to implement.
 - Escalate the model rather than repeating a failed attempt. Two Sonnet 5 passes at
   a problem Opus 5 solves once is the more expensive path.
 
