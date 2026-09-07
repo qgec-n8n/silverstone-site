@@ -35209,7 +35209,549 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
-  // N8N_BLOG_POSTS_END
+    {
+    slug: "how-ai-search-is-changing-seo",
+    title: "How AI Search Is Changing SEO",
+    author: "Silverstone AI News & Media Team",
+    market: "US",
+    subtitle:
+      "A practical six-step plan for protecting discoverability as AI answers reshape customer search journeys",
+    summary: [
+      "AI search changes where discovery happens, but websites still carry evaluation and conversion.",
+      "Use answer-first content, verifiable evidence, and entity clarity instead of chasing generic AI tactics.",
+      "Measure qualified action and citations alongside rankings and traffic before making major changes.",
+    ],
+    categoryLabel: "Trends & Analysis",
+    categoryKey: "ai-trends-news",
+    categoryId: "ai-trends-news",
+    categoryOrder: 27,
+    displayDate: "September 5, 2026",
+    publishedIsoDate: "2026-09-05T08:17:34.965Z",
+    updatedIsoDate: "2026-09-05T08:17:34.965Z",
+    readTime: "9 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/how-ai-search-is-changing-seo-hero.webp",
+    heroImageAlt:
+      "Photorealistic luminous AI search core processing flowing search signals through a dark futuristic computing structure",
+    metaTitle: "How AI Search Is Changing SEO: A Practical Guide",
+    metaDescription:
+      "Learn how AI search is changing SEO, how to protect visibility as clicks shift, and which content and measurement updates matter for your business.",
+    primaryKeyword: "how ai search is changing seo",
+    secondaryKeywords: [
+      "AI search SEO strategy",
+      "AI summaries and SEO",
+      "AI search visibility",
+      "measure AI search traffic",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "AI search is changing SEO from a race for blue-link clicks into a broader discipline of being selected, cited, and trusted inside answer-led interfaces. **Traditional rankings still matter**, but they no longer describe the whole customer journey for US and UK businesses.",
+          "The direct answer: keep building useful organic pages, then make every important claim, service, and entity easy for both people and machines to verify. {{accent:Optimize for qualified visibility, not clicks alone}}—and measure the shift before rewriting your entire strategy.",
+          "Silverstone AI is a London-based AI automation agency that designs and builds AI receptionists, AI voice agents, workflow automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom. This guide uses the UK as its main commercial lens; the operating principles generalize internationally.",
+        ],
+      },
+      {
+        heading: "What does AI search change in the customer search journey?",
+        body: [
+          "AI-generated summaries and conversational search experiences move part of evaluation into the results interface. Rather than scanning a results page and opening several sites, a searcher may receive a synthesized answer with selected sources. [Semrush](https://www.semrush.com/blog/ai-search-seo-traffic-study) describes a shift in which some traditional-search clicks move into AI search and some disappear.",
+          "That does not make websites optional. For a local service, software buyer, or operations leader, the site remains where a person checks scope, evidence, pricing context, contact routes, and risk. The new question is whether your information is legible enough to be surfaced before that visit.",
+          "- **Discovery becomes compressed:** simple informational questions may end in the interface.\n- **Evaluation becomes selective:** cited brands can gain attention when an answer needs supporting detail.\n- **Conversion still needs a destination:** high-intent visitors need clear next actions, reassurance, and usable service pages.",
+          "The available European evidence points toward lower publisher visits when AI-generated summaries appear, while UK-specific measurement remains thinner because rollout arrived later. Treat this as a directional risk, not a forecast for any individual business. {{chip:warning|Traffic is not a fixed outcome}}",
+        ],
+        sectionNumber: "01",
+        lede:
+          "AI answers can satisfy part of a query before a person reaches a conventional result.",
+        leadStyle: "lead",
+        variant: "signal",
+        callout: {
+          body: [
+            "**SEO is becoming answer-surface optimization plus website conversion.** Keep earning rankings, but organize content so an AI system can confidently extract, attribute, and route a buyer to the right next page.",
+          ],
+          tone: "answer",
+          title: "The operating implication",
+        },
+        versusCard: {
+          left: {
+            title: "Classic search behavior",
+            body:
+              "A person compares headlines, snippets, and landing pages before choosing where to click.",
+            label: "Browse first",
+            points: [
+              "Rank position strongly shapes visibility",
+              "Page visits are the main observable signal",
+              "Information gathering happens across sites",
+            ],
+          },
+          right: {
+            title: "AI-mediated search behavior",
+            body:
+              "A person may receive a synthesized response, then click only when the answer creates a reason to investigate.",
+            label: "Answer first",
+            points: [
+              "Citation and entity clarity influence exposure",
+              "Visits may be fewer but more deliberate",
+              "The interface can absorb basic questions",
+            ],
+          },
+          eyebrow: "Journey shift",
+          verdict:
+            "{{underline:Build for both journeys}} because buyers can move between them within the same research task.",
+        },
+      },
+      {
+        heading: "Which familiar SEO assumptions are becoming less reliable?",
+        body: [
+          "A high ranking can still generate business, but **rank, click-through rate, and value are separating**. Search Engine Journal reports independent studies from 2024 and 2025 finding click-through-rate reductions of 34% to 46% when AI-generated summaries appear. Those studies are not a universal benchmark: query type, device, brand familiarity, and interface all matter.",
+          "The counterweight is important. A [QuickSEO compilation](https://quickseo.ai/blog/google-ai-overviews-statistics-2026-60-data-points-every-seo-should-know) reports third-party findings that cited brands may receive more organic and paid clicks than non-cited brands on the same results page. ==AI search may redistribute attention rather than simply erase it.==",
+          "Do not assume a single trend line. [AdExchanger](https://www.adexchanger.com/publishers/the-ai-search-reckoning-is-dismantling-open-web-traffic-and-publishers-may-never-recover) reports Semrush data showing the zero-click rate for keywords featuring AI-generated summaries fell from more than 45% in January 2025 to 38% in October. Behavior can change as users learn an interface.",
+        ],
+        sectionNumber: "02",
+        lede:
+          "The weakest assumption is that more impressions must produce proportionate site traffic.",
+        leadStyle: "drop-cap",
+        variant: "system",
+        grid: [
+          {
+            body:
+              "Track rankings, but pair them with citations, branded demand, qualified visits, and inquiry quality.",
+            title: "Replace position-only reporting",
+          },
+          {
+            body:
+              "Prioritize questions where your business has real experience, evidence, and a useful next step.",
+            title: "Replace volume-only briefs",
+          },
+          {
+            body:
+              "Publish specific service boundaries, process details, and original explanations a source can support.",
+            title: "Replace generic summaries",
+          },
+        ],
+        callout: {
+          body: [
+            "It is *too early to declare conventional SEO dead*. Interfaces, indexes, and emerging conventions remain unstable, as [SEOFOMO](https://hub.seofomo.co/surveys/organic-search-trends) notes. Make controlled improvements instead of reacting to every platform change.",
+          ],
+          tone: "caution",
+          title: "Avoid the false binary",
+        },
+        statBand: {
+          items: [
+            {
+              value: "34%–46%",
+              label: "reported CTR reduction range",
+              detail:
+                "Independent studies summarized by Search Engine Journal when AI summaries appeared.",
+              tone: "benchmark",
+            },
+            {
+              value: "200+",
+              label: "countries reached",
+              detail:
+                "AI-generated summaries expanded after May 2025, according to Search Engine Journal.",
+              tone: "growth",
+            },
+            {
+              value: "45% to 38%",
+              label: "reported zero-click change",
+              detail:
+                "Semrush data reported by AdExchanger for AI-summary keywords, January to October 2025.",
+              tone: "time",
+            },
+          ],
+          title: "Evidence to use carefully",
+        },
+      },
+      {
+        heading: "How should content strategy adapt for answer-led search?",
+        body: [
+          "Content strategy should answer the central buyer question immediately, define its scope, and then provide evidence, trade-offs, and a practical next action. **Answer-first content** is not short content by default; it is information arranged so people and systems can understand the decision without guessing.",
+          "Use this six-part content pattern for a priority commercial question:",
+          "1. State the answer in plain language.\n2. Define who the answer applies to and who it does not.\n3. Show the process, criteria, or trade-offs.\n4. Add source-backed facts and clear attribution.\n5. Link to the service, implementation detail, or booking path.\n6. Review it when the interface or evidence changes.",
+          "A useful service page should not merely claim expertise. It should explain what is included, what depends on existing systems, and where human review remains necessary. For planning the destination after discovery, see [conversion-focused website planning](/blog/conversion-focused-website-planning) and [bespoke app development](/blog/bespoke-app-development-guide).",
+        ],
+        sectionNumber: "03",
+        lede:
+          "Create pages that answer a real question quickly, then earn deeper engagement with proof and practical detail.",
+        leadStyle: "lead",
+        variant: "operator",
+        promptBlocks: [
+          {
+            label: "Weak content brief",
+            prompt:
+              "Write a long article targeting AI search SEO with many related keywords.",
+            tone: "weak",
+          },
+          {
+            label: "Improved content brief",
+            prompt:
+              "Answer the buyer's question in the first 80 words, identify the audience and caveat, cite supplied evidence, explain the operating trade-offs, and direct qualified readers to one relevant service action.",
+            tone: "improved",
+          },
+        ],
+        checklist: {
+          items: [
+            {
+              label: "One clear question",
+              detail: "Use the exact decision the buyer is trying to make.",
+            },
+            {
+              label: "Visible evidence",
+              detail: "Attribute current claims to a source and distinguish opinion.",
+            },
+            {
+              label: "Named next step",
+              detail: "Connect the information to a relevant service or conversation.",
+            },
+            {
+              label: "Human review",
+              detail: "Check that claims, scope, and instructions remain accurate.",
+            },
+          ],
+          title: "Before publishing a priority page",
+        },
+      },
+      {
+        heading: "What structured information and authority signals matter now?",
+        body: [
+          "Structured information should make a business, its services, its audience, and its evidence easy to verify. Machines cannot infer every fact safely, so keep foundational details consistent across the site: who you serve, what you provide, where service is offered, how to contact you, and which claims have support.",
+          "The practical priority is not chasing every proposed AI-search convention. [SEOFOMO](https://hub.seofomo.co/surveys/organic-search-trends) characterizes the environment as volatile, including discussion around `llms.txt`. Test additions only when they fit a sound information architecture and do not distract from accessible pages, accurate metadata, and maintained source material.",
+          "For UK businesses, this is also a governance exercise. Keep personal data, regulated claims, customer feedback, and automation descriptions under accountable review. This is general information, *not legal advice*; legal obligations depend on the organization, audience, and processing activity.",
+        ],
+        sectionNumber: "04",
+        lede:
+          "Clear, maintained business information gives customers and answer systems a more reliable basis for interpreting your pages.",
+        leadStyle: "drop-cap",
+        variant: "signal",
+        bullets: [
+          {
+            body:
+              "State what a service covers, dependencies, and exclusions rather than relying on broad capability language.",
+            label: "Service boundaries",
+          },
+          {
+            body: "Date-check volatile statements and retire unsupported claims.",
+            label: "Source hygiene",
+          },
+          {
+            body:
+              "Use the same business and service terms across key pages where they are genuinely equivalent.",
+            label: "Consistent naming",
+          },
+          {
+            body:
+              "Use descriptive headings and direct answer blocks that work without interface-specific assumptions.",
+            label: "Accessible structure",
+          },
+        ],
+        definitions: {
+          items: [
+            {
+              term: "Entity clarity",
+              definition:
+                "Consistent, verifiable information identifying a business, service, people, and relationships.",
+            },
+            {
+              term: "Citation",
+              definition:
+                "A source link or named reference selected by an answer interface to support a response.",
+            },
+            {
+              term: "Structured information",
+              definition:
+                "Content organized with explicit labels, headings, fields, and relationships that reduce ambiguity.",
+            },
+            {
+              term: "Authority signal",
+              definition:
+                "Evidence that makes a claim more credible, such as source attribution, transparent methodology, or demonstrable expertise.",
+            },
+          ],
+          title: "Useful working definitions",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "How do you measure performance when clicks shift?",
+        body: [
+          "Measure performance by comparing visibility, citations, qualified demand, and assisted conversions across query groups, rather than treating click-through rate as a final verdict. A declining rate is a diagnosis prompt: assess whether branded searches, lead quality, or conversion paths changed before deciding what to fix.",
+          "The European Parliament briefing787211_EN.pdf) says available evidence consistently points toward reduced publisher visits from AI-generated summaries. That is a strong reason to create a measurement baseline, but it does not prove the impact on your site, market, or revenue.",
+          "Use a monthly review cadence. Keep annotation notes for major page releases, tracking changes, and interface observations. {{chip:proof|Evidence-led review}} prevents teams from assigning every movement to AI search.",
+        ],
+        sectionNumber: "05",
+        lede:
+          "Measure visibility, qualified action, and learning separately so a changing interface does not hide the real result.",
+        leadStyle: "lead",
+        variant: "system",
+        scorecard: {
+          options: ["Continue as usual", "Controlled AI-search program", "Full content rebuild"],
+          rows: [
+            {
+              cells: ["Medium", "**High**", "Low during transition"],
+              criterion: "Protects existing demand",
+              weight: "30%",
+            },
+            {
+              cells: ["Low", "**High**", "Medium"],
+              criterion: "Creates learning",
+              weight: "25%",
+            },
+            {
+              cells: ["Low", "Medium", "High"],
+              criterion: "Operational disruption",
+              weight: "20%",
+            },
+            {
+              cells: ["Low", "**High**", "Variable"],
+              criterion: "Evidence discipline",
+              weight: "25%",
+            },
+          ],
+          totals: [
+            "Best only when no material search change is visible",
+            "{{accent:Recommended starting route}}",
+            "Reserve for proven structural failure",
+          ],
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Search visibility",
+              value: "Query groups",
+              note: "Rank and observe priority questions by intent.",
+            },
+            {
+              label: "Answer presence",
+              value: "Citation log",
+              note: "Record whether and where your brand appears in sampled answers.",
+            },
+            {
+              label: "Demand quality",
+              value: "Qualified leads",
+              note: "Review inquiries, booked calls, and sales context.",
+            },
+            {
+              label: "Site value",
+              value: "Assisted action",
+              note: "Track meaningful paths, not page views alone.",
+            },
+          ],
+          title: "A compact measurement set",
+        },
+      },
+      {
+        heading: "What should businesses do next without overreacting?",
+        body: [
+          "Businesses should improve a limited set of commercially important pages, record a baseline, and judge changes by qualified outcomes before expanding the program. **Do not rebuild the entire site** because an interface changed; controlled page-level work is more likely to reveal what genuinely helps buyers.",
+          "For teams connecting content to operations, an AI-search plan should sit beside the actual customer journey. A good page can route an inquiry into a well-designed process; it cannot compensate for a slow response, unclear handoff, or disconnected CRM. Explore [AI automation trends](/blog/ai-automation-trends-2026) and [AI voice agent development](/blog/ai-voice-agent-development) when that journey needs operational follow-through.",
+          "For strategic planning, explore [AI consulting](/services/ai-consulting). If your team needs a practical audit of content, conversion paths, and systems, [book a working session](/book#booking-calendar). If you need to understand delivery stages, see [how we work](/how-we-work); if budget scope is relevant, review [pricing](/pricing) before committing to a larger build.",
+        ],
+        sectionNumber: "06",
+        lede:
+          "A measured four-week test protects existing demand while creating evidence for the next investment decision.",
+        leadStyle: "drop-cap",
+        variant: "operator",
+        steps: [
+          {
+            body:
+              "Group important queries by intent and capture traffic, leads, conversion paths, and observed answer-interface behavior.",
+            title: "Baseline the right pages",
+            label: "Week 1",
+          },
+          {
+            body:
+              "Lead with direct answers, add credible evidence, clarify service boundaries, and strengthen internal routes.",
+            title: "Improve ten high-value answers",
+            label: "Weeks 2–3",
+          },
+          {
+            body:
+              "Compare inquiry quality and assisted actions against the baseline; retain only improvements supported by evidence.",
+            title: "Review qualified outcomes",
+            label: "Week 4",
+          },
+          {
+            body:
+              "Recheck volatile claims and interface assumptions on a documented cadence.",
+            title: "Refresh deliberately",
+            label: "Ongoing",
+          },
+        ],
+        callout: {
+          body: [
+            "Choose one commercially important topic cluster, run the four-week program, and use the results to decide the next investment. {{chip:action|Choose ten pages}}",
+          ],
+          tone: "recommendation",
+          title: "Start small, learn fast",
+        },
+        keyTakeaways: {
+          items: [
+            "**Keep conventional SEO foundations** because websites still support evaluation and conversion.",
+            "Design content for extractable answers, transparent evidence, and clear next actions.",
+            "Treat traffic shifts as a measurement problem before treating them as a strategy failure.",
+            "Use controlled page-level tests rather than broad, reactive rewrites.",
+            "{{underline:Optimize for trust and qualified action}} across both UK and international search journeys.",
+          ],
+          title: "The decision in brief",
+        },
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "No. AI search changes how some answers are presented and where some clicks go, but search visibility, useful pages, technical accessibility, and conversion paths remain important. The practical shift is toward measuring citations and qualified outcomes alongside rankings and traffic.",
+        question: "Is AI search replacing SEO?",
+      },
+      {
+        answer:
+          "Start with existing high-intent pages. Make answers direct, claims supportable, service details specific, and next steps clear. Avoid publishing generic AI-focused content just to chase a new format.",
+        question: "Should a small business create content specifically for AI answers?",
+      },
+      {
+        answer:
+          "Not publicly established by the supplied evidence. Emerging conventions should be evaluated as experiments, not treated as a substitute for accurate, well-structured, accessible website content.",
+        question: "Is llms.txt required for AI search visibility?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "conversion-focused website planning",
+        href: "/blog/conversion-focused-website-planning",
+      },
+      {
+        label: "bespoke app development",
+        href: "/blog/bespoke-app-development-guide",
+      },
+      {
+        label: "AI automation trends",
+        href: "/blog/ai-automation-trends-2026",
+      },
+      {
+        label: "AI voice agent development",
+        href: "/blog/ai-voice-agent-development",
+      },
+    ],
+    researchSources: [
+      {
+        title: "The Impact of Google AI Summaries and Google AI Overviews ...",
+        url:
+          "https://www.europarl.europa.eu/RegData/etudes/BRIE/2026/787211/IUST_BRI(2026)787211_EN.pdf",
+        domain: "europarl.europa.eu",
+        summary:
+          "the original source and towards the platform. Traffic and revenue effects. The available evidence points in a consistent direction: AI-generated summaries reduce visits to publishers’ websites. Behavioural research documents a sharp drop in click-through rates whenever an AI Overview appears, a pattern that industry studies consistently corroborate. Media leaders also expect a substantial further decline in search referral traffic over the coming years. European evidence remains thinner because rollout came later, but similar pressures are likely to emerge, with smaller, regional and minority-language publishers especially exposed. A democrat",
+        verifiedAt: "2026-09-05T08:14:12.854Z",
+        matchedTerms: ["search", "are", "less"],
+      },
+      {
+        title: "Google AI Overviews Impact On Publishers & How To ...",
+        url:
+          "https://www.searchenginejournal.com/impact-of-ai-overviews-how-publishers-need-to-adapt/556843",
+        domain: "searchenginejournal.com",
+        summary:
+          "The feature, which was first introduced as Search Generative Experience (SGE) announced at Google I/O in May 2023, now appears in over 200 countries and 40 languages following a May 2025 expansion. Independent research conducted throughout 2024 and 2025 shows click-through rate reductions ranging from 34% to 46% when AI summaries appear on search results pages. Evidence from a variety of independent studies outlines the impact of AIO and shows a range of effects depending on the type of content and how it’s measured: ### Reduced Click Through Rates – Pew Research Center [...] AI Overviews are the biggest change to search since featured snippe",
+        verifiedAt: "2026-09-05T08:14:12.854Z",
+        matchedTerms: ["how", "search", "what", "which", "are", "content", "information", "now"],
+      },
+      {
+        title: "Google AI Overviews Statistics 2026: 60+ Data Points ...",
+        url:
+          "https://quickseo.ai/blog/google-ai-overviews-statistics-2026-60-data-points-every-seo-should-know",
+        domain: "quickseo.ai",
+        summary:
+          "One nuance often missed: brand presence matters enormously. Per Seer, brands cited inside the AIO get 35% more organic clicks and 91% more paid clicks than non-cited brands on the same SERP. Digital Applied's March 2026 data shows that branded queries with AIOs actually see an 18% CTR increase — strong evidence that AIOs are redistributing clicks toward cited brands rather than uniformly suppressing them. ### 4. Publisher and website traffic decline Chartbeat's data is the most reliable view of how AI Overviews are reshaping referral traffic, because it spans thousands of publisher sites with consistent measurement. The headline finding from",
+        verifiedAt: "2026-09-05T08:14:12.855Z",
+        matchedTerms: ["how", "search", "seo", "are", "reliable", "now", "clicks", "shift"],
+      },
+      {
+        title:
+          "The AI Search Reckoning Is Dismantling Open Web Traffic – And Publishers May Never Recover | AdExchanger",
+        url:
+          "https://www.adexchanger.com/publishers/the-ai-search-reckoning-is-dismantling-open-web-traffic-and-publishers-may-never-recover",
+        domain: "adexchanger.com",
+        summary:
+          "Still, the good news – if you can call it that – is that Google users not clicking through to publisher sites doesn’t seem to be getting worse. In fact, some data suggests users may actually be clicking more links as they get used to AI interfaces. The zero-click rate of search keywords that feature AI Overviews has actually dropped from more than 45% in January 2025 to 38% as of October, according to Semrush. ChatGPT won’t save pubs But Google is far from the only AI search platform gobbling up publisher referral traffic – and even those sending more traffic than others, like ChatGPT, aren’t enough to offset the losses. [...] ChatGPT is the",
+        verifiedAt: "2026-09-05T08:14:12.855Z",
+        matchedTerms: ["search", "seo", "are", "content"],
+      },
+      {
+        title: "Methodology & Sources - AI Search Visibility Research",
+        url: "https://info.link/research/methodology",
+        domain: "info.link",
+        summary:
+          "Methodology note · arXiv preprint 2604.07585 (April 2026). Position paper proposing a multi-run, multi-prompt evaluation protocol for GEO. Direct fetch on arxiv.org returned the canonical abstract page; PDF body was inaccessible but methodology summary was confirmed through the abstract and the linked DOI. arXiv·Accessed Tier A — Strongest evidenceRead source ### The Impact of Google AI Overviews on Publisher Traffic and User Experience: Evidence from a Field Experiment Indian School of Business; Carnegie Mellon University · Saharsh Agarwal, Ananya Sen · 2026 Key finding [...] MIT Technology Review · 2025 Key finding Cloudflare made blocking",
+        verifiedAt: "2026-09-05T08:14:12.855Z",
+        matchedTerms: ["search", "content", "authority", "next"],
+      },
+      {
+        title: "We Studied the Impact of AI Search on SEO Traffic - Semrush",
+        url: "https://www.semrush.com/blog/ai-search-seo-traffic-study",
+        domain: "semrush.com",
+        summary:
+          "And Google has started to roll out AI Mode, which provides a ChatGPT-like experience and completely replaces the traditional search results page. Google also recently expanded its use of AI Overviews (AI-generated summaries that appear above traditional search results). As user habits change, many clicks will transfer from traditional search to AI search. And some clicks will disappear altogether. In other words, combined traffic will likely decline at first, then stabilize and slowly grow. This is because AI search: [...] Find new opportunities across AI search and SEO. AI search and SEO. Try free for 7 days LoginSign up LoginSign up # We St",
+        verifiedAt: "2026-09-05T08:14:12.855Z",
+        matchedTerms: ["how", "search", "seo", "what", "which", "are", "information", "authority"],
+      },
+      {
+        title: "What Is AI Search? The 2026 Definition, Taxonomy and Evidence Guide",
+        url: "https://www.omnibound.ai/blog/what-is-ai-search",
+        domain: "omnibound.ai",
+        summary:
+          "Now the volume caveat, which is severe for publishers. Chartbeat data in the Reuters Institute's 2026 trends report put ChatGPT at 0.02% of total publisher referral traffic and Perplexity at 0.002%, against Google search referrals that had fallen 33% globally year on year to November 2025 (38% in the US). Similarweb's index recorded generative-AI platforms referring 226.8 million US visitors to third-party sites in January 2026, down from 267.4 million in October 2025, with the session-level referral rate falling from 18.8% to 15.8%. [...] Accuracy remains a documented problem. In the largest study of its kind, 22 public service broadcasters",
+        verifiedAt: "2026-09-05T08:14:12.856Z",
+        matchedTerms: ["search", "what", "which", "are", "content", "now", "performance"],
+      },
+      {
+        title: "SEO in the AI Era: The 2026 GEO Playbook for Winning AI Search Traffic",
+        url: "https://umesh-malik.com/blog/seo-in-the-ai-era-geo-playbook",
+        domain: "umesh-malik.com",
+        summary:
+          "So: write answers, not articles. Publish evidence, not summaries. Serve machines a format they can read without guessing. Measure citations, not average CTR. And stop optimizing for a click-through rate that the interface itself decided to take away from you. SEO in the AI Era — FAQ ## Sources Google zero-click searches reach 68% in early 2026 — Search Engine Land The crawl before the fall of referrals — Cloudflare Radar ChatGPT traffic converts 31% higher than non-branded organic search — Search Engine Land Gen AI stats 2026: AI visibility trends — Similarweb The most-cited domains in AI: a 3-month study — Semrush GEO: Generative Engine Opti",
+        verifiedAt: "2026-09-05T08:14:12.856Z",
+        matchedTerms: ["search", "seo", "are", "measure", "clicks", "without"],
+      },
+      {
+        title: "SEOFOMO's Organic Traditional & AI Search Trends for 2026",
+        url: "https://hub.seofomo.co/surveys/organic-search-trends",
+        domain: "hub.seofomo.co",
+        summary:
+          "what it does, who it serves, and why it matters in a way that machines and people can interpret. That remains foundational, even as the interfaces change. The last point is instability. Nothing stays the same for long. One day, ChatGPT relies on Bing’s index. Another day it leans on Google. At some point, it will likely build its own index. Google moved from classic organic results to AI Overviews, this year we’ll likely see AI Mode or Web Guide as a default experience. Even things like llms.txt, which are easy to dismiss, have already shown signs of being referenced. Large language models are probabilistic and unpredictable. They are dynamic",
+        verifiedAt: "2026-09-05T08:14:12.856Z",
+        matchedTerms: ["how", "search", "changing", "seo", "what", "which", "are", "becoming"],
+      },
+      {
+        title: "Zero-Click and Beyond: How Generative AI Search Overviews Are ...",
+        url:
+          "https://www.researchgate.net/publication/405301322_Zero-Click_and_Beyond_How_Generative_AI_Search_Overviews_Are_Reshaping_SEO_Strategy_and_Organic_Traffic_in_Digital_Marketing",
+        domain: "researchgate.net",
+        summary:
+          "This paper conducts a systematic literature review of the existing evidence to examine (i) the technical architecture underpinning AI search",
+        verifiedAt: "2026-09-05T08:14:12.856Z",
+        matchedTerms: ["how", "search", "are"],
+      },
+    ],
+    imagePrompt:
+      "1536x864 editorial WebP, photorealistic gallery-grade product photography of a near-future AI search intelligence structure: a central wafer-scale photonic compute core inside smoked optical glass and blackened steel, liquid-cooled channels and precision optical interconnects directing luminous volumetric query-and-answer light forms upward through a dark architectural chamber. The meaningful machine subject is entirely within the central 9:16 crop-safe area, with generous deep-shadow negative space around it. Near-black charcoal stone, gunmetal, blackened steel, smoked glass; low-key lighting from electric cyan #00e5ff dominant, electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb, mint #7fe9f0, with one restrained warm amber #ffb86c contrast accent. Physically plausible advanced compute hardware, high detail, cinematic shallow haze, no readable text, no logos, no dashboards, no fake statistics, no people, no robots, no hands, no network-node graphics, no daylight, no white room, no illustration, no science-fiction kitsch.",
+    ctaPrimary: {
+      label: "Discuss a bespoke workflow",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Step-by-Step Guide",
+      fingerprint: "Step-by-Step Guide|decision-moment|6|implementation-playbook",
+    },
+  },
+// N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
