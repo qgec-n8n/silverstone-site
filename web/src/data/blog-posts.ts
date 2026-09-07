@@ -312,7 +312,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     subtitle:
       "A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it.",
     summary: [
-      "A polished website can still underperform if service structure, user journeys and enquiry handoffs are unclear.",
+      "A polished website can still underperform if service structure, user journeys and inquiry handoffs are unclear.",
       "Better website planning starts with service architecture, page ownership and operational requirements before platform selection.",
       "Technical SEO, migration, accessibility and mobile UX should be treated as commercial build decisions, not late-stage extras.",
     ],
@@ -330,7 +330,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Illustrative premium website design and development operating surface with layered responsive pages, CMS modules, analytics and CRM handoff for a UK small business",
     metaTitle: "Conversion-Focused Web Design for UK Small Businesses",
     metaDescription:
-      "Learn how to plan a conversion-focused website build for a UK small business, from service structure and platform choice to SEO, migration and enquiry handoff.",
+      "Learn how to plan a conversion-focused website build for a UK small business, from service structure and platform choice to SEO, migration and inquiry handoff.",
     primaryKeyword: "conversion-focused web design UK",
     secondaryKeywords: [
       "web design and development agency UK",
@@ -343,14 +343,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "A website can look polished, load quickly and still underperform commercially. For many UK small businesses, the issue is not simply design quality. It is the gap between what the site shows, how services are structured, what visitors need in order to act, and where enquiries go next. A conversion-focused website build starts earlier than visual design. It begins with service clarity, page ownership, decision paths, technical foundations and the operational handoff after someone presses submit.",
+          "A website can look polished, load quickly and still underperform commercially. For many UK small businesses, the issue is not simply design quality. It is the gap between what the site shows, how services are structured, what visitors need in order to act, and where inquiries go next. A conversion-focused website build starts earlier than visual design. It begins with service clarity, page ownership, decision paths, technical foundations and the operational handoff after someone presses submit.",
         ],
       },
       {
         heading: "Why attractive websites still fail to convert qualified buyers",
         body: [
           "Silverstone AI approaches web design and development as a commercial system, not a gallery exercise. A site can be visually impressive and still create uncertainty: unclear service descriptions, weak next actions, duplicated topics, slow mobile journeys, or forms that disappear into an inbox with no proper routing.",
-          "Qualified buyers usually arrive with a specific question. They may want to know whether you serve their sector, whether a service fits their problem, how to take the next step, and whether your business appears organised enough to trust. If the page architecture does not answer those questions in sequence, design alone will not rescue the enquiry path.",
+          "Qualified buyers usually arrive with a specific question. They may want to know whether you serve their sector, whether a service fits their problem, how to take the next step, and whether your business appears organized enough to trust. If the page architecture does not answer those questions in sequence, design alone will not rescue the inquiry path.",
           "This is especially relevant in the UK small-business market, where websites often need to support mixed acquisition channels at once: branded search, local discovery, referrals, email traffic, social traffic and repeat visits from buyers comparing several providers. In that context, the website should reduce ambiguity rather than add visual noise.",
         ],
       },
@@ -359,7 +359,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "One common mistake is choosing a platform too early. The better order is strategy first, structure second, platform third. Before comparing WordPress, Webflow, React or a static build, define what the website needs to own commercially.",
           "That usually means identifying core services, adjacent services, sector relevance, proof requirements, conversion routes and content responsibilities. If three pages all attempt to rank for the same service theme, or if one service is split across several weak pages, demand can be diluted. Visitors feel it as confusion; search engines may read it as overlap.",
-          "For a UK service business, a practical discovery brief should cover: your service list, who each service is for, what questions buyers ask before enquiring, which pages should own each topic, what proof can be shown, what should happen after a form completion, and who in the business will maintain content after launch.",
+          "For a UK service business, a practical discovery brief should cover: your service list, who each service is for, what questions buyers ask before inquiring, which pages should own each topic, what proof can be shown, what should happen after a form completion, and who in the business will maintain content after launch.",
           "Only then does platform choice become sensible. A CMS should make routine publishing, page updates and modular edits straightforward. It should not make governance loose. The wrong setup often gives teams too much freedom in the wrong places and too little flexibility where regular updates are actually needed.",
         ],
       },
@@ -369,14 +369,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Bespoke website development is not automatically the right answer, and neither is a template-led build. The decision should follow complexity, operational needs and the level of control required.",
           "A simpler brochure-style service site with stable content may suit a streamlined CMS setup. A business with multiple service lines, booking rules, CRM handoffs, gated resources or custom interactive tools may need a more tailored approach. The question is not which option sounds more advanced. It is which one matches the operating model with the least friction.",
           "For non-technical buyers, four decision factors usually matter most: content governance, integration needs, performance expectations and future change. If your business needs frequent service-page updates, campaign landing pages and editorial control, the CMS experience matters. If the site must connect tightly to calendars, lead routing or internal systems, integration design matters more than surface aesthetics.",
-          "The same principle applies to technology selection. React may be suitable where component control or app-like behaviour is important. WordPress can be effective where editorial flexibility is central. Webflow can suit teams wanting a controlled visual CMS environment. Static approaches can be strong where speed, simplicity and low maintenance are the priority. The right answer depends on ownership, not fashion.",
+          "The same principle applies to technology selection. React may be suitable where component control or app-like behavior is important. WordPress can be effective where editorial flexibility is central. Webflow can suit teams wanting a controlled visual CMS environment. Static approaches can be strong where speed, simplicity and low maintenance are the priority. The right answer depends on ownership, not fashion.",
         ],
       },
       {
-        heading: "How to audit the path from landing page to qualified enquiry",
+        heading: "How to audit the path from landing page to qualified inquiry",
         body: [
           "A useful website audit follows the journey step by step. Start with the entry page. Is the visitor’s likely intent obvious? Can they tell what service is being offered, who it is for, and what to do next without scrolling through decorative filler?",
-          "Then review page composition. Strong service pages usually move through a clear order: the problem or need, the offer, the fit, the process, the evidence available, common objections, and the next action. That next action may be a booking, a contact form, a scoped enquiry, or a request for a conversation. The right choice depends on how your sales process works.",
+          "Then review page composition. Strong service pages usually move through a clear order: the problem or need, the offer, the fit, the process, the evidence available, common objections, and the next action. That next action may be a booking, a contact form, a scoped inquiry, or a request for a conversation. The right choice depends on how your sales process works.",
           "After that, inspect handoff points. A form should not be an isolated endpoint. It should route into the right system, whether that is a CRM, inbox, calendar workflow or follow-up sequence. If a prospect books, the business should know which source they came from, what page drove the action and what happens next operationally. That is why the website should be treated as an operating surface rather than a static brochure.",
           "Measurement matters here as well. For booking journeys, useful events often include page entry, CTA clicks, form starts, form completions, booking initiations and confirmed bookings. Analytics will not explain everything, but they can show where friction appears. External context such as common conversion-tracking practice is useful as a benchmark, but it should not be confused with a promise of performance.",
         ],
@@ -385,19 +385,19 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "Technical quality, migration and accessibility are commercial decisions",
         body: [
-          "A web-design proposal should include more than layout and page count. Technical SEO foundations, migration handling, responsive behaviour, accessibility considerations and quality assurance all affect commercial performance. They are not optional extras to be revisited at the end.",
+          "A web-design proposal should include more than layout and page count. Technical SEO foundations, migration handling, responsive behavior, accessibility considerations and quality assurance all affect commercial performance. They are not optional extras to be revisited at the end.",
           "If an existing site has useful URLs, they should be reviewed before redesign work begins. A migration that drops valuable pages, changes slugs carelessly or ignores redirects can erase useful search equity and create a poor user experience for returning visitors. A careful migration preserves what still serves the business while removing duplication and dead weight deliberately.",
           "Core Web Vitals are best understood as user-experience signals rather than a magical ranking switch. For owners, the practical question is simpler: does the site load and respond in a way that supports trust, especially on mobile connections common across the UK? Equally, accessibility should be treated as a quality standard. Clear contrast, sensible semantics, keyboard support and readable interactions tend to improve usability for everyone, not just satisfy a checklist.",
-          "Mobile design deserves its own discipline. Reducing friction on smaller screens should not mean flattening the entire experience. The aim is to preserve clarity and action while adapting content hierarchy, spacing, navigation and form design to real mobile behaviour.",
+          "Mobile design deserves its own discipline. Reducing friction on smaller screens should not mean flattening the entire experience. The aim is to preserve clarity and action while adapting content hierarchy, spacing, navigation and form design to real mobile behavior.",
         ],
       },
       {
         heading:
           "What to ask before signing with a UK web design and development agency",
         body: [
-          "A sensible proposal review is less about polished language and more about operational detail. Ask how discovery is handled before design starts. Ask how page ownership is defined across services, industries and insights. Ask what happens to existing URLs, how redirects are planned, what content responsibilities sit with your team, and how the post-enquiry handoff is designed.",
+          "A sensible proposal review is less about polished language and more about operational detail. Ask how discovery is handled before design starts. Ask how page ownership is defined across services, industries and insights. Ask what happens to existing URLs, how redirects are planned, what content responsibilities sit with your team, and how the post-inquiry handoff is designed.",
           "You should also ask how the agency thinks about CMS permissions, tracking, accessibility, mobile QA and integration boundaries. If booking, forms or follow-up matter commercially, that should be visible in the scope rather than implied later.",
-          'For many small businesses, the more useful next step is not an immediate redesign but a structured review of the current sales path. That can clarify whether the issue is visual, architectural, technical or operational. If you want to understand how Silverstone AI approaches planning, delivery and ownership, see <a href="/how-we-work">how we work</a>. If your website also needs enquiry routing or follow-up logic, <a href="/services/ai-automation">AI automation</a> may be relevant. And if you want to discuss a new build or redesign in context, you can <a href="/book#booking-calendar">book a call</a>.',
+          'For many small businesses, the more useful next step is not an immediate redesign but a structured review of the current sales path. That can clarify whether the issue is visual, architectural, technical or operational. If you want to understand how Silverstone AI approaches planning, delivery and ownership, see <a href="/how-we-work">how we work</a>. If your website also needs inquiry routing or follow-up logic, <a href="/services/ai-automation">AI automation</a> may be relevant. And if you want to discuss a new build or redesign in context, you can <a href="/book#booking-calendar">book a call</a>.',
         ],
       },
     ],
@@ -410,7 +410,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Should a small business choose a bespoke website or a template?",
         answer:
-          "It depends on complexity, control requirements and future change. A template-led approach may suit a simpler site with limited custom behaviour. A bespoke build may be more suitable where service architecture, integrations, workflows or content governance require tighter control.",
+          "It depends on complexity, control requirements and future change. A template-led approach may suit a simpler site with limited custom behavior. A bespoke build may be more suitable where service architecture, integrations, workflows or content governance require tighter control.",
       },
       {
         question: "Can a redesign improve SEO without losing existing visibility?",
@@ -522,14 +522,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Many small businesses do not need a large app programme. They need one controlled first release that solves a real operational problem, fits how the business already works and can be supported after launch. In practice, the early value often comes from deciding what not to build: which journeys matter, who owns the data, what permissions are required and which integrations must be reliable from day one. For UK firms comparing an app development agency, bespoke app development or MVP development company options, the quality of that decision usually matters more than the volume of features.",
+          "Many small businesses do not need a large app program. They need one controlled first release that solves a real operational problem, fits how the business already works and can be supported after launch. In practice, the early value often comes from deciding what not to build: which journeys matter, who owns the data, what permissions are required and which integrations must be reliable from day one. For UK firms comparing an app development agency, bespoke app development or MVP development company options, the quality of that decision usually matters more than the volume of features.",
         ],
       },
       {
         heading: "Start with the workflow, not the platform",
         body: [
           "Silverstone AI approaches app development as a product and operations decision before it becomes a technology choice. A common early mistake is jumping straight to 'iPhone app' or 'Android app' when the real question is simpler: where does the workflow begin, who uses it, how often, and what has to happen next?",
-          "For many UK small businesses, a web app is the more practical first release. It is easier to access across office, home and field environments, simpler to update centrally and often better suited to admin workflows, portals, booking operations, quoting systems or internal approvals. A mobile app becomes more compelling when the product depends on mobile-native behaviour such as offline use, push notifications, camera capture, location handling or repeated customer usage from a home screen.",
+          "For many UK small businesses, a web app is the more practical first release. It is easier to access across office, home and field environments, simpler to update centrally and often better suited to admin workflows, portals, booking operations, quoting systems or internal approvals. A mobile app becomes more compelling when the product depends on mobile-native behavior such as offline use, push notifications, camera capture, location handling or repeated customer usage from a home screen.",
           "Sometimes neither is the right starting point. An internal tool may create more value than a customer-facing app if the main friction sits with scheduling, lead handling, job progress, stock control, handovers or fragmented spreadsheet processes. If a business is still managing a critical workflow through tabs, copy-paste steps and manual chasing, that workflow may have earned a custom application long before a public app has.",
         ],
       },
@@ -538,7 +538,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "A first release should prove that the core workflow works in live conditions. That is different from squeezing as many ideas as possible into version one. The useful question is not 'what is the smallest list of features?' but 'what is the smallest release that lets the team complete the job properly, with clear ownership and acceptable risk?'",
           "This is where founders often need clearer language. A proof of concept tests whether something can work technically. A prototype explores interaction or flow, often illustratively rather than production-ready. An MVP should be the minimum useful product: usable by real people for a real task, with enough structure around data, permissions and support to operate safely. The first production release is what the business is genuinely prepared to run.",
-          "In practical terms, the minimum useful product usually includes one priority user journey, one source of truth for core records, explicit roles and permissions, clear acceptance criteria and a way to handle failure states. It usually excludes edge-case reporting, broad customisation, deep secondary journeys and speculative features added 'just in case'. That discipline is often what keeps bespoke app development commercially sensible.",
+          "In practical terms, the minimum useful product usually includes one priority user journey, one source of truth for core records, explicit roles and permissions, clear acceptance criteria and a way to handle failure states. It usually excludes edge-case reporting, broad customization, deep secondary journeys and speculative features added 'just in case'. That discipline is often what keeps bespoke app development commercially sensible.",
         ],
       },
       {
@@ -574,7 +574,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Does every business app need a mobile app?",
         answer:
-          "No. Many UK small businesses are better served by a web app first, especially for internal operations, portals, admin workflows and multi-device access. Mobile apps make more sense when mobile-native behaviour is central to the value.",
+          "No. Many UK small businesses are better served by a web app first, especially for internal operations, portals, admin workflows and multi-device access. Mobile apps make more sense when mobile-native behavior is central to the value.",
       },
       {
         question: "What is the difference between an MVP and a prototype?",
@@ -584,7 +584,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "How do I know if a spreadsheet workflow should become a custom app?",
         answer:
-          "It is usually worth considering when the spreadsheet has become the centre of a repeated business-critical process, requires manual chasing or copying between systems, and creates avoidable errors, delays or ownership confusion.",
+          "It is usually worth considering when the spreadsheet has become the center of a repeated business-critical process, requires manual chasing or copying between systems, and creates avoidable errors, delays or ownership confusion.",
       },
     ],
     internalLinks: [
@@ -666,7 +666,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "A pragmatic guide to how custom voice AI works in practice, where it fits, and what UK small businesses should resolve before going live.",
     summary: [
       "Understand the real production stack behind AI voice agents, from speech recognition to tool actions and handoff.",
-      "Compare voice agents with IVR, chatbots, call centres and AI receptionists without vendor hype.",
+      "Compare voice agents with IVR, chatbots, call centers and AI receptionists without vendor hype.",
       "Use a practical UK buying framework covering controls, integrations, testing and governance before launch.",
     ],
     categoryLabel: "AI Voice Agents",
@@ -710,12 +710,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
       },
       {
-        heading: "AI voice agent versus IVR, chatbot, call centre and AI receptionist",
+        heading: "AI voice agent versus IVR, chatbot, call center and AI receptionist",
         body: [
-          "An IVR usually offers keypad or simple spoken routing: press 1 for sales, press 2 for support. It is useful when the goal is structured routing rather than nuanced conversation. A chatbot is typically text-first and often better suited to lower-urgency website interactions. A call centre provides human handling, judgement and empathy, but with staffing and process overheads. An answering service may capture messages and route them on, without deep system integration.",
+          "An IVR usually offers keypad or simple spoken routing: press 1 for sales, press 2 for support. It is useful when the goal is structured routing rather than nuanced conversation. A chatbot is typically text-first and often better suited to lower-urgency website interactions. A call center provides human handling, judgment and empathy, but with staffing and process overheads. An answering service may capture messages and route them on, without deep system integration.",
           "An AI voice agent sits somewhere between these categories. It can hold a structured spoken conversation, collect approved information, answer bounded questions and complete selected actions. That makes it useful for missed-call recovery, front-desk triage, appointment requests, lead qualification, route-and-book workflows and basic service updates where the rules are well defined.",
           "The boundary with an AI receptionist is worth stating clearly. A general voice agent may cover inbound and outbound workflows across different intents, including qualification or follow-up. An AI receptionist is usually a narrower operating role: front-of-house handling for calls, messages or bookings with tighter rules around routing and diary management. If the main requirement is dependable reception flow rather than broader conversational automation, an AI receptionist may be the better framing.",
-          "There are also times when a voice agent is the wrong tool. If calls regularly involve vulnerable customers, complex disputes, sensitive clinical or legal judgement, non-standard pricing decisions, or heavy emotional context, human handling should remain primary. Equally, if your internal data is inconsistent or your booking rules are unclear, adding voice automation may expose operational problems rather than solve them.",
+          "There are also times when a voice agent is the wrong tool. If calls regularly involve vulnerable customers, complex disputes, sensitive clinical or legal judgment, non-standard pricing decisions, or heavy emotional context, human handling should remain primary. Equally, if your internal data is inconsistent or your booking rules are unclear, adding voice automation may expose operational problems rather than solve them.",
         ],
       },
       {
@@ -734,16 +734,16 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Before connecting a live line, the operational questions usually matter more than the model comparison. Which telephony provider or SIP setup will carry the call? Do you need inbound, outbound or both? Which system is the source of truth for customer records? Can the calendar actually enforce your booking rules? What happens if a downstream system is unavailable?",
           "A well-designed voice workflow should create outcomes that are idempotent where possible. In plain terms, idempotent means the same event can be retried without creating duplicate records or repeated actions. If a call summary is posted twice because of a timeout or reconnection event, your system should not accidentally create two leads, two bookings or two follow-up tasks.",
-          "This is one reason many UK small businesses benefit from pairing voice work with broader automation design. The call itself is only one event inside a larger process: enquiry intake, qualification, assignment, booking confirmation, reminder, no-answer retry, exception handling and reporting. Where the surrounding workflow is weak, the voice layer inherits the mess. Related service work often sits alongside broader automation planning, as covered on the AI automation service page.",
-          "Testing should cover more than happy-path calls. Include interruption and barge-in behaviour, silence, accents, noisy lines, repeated questions, tool failures, duplicate webhook events, calendar conflicts, out-of-hours routing, emergency stop phrases and transfer availability. Inbound and outbound should also be tested differently. Outbound automation introduces additional expectations around identity, consent, contact strategy and retry logic.",
+          "This is one reason many UK small businesses benefit from pairing voice work with broader automation design. The call itself is only one event inside a larger process: inquiry intake, qualification, assignment, booking confirmation, reminder, no-answer retry, exception handling and reporting. Where the surrounding workflow is weak, the voice layer inherits the mess. Related service work often sits alongside broader automation planning, as covered on the AI automation service page.",
+          "Testing should cover more than happy-path calls. Include interruption and barge-in behavior, silence, accents, noisy lines, repeated questions, tool failures, duplicate webhook events, calendar conflicts, out-of-hours routing, emergency stop phrases and transfer availability. Inbound and outbound should also be tested differently. Outbound automation introduces additional expectations around identity, consent, contact strategy and retry logic.",
           "Transcripts, summaries and evaluations also need governance. Decide what is retained, where it is stored, who can access it, whether redaction is required, and how long records should persist. If calls are used for quality review, that process should be defined before rollout rather than inferred later.",
         ],
         subsections: [
           {
             heading: "A simple pre-launch checklist",
             body: [
-              "Confirm disclosure wording, transfer rules, approved knowledge sources, tool permissions, fallback routes, call recording position, retention periods, duplicate prevention, exception ownership and out-of-hours behaviour.",
-              "Run test calls across realistic scenarios: new enquiry, returning customer, interrupted caller, wrong number, ambiguous request, booking conflict, transfer request, noisy environment and downstream system failure.",
+              "Confirm disclosure wording, transfer rules, approved knowledge sources, tool permissions, fallback routes, call recording position, retention periods, duplicate prevention, exception ownership and out-of-hours behavior.",
+              "Run test calls across realistic scenarios: new inquiry, returning customer, interrupted caller, wrong number, ambiguous request, booking conflict, transfer request, noisy environment and downstream system failure.",
               "Check reporting outputs: transcript quality, call summary usefulness, task creation, CRM field mapping, retry logic, missed handoffs and manual override options.",
             ],
           },
@@ -755,14 +755,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "UK relevance here is not a cosmetic detail. Call handling, data retention and customer communications should be considered in the context of UK law, regulation and your sector’s own obligations. The exact position can depend on your business model and industry, so this is not legal advice, but there are some practical governance questions worth resolving early.",
           "First, disclosure. If callers are interacting with an automated system, businesses should decide how that is communicated and keep the wording clear. Trying to conceal AI identity is a poor operational choice and can create trust problems even before any legal analysis.",
           "Second, call recording and transcript handling. If calls are recorded or transcribed, determine the purpose, lawful basis where relevant, retention logic, access controls and deletion process. Data minimisation matters: keep what is needed for service delivery, review or follow-up, and avoid collecting or retaining material that has no operational purpose.",
-          "Third, sector boundaries. A salon, estate agency or trades firm can often automate more safely than a business handling sensitive health, legal or safeguarding matters. In those sectors, stronger stop conditions and explicit human ownership are sensible. If a workflow begins to edge into regulated advice, eligibility judgements or sensitive personal-data collection beyond necessity, the safer design is to stop, route or narrow scope.",
+          "Third, sector boundaries. A salon, estate agency or trades firm can often automate more safely than a business handling sensitive health, legal or safeguarding matters. In those sectors, stronger stop conditions and explicit human ownership are sensible. If a workflow begins to edge into regulated advice, eligibility judgments or sensitive personal-data collection beyond necessity, the safer design is to stop, route or narrow scope.",
           "Fourth, vendor claims. Be cautious with broad promises around accents, language coverage, near-human realism or compliance by default. Those claims need testing in your use case and should not be accepted as blanket proof of suitability. Platform choice can be discussed through a decision framework, but no provider removes the need for your own workflow controls and governance decisions.",
         ],
       },
       {
         heading: "How to evaluate fit and buy a custom voice AI workflow sensibly",
         body: [
-          "A useful buying framework is to evaluate five things in order: call volume, call structure, actionability, exception rate and operational readiness. If you receive enough calls to justify process design, if the conversation follows recognisable patterns, if the desired outcome can trigger clear actions, if exception cases are manageable, and if your underlying systems are in reasonable order, voice automation may be worth exploring.",
+          "A useful buying framework is to evaluate five things in order: call volume, call structure, actionability, exception rate and operational readiness. If you receive enough calls to justify process design, if the conversation follows recognizable patterns, if the desired outcome can trigger clear actions, if exception cases are manageable, and if your underlying systems are in reasonable order, voice automation may be worth exploring.",
           "Cost is usually driven less by the headline model than by workflow complexity. Multiple intents, integrations, branching logic, bespoke reporting, handoff design, prompt and knowledge controls, testing depth and ongoing monitoring all affect the scope. So does whether you need a narrowly defined receptionist flow or a broader custom voice agent with outbound and inbound states.",
           "For some businesses, starting smaller is sensible: one narrow inbound route, one missed-call recovery flow, or one appointment-handling scenario. That gives you a cleaner test of operational fit than attempting to automate every telephone interaction at once.",
           "If you are comparing options, ask practical questions before connecting a live line: what is the source of truth for answers; what can the agent do without approval; how does handoff work; how are failures logged; how are duplicates prevented; how are transcripts governed; how quickly can content and rules be updated; and who owns exceptions day to day.",
@@ -781,12 +781,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "Can an AI voice agent replace all phone handling for a small business?",
         answer:
-          "Usually not sensibly. It may handle selected call types well when the workflow is structured and the actions are clearly bounded, but complex exceptions, sensitive matters and higher-judgement decisions should remain with people.",
+          "Usually not sensibly. It may handle selected call types well when the workflow is structured and the actions are clearly bounded, but complex exceptions, sensitive matters and higher-judgment decisions should remain with people.",
       },
       {
         question: "What should a UK business test before going live?",
         answer:
-          "Test disclosure wording, transfer behaviour, noisy lines, interruptions, repeated questions, downstream system failures, booking conflicts, duplicate record prevention, transcript handling, out-of-hours behaviour and manual override routes.",
+          "Test disclosure wording, transfer behavior, noisy lines, interruptions, repeated questions, downstream system failures, booking conflicts, duplicate record prevention, transcript handling, out-of-hours behavior and manual override routes.",
       },
       {
         question: "How do I know if custom voice AI is worth exploring?",
@@ -908,7 +908,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          'An AI receptionist can be useful for a UK small business, but only when it is designed as a controlled front desk rather than a clever voice demo. The real job is not simply to answer calls. It is to recognise intent, give approved answers, collect the right information, book only against real availability, route exceptions to named people and leave a clean system trail behind. That is where many projects succeed or fail.\n\nAt Silverstone AI, we treat reception automation as an operating system problem. Phone, web chat and messaging should converge into the same rules, the same source of truth and the same human handoff logic. If those pieces are unclear, an AI receptionist can create more admin than it removes.\n\nFor UK businesses comparing AI receptionist services, virtual phone receptionist tools or a human answering service, the sensible question is not *"Can AI answer the phone?"* It is *"What should it handle safely, what should it escalate, and what has to connect behind the scenes?"*',
+          'An AI receptionist can be useful for a UK small business, but only when it is designed as a controlled front desk rather than a clever voice demo. The real job is not simply to answer calls. It is to recognize intent, give approved answers, collect the right information, book only against real availability, route exceptions to named people and leave a clean system trail behind. That is where many projects succeed or fail.\n\nAt Silverstone AI, we treat reception automation as an operating system problem. Phone, web chat and messaging should converge into the same rules, the same source of truth and the same human handoff logic. If those pieces are unclear, an AI receptionist can create more admin than it removes.\n\nFor UK businesses comparing AI receptionist services, virtual phone receptionist tools or a human answering service, the sensible question is not *"Can AI answer the phone?"* It is *"What should it handle safely, what should it escalate, and what has to connect behind the scenes?"*',
         ],
       },
       {
@@ -916,22 +916,22 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "An AI receptionist should handle **repeatable, low-risk, front-door tasks**: opening hours, location details, service categories, availability checks against a live booking source, basic qualification questions, message capture and routing to the right person or team.",
           "It should *not* improvise policies, invent appointment slots, guess fees, offer regulated advice, argue with a confused caller or pretend to understand when confidence is low. In a UK business context, those boundaries matter even more where diary control, consent, payment, safeguarding, complaints or health-related questions are involved.",
-          "A useful test is simple: if the answer can be written as an approved rule, grounded in a real system and safely reviewed later, it may be a fit for automation. If it depends on judgement, negotiation, diagnosis, discretionary discounts or a sensitive conversation, it needs a person.",
-          "That is why an AI receptionist is different from a general chatbot. A chatbot may answer broad questions across a website. A receptionist sits much closer to live operations. It affects who gets contacted, what gets booked, what data is captured and whether the business appears organised or chaotic.",
+          "A useful test is simple: if the answer can be written as an approved rule, grounded in a real system and safely reviewed later, it may be a fit for automation. If it depends on judgment, negotiation, diagnosis, discretionary discounts or a sensitive conversation, it needs a person.",
+          "That is why an AI receptionist is different from a general chatbot. A chatbot may answer broad questions across a website. A receptionist sits much closer to live operations. It affects who gets contacted, what gets booked, what data is captured and whether the business appears organized or chaotic.",
         ],
         lede: "Start with scope. A good front desk is defined by decisions, not by the novelty of the channel.",
         variant: "signal",
         pullQuote:
-          "The right question is not whether AI can answer enquiries. It is whether your front desk rules are clear enough for software to follow without inventing its own version of the business.",
+          "The right question is not whether AI can answer inquiries. It is whether your front desk rules are clear enough for software to follow without inventing its own version of the business.",
         bullets: [
           {
             label: "Good uses",
-            body: "Approved FAQs, enquiry triage, message capture, basic qualification, booking against real calendars, out-of-hours response.",
+            body: "Approved FAQs, inquiry triage, message capture, basic qualification, booking against real calendars, out-of-hours response.",
             icon: "check",
           },
           {
             label: "Poor uses",
-            body: "Clinical judgement, disputes, complaints handling, bespoke quoting, legal interpretation, emergency or safety decisions.",
+            body: "Clinical judgment, disputes, complaints handling, bespoke quoting, legal interpretation, emergency or safety decisions.",
             icon: "stop",
           },
           {
@@ -945,8 +945,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "Virtual phone receptionist, web chat or integrated front desk: how they differ",
         body: [
-          "An AI receptionist versus a human answering service is not a simple quality contest. The comparison is practical. Humans can manage nuance and unusual cases better. AI can apply the same approved logic consistently across routine tasks and out-of-hours capture. The right choice depends on your enquiry mix, escalation volume and operational maturity.",
-          "In some firms, the best answer is blended: AI handles repeatable first contact and missed-call recovery, while sensitive, high-value or ambiguous enquiries move quickly to a person.",
+          "An AI receptionist versus a human answering service is not a simple quality contest. The comparison is practical. Humans can manage nuance and unusual cases better. AI can apply the same approved logic consistently across routine tasks and out-of-hours capture. The right choice depends on your inquiry mix, escalation volume and operational maturity.",
+          "In some firms, the best answer is blended: AI handles repeatable first contact and missed-call recovery, while sensitive, high-value or ambiguous inquiries move quickly to a person.",
         ],
         lede: "These tools overlap, but they are not interchangeable.",
         variant: "operator",
@@ -957,7 +957,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Virtual phone receptionist",
               cells: [
                 "Handle inbound calls and missed-call recovery",
-                "Phone remains the main enquiry route",
+                "Phone remains the main inquiry route",
                 "Can become isolated from CRM and booking if poorly connected",
               ],
             },
@@ -973,7 +973,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Integrated front desk",
               cells: [
                 "Unify phone, web and message intake under one rule set",
-                "You want one source of truth for enquiry handling",
+                "You want one source of truth for inquiry handling",
                 "Needs stronger setup discipline and clearer ownership",
               ],
             },
@@ -1045,7 +1045,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "How to avoid double-booking or invented availability",
             body: [
-              'Never let the receptionist rely on static schedules or plain-language assumptions such as *"I can fit you in tomorrow afternoon"*. Availability must come from the live booking system or a tightly controlled synchronisation layer.',
+              'Never let the receptionist rely on static schedules or plain-language assumptions such as *"I can fit you in tomorrow afternoon"*. Availability must come from the live booking system or a tightly controlled synchronization layer.',
               "Where the calendar is fragmented across staff diaries, locations or service durations, reduce scope before launch. It is better to automate a smaller safe booking path than a wide, unreliable one.",
               "Reschedules and reminders should also reflect real system state. If a human changes the diary manually, the receptionist should not continue speaking from stale information.",
             ],
@@ -1057,8 +1057,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Voice quality gets attention in demos, but integration quality determines whether the system is commercially useful. If the receptionist cannot update the CRM, trigger follow-up or check booking state reliably, the business still ends up chasing loose messages by hand.",
           "For many UK small businesses, the practical minimum is three-way alignment: **channel intake, booking source and CRM ownership**. After that, follow-up can become more structured — for example, confirmations, reminders, callback tasks or out-of-hours response sequences.",
-          "Missed-call recovery is often one of the clearest early wins. If an unanswered ring turns into a captured context trail, a call-back task or a message link with the same enquiry attached, the business owns the next step instead of losing it to voicemail drift.",
-          "Omnichannel intake matters here too. A prospect may phone, then use web chat, then reply to a text. Those should not become three separate stories. The system should merge context where possible so the next human sees one enquiry history rather than fragments.",
+          "Missed-call recovery is often one of the clearest early wins. If an unanswered ring turns into a captured context trail, a call-back task or a message link with the same inquiry attached, the business owns the next step instead of losing it to voicemail drift.",
+          "Omnichannel intake matters here too. A prospect may phone, then use web chat, then reply to a text. Those should not become three separate stories. The system should merge context where possible so the next human sees one inquiry history rather than fragments.",
         ],
         lede: "The front desk is only as strong as the systems behind it.",
         variant: "system",
@@ -1085,7 +1085,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "When an AI receptionist is not the right answer",
         body: [
-          "That is why provider evaluation should include the ability to define boundaries, not just add channels. Ask what always escalates to a person, how confidence thresholds work, how sensitive data is minimised and what happens when systems disagree.",
+          "That is why provider evaluation should include the ability to define boundaries, not just add channels. Ask what always escalates to a person, how confidence thresholds work, how sensitive data is minimized and what happens when systems disagree.",
           "If you are at the early stage, [AI consulting](/services/ai-consulting) or workflow work may be the right first step before a wider build.",
         ],
         lede: "Good selection includes saying no when the fit is poor.",
@@ -1098,8 +1098,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Human-first",
-            title: "High judgement load",
-            body: "Most enquiries involve diagnosis, negotiation or sensitive context.",
+            title: "High judgment load",
+            body: "Most inquiries involve diagnosis, negotiation or sensitive context.",
           },
           {
             label: "Limited scope",
@@ -1124,7 +1124,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Ask about privacy",
-            body: "What personal data is necessary, where is it processed and how is minimisation enforced?",
+            body: "What personal data is necessary, where is it processed and how is minimization enforced?",
             icon: "lock",
           },
           {
@@ -1144,7 +1144,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is an AI receptionist?",
         answer:
-          "An AI receptionist is a controlled software front desk that handles routine first-contact tasks such as answering common questions, collecting enquiry details, checking approved availability, booking within rules and routing exceptions to people. It is not the same as a general chatbot, because it sits closer to live operations and must work against real system state.",
+          "An AI receptionist is a controlled software front desk that handles routine first-contact tasks such as answering common questions, collecting inquiry details, checking approved availability, booking within rules and routing exceptions to people. It is not the same as a general chatbot, because it sits closer to live operations and must work against real system state.",
       },
       {
         question: "Is an AI receptionist better than a human answering service?",
@@ -1154,7 +1154,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What should always be escalated to a person?",
         answer:
-          "Sensitive, ambiguous or high-judgement situations should always escalate. Typical examples include complaints, safeguarding concerns, emergencies, clinical questions, bespoke quotes, payment disputes, legal issues and any interaction where the system is uncertain or lacks current data.",
+          "Sensitive, ambiguous or high-judgment situations should always escalate. Typical examples include complaints, safeguarding concerns, emergencies, clinical questions, bespoke quotes, payment disputes, legal issues and any interaction where the system is uncertain or lacks current data.",
       },
       {
         question:
@@ -1277,13 +1277,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          'The first automation matters more than most businesses expect. Pick the wrong workflow and you can spend time wiring together tools around a process nobody owns, exceptions nobody has defined and data nobody trusts. Pick the right one and you get a controlled test of how automation should work in the real world: with a clear source of truth, a named owner, approval steps where needed and visible recovery when something fails.\n\nAt Silverstone AI, we advise UK small businesses to resist the urge to "automate everything". A better route is to choose one workflow that is repetitive, rules-heavy, operationally annoying and commercially relevant, then baseline it properly before a build. That gives you evidence, not theatre.',
+          'The first automation matters more than most businesses expect. Pick the wrong workflow and you can spend time wiring together tools around a process nobody owns, exceptions nobody has defined and data nobody trusts. Pick the right one and you get a controlled test of how automation should work in the real world: with a clear source of truth, a named owner, approval steps where needed and visible recovery when something fails.\n\nAt Silverstone AI, we advise UK small businesses to resist the urge to "automate everything". A better route is to choose one workflow that is repetitive, rules-heavy, operationally annoying and commercially relevant, then baseline it properly before a build. That gives you evidence, not theater.',
         ],
       },
       {
         heading: "What makes a strong first automation candidate?",
         body: [
-          "The best first automation is rarely the most ambitious one. It is usually a process with a clear trigger, a predictable path through a few systems and a manageable number of exceptions. Think inbound enquiries routed into a CRM, document collection for onboarding, quote follow-up, missed-call handling, diary updates or approval-led document processing.",
+          "The best first automation is rarely the most ambitious one. It is usually a process with a clear trigger, a predictable path through a few systems and a manageable number of exceptions. Think inbound inquiries routed into a CRM, document collection for onboarding, quote follow-up, missed-call handling, diary updates or approval-led document processing.",
           "For UK SMEs, the practical question is not *can this be automated?* It is *should this be the first thing we trust in production?* That means looking at ownership, data quality, exception volume, approval needs and how consequential the outcome is. If a mistake could create legal, financial, clinical or reputational risk, a human-in-the-loop pattern should sit inside the design from day one.",
           "A strong candidate normally has one identifiable source of truth, one operational owner and a clear handoff if something does not fit the rules. If those do not exist, the build tends to drift into a clean demo and a messy rollout.",
         ],
@@ -1318,7 +1318,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Do an opportunity audit before you build",
         body: [
           "A practical audit helps you avoid automating around noise. List the workflows that repeatedly consume attention across sales, admin, operations and customer service. Then score them against five dimensions: frequency, effort, business impact, process stability and exception complexity.",
-          "This is especially relevant in the UK where many small businesses run across a mix of email, spreadsheets, booking tools, accounting platforms, CRMs and sector software that were never designed as one operating system. An audit shows where deterministic automation can handle the routine path and where bounded AI judgement may help with classification, summarisation or extraction.",
+          "This is especially relevant in the UK where many small businesses run across a mix of email, spreadsheets, booking tools, accounting platforms, CRMs and sector software that were never designed as one operating system. An audit shows where deterministic automation can handle the routine path and where bounded AI judgment may help with classification, summarization or extraction.",
           "Use rough commercial signals rather than invented precision. How often does the task happen each week? How much delay does it create? How often does someone have to chase, rekey or correct it? Where do edge cases appear? Which actions require approval? If you cannot answer those questions, you do not yet have a reliable automation brief.",
         ],
         lede: "Automation selection is an operating decision, not a software shopping exercise.",
@@ -1349,8 +1349,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "A useful scoring rule",
             body: [
-              "Prioritise workflows with **high frequency**, **medium-to-high effort**, **clear ownership** and **moderate exception complexity**. Avoid low-volume vanity projects and avoid highly consequential processes with unclear approvals until governance is stronger.",
-              "That often points UK small businesses towards lead-routing, follow-up orchestration, document collection, scheduling, CRM hygiene, reporting consolidation and invoice or form handling as early candidates.",
+              "Prioritize workflows with **high frequency**, **medium-to-high effort**, **clear ownership** and **moderate exception complexity**. Avoid low-volume vanity projects and avoid highly consequential processes with unclear approvals until governance is stronger.",
+              "That often points UK small businesses toward lead-routing, follow-up orchestration, document collection, scheduling, CRM hygiene, reporting consolidation and invoice or form handling as early candidates.",
             ],
           },
         ],
@@ -1360,7 +1360,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "One of the most common project failures is trying to automate a process that changes depending on who happens to be handling it. Different inbox habits, undocumented exceptions, informal approvals and duplicate records all turn a promising workflow into a reliability problem.",
           "Before any build, define the owner, the standard path, the exception path and the recovery path. The owner is the person accountable for the process outcome. The source of truth is the system whose record the workflow should trust. The exception is any case that falls outside the normal rule set. Recovery is what happens after failure: retry, manual review, rollback or escalation.",
-          "This is where deterministic automation and AI agents should be separated properly. Deterministic automation belongs where the rules are known: route this lead, create that record, send this update, wait for that event. AI judgement belongs in bounded tasks such as extracting fields from a document, drafting a summary or classifying an inbound message. Even then, consequential actions should not proceed without explicit rules or approval.",
+          "This is where deterministic automation and AI agents should be separated properly. Deterministic automation belongs where the rules are known: route this lead, create that record, send this update, wait for that event. AI judgment belongs in bounded tasks such as extracting fields from a document, drafting a summary or classifying an inbound message. Even then, consequential actions should not proceed without explicit rules or approval.",
         ],
         lede: "If nobody owns the workflow, the automation will inherit the confusion.",
         variant: "operator",
@@ -1399,14 +1399,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Bounded AI task",
               cells: [
-                "Classification, extraction, summarisation, drafting",
+                "Classification, extraction, summarization, drafting",
                 "Confidence checks, validation rules and human review where needed",
               ],
             },
             {
               label: "Human decision",
               cells: [
-                "Pricing, legal judgement, sensitive approvals, irreversible actions",
+                "Pricing, legal judgment, sensitive approvals, irreversible actions",
                 "Named approver, documented criteria and exception handling",
               ],
             },
@@ -1486,7 +1486,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Where does AI belong?",
-            body: "A serious answer separates bounded judgement from deterministic actions.",
+            body: "A serious answer separates bounded judgment from deterministic actions.",
           },
           {
             label: "What happens after launch?",
@@ -1504,7 +1504,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Should I use an AI agent or standard workflow automation?",
         answer:
-          "Use standard workflow automation for fixed rules and predictable steps. Use AI only for bounded tasks such as classification, summarisation or extraction, with validation and human review where the outcome is consequential.",
+          "Use standard workflow automation for fixed rules and predictable steps. Use AI only for bounded tasks such as classification, summarization or extraction, with validation and human review where the outcome is consequential.",
       },
       {
         question: "How do I know if a process is ready to automate?",
@@ -1624,14 +1624,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The businesses moving fastest in the UK are not chasing flashy demos. They are tightening the machinery underneath the business: enquiries, bookings, follow-ups, admin, reporting and handoffs. That is where margin is won. *Silverstone AI* helps small businesses turn messy operational drag into controlled systems that are easier to run, easier to measure and far less dependent on memory, inboxes and manual copying. The commercial question is not whether AI matters. It is where it belongs, what should stay human, and which automations produce real leverage without creating new risk.",
+          "The businesses moving fastest in the UK are not chasing flashy demos. They are tightening the machinery underneath the business: inquiries, bookings, follow-ups, admin, reporting and handoffs. That is where margin is won. *Silverstone AI* helps small businesses turn messy operational drag into controlled systems that are easier to run, easier to measure and far less dependent on memory, inboxes and manual copying. The commercial question is not whether AI matters. It is where it belongs, what should stay human, and which automations produce real leverage without creating new risk.",
         ],
       },
       {
         heading: "What AI & automation consulting should actually do",
         body: [
-          "For a UK small business, AI and automation consulting should answer five hard questions: **what is slowing the business down, what can be standardised, what needs human judgement, what systems hold the truth, and what should be improved first**. If those questions are skipped, the result is usually a pile of disconnected tools.",
-          "The real value sits in system design. That means mapping the path from trigger to action: a missed call becomes a lead, a web enquiry becomes a booked job, a quote request becomes a follow-up sequence, a recurring admin task becomes a repeatable workflow with checks and visibility.",
+          "For a UK small business, AI and automation consulting should answer five hard questions: **what is slowing the business down, what can be standardized, what needs human judgment, what systems hold the truth, and what should be improved first**. If those questions are skipped, the result is usually a pile of disconnected tools.",
+          "The real value sits in system design. That means mapping the path from trigger to action: a missed call becomes a lead, a web inquiry becomes a booked job, a quote request becomes a follow-up sequence, a recurring admin task becomes a repeatable workflow with checks and visibility.",
           "This matters in the UK because many smaller firms are running on a mix of inboxes, spreadsheets, cloud apps, mobile calls and staff knowledge. The problem is rarely a lack of software. It is the lack of a joined-up operating system across sales, service and admin.",
           "Strong consulting should leave you with decisions, not jargon: what to automate now, what to leave alone, where AI is useful, where deterministic rules are safer, and where a human approval step is non-negotiable.",
         ],
@@ -1642,7 +1642,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "What good consulting includes",
-            body: "Workflow mapping across enquiries, admin, delivery and reporting",
+            body: "Workflow mapping across inquiries, admin, delivery and reporting",
             icon: "map",
           },
           {
@@ -1665,8 +1665,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to automate first if you run a small UK business",
         body: [
-          "Most small businesses should not begin with the most complex AI use case. They should begin with the most repeated operational friction. If the same task happens often, follows a recognisable pattern and causes delay when missed, it is a strong candidate.",
-          "In practice, that often means lead capture, qualification, booking, reminders, follow-up, document handling, internal routing or reporting. These are not glamorous systems, but they are commercially sharp because they affect response time, conversion, utilisation and staff load.",
+          "Most small businesses should not begin with the most complex AI use case. They should begin with the most repeated operational friction. If the same task happens often, follows a recognizable pattern and causes delay when missed, it is a strong candidate.",
+          "In practice, that often means lead capture, qualification, booking, reminders, follow-up, document handling, internal routing or reporting. These are not glamorous systems, but they are commercially sharp because they affect response time, conversion, utilization and staff load.",
           "UK relevance matters here. Small firms across trades, clinics, hospitality, property, professional services and local service businesses often deal with high call volume, lean teams and fragmented software. Fast response and clean handoff can be the difference between winning and losing work.",
         ],
         lede: "Start where the business leaks time, speed or revenue every single week.",
@@ -1674,7 +1674,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             label: "Priority 01",
-            title: "Missed enquiries",
+            title: "Missed inquiries",
             body: "Capture calls, forms or messages and route them into a tracked follow-up process.",
           },
           {
@@ -1699,9 +1699,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Lead response",
               cells: [
-                "Automate capture, acknowledgement and routing",
+                "Automate capture, acknowledgment and routing",
                 "Faster response protects demand already in market",
-                "Humans still own pricing, nuanced qualification and final sales judgement",
+                "Humans still own pricing, nuanced qualification and final sales judgment",
               ],
             },
             {
@@ -1735,8 +1735,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Where AI helps, and where rules are better",
         body: [
           "This is one of the most expensive mistakes in the category: using AI where standard automation would be safer, cheaper and easier to maintain. If a process follows fixed rules, deterministic workflow logic is often the better answer.",
-          "AI becomes useful when the system must interpret unstructured inputs, summarise information, classify messages, draft responses, extract meaning from documents or support a bounded conversation. Even then, the scope should be controlled.",
-          "A pragmatic consulting approach separates three layers: **rules**, **AI judgement within limits**, and **human ownership**. That keeps the system understandable for the business and reduces the risk of silent failure.",
+          "AI becomes useful when the system must interpret unstructured inputs, summarize information, classify messages, draft responses, extract meaning from documents or support a bounded conversation. Even then, the scope should be controlled.",
+          "A pragmatic consulting approach separates three layers: **rules**, **AI judgment within limits**, and **human ownership**. That keeps the system understandable for the business and reduces the risk of silent failure.",
           "For example, a receptionist workflow might use rules to route by service line, AI to interpret a caller's request, and a human handoff for anything commercially sensitive, emotionally complex or operationally unusual.",
         ],
         lede: "Not every process needs AI. Many need cleaner logic.",
@@ -1804,11 +1804,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What a sensible consulting engagement should produce",
         body: [
           "A commercially useful consulting engagement should end with clear outputs: a ranked opportunity list, workflow maps, system recommendations, human boundaries, implementation phases and success measures. If you cannot see what gets built first and why, the strategy is not finished.",
-          "For many UK small businesses, the right answer is a phased model. Phase one stabilises enquiry capture, response and handoff. Phase two connects bookings, CRM or pipeline records. Phase three adds more advanced AI behaviour where there is enough process maturity to support it.",
-          "This is also where web, app, content and automation decisions connect. A website that captures better enquiries, an app that supports cleaner operations, and automation that keeps everything moving should be designed as one commercial system, not separate purchases.",
+          "For many UK small businesses, the right answer is a phased model. Phase one stabilizes inquiry capture, response and handoff. Phase two connects bookings, CRM or pipeline records. Phase three adds more advanced AI behavior where there is enough process maturity to support it.",
+          "This is also where web, app, content and automation decisions connect. A website that captures better inquiries, an app that supports cleaner operations, and automation that keeps everything moving should be designed as one commercial system, not separate purchases.",
           "That joined-up thinking is why it helps to work with a studio that understands delivery across [services](/services), automation logic and business operations rather than treating AI as a standalone novelty.",
         ],
-        lede: "By the end, you should have a prioritised roadmap, not a vague list of ideas.",
+        lede: "By the end, you should have a prioritized roadmap, not a vague list of ideas.",
         variant: "operator",
         bullets: [
           {
@@ -1828,7 +1828,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Output 4",
-            body: "A measurement plan tied to response time, admin load, conversion or utilisation",
+            body: "A measurement plan tied to response time, admin load, conversion or utilization",
             icon: "gauge",
           },
         ],
@@ -1836,10 +1836,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How to choose the right next step",
         body: [
-          "If your main issue is missed demand, fix lead capture and follow-up. If your issue is admin drag, automate recurring internal tasks. If your issue is fragmented customer journeys, connect the systems and define ownership. If your issue is inconsistent information, improve the content and process before adding AI behaviour.",
+          "If your main issue is missed demand, fix lead capture and follow-up. If your issue is admin drag, automate recurring internal tasks. If your issue is fragmented customer journeys, connect the systems and define ownership. If your issue is inconsistent information, improve the content and process before adding AI behavior.",
           "The smartest next move is usually small, visible and measurable. That might be one workflow, one front-end path or one receptionist-style system rather than a sweeping transformation project.",
           "For businesses that need an external view, the most useful first conversation is not about trend-chasing. It is about pressure points, constraints, existing tools and where control must remain human. From there, the route becomes much clearer.",
-          "If you are weighing that decision now, you can review [pricing](/pricing) for commercial framing or [book a consultation](/book#booking-calendar) when you want to look at real workflows and prioritise what should be fixed first.",
+          "If you are weighing that decision now, you can review [pricing](/pricing) for commercial framing or [book a consultation](/book#booking-calendar) when you want to look at real workflows and prioritize what should be fixed first.",
         ],
         lede: "Do not ask whether AI is right for your business. Ask which operational decision needs to be made now.",
         variant: "signal",
@@ -1849,7 +1849,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is AI and automation consulting for a small business?",
         answer:
-          "It is a structured review of your workflows, systems and bottlenecks to decide where automation, AI tools or tighter process design will improve operations. The aim is to prioritise useful changes, define boundaries and avoid buying the wrong tools.",
+          "It is a structured review of your workflows, systems and bottlenecks to decide where automation, AI tools or tighter process design will improve operations. The aim is to prioritize useful changes, define boundaries and avoid buying the wrong tools.",
       },
       {
         question: "What should a UK small business automate first?",
@@ -1859,7 +1859,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Do all automations need AI?",
         answer:
-          "No. Many workflows are better handled by fixed rules and integrations. AI is most useful when the system must interpret language, summarise information, classify messy inputs or draft content within clear limits.",
+          "No. Many workflows are better handled by fixed rules and integrations. AI is most useful when the system must interpret language, summarize information, classify messy inputs or draft content within clear limits.",
       },
       {
         question: "How do I know if my business is ready for AI automation?",
@@ -1948,7 +1948,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     summary: [
       "Why content fails when there is no system behind it.",
       "How to build a practical content workflow with AI in the right place.",
-      "What UK small businesses should prioritise first for commercial impact.",
+      "What UK small businesses should prioritize first for commercial impact.",
     ],
     categoryLabel: "Content Creation",
     categoryKey: "content-creation",
@@ -1987,7 +1987,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "In many UK small businesses, content production is inconsistent for a simple reason: the source material is trapped in people, inboxes and ad hoc conversations. The owner knows the offer. The team knows the customer questions. Sales knows the objections. Delivery knows what clients actually care about. But none of that knowledge moves through a reliable publishing workflow.",
           "The result is familiar. A website goes live and then stalls. Blog ideas sit in notes apps. Social content becomes reactive. Email follow-up is generic or forgotten. New offers launch without the supporting pages, articles or proof assets needed to help people buy with confidence.",
           "This is where a content system matters. Instead of asking, *'Who has time to write something?'* the better question is, *'How does the business turn expertise into approved, reusable content assets?'* That shift changes everything.",
-          "UK relevance matters here. Small businesses across the UK often operate with lean teams, mixed technical confidence and limited spare capacity. They need content workflows that respect real operational pressure, not agency theatre or creator-style volume targets.",
+          "UK relevance matters here. Small businesses across the UK often operate with lean teams, mixed technical confidence and limited spare capacity. They need content workflows that respect real operational pressure, not agency theater or creator-style volume targets.",
         ],
         lede: "Most content problems are operating problems wearing a marketing hat.",
         variant: "signal",
@@ -2011,7 +2011,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Weak commercial link",
-            body: "Content exists, but it is not connected to enquiries, bookings or next steps.",
+            body: "Content exists, but it is not connected to inquiries, bookings or next steps.",
             icon: "route",
           },
         ],
@@ -2020,7 +2020,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What a practical content creation framework looks like",
         body: [
           "A practical framework starts with the raw materials your business already produces. Sales calls, customer questions, proposal language, service explanations, onboarding steps, objections, reviews, recurring email replies and team expertise are all inputs. The job is not to invent endless new ideas. It is to capture, sort and refine what the business already knows.",
-          "From there, content needs a controlled path: **input -> shaping -> approval -> publishing -> reuse**. That path should be light enough for a small team, but structured enough to stop drift. It should also separate what AI can assist with from what still needs human judgement, especially when tone, compliance, promises or service suitability are involved.",
+          "From there, content needs a controlled path: **input -> shaping -> approval -> publishing -> reuse**. That path should be light enough for a small team, but structured enough to stop drift. It should also separate what AI can assist with from what still needs human judgment, especially when tone, compliance, promises or service suitability are involved.",
           "At Silverstone AI, the useful lens is operating-system thinking. A content engine works best when every asset has a role: attract, explain, reassure, convert, onboard or reactivate. If a business cannot say which role a piece of content serves, it usually does not need that piece yet.",
         ],
         lede: "Think less about posts and more about throughput.",
@@ -2043,7 +2043,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Tie content to action",
-            body: "Every major asset should support an enquiry, booking, purchase or informed next step.",
+            body: "Every major asset should support an inquiry, booking, purchase or informed next step.",
             icon: "action",
           },
         ],
@@ -2054,7 +2054,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Processing",
-            body: "Transcription, summarising, topic clustering, draft generation, channel adaptation, review.",
+            body: "Transcription, summarizing, topic clustering, draft generation, channel adaptation, review.",
           },
           {
             title: "Controls",
@@ -2071,20 +2071,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "For UK small businesses, AI is most valuable when it reduces friction between source material and finished output. It can help transcribe meetings, extract recurring themes, generate draft structures, adapt tone by channel, repurpose long-form material and support editorial consistency. That can remove hours of repetitive work from the process.",
           "But AI should not decide what your business promises, whether a regulated claim is safe, how a nuanced service should be positioned, or whether something sensitive is ready to publish. That remains a human responsibility. In sectors with privacy, financial, medical or legal sensitivity, this boundary becomes even more important.",
-          "A strong content system uses *bounded AI judgement*. In simple terms, that means AI works inside defined rules, approved source material and controlled output formats. It does not improvise unchecked. It assists production; it does not own business truth.",
+          "A strong content system uses *bounded AI judgment*. In simple terms, that means AI works inside defined rules, approved source material and controlled output formats. It does not improvise unchecked. It assists production; it does not own business truth.",
           "If you are considering a broader automation layer around publishing, review and follow-up, [how we work](/how-we-work) shows the sort of systems thinking needed to keep outputs commercially useful and operationally safe.",
         ],
-        lede: "AI is useful in the middle of the workflow, not as an unchecked replacement for judgement.",
+        lede: "AI is useful in the middle of the workflow, not as an unchecked replacement for judgment.",
         variant: "operator",
         pullQuote:
-          "Use AI to accelerate throughput. Use humans to protect truth, judgement and commercial fit.",
+          "Use AI to accelerate throughput. Use humans to protect truth, judgment and commercial fit.",
         comparisonTable: {
           columns: ["Good fit for AI assistance", "Needs human ownership"],
           rows: [
             {
               label: "Source capture",
               cells: [
-                "Transcribing calls, summarising notes, extracting repeated questions",
+                "Transcribing calls, summarizing notes, extracting repeated questions",
                 "Deciding which source material is commercially important",
               ],
             },
@@ -2116,7 +2116,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "How to build a small-business content system without overcomplicating it",
         body: [
-          "The cleanest starting point is a single commercial journey. For example: website enquiries for one core service, better lead follow-up after discovery calls, or a repeatable way to turn service expertise into authority content. Pick one path where stronger content would clearly support revenue or reduce wasted time.",
+          "The cleanest starting point is a single commercial journey. For example: website inquiries for one core service, better lead follow-up after discovery calls, or a repeatable way to turn service expertise into authority content. Pick one path where stronger content would clearly support revenue or reduce wasted time.",
           "Then define the minimum system. What are the inputs? Who reviews? Which outputs matter first? Where does content live? What happens after publication? A small business does not need a newsroom. It needs a workable production loop.",
           "A useful first stack might include an intake method for source material, a topic framework, a standard article or page structure, a review owner, a publishing cadence and a reuse rule. That is enough to create consistency without bureaucracy.",
           "If your website is part of the problem, read [conversion-focused website build for a UK small business](/blog/conversion-focused-website-planning). Content works best when the website, calls to action and service architecture are designed together rather than patched together later.",
@@ -2130,7 +2130,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             icon: "focus",
           },
           {
-            label: "Standardise formats",
+            label: "Standardize formats",
             body: "Templates reduce decision fatigue and improve output quality.",
             icon: "template",
           },
@@ -2163,15 +2163,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "For a UK small business, content should reduce confusion, improve lead quality, shorten repeated explanations and support confident next steps. That could mean a service page that answers real objections, an article that frames the buying decision properly, an email sequence that prepares prospects before a call, or a follow-up asset that keeps momentum after contact.",
           "This is why content creation should sit close to operations, sales and service delivery. The best material often comes from the questions your team already answers every week. When that knowledge is captured properly, content becomes a working business asset rather than a marketing side project.",
-          "Silverstone AI approaches content as part of a wider system: websites, automation, enquiry flow, follow-up logic and AI-assisted production all reinforcing each other. If you need the broader context, the [services](/services) page shows how content can connect with websites, apps, AI agents and operational systems.",
+          "Silverstone AI approaches content as part of a wider system: websites, automation, inquiry flow, follow-up logic and AI-assisted production all reinforcing each other. If you need the broader context, the [services](/services) page shows how content can connect with websites, apps, AI agents and operational systems.",
         ],
-        lede: "The test is not whether content exists. The test is whether it changes business behaviour.",
+        lede: "The test is not whether content exists. The test is whether it changes business behavior.",
         variant: "operator",
         grid: [
           {
             label: "01",
             title: "Attract",
-            body: "Help the right buyer recognise their problem and your relevance.",
+            body: "Help the right buyer recognize their problem and your relevance.",
           },
           {
             label: "02",
@@ -2186,7 +2186,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "04",
             title: "Convert",
-            body: "Move readers toward an enquiry, booking or other explicit next action.",
+            body: "Move readers toward an inquiry, booking or other explicit next action.",
           },
         ],
       },
@@ -2196,7 +2196,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "If your business already has strong expertise but weak consistency, improve the content workflow first. If you have too much manual handling between source material and publication, add automation carefully. If your messaging, website structure and offer hierarchy are confused, step back and rebuild the system before scaling production.",
           "This distinction matters. Many small businesses try to solve a structural problem with more content volume. That usually creates noise, not clarity. Better to produce fewer assets with cleaner inputs, stronger review and tighter commercial purpose.",
-          "If you are assessing whether your current setup is fit for purpose, [about](/about) gives a clearer picture of Silverstone AI's approach and why system design matters more than surface-level activity. And if you already know the bottleneck is costing time or weakening enquiries, you can [book a call](/book#booking-calendar) to map the right next step.",
+          "If you are assessing whether your current setup is fit for purpose, [about](/about) gives a clearer picture of Silverstone AI's approach and why system design matters more than surface-level activity. And if you already know the bottleneck is costing time or weakening inquiries, you can [book a call](/book#booking-calendar) to map the right next step.",
         ],
         lede: "Not every content issue needs more output. Some need clearer architecture.",
         variant: "signal",
@@ -2211,12 +2211,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can AI create all of our content automatically?",
         answer:
-          "It can assist with drafting, summarising, repurposing and formatting, but it should not be left to decide business promises, nuanced positioning, regulated wording or final approval. Human oversight is still essential.",
+          "It can assist with drafting, summarizing, repurposing and formatting, but it should not be left to decide business promises, nuanced positioning, regulated wording or final approval. Human oversight is still essential.",
       },
       {
-        question: "What content should a UK small business prioritise first?",
+        question: "What content should a UK small business prioritize first?",
         answer:
-          "Start with content closest to revenue or repeated friction: core service pages, enquiry follow-up, buyer FAQs, objection handling and one or two authority pieces that support real buying decisions.",
+          "Start with content closest to revenue or repeated friction: core service pages, inquiry follow-up, buyer FAQs, objection handling and one or two authority pieces that support real buying decisions.",
       },
     ],
     internalLinks: [
@@ -2296,11 +2296,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     title:
       "Estate Agent Automation in the UK: What to Build First and What to Leave Human",
     subtitle:
-      "A practical framework for small UK estate agencies using websites, AI receptionists, apps and automation to tighten enquiry handling, protect service quality and keep the right decisions with people.",
+      "A practical framework for small UK estate agencies using websites, AI receptionists, apps and automation to tighten inquiry handling, protect service quality and keep the right decisions with people.",
     summary: [
       "Most estate agencies lose leads through poor routing, delayed response and unclear ownership rather than lack of visibility.",
-      "The best first automations are valuation enquiries, missed-call recovery, viewing workflows and CRM handoffs.",
-      "Strong systems keep judgement-heavy work like valuations, negotiation and complaints firmly with humans.",
+      "The best first automations are valuation inquiries, missed-call recovery, viewing workflows and CRM handoffs.",
+      "Strong systems keep judgment-heavy work like valuations, negotiation and complaints firmly with humans.",
     ],
     categoryLabel: "Estate Agents",
     categoryKey: "estate-agents",
@@ -2313,7 +2313,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/estate-agent-automation-guide-hero.webp",
     heroImageAlt:
-      "Premium high-tech estate agency workflow showing website, calls and portal enquiries routing into a CRM and viewing diary with human oversight",
+      "Premium high-tech estate agency workflow showing website, calls and portal inquiries routing into a CRM and viewing diary with human oversight",
     metaTitle: "Estate Agent Automation in the UK | Silverstone AI",
     metaDescription:
       "Practical guidance for UK estate agents on what to automate first, what should stay human, and how websites, AI receptionists and CRM workflows fit together.",
@@ -2330,21 +2330,21 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The modern estate agency runs on speed, trust and timing. A valuation request missed at 6:12pm, a viewing lead left sitting overnight, a portal enquiry routed to the wrong negotiator — these are not small admin glitches. They are revenue leaks. Silverstone AI helps UK small businesses design tighter operating systems, where websites, calls, content and follow-up work together instead of colliding. For estate agents, that means a sharper front end, cleaner handoffs, better response discipline and automation that supports the team without pretending to replace local judgement, negotiation skill or human trust.",
+          "The modern estate agency runs on speed, trust and timing. A valuation request missed at 6:12pm, a viewing lead left sitting overnight, a portal inquiry routed to the wrong negotiator — these are not small admin glitches. They are revenue leaks. Silverstone AI helps UK small businesses design tighter operating systems, where websites, calls, content and follow-up work together instead of colliding. For estate agents, that means a sharper front end, cleaner handoffs, better response discipline and automation that supports the team without pretending to replace local judgment, negotiation skill or human trust.",
         ],
       },
       {
         heading: "Where small estate agencies lose momentum",
         body: [
-          "In a typical UK estate agency, enquiries arrive from several directions at once: Rightmove or other portals, the website, phone calls, email, social messages and walk-ins. The failure point is rarely *visibility alone*. It is what happens in the first few minutes after contact.",
-          "A valuation lead needs immediate acknowledgement, fast qualification and a clear owner. A tenant repair call needs triage and the right destination. A buyer asking for viewing slots should not disappear into a generic inbox. When these paths are improvised, staff fill the gaps manually and inconsistency becomes normal.",
-          "This is where automation earns its keep. Not by making the agency feel robotic, but by making response handling more deliberate. Strong systems create a single source of truth for enquiry ownership, diary actions, notes and next steps.",
+          "In a typical UK estate agency, inquiries arrive from several directions at once: Rightmove or other portals, the website, phone calls, email, social messages and walk-ins. The failure point is rarely *visibility alone*. It is what happens in the first few minutes after contact.",
+          "A valuation lead needs immediate acknowledgment, fast qualification and a clear owner. A tenant repair call needs triage and the right destination. A buyer asking for viewing slots should not disappear into a generic inbox. When these paths are improvised, staff fill the gaps manually and inconsistency becomes normal.",
+          "This is where automation earns its keep. Not by making the agency feel robotic, but by making response handling more deliberate. Strong systems create a single source of truth for inquiry ownership, diary actions, notes and next steps.",
           "For UK firms, this matters even more because customer expectations are now shaped by fast digital service across banking, retail and travel. People still want a human agent, but they no longer tolerate friction around simple admin.",
         ],
         lede: "Most agencies do not have a lead problem. They have a routing, response and ownership problem.",
         variant: "signal",
         pullQuote:
-          "The commercial win is not ‘more AI’. It is fewer dropped handoffs between enquiry, owner, action and follow-up.",
+          "The commercial win is not ‘more AI’. It is fewer dropped handoffs between inquiry, owner, action and follow-up.",
         bullets: [
           {
             label: "Common leakage points",
@@ -2372,25 +2372,25 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What to automate first in an estate agency",
         body: [
           "The best first phase is usually the front-of-house system: website journeys, call capture, lead routing, booking logic and follow-up tasks. These are high-frequency events with clear rules. They affect response speed without forcing AI into high-risk decisions.",
-          "A small agency does not need a sprawling transformation programme. It needs a few connected systems that remove avoidable admin and make the team harder to drop a ball. In practice, that often means rebuilding the public enquiry layer before attempting deeper back-office automation.",
+          "A small agency does not need a sprawling transformation program. It needs a few connected systems that remove avoidable admin and make the team harder to drop a ball. In practice, that often means rebuilding the public inquiry layer before attempting deeper back-office automation.",
           "Good automation design uses *bounded intelligence*. That means the system can classify, route, prompt, draft and schedule, but not invent policy, negotiate a sale or give property-specific advice without human review.",
         ],
         lede: "Start with repeatable operational moments, not the most fashionable technology.",
         variant: "system",
         bullets: [
           {
-            label: "Website enquiry flows",
+            label: "Website inquiry flows",
             body: "Separate valuation, viewing, landlord and tenant requests with cleaner forms and faster handoff",
             icon: "globe",
           },
           {
             label: "AI receptionist layer",
-            body: "Capture missed calls, answer routine questions and transfer priority enquiries to the right team",
+            body: "Capture missed calls, answer routine questions and transfer priority inquiries to the right team",
             icon: "headset",
           },
           {
             label: "CRM routing",
-            body: "Push each enquiry into the correct record, status and owner instead of relying on manual copying",
+            body: "Push each inquiry into the correct record, status and owner instead of relying on manual copying",
             icon: "database",
           },
           {
@@ -2403,7 +2403,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Build-first priority",
             title: "Valuation requests",
-            body: "High-value, time-sensitive and easy to structure. Strong candidate for instant acknowledgement, CRM creation and booked callback flow.",
+            body: "High-value, time-sensitive and easy to structure. Strong candidate for instant acknowledgment, CRM creation and booked callback flow.",
           },
           {
             label: "Build-first priority",
@@ -2417,27 +2417,27 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Use caution",
-            title: "Negotiation and valuation judgement",
-            body: "These should remain human-led. Systems can support context and prep, but not replace commercial judgement or local market nuance.",
+            title: "Negotiation and valuation judgment",
+            body: "These should remain human-led. Systems can support context and prep, but not replace commercial judgment or local market nuance.",
           },
         ],
       },
       {
         heading: "What should stay human",
         body: [
-          "Automation is strongest when the rules are stable. It is weaker where stakes, nuance and judgement rise. That boundary matters in estate agency, where trust can swing on wording, timing and local knowledge.",
+          "Automation is strongest when the rules are stable. It is weaker where stakes, nuance and judgment rise. That boundary matters in estate agency, where trust can swing on wording, timing and local knowledge.",
           "Property valuations, negotiation strategy, vendor reassurance, chain complexity, offer handling and sensitive complaints should stay with trained humans. Systems can *surface context* and reduce admin around those moments, but they should not be positioned as autonomous decision-makers.",
           "This is also commercially sensible. Small UK agencies compete on local expertise and service quality. If the tech starts flattening that advantage, the system has been designed badly.",
         ],
         lede: "Estate agency is still a relationship business. The smartest systems know where to stop.",
         variant: "operator",
         pullQuote:
-          "A useful rule: automate capture, routing and admin; keep judgement, negotiation and sensitive conversations with people.",
+          "A useful rule: automate capture, routing and admin; keep judgment, negotiation and sensitive conversations with people.",
         comparisonTable: {
           columns: ["Best owner", "Why it fits", "System role"],
           rows: [
             {
-              label: "Initial valuation enquiry",
+              label: "Initial valuation inquiry",
               cells: [
                 "Automation plus human follow-up",
                 "Structured intake is repeatable but advice must be tailored",
@@ -2456,15 +2456,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Offer negotiation",
               cells: [
                 "Human agent",
-                "Requires judgement, leverage awareness and relationship handling",
-                "Prepare notes, record actions, summarise communications",
+                "Requires judgment, leverage awareness and relationship handling",
+                "Prepare notes, record actions, summarize communications",
               ],
             },
             {
               label: "Tenant repair triage",
               cells: [
                 "Automation first, human escalation",
-                "Routine categorisation works if urgency boundaries are clear",
+                "Routine categorization works if urgency boundaries are clear",
                 "Classify issue, route urgency, log details, escalate exceptions",
               ],
             },
@@ -2483,9 +2483,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "The operating system view: website, calls, CRM and content",
         body: [
           "The agencies that get real value from automation stop thinking in terms of isolated features. They think in flows. A website is not just marketing. It is an input layer. A receptionist is not just call answering. It is routing logic. Content is not just branding. It is expectation-setting before a lead ever speaks to the branch.",
-          "That operating-system view is where Silverstone AI tends to be most useful. Instead of adding another disconnected tool, the job is to map how enquiries enter, where data should live, what happens automatically, what requires approval and how exceptions surface quickly.",
+          "That operating-system view is where Silverstone AI tends to be most useful. Instead of adding another disconnected tool, the job is to map how inquiries enter, where data should live, what happens automatically, what requires approval and how exceptions surface quickly.",
           "For estate agents, the most practical stack often combines a sharper website, cleaner service-page structure, a call-handling layer, CRM integration, diary logic and light content systems that keep pages, FAQs and follow-up messages aligned.",
-          "If your current site looks polished but still creates admin, it is worth reviewing the public journey properly. Our thinking on [conversion-focused website planning](/blog) is relevant here, especially for firms where page structure and enquiry handling have drifted apart.",
+          "If your current site looks polished but still creates admin, it is worth reviewing the public journey properly. Our thinking on [conversion-focused website planning](/blog) is relevant here, especially for firms where page structure and inquiry handling have drifted apart.",
         ],
         lede: "Treat the agency like a connected service system, not a pile of separate tools.",
         variant: "system",
@@ -2493,14 +2493,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "What a better flow looks like",
             body: [
-              "A landlord lands on the lettings page, chooses a valuation path, submits a structured form, receives a fast acknowledgement, gets routed to the correct branch or negotiator, and triggers a task with the right context already attached.",
+              "A landlord lands on the lettings page, chooses a valuation path, submits a structured form, receives a fast acknowledgment, gets routed to the correct branch or negotiator, and triggers a task with the right context already attached.",
               "A buyer calls after hours, an AI receptionist captures intent, answers a routine branch-hours question if appropriate, offers a call-back or records a viewing request, then pushes the details into the CRM for the morning team.",
             ],
           },
           {
             heading: "Why content matters operationally",
             body: [
-              "Clear content reduces bad-fit enquiries and repeated questions. If fees, service differences, branch coverage, lettings processes or valuation routes are vague online, the team ends up manually correcting what the website failed to explain.",
+              "Clear content reduces bad-fit inquiries and repeated questions. If fees, service differences, branch coverage, lettings processes or valuation routes are vague online, the team ends up manually correcting what the website failed to explain.",
             ],
           },
         ],
@@ -2546,7 +2546,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is the best first automation for a small estate agency?",
         answer:
-          "Usually a front-of-house workflow such as valuation enquiries, missed-call recovery or viewing-request routing. These are high-frequency, commercially important and easier to standardise safely.",
+          "Usually a front-of-house workflow such as valuation inquiries, missed-call recovery or viewing-request routing. These are high-frequency, commercially important and easier to standardize safely.",
       },
       {
         question:
@@ -2643,10 +2643,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/hospitality-automation-guide-hero.webp",
     heroImageAlt:
-      "Premium hospitality operations system showing reservation flow, guest enquiry routing, pre-arrival messaging and duty-manager escalation in a refined UK business setting",
+      "Premium hospitality operations system showing reservation flow, guest inquiry routing, pre-arrival messaging and duty-manager escalation in a refined UK business setting",
     metaTitle: "Hospitality Automation for UK Small Businesses",
     metaDescription:
-      "See where AI, websites and automation actually help UK hospitality businesses improve bookings, enquiry handling and guest communication.",
+      "See where AI, websites and automation actually help UK hospitality businesses improve bookings, inquiry handling and guest communication.",
     primaryKeyword: "hospitality automation for UK small businesses",
     secondaryKeywords: [
       "AI for hospitality UK",
@@ -2660,15 +2660,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "Hospitality runs on timing, detail and margin. One missed call, one broken handoff, one slow booking journey or one unclear pre-arrival message can quietly leak revenue all week. The smarter play is not more software for the sake of it. It is a tighter operating system: a website that converts, automation that removes admin, and AI that handles routine contact without touching the parts that still need judgement. Silverstone AI helps UK hospitality businesses build that system properly, so guest experience, team workload and commercial performance move in the same direction.",
+          "Hospitality runs on timing, detail and margin. One missed call, one broken handoff, one slow booking journey or one unclear pre-arrival message can quietly leak revenue all week. The smarter play is not more software for the sake of it. It is a tighter operating system: a website that converts, automation that removes admin, and AI that handles routine contact without touching the parts that still need judgment. Silverstone AI helps UK hospitality businesses build that system properly, so guest experience, team workload and commercial performance move in the same direction.",
         ],
       },
       {
         heading: "Where hospitality businesses lose money first",
         body: [
-          "For many UK hospitality businesses, the first leak is not demand. It is friction. Guests cannot quickly find the right information. Booking intent lands out of hours. Group enquiries arrive by email and sit too long. Staff answer the same questions repeatedly. Marketing drives attention, but the operational path from interest to confirmed booking is weak.",
+          "For many UK hospitality businesses, the first leak is not demand. It is friction. Guests cannot quickly find the right information. Booking intent lands out of hours. Group inquiries arrive by email and sit too long. Staff answer the same questions repeatedly. Marketing drives attention, but the operational path from interest to confirmed booking is weak.",
           "That creates a familiar pattern: a decent-looking website, several disconnected tools, and a front-of-house team compensating manually. The business still functions, but it relies on memory, inbox-chasing and constant interruption.",
-          "The commercial issue is simple. If your reservation flow, enquiry handling and pre-arrival communication are fragmented, growth adds pressure before it adds control. Hospitality automation works when it removes repeatable admin and protects service standards, not when it tries to replace human judgement.",
+          "The commercial issue is simple. If your reservation flow, inquiry handling and pre-arrival communication are fragmented, growth adds pressure before it adds control. Hospitality automation works when it removes repeatable admin and protects service standards, not when it tries to replace human judgment.",
         ],
         lede: "Most operational drag does not start in the kitchen, at the bar or on the floor. It starts in the handoffs around them.",
         variant: "signal",
@@ -2679,7 +2679,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             icon: "phone",
           },
           {
-            label: "Weak enquiry handoffs",
+            label: "Weak inquiry handoffs",
             body: "Group bookings, events and private hire requests sit between inboxes with no clear owner",
             icon: "route",
           },
@@ -2698,9 +2698,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to automate in hospitality, and what should stay human",
         body: [
-          "A practical hospitality setup starts by separating repeatable operational tasks from judgement-heavy service moments. That distinction matters in the UK because hospitality teams are balancing staffing pressure, customer expectations and data-handling responsibilities at the same time.",
+          "A practical hospitality setup starts by separating repeatable operational tasks from judgment-heavy service moments. That distinction matters in the UK because hospitality teams are balancing staffing pressure, customer expectations and data-handling responsibilities at the same time.",
           "Automate the parts that are rule-based, time-sensitive and repetitive. Keep humans in control where nuance, commercial flexibility, complaint handling, safety, accessibility or special guest requirements are involved.",
-          "This is where many small businesses overbuy software. They purchase broad platforms before defining the real workflow: where an enquiry starts, who owns it, what data is needed, which system holds the truth, and when a person must step in.",
+          "This is where many small businesses overbuy software. They purchase broad platforms before defining the real workflow: where an inquiry starts, who owns it, what data is needed, which system holds the truth, and when a person must step in.",
         ],
         lede: "The right boundary is everything. Good systems make service cleaner; bad systems create awkwardness.",
         variant: "system",
@@ -2724,9 +2724,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               ],
             },
             {
-              label: "Group enquiries",
+              label: "Group inquiries",
               cells: [
-                "Routing enquiry forms, collecting structured event details and assigning owners",
+                "Routing inquiry forms, collecting structured event details and assigning owners",
                 "Negotiating terms, availability trade-offs and bespoke packages",
               ],
             },
@@ -2744,11 +2744,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "The operating system approach: website, AI receptionist, automation and content",
         body: [
-          "A hospitality business usually needs four layers working together. First, a website that makes key actions obvious: book, enquire, call, find, decide. Second, an AI receptionist or message-handling layer for routine contact. Third, automation that routes information to the right place. Fourth, a content system that keeps guest-facing information accurate across pages, campaigns and channels.",
-          "If one layer is missing, the rest starts carrying unnecessary weight. For example, a receptionist tool cannot fix a confusing booking page. An elegant website cannot rescue a poor event-enquiry handoff. A content plan will not help if core operational answers are buried or inconsistent.",
+          "A hospitality business usually needs four layers working together. First, a website that makes key actions obvious: book, inquire, call, find, decide. Second, an AI receptionist or message-handling layer for routine contact. Third, automation that routes information to the right place. Fourth, a content system that keeps guest-facing information accurate across pages, campaigns and channels.",
+          "If one layer is missing, the rest starts carrying unnecessary weight. For example, a receptionist tool cannot fix a confusing booking page. An elegant website cannot rescue a poor event-inquiry handoff. A content plan will not help if core operational answers are buried or inconsistent.",
           "For restaurants, pubs, venues, boutique stays and local hospitality groups, the practical goal is not complexity. It is one joined-up path from first contact to confirmed action.",
         ],
-        lede: "The strongest hospitality setups are connected. They do not treat web, enquiries and operations as separate projects.",
+        lede: "The strongest hospitality setups are connected. They do not treat web, inquiries and operations as separate projects.",
         variant: "operator",
         bullets: [
           {
@@ -2763,14 +2763,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Visible ownership",
-            body: "Every enquiry type has a named destination and an exception route",
+            body: "Every inquiry type has a named destination and an exception route",
             icon: "owner",
           },
         ],
         grid: [
           {
             title: "Website layer",
-            body: "Clear booking journeys, mobile-first navigation, structured service pages, event and group enquiry paths, and conversion-aware page architecture.",
+            body: "Clear booking journeys, mobile-first navigation, structured service pages, event and group inquiry paths, and conversion-aware page architecture.",
           },
           {
             title: "AI receptionist layer",
@@ -2789,8 +2789,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "A small-business example",
             body: [
-              "Imagine a venue receiving table bookings, private dining requests and weekend calls at the same time. A stronger setup gives standard bookings a quick digital path, captures event details through a structured form, answers routine questions instantly, and routes high-value enquiries to the right person with context attached.",
-              "That does not remove hospitality. It protects it by reserving staff time for conversations that actually benefit from human judgement.",
+              "Imagine a venue receiving table bookings, private dining requests and weekend calls at the same time. A stronger setup gives standard bookings a quick digital path, captures event details through a structured form, answers routine questions instantly, and routes high-value inquiries to the right person with context attached.",
+              "That does not remove hospitality. It protects it by reserving staff time for conversations that actually benefit from human judgment.",
             ],
           },
         ],
@@ -2806,7 +2806,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Start with these priorities",
-            body: "Booking and enquiry journeys that reduce drop-off on mobile",
+            body: "Booking and inquiry journeys that reduce drop-off on mobile",
             icon: "target",
           },
           {
@@ -2829,8 +2829,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How Silverstone AI approaches hospitality projects",
         body: [
-          "Silverstone AI approaches hospitality as an operating problem first and a technology problem second. That means mapping the business journey end to end: traffic source, page experience, booking or enquiry action, routing logic, staff handoff, follow-up and reporting.",
-          "For some businesses, the right first move is a conversion-focused website rebuild. For others, it is an AI receptionist to catch routine contact and reduce interruptions. For others, it is workflow automation behind the scenes so enquiries stop disappearing between tools.",
+          "Silverstone AI approaches hospitality as an operating problem first and a technology problem second. That means mapping the business journey end to end: traffic source, page experience, booking or inquiry action, routing logic, staff handoff, follow-up and reporting.",
+          "For some businesses, the right first move is a conversion-focused website rebuild. For others, it is an AI receptionist to catch routine contact and reduce interruptions. For others, it is workflow automation behind the scenes so inquiries stop disappearing between tools.",
           "The key is sequencing. Small businesses do not need every system at once. They need the next layer that removes friction without creating fresh operational risk.",
         ],
         lede: "The practical advantage is not a flashy feature set. It is system design with commercial discipline.",
@@ -2856,7 +2856,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Step 4",
             title: "Refine with evidence",
-            body: "Review enquiries, drop-offs, exceptions and staff feedback before expanding the system.",
+            body: "Review inquiries, drop-offs, exceptions and staff feedback before expanding the system.",
           },
         ],
       },
@@ -2874,12 +2874,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "What is the best first AI use case for a small hospitality business?",
         answer:
-          "Usually one of three areas: improving the booking path on the website, handling routine guest questions out of hours, or routing enquiries more reliably behind the scenes. The best first step depends on where good demand is currently being lost.",
+          "Usually one of three areas: improving the booking path on the website, handling routine guest questions out of hours, or routing inquiries more reliably behind the scenes. The best first step depends on where good demand is currently being lost.",
       },
       {
         question: "Can an AI receptionist replace front-of-house staff?",
         answer:
-          "No. It should handle approved routine interactions, capture intent and reduce interruptions. Front-of-house staff still own nuanced service, complaints, special requests, commercial judgement and exception handling.",
+          "No. It should handle approved routine interactions, capture intent and reduce interruptions. Front-of-house staff still own nuanced service, complaints, special requests, commercial judgment and exception handling.",
       },
       {
         question: "Does hospitality automation only suit larger groups?",
@@ -2979,7 +2979,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/salon-barber-ai-guide-hero.webp",
     heroImageAlt:
-      "Premium futuristic salon operations dashboard concept showing booking flow, enquiry routing, waitlist logic and human oversight in a UK small business setting",
+      "Premium futuristic salon operations dashboard concept showing booking flow, inquiry routing, waitlist logic and human oversight in a UK small business setting",
     metaTitle: "AI for UK Salons and Barbers | Silverstone AI",
     metaDescription:
       "Practical advice for UK salons and barber shops on websites, booking systems, AI reception and automation without losing the human touch.",
@@ -3002,11 +3002,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where AI actually fits in a salon or barber business",
         body: [
-          "For salons and barbers in the UK, the best use of AI is usually narrow and practical. It can answer common pre-booking questions, route enquiries, handle simple follow-up, support rebooking journeys and help staff spend less time repeating admin. It should not pretend to replace judgement on suitability, colour correction, treatment safety or any service decision that depends on professional expertise.",
+          "For salons and barbers in the UK, the best use of AI is usually narrow and practical. It can answer common pre-booking questions, route inquiries, handle simple follow-up, support rebooking journeys and help staff spend less time repeating admin. It should not pretend to replace judgment on suitability, color correction, treatment safety or any service decision that depends on professional expertise.",
           "That distinction matters. A good system separates **what can be automated**, **what should be assisted**, and **what must remain practitioner-owned**. In a salon, that often means automating routine communication while keeping consultations, exceptions and nuanced client advice firmly with people.",
-          "This is especially relevant in the UK, where many small salons and barber shops operate with lean teams, high diary pressure and a mix of phone, Instagram, walk-ins and website enquiries. If those channels do not feed one clean workflow, the business ends up paying in lost time and missed conversion.",
+          "This is especially relevant in the UK, where many small salons and barber shops operate with lean teams, high diary pressure and a mix of phone, Instagram, walk-ins and website inquiries. If those channels do not feed one clean workflow, the business ends up paying in lost time and missed conversion.",
         ],
-        lede: "Most owners do not need an ‘AI strategy’. They need fewer gaps between enquiry, booking, attendance and repeat business.",
+        lede: "Most owners do not need an ‘AI strategy’. They need fewer gaps between inquiry, booking, attendance and repeat business.",
         variant: "signal",
         pullQuote:
           "The right salon system does not remove the human touch. It removes the friction around it.",
@@ -3031,8 +3031,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The digital stack that usually makes the biggest difference first",
         body: [
-          "The highest-value work is usually boring in the best way: a faster website, a cleaner booking path, better enquiry handling and automated follow-up that actually reflects how the business runs. Many salons do not need a huge bespoke platform on day one. They need the core path from interest to attendance to work properly on mobile, because that is where a large share of discovery and booking intent sits.",
-          "A strong salon system usually has five layers: the public website, the booking or diary layer, enquiry capture, follow-up automation and reporting or visibility. If any one of those is weak, the owner ends up acting as the integration layer manually.",
+          "The highest-value work is usually boring in the best way: a faster website, a cleaner booking path, better inquiry handling and automated follow-up that actually reflects how the business runs. Many salons do not need a huge bespoke platform on day one. They need the core path from interest to attendance to work properly on mobile, because that is where a large share of discovery and booking intent sits.",
+          "A strong salon system usually has five layers: the public website, the booking or diary layer, inquiry capture, follow-up automation and reporting or visibility. If any one of those is weak, the owner ends up acting as the integration layer manually.",
           "That is why the build order matters. A premium site with poor booking logic still loses business. A smart AI receptionist with no clear handoff rules can create confusion. A polished app is wasted if the basic rebooking and cancellation workflow still depends on memory.",
         ],
         lede: "Start with the customer path, not the technology stack.",
@@ -3040,7 +3040,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Build first",
-            body: "Website clarity, booking friction removal, enquiry capture and staff-owned handoff rules.",
+            body: "Website clarity, booking friction removal, inquiry capture and staff-owned handoff rules.",
             icon: "1",
           },
           {
@@ -3065,7 +3065,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Reception layer",
-            body: "Phone, web and message enquiries routed to the right answers, forms or human handoff.",
+            body: "Phone, web and message inquiries routed to the right answers, forms or human handoff.",
           },
           {
             title: "Automation layer",
@@ -3080,7 +3080,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What a well-designed salon automation system should do",
         body: [
-          "A salon automation system should not be a pile of disconnected tools. It should behave like an operating model. Someone enquires. The system identifies the service category. It provides the right next step. If the question is routine, it handles it. If the request is unclear, sensitive or outside policy, it hands off cleanly.",
+          "A salon automation system should not be a pile of disconnected tools. It should behave like an operating model. Someone inquires. The system identifies the service category. It provides the right next step. If the question is routine, it handles it. If the request is unclear, sensitive or outside policy, it hands off cleanly.",
           "That operating-system thinking is where many UK small businesses gain real value. The aim is not maximum automation. The aim is **controlled automation** with visible boundaries and simple ownership. That keeps the business efficient without making the customer experience feel robotic.",
           "Typical workflows include missed-call follow-up, abandoned booking follow-up, deposit reminders, cancellation-slot alerts, and post-appointment prompts for rebooking or reviews. Each one needs careful wording, timing and opt-out handling. The details matter because salon customers are close to the brand. If messaging feels spammy or generic, it damages trust quickly.",
         ],
@@ -3092,7 +3092,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "AI receptionist",
               cells: [
-                "Routine phone and web enquiries",
+                "Routine phone and web inquiries",
                 "Catches demand outside busy front-desk moments",
                 "Transfers edge cases, complaints and suitability questions",
               ],
@@ -3128,7 +3128,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Common mistakes UK salons make when buying digital systems",
         body: [
           "The first mistake is buying tools in isolation. One system handles bookings, another captures leads, another sends messages and none of them share a clean source of truth. The result is duplication, manual patching and inconsistent customer communication.",
-          "The second mistake is over-automating the wrong moments. Not every customer wants an AI-led path. Hair and beauty services often include uncertainty, personal preference and trust-led buying behaviour. That means the automation has to know when to step back and route to a person.",
+          "The second mistake is over-automating the wrong moments. Not every customer wants an AI-led path. Hair and beauty services often include uncertainty, personal preference and trust-led buying behavior. That means the automation has to know when to step back and route to a person.",
           "The third mistake is launching without operational rules. Who owns missed-call follow-up? What happens when the AI cannot answer? Which services require a manual suitability check? What happens to a cancellation request received after hours? Without these decisions, technology simply exposes operational ambiguity.",
         ],
         lede: "Most expensive mistakes happen before build starts.",
@@ -3166,9 +3166,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to build first if you run a small salon or barber shop",
         body: [
-          "If you are comparing what to prioritise, our approach on [how we work](/how-we-work) is simple: start from the workflow, the commercial friction and the handoff points, then choose the smallest build that improves the system materially.",
+          "If you are comparing what to prioritize, our approach on [how we work](/how-we-work) is simple: start from the workflow, the commercial friction and the handoff points, then choose the smallest build that improves the system materially.",
           "For owners deciding whether they need a site rebuild, app logic, AI reception or broader automation, the relevant view is not ‘what is possible?’ but ‘what breaks most often, and what is that costing in time, bookings or consistency?’. That is where practical consulting beats trend-chasing.",
-          "Salons and barbers also benefit from stronger content systems than they often realise. Service explanations, aftercare FAQs, policy pages and campaign content can all support conversion when structured properly. More on that sits across our [services](/services) and broader [industry](/industry) work.",
+          "Salons and barbers also benefit from stronger content systems than they often realize. Service explanations, aftercare FAQs, policy pages and campaign content can all support conversion when structured properly. More on that sits across our [services](/services) and broader [industry](/industry) work.",
         ],
         lede: "You do not need a massive transformation. You need the next right system.",
         variant: "system",
@@ -3180,7 +3180,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Phase 2",
-            body: "Add enquiry capture, missed-call recovery and sensible AI reception.",
+            body: "Add inquiry capture, missed-call recovery and sensible AI reception.",
             icon: "→",
           },
           {
@@ -3200,12 +3200,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can AI replace a salon receptionist completely?",
         answer:
-          "Usually, no. It can handle routine questions, missed-call capture and basic routing well, but salons still need human ownership for exceptions, sensitive conversations, complaints, pricing judgement and service suitability.",
+          "Usually, no. It can handle routine questions, missed-call capture and basic routing well, but salons still need human ownership for exceptions, sensitive conversations, complaints, pricing judgment and service suitability.",
       },
       {
         question: "What should a salon upgrade first: website, app or automation?",
         answer:
-          "In most cases, the website and booking journey should come first. If mobile booking, service clarity and enquiry routing are weak, an app or advanced automation will sit on top of a poor foundation.",
+          "In most cases, the website and booking journey should come first. If mobile booking, service clarity and inquiry routing are weak, an app or advanced automation will sit on top of a poor foundation.",
       },
       {
         question:
@@ -3286,11 +3286,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     slug: "trades-websites-ai-automation",
     title: "Websites, AI Receptionists and Automation for UK Trades Businesses",
     subtitle:
-      "A practical operating system for plumbers, electricians, builders, heating engineers and home service firms that want fewer missed leads, tighter admin and better handoff from enquiry to booked job.",
+      "A practical operating system for plumbers, electricians, builders, heating engineers and home service firms that want fewer missed leads, tighter admin and better handoff from inquiry to booked job.",
     summary: [
       "Most trades firms lose work through weak response systems, not lack of demand.",
       "The best AI use cases are bounded tasks like first response, routing and admin handoff.",
-      "A stronger website and controlled automation stack can improve lead quality without handing away human judgement.",
+      "A stronger website and controlled automation stack can improve lead quality without handing away human judgment.",
     ],
     categoryLabel: "Trades & Home Services",
     categoryKey: "trades-home-services",
@@ -3303,7 +3303,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/trades-websites-ai-automation-hero.webp",
     heroImageAlt:
-      "Premium digital operations system for a UK trades business showing website enquiries, call routing and workflow automation with human oversight.",
+      "Premium digital operations system for a UK trades business showing website inquiries, call routing and workflow automation with human oversight.",
     metaTitle: "Automation for UK Trades Businesses | Silverstone AI",
     metaDescription:
       "How UK trades and home service firms can use websites, AI receptionists and automation to reduce missed leads and tighten admin without losing control.",
@@ -3320,7 +3320,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          'The firms winning work across the UK are not always the loudest. They are the easiest to reach, the fastest to respond and the clearest to deal with. For trades businesses, that usually comes down to systems: a website that converts, call handling that does not crack under pressure, and automation that keeps jobs moving without adding admin. Silverstone AI helps small businesses build that layer properly. Not as vague "AI transformation", but as a controlled commercial stack that captures enquiries, qualifies demand, routes work and keeps a human in charge where it matters.',
+          'The firms winning work across the UK are not always the loudest. They are the easiest to reach, the fastest to respond and the clearest to deal with. For trades businesses, that usually comes down to systems: a website that converts, call handling that does not crack under pressure, and automation that keeps jobs moving without adding admin. Silverstone AI helps small businesses build that layer properly. Not as vague "AI transformation", but as a controlled commercial stack that captures inquiries, qualifies demand, routes work and keeps a human in charge where it matters.',
         ],
       },
       {
@@ -3328,7 +3328,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Most trades businesses do not have a lead problem. They have a systems problem.",
         body: [
           "For many UK trades and home service businesses, growth is limited less by demand and more by what happens *after* someone makes contact. A prospect calls at 5:40pm. Nobody answers. They try another firm. A website form arrives with thin detail. No one follows up until the next day. A repeat customer wants to rebook, but the message sits in a personal inbox. None of this looks dramatic, but it quietly strips margin from the business.",
-          "That is why websites, AI receptionists and automation systems matter together. A good website captures structured demand. A receptionist layer handles routine contact without pretending to replace skilled judgement. Automation moves the right information into calendars, CRMs, inboxes or job management tools so the team can act quickly.",
+          "That is why websites, AI receptionists and automation systems matter together. A good website captures structured demand. A receptionist layer handles routine contact without pretending to replace skilled judgment. Automation moves the right information into calendars, CRMs, inboxes or job management tools so the team can act quickly.",
           "The important point is control. A trades business does not need a chatbot bolted onto a weak process. It needs an operating system that decides what gets answered instantly, what gets booked, what gets flagged, and what always stays with a person.",
         ],
         lede: "If the phone rings while someone is on-site, pricing a job or driving between calls, opportunity leaks fast.",
@@ -3339,16 +3339,16 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to build first: the core digital stack for trades firms",
         body: [
-          "The strongest setup is usually layered. First, make the front door work. Then make response and routing reliable. Then automate the repeatable admin around it. This is especially relevant in the UK, where many small trades businesses rely on mobile traffic, local trust signals, evening enquiries and fast callbacks rather than long sales cycles.",
-          "A practical first stack often includes a conversion-led website, a structured enquiry flow, AI-assisted call or message handling, and automation into the systems the business already uses. That may be a booking calendar, shared inbox, CRM, spreadsheet, or field-service workflow.",
-          "Silverstone AI typically approaches this as a system design problem: where does the enquiry arrive, what minimum information is required, what is safe to automate, and where does a human need to approve, quote or intervene?",
+          "The strongest setup is usually layered. First, make the front door work. Then make response and routing reliable. Then automate the repeatable admin around it. This is especially relevant in the UK, where many small trades businesses rely on mobile traffic, local trust signals, evening inquiries and fast callbacks rather than long sales cycles.",
+          "A practical first stack often includes a conversion-led website, a structured inquiry flow, AI-assisted call or message handling, and automation into the systems the business already uses. That may be a booking calendar, shared inbox, CRM, spreadsheet, or field-service workflow.",
+          "Silverstone AI typically approaches this as a system design problem: where does the inquiry arrive, what minimum information is required, what is safe to automate, and where does a human need to approve, quote or intervene?",
         ],
         lede: "Start with the commercial path, not the shiny tool.",
         variant: "system",
         bullets: [
           {
             label: "Website",
-            body: "Turn service pages into enquiry capture points with clear geography, job types, urgency paths and trust-building structure.",
+            body: "Turn service pages into inquiry capture points with clear geography, job types, urgency paths and trust-building structure.",
             icon: "browser",
           },
           {
@@ -3388,8 +3388,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where AI actually works in trades and home services",
         body: [
-          "For trades firms, AI is strongest when the task is frequent, bounded and operationally boring. Think missed-call recovery, first-response handling, lead qualification, appointment reminders, basic FAQ handling, and content production from approved source material. These are process-heavy tasks that steal owner time but do not require deep technical judgement.",
-          "It is weaker when the job depends on site-specific diagnosis, legal interpretation, live safety judgement, final pricing, or negotiation around unusual scope. Those moments need human ownership. A strong implementation does not blur that boundary; it makes it explicit.",
+          "For trades firms, AI is strongest when the task is frequent, bounded and operationally boring. Think missed-call recovery, first-response handling, lead qualification, appointment reminders, basic FAQ handling, and content production from approved source material. These are process-heavy tasks that steal owner time but do not require deep technical judgment.",
+          "It is weaker when the job depends on site-specific diagnosis, legal interpretation, live safety judgment, final pricing, or negotiation around unusual scope. Those moments need human ownership. A strong implementation does not blur that boundary; it makes it explicit.",
           "This is one reason many UK small businesses get more value from a focused receptionist-and-workflow setup than from broad 'AI adoption' projects. The priority is not novelty. It is dependable throughput.",
         ],
         lede: "Not every process should be automated. The wins are usually concentrated in a few repeatable moments.",
@@ -3400,7 +3400,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "First response",
               cells: [
-                "Acknowledge enquiry, gather postcode, trade needed and preferred callback window",
+                "Acknowledge inquiry, gather postcode, trade needed and preferred callback window",
                 "Handle unusual circumstances or a frustrated customer with context",
               ],
             },
@@ -3432,20 +3432,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "A smarter website for trades firms is not brochureware",
         body: [
           "Many small firms still treat the website as static marketing. That leaves a lot of value on the table. A stronger setup gives visitors a guided path based on job type, urgency, location and intent. Someone with an urgent boiler issue should not face the same path as someone comparing kitchen renovation firms for a job three months away.",
-          "The goal is not complexity. It is useful structure. Better page architecture reduces vague enquiries, improves callback quality and helps the team prioritise. It also creates cleaner data for automation: service required, address area, urgency, preferred time, photo upload, and whether the customer wants repair, install or quote.",
+          "The goal is not complexity. It is useful structure. Better page architecture reduces vague inquiries, improves callback quality and helps the team prioritize. It also creates cleaner data for automation: service required, address area, urgency, preferred time, photo upload, and whether the customer wants repair, install or quote.",
           "If the current site looks acceptable but produces messy leads, it is underperforming commercially. This is where a joined-up build matters. A site linked into [services](/services), [how we work](/how-we-work) and practical follow-up systems is far more valuable than a pretty homepage with no operational logic.",
         ],
         lede: "The website should behave like a disciplined dispatcher, not a digital leaflet.",
         variant: "system",
         bullets: [
           {
-            label: "Better enquiry quality",
+            label: "Better inquiry quality",
             body: "Ask for the information the office actually needs before a callback or quote.",
             icon: "list",
           },
           {
             label: "Lower response lag",
-            body: "Trigger notifications, routing and acknowledgement immediately instead of waiting for manual triage.",
+            body: "Trigger notifications, routing and acknowledgment immediately instead of waiting for manual triage.",
             icon: "flash",
           },
           {
@@ -3467,7 +3467,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How to choose the right automation scope without creating chaos",
         body: [
-          "The safest way to implement automation is to begin with a narrow operational loop. Pick one workflow with clear inputs, known decision points and obvious business value. Missed calls to callback queue. Web enquiries to qualification form. Quote requests to triage board. New jobs to reminder sequence. Keep it tight.",
+          "The safest way to implement automation is to begin with a narrow operational loop. Pick one workflow with clear inputs, known decision points and obvious business value. Missed calls to callback queue. Web inquiries to qualification form. Quote requests to triage board. New jobs to reminder sequence. Keep it tight.",
           "Then define the boundaries. What fields are mandatory? Which answers trigger a transfer? What happens outside working hours? Who owns exceptions? What should the system never say or do? This is the difference between a commercially useful system and an annoying layer that creates more work than it saves.",
           "A disciplined studio will also think about channel mix. In UK trades, the phone still matters. So do WhatsApp-style expectations, email confirmations and mobile-first browsing. That means the workflow design has to respect how real customers actually contact the business, not how software vendors wish they did.",
         ],
@@ -3497,11 +3497,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What a sensible next step looks like for a UK trades business",
         body: [
-          "A practical review starts with a few blunt questions. Where do leads come from now? How many arrive by phone versus web? What happens when no one answers? How quickly does the team follow up? Which enquiries are worth automating, and which must stay personal? Once those answers are clear, the right build becomes much easier to define.",
+          "A practical review starts with a few blunt questions. Where do leads come from now? How many arrive by phone versus web? What happens when no one answers? How quickly does the team follow up? Which inquiries are worth automating, and which must stay personal? Once those answers are clear, the right build becomes much easier to define.",
           "For some firms, the next move is a better website structure. For others, it is an AI receptionist layer that catches demand when the team is on the tools. For others, it is the automation underneath: routing, reminders, content workflows, lead logging or better reporting. The sequence matters because every business has a different operational bottleneck.",
           "If you want to map that stack properly, start with a working conversation rather than abstract trend talk. Review the workflows, the tools already in place and the points where work is currently lost. From there, [book a strategy call](/book#booking-calendar), explore [how we work](/how-we-work), or use the [contact page](/contact) if you already know the operational problem you want to fix.",
         ],
-        lede: "Do not begin with a shopping list of tools. Begin with the commercial path from enquiry to booked work.",
+        lede: "Do not begin with a shopping list of tools. Begin with the commercial path from inquiry to booked work.",
         variant: "signal",
       },
     ],
@@ -3515,7 +3515,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "Can AI quote jobs automatically for plumbers, electricians or builders?",
         answer:
-          "It can help collect the information needed for quoting and route standard requests, but final pricing, diagnosis and scope judgement should normally stay with a human. That is especially important where the job is site-specific or safety-critical.",
+          "It can help collect the information needed for quoting and route standard requests, but final pricing, diagnosis and scope judgment should normally stay with a human. That is especially important where the job is site-specific or safety-critical.",
       },
       {
         question: "Do UK trades customers actually want to deal with AI?",
@@ -3525,7 +3525,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Should a trades firm upgrade the website or add automation first?",
         answer:
-          "It depends on the bottleneck. If lead quality is poor, fix the website and enquiry structure first. If demand is being lost because nobody responds quickly, prioritise receptionist and workflow automation. In many cases, the best result comes from designing both together.",
+          "It depends on the bottleneck. If lead quality is poor, fix the website and inquiry structure first. If demand is being lost because nobody responds quickly, prioritize receptionist and workflow automation. In many cases, the best result comes from designing both together.",
       },
     ],
     internalLinks: [
@@ -3606,7 +3606,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     subtitle:
       "A practical framework for choosing the right mix of website, app, automation, AI support and operational control.",
     summary: [
-      "Most eCommerce problems sit in the joins between storefront, fulfilment, service and internal admin.",
+      "Most eCommerce problems sit in the joins between storefront, fulfillment, service and internal admin.",
       "The right first build is the workflow that removes the most repeated friction, not the most fashionable tool.",
       "Strong AI use in eCommerce is bounded, observable and designed around human ownership of exceptions.",
     ],
@@ -3638,7 +3638,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "Modern eCommerce does not break because of one bad tool. It breaks at the joins: the catalogue that drifts from stock reality, the helpdesk chasing shipping updates by hand, the checkout that converts traffic but hands operations a mess. For UK small businesses, the opportunity is not to bolt on fashionable AI. It is to design a sharper operating system around orders, content, service and exceptions. That is where Silverstone AI fits: building commercially disciplined websites, apps, AI agents and automation systems that make the front end sell better and the back end behave properly under pressure.",
+          "Modern eCommerce does not break because of one bad tool. It breaks at the joins: the catalog that drifts from stock reality, the helpdesk chasing shipping updates by hand, the checkout that converts traffic but hands operations a mess. For UK small businesses, the opportunity is not to bolt on fashionable AI. It is to design a sharper operating system around orders, content, service and exceptions. That is where Silverstone AI fits: building commercially disciplined websites, apps, AI agents and automation systems that make the front end sell better and the back end behave properly under pressure.",
         ],
       },
       {
@@ -3654,7 +3654,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Good eCommerce systems do not just win the click. They keep the business stable after the order lands.",
         bullets: [
           {
-            label: "Catalogue drift",
+            label: "Catalog drift",
             body: "Product data, stock logic and merchandising rules fall out of sync across storefront, warehouse and campaigns.",
             icon: "layers",
           },
@@ -3695,11 +3695,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "AI layer",
-            body: "Supports bounded judgement such as classification, summarisation, draft responses and guided service interactions.",
+            body: "Supports bounded judgment such as classification, summarization, draft responses and guided service interactions.",
           },
           {
             title: "Human layer",
-            body: "Owns commercial judgement, refunds, policy exceptions, stock decisions, supplier issues and sensitive customer cases.",
+            body: "Owns commercial judgment, refunds, policy exceptions, stock decisions, supplier issues and sensitive customer cases.",
           },
         ],
         comparisonTable: {
@@ -3710,7 +3710,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               cells: [
                 "Rework the website first",
                 "Poor conversion, weak structure, slow editing, unclear product journeys",
-                "Improves buying flow, content control and handoff into CRM or fulfilment",
+                "Improves buying flow, content control and handoff into CRM or fulfillment",
               ],
             },
             {
@@ -3718,7 +3718,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               cells: [
                 "Automate core workflows first",
                 "Order volume is manageable but admin load is high",
-                "Cuts repetitive tasks around support, fulfilment updates and internal routing",
+                "Cuts repetitive tasks around support, fulfillment updates and internal routing",
               ],
             },
             {
@@ -3726,7 +3726,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               cells: [
                 "Add bounded AI support first",
                 "Teams face heavy inbound questions with clear policy patterns",
-                "Speeds triage, drafts answers and routes exceptions without pretending to replace judgement",
+                "Speeds triage, drafts answers and routes exceptions without pretending to replace judgment",
               ],
             },
             {
@@ -3743,16 +3743,16 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where AI helps eCommerce brands — and where it should stop",
         body: [
-          "The strongest use of AI in a small eCommerce business is usually narrow and operational. Think triaging customer enquiries, summarising order issues, drafting policy-aligned replies, enriching product information from approved source material, or helping staff review patterns in support tickets and returns reasons.",
+          "The strongest use of AI in a small eCommerce business is usually narrow and operational. Think triaging customer inquiries, summarizing order issues, drafting policy-aligned replies, enriching product information from approved source material, or helping staff review patterns in support tickets and returns reasons.",
           "What AI should not do is run unsupervised across refunds, complaints, legal commitments or edge-case policy decisions. For a UK brand, consumer expectations and business accountability still sit with the business owner or team. AI can assist the process. It should not become a false authority.",
-          "A sensible design uses *human-in-the-loop* control. That means the system can classify, draft or route, but a person approves where the commercial or customer risk is real. This keeps speed where speed helps and judgement where judgement matters.",
+          "A sensible design uses *human-in-the-loop* control. That means the system can classify, draft or route, but a person approves where the commercial or customer risk is real. This keeps speed where speed helps and judgment where judgment matters.",
         ],
         lede: "Useful AI in eCommerce is constrained, observable and tied to a real workflow.",
         variant: "operator",
         bullets: [
           {
             label: "Good fit",
-            body: "Order-status triage, helpdesk summaries, returns categorisation, product-content assistance and internal reporting prompts.",
+            body: "Order-status triage, helpdesk summaries, returns categorization, product-content assistance and internal reporting prompts.",
             icon: "check-circle",
           },
           {
@@ -3833,7 +3833,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Look for commercial fluency",
-            body: "They should understand margin, fulfilment pressure, support load and operational handoffs, not just interfaces.",
+            body: "They should understand margin, fulfillment pressure, support load and operational handoffs, not just interfaces.",
             icon: "briefcase",
           },
         ],
@@ -3842,12 +3842,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "A practical next step: audit the joins before buying more tools",
         body: [
           "Before investing in another platform, map one real customer journey from first visit to post-purchase support. Then mark every place where a human has to retype, chase, check or decide because the system does not carry enough context. That is where the next project should begin.",
-          "For many eCommerce brands, the answer is a tighter website and content structure. For others, it is automation around support and fulfilment states. For some, it is a custom internal tool that gives operations a cleaner view of exceptions. The right move depends on where friction compounds.",
+          "For many eCommerce brands, the answer is a tighter website and content structure. For others, it is automation around support and fulfillment states. For some, it is a custom internal tool that gives operations a cleaner view of exceptions. The right move depends on where friction compounds.",
           "If you are working out whether to rebuild, automate or add AI support, the most useful conversation is usually not about features. It is about system shape, operational risk and first-release discipline. You can explore that through [industry](/industry), review current thinking on the [blog](/blog), or speak directly with the team via [book a call](/book#booking-calendar).",
         ],
         lede: "Most gains come from fixing handoffs, not expanding software sprawl.",
         variant: "signal",
-        pullQuote: "Buy less technology theatre. Build more operational clarity.",
+        pullQuote: "Buy less technology theater. Build more operational clarity.",
       },
     ],
     faqs: [
@@ -3870,7 +3870,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "How do UK eCommerce businesses avoid overcomplicating AI projects?",
         answer:
-          "Keep the first release narrow. Define the source of truth, the trigger events, the approval points and the exception routes. Use AI only where it adds speed or structure to a real workflow, and keep commercial judgement with the business.",
+          "Keep the first release narrow. Define the source of truth, the trigger events, the approval points and the exception routes. Use AI only where it adds speed or structure to a real workflow, and keep commercial judgment with the business.",
       },
     ],
     internalLinks: [
@@ -3953,7 +3953,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     title:
       "How UK Physio and Chiropractic Practices Can Use AI Without Losing the Human Touch",
     subtitle:
-      "A diagnostic teardown of where AI can help UK clinics reduce admin friction while keeping clinical judgement, escalation and patient trust firmly with humans.",
+      "A diagnostic teardown of where AI can help UK clinics reduce admin friction while keeping clinical judgment, escalation and patient trust firmly with humans.",
     summary: [
       "AI is most useful in physio and chiropractic clinics when it removes access friction before treatment begins.",
       "The right model keeps booking, reminders and admin flows inside strict non-clinical boundaries with named human ownership.",
@@ -3986,20 +3986,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "The first warning sign usually is not inside treatment. It shows up before anyone reaches the diary. Calls land during sessions and go unanswered. Website enquiries arrive without enough detail to book cleanly. A patient asks whether a practitioner handles a certain issue, and the question sits in an inbox because nobody wants admin staff drifting into clinical territory.\n\nThat is where AI for physio and chiropractic practices can help — if the boundary is clear. For most UK clinics, the opportunity is not to automate care. It is to remove avoidable access friction, tidy repetitive admin and make handovers cleaner. Silverstone AI approaches this as a controlled operations problem: define the source of truth, assign a human owner, set the escalation path and make the stop condition explicit whenever a conversation moves towards anything clinical.",
+          "The first warning sign usually is not inside treatment. It shows up before anyone reaches the diary. Calls land during sessions and go unanswered. Website inquiries arrive without enough detail to book cleanly. A patient asks whether a practitioner handles a certain issue, and the question sits in an inbox because nobody wants admin staff drifting into clinical territory.\n\nThat is where AI for physio and chiropractic practices can help — if the boundary is clear. For most UK clinics, the opportunity is not to automate care. It is to remove avoidable access friction, tidy repetitive admin and make handovers cleaner. Silverstone AI approaches this as a controlled operations problem: define the source of truth, assign a human owner, set the escalation path and make the stop condition explicit whenever a conversation moves toward anything clinical.",
         ],
       },
       {
         heading: "Why access friction appears before any clinical interaction",
         body: [
-          "Private physio and chiropractic practices across the UK often lose momentum at the front door. A caller wants to know whether the clinic has appointments this week. A returning patient wants to rebook with the same practitioner at a different site. A new enquiry comes in late in the evening, then books elsewhere by morning because nobody replied.",
-          "None of that requires clinical judgement. But it does require reliable operational handling. When reception is shared across sites, part-time staff or a mix of phones, web forms and WhatsApp-style messages, delays become normal. Owners then assume they need more admin hours when the real problem is inconsistent routing.",
+          "Private physio and chiropractic practices across the UK often lose momentum at the front door. A caller wants to know whether the clinic has appointments this week. A returning patient wants to rebook with the same practitioner at a different site. A new inquiry comes in late in the evening, then books elsewhere by morning because nobody replied.",
+          "None of that requires clinical judgment. But it does require reliable operational handling. When reception is shared across sites, part-time staff or a mix of phones, web forms and WhatsApp-style messages, delays become normal. Owners then assume they need more admin hours when the real problem is inconsistent routing.",
           "A good teardown starts with three questions:",
-          "Where does an enquiry enter: phone, website, form, social message or email?",
+          "Where does an inquiry enter: phone, website, form, social message or email?",
           "Which system holds diary authority for each practitioner and location?",
           "At what point must the interaction stop and transfer to a human because the question touches care, suitability or records?",
           "If you cannot answer those three points clearly, adding AI on top will only speed up confusion. If you can, automation becomes useful. It can acknowledge, collect structured non-clinical details, route the request and keep the diary aligned with the actual booking source.",
-          "For clinics comparing options, the core commercial decision is not whether AI sounds modern. It is whether your current access process is dependable enough to protect enquiry value without pushing patients into a cold, scripted experience.",
+          "For clinics comparing options, the core commercial decision is not whether AI sounds modern. It is whether your current access process is dependable enough to protect inquiry value without pushing patients into a cold, scripted experience.",
         ],
         lede: "Most clinics do not have a demand problem first. They have an access-routing problem.",
         variant: "signal",
@@ -4026,9 +4026,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What an AI receptionist should do when symptom questions appear",
         body: [
           "This is where many clinic owners rightly become cautious. A caller rarely sticks to pure admin. They may ask whether the clinic treats a certain problem, whether they should book with physio or chiropractic, or whether a symptom means they need urgent attention. That is precisely why boundaries matter.",
-          "In a UK physio or chiropractic setting, an AI receptionist should stay strictly non-clinical. It can explain opening hours, locations, parking, practitioner availability, appointment types as the clinic defines them, pricing where approved, forms, cancellations and rebooking rules. It can gather contact details, preferred site, preferred time and whether the enquiry is new or existing.",
-          "It should not interpret symptoms, assess urgency, suggest treatment, judge suitability or answer history-based questions. Instead, it should recognise that the conversation has crossed a boundary and move to the clinic's chosen handoff.",
-          "A practical handoff might be: “I can help with booking and clinic information, but a team member needs to review that question. I can take your details and ask the clinic to contact you.” That keeps the patient moving without pretending that admin software can replace practitioner judgement.",
+          "In a UK physio or chiropractic setting, an AI receptionist should stay strictly non-clinical. It can explain opening hours, locations, parking, practitioner availability, appointment types as the clinic defines them, pricing where approved, forms, cancellations and rebooking rules. It can gather contact details, preferred site, preferred time and whether the inquiry is new or existing.",
+          "It should not interpret symptoms, assess urgency, suggest treatment, judge suitability or answer history-based questions. Instead, it should recognize that the conversation has crossed a boundary and move to the clinic's chosen handoff.",
+          "A practical handoff might be: “I can help with booking and clinic information, but a team member needs to review that question. I can take your details and ask the clinic to contact you.” That keeps the patient moving without pretending that admin software can replace practitioner judgment.",
           "If you are evaluating reception workflows, our page on [AI receptionists](/services/ai-receptionists) shows the wider operating model. In this sector, the key adaptation is explicit clinical stop rules.",
           "The best setup usually includes approved intents rather than free-form improvisation. In plain terms, that means the system is allowed to complete a defined set of tasks and no more.",
         ],
@@ -4048,7 +4048,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "New patient wants to book",
               cells: [
-                "Collect non-clinical details and offer available slots from the authorised diary",
+                "Collect non-clinical details and offer available slots from the authorized diary",
                 "Reception reviews exceptions or unavailable preferences",
               ],
             },
@@ -4074,7 +4074,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "How booking automation should follow diary authority across sites and practitioners",
         body: [
           "A common mistake is to treat all availability as interchangeable. It is not. Different practitioners work different shifts, rooms, appointment lengths and sites. Some clinics allow online booking for certain appointment types but hold others for manual review. Some reserve follow-ups differently from new-patient appointments.",
-          "That means automation must follow diary authority rather than trying to invent its own availability logic. If Cliniko, TM3, Nookal, PPS, Google Calendar or another scheduling layer is the live booking authority, the automation should read from that authorised source and respect its constraints. If no system is dependable enough, fix that first.",
+          "That means automation must follow diary authority rather than trying to invent its own availability logic. If Cliniko, TM3, Nookal, PPS, Google Calendar or another scheduling layer is the live booking authority, the automation should read from that authorized source and respect its constraints. If no system is dependable enough, fix that first.",
           "For multi-site clinics, one useful design principle is to separate availability logic from communication logic. The diary decides what can be booked. The AI layer decides how to ask, confirm, remind and route. That keeps operational ownership clean.",
           "Silverstone AI typically frames this as a control issue, not a novelty issue. The question is: which system is permitted to create, amend or suggest appointments, and under what conditions?",
           "A simple planning grid helps.",
@@ -4142,7 +4142,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What minimum data admin automation should capture, retain and audit",
         body: [
           "Even basic automation creates data handling obligations. For UK clinics, the practical issue is not just collecting information; it is collecting the minimum needed for the task, retaining it appropriately and keeping a visible run log of what happened.",
-          "For a new enquiry, the minimum may be name, phone number, email, preferred location, preferred practitioner if known, booking preference and whether the person is new or existing. If a clinical question appears, the system should avoid going deeper than needed to route the handoff.",
+          "For a new inquiry, the minimum may be name, phone number, email, preferred location, preferred practitioner if known, booking preference and whether the person is new or existing. If a clinical question appears, the system should avoid going deeper than needed to route the handoff.",
           "Good admin automation should also leave an audit trail. That means you can see when a call was answered, what category it was placed in, whether a form was sent, whether the person booked, and when the interaction was escalated to a human. Owners do not need a black box. They need observability.",
           "A sensible minimum standard includes:",
           "a defined purpose for each data field",
@@ -4161,7 +4161,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "If you only measure booked appointments, you miss the real operational picture. A better model is to measure the front-end journey in three layers: access, escalation and admin completion.",
           "Access tells you whether patients can actually reach the clinic. Escalation tells you whether the system correctly handed over bounded conversations. Admin completion tells you whether routine tasks finished cleanly without manual repair.",
-          "Useful measures for a UK clinic include missed-call capture rate, response time to new enquiries, percentage of enquiries routed to a human, booking completion rate for approved appointment types, reminder completion, form completion and rebooking follow-through. None of these requires inflated claims or vanity dashboards; they just show whether your workflow is holding.",
+          "Useful measures for a UK clinic include missed-call capture rate, response time to new inquiries, percentage of inquiries routed to a human, booking completion rate for approved appointment types, reminder completion, form completion and rebooking follow-through. None of these requires inflated claims or vanity dashboards; they just show whether your workflow is holding.",
           "What matters commercially is pattern recognition. If one site has far more handoffs than another, the issue may be scripts or process design. If one practitioner's diary creates repeated dead ends, the problem may be appointment mapping rather than demand. If web forms start many journeys but complete few, the intake steps may be too vague or too long.",
           "That diagnostic view is where AI becomes genuinely useful. It gives a clinic owner cleaner visibility into admin friction, while clinicians remain focused on patients rather than inbox management.",
           "For practices wanting a sector-specific view of where this fits, the main industry page for [physios and chiropractors](/industry/physios-chiropractors) is the right next step.",
@@ -4180,17 +4180,17 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "What is the safest first AI use case for a UK physio or chiropractic practice?",
         answer:
-          "Usually front-desk admin: missed-call capture, enquiry routing, appointment confirmations, reminders, form sending and structured rebooking within clearly defined rules. Start where the workflow is repetitive and the boundary is easy to enforce.",
+          "Usually front-desk admin: missed-call capture, inquiry routing, appointment confirmations, reminders, form sending and structured rebooking within clearly defined rules. Start where the workflow is repetitive and the boundary is easy to enforce.",
       },
       {
         question: "Does every clinic need full booking automation?",
         answer:
-          "No. Some clinics benefit more from better enquiry capture and faster callback handling than from direct booking. If the diary rules are complex or inconsistent, partial automation with human approval may be the better fit.",
+          "No. Some clinics benefit more from better inquiry capture and faster callback handling than from direct booking. If the diary rules are complex or inconsistent, partial automation with human approval may be the better fit.",
       },
       {
         question: "What should a clinic define before deploying AI admin workflows?",
         answer:
-          "Define the diary source of truth, the named human owner, the approved tasks, the escalation path for exceptions and the stop condition when a conversation moves towards anything clinical or record-specific.",
+          "Define the diary source of truth, the named human owner, the approved tasks, the escalation path for exceptions and the stop condition when a conversation moves toward anything clinical or record-specific.",
       },
     ],
     internalLinks: [
@@ -4290,7 +4290,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/dental-practice-automation-guide-hero.webp",
     heroImageAlt:
-      "Premium futuristic dental practice operations dashboard concept showing website enquiries, recall workflows, reception routing and human oversight in a UK clinical business setting.",
+      "Premium futuristic dental practice operations dashboard concept showing website inquiries, recall workflows, reception routing and human oversight in a UK clinical business setting.",
     metaTitle: "Dental Practice Automation: UK Systems Guide | Silverstone AI",
     metaDescription:
       "A practical UK guide to automation for dental practices, including websites, recalls, AI reception, admin workflows and where to keep humans in control.",
@@ -4307,24 +4307,24 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "A modern dental practice does not need more software noise. It needs a tighter operating system: sharper patient journeys, cleaner handoffs, fewer missed calls, faster admin and stronger control over what stays human. That is where smart automation becomes commercially useful. For UK practices balancing diary pressure, reception load and patient expectations, the real opportunity is not flashy AI. It is disciplined system design. Silverstone AI helps small businesses build that layer properly, so websites, enquiries, bookings, reminders, content and front-desk workflows work together instead of fragmenting into costly manual effort.",
+          "A modern dental practice does not need more software noise. It needs a tighter operating system: sharper patient journeys, cleaner handoffs, fewer missed calls, faster admin and stronger control over what stays human. That is where smart automation becomes commercially useful. For UK practices balancing diary pressure, reception load and patient expectations, the real opportunity is not flashy AI. It is disciplined system design. Silverstone AI helps small businesses build that layer properly, so websites, inquiries, bookings, reminders, content and front-desk workflows work together instead of fragmenting into costly manual effort.",
         ],
       },
       {
         heading: "Where automation actually helps a dental practice",
         body: [
-          "The strongest automation opportunities in a dental practice are usually operational, not clinical. Think missed-call capture, enquiry triage, appointment reminders, recall sequences, form collection, FAQ handling, internal task routing and content publishing. These are the areas where speed, consistency and handoff quality matter most.",
+          "The strongest automation opportunities in a dental practice are usually operational, not clinical. Think missed-call capture, inquiry triage, appointment reminders, recall sequences, form collection, FAQ handling, internal task routing and content publishing. These are the areas where speed, consistency and handoff quality matter most.",
           "For UK dental practices, this matters because reception capacity is often the constraint. If the phone rings while the front desk is already handling arrivals, payments and diary changes, demand leaks. A good system catches that demand, qualifies it, routes it and keeps the patient journey moving without pretending software should replace the practice team.",
           "A sensible rule is simple: automate *repeatable process*, not diagnosis, treatment advice or any decision that requires a clinician. That boundary keeps the patient experience cleaner and the compliance picture far safer.",
         ],
-        lede: "Start with repetitive non-clinical work, not clinical judgement.",
+        lede: "Start with repetitive non-clinical work, not clinical judgment.",
         variant: "signal",
         pullQuote:
-          "The win is not ‘AI doing everything’. The win is fewer avoidable gaps between enquiry, booking, attendance and follow-up.",
+          "The win is not ‘AI doing everything’. The win is fewer avoidable gaps between inquiry, booking, attendance and follow-up.",
         bullets: [
           {
             label: "Best-fit use cases",
-            body: "Missed-call recovery, website enquiry capture, recall reminders, pre-visit forms and routine FAQ handling.",
+            body: "Missed-call recovery, website inquiry capture, recall reminders, pre-visit forms and routine FAQ handling.",
             icon: "phone",
           },
           {
@@ -4342,7 +4342,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The systems a practice should connect first",
         body: [
-          "When a dental practice feels busy but inefficient, the root issue is often fragmentation. The website captures one set of enquiries. The phone handles another. Forms live somewhere else. Recalls happen manually. Reception chases no-shows in spare moments. Marketing content gets posted inconsistently. Each part works in isolation, but the practice loses time in the handoffs.",
+          "When a dental practice feels busy but inefficient, the root issue is often fragmentation. The website captures one set of inquiries. The phone handles another. Forms live somewhere else. Recalls happen manually. Reception chases no-shows in spare moments. Marketing content gets posted inconsistently. Each part works in isolation, but the practice loses time in the handoffs.",
           "The practical fix is to define a small number of source-of-truth systems, then design the flow around them. Usually that means the website as the front door, the diary or practice-management layer as the scheduling truth, and a CRM or workflow layer for follow-up, reminders and task ownership.",
           "This is why [how we work](/how-we-work) matters more than a list of features. The order of decisions affects reliability. If you automate before mapping ownership, exception routes and approvals, you simply make confusion faster.",
         ],
@@ -4351,7 +4351,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Website",
-            body: "Captures enquiries, explains services clearly, routes patients to booking, calls or form completion.",
+            body: "Captures inquiries, explains services clearly, routes patients to booking, calls or form completion.",
           },
           {
             title: "Reception workflow",
@@ -4370,7 +4370,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "A simple starting architecture",
             body: [
-              "Enquiry enters through website form, phone or message.",
+              "Inquiry enters through website form, phone or message.",
               "System classifies the request: new patient, existing patient admin, emergency, finance question or general query.",
               "Routine paths trigger the right next action automatically; exceptions route to the front desk or clinician-owned review.",
             ],
@@ -4381,7 +4381,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What good looks like: human-led, AI-assisted front desk operations",
         body: [
           "A dental front desk deals with volume, interruptions and nuance. Patients ask about availability, hygiene visits, directions, finance, paperwork, urgent pain, cancellations and insurance. Some of that can be answered instantly. Some of it should never be automated past a clear boundary.",
-          "Good AI receptionist design gives the practice a controlled first-response layer. It can answer approved non-clinical questions, collect key details, offer booking routes, capture missed calls and route messages to the right person. It should also recognise its limits and transfer cleanly when a situation requires judgement, empathy or urgency handling.",
+          "Good AI receptionist design gives the practice a controlled first-response layer. It can answer approved non-clinical questions, collect key details, offer booking routes, capture missed calls and route messages to the right person. It should also recognize its limits and transfer cleanly when a situation requires judgment, empathy or urgency handling.",
           "For UK practices, explicit boundaries matter. If a patient describes symptoms, medication concerns or urgent clinical issues, the system should stop being clever and become useful: capture essentials, present the right instruction path and alert the human team.",
         ],
         lede: "The best reception automation feels calm, not robotic.",
@@ -4389,7 +4389,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Design principle",
-            body: "Use AI for first response, classification and routing — not independent clinical judgement.",
+            body: "Use AI for first response, classification and routing — not independent clinical judgment.",
             icon: "compass",
           },
           {
@@ -4444,7 +4444,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The highest-value builds for small UK dental practices",
         body: [
-          "For small dental practices, the highest-return work is usually a combination of website improvement, enquiry handling, recall automation, content structure and admin workflow design. Bespoke software only makes sense when an off-the-shelf process cannot support the way the practice needs to operate.",
+          "For small dental practices, the highest-return work is usually a combination of website improvement, inquiry handling, recall automation, content structure and admin workflow design. Bespoke software only makes sense when an off-the-shelf process cannot support the way the practice needs to operate.",
           "That is where [services](/services) and [industry](/industry) thinking should meet. A dental practice is not buying 'AI' in the abstract. It is improving patient acquisition, front-desk efficiency, attendance management and administrative control.",
           "A strong practice stack often includes a fast, conversion-focused website, better booking pathways, structured recall logic, automated follow-up for non-attenders, concise content systems and a receptionist layer that captures demand outside the ideal front-desk moment. If the practice grows into multi-site complexity or deeper integrations later, the system can expand without starting again.",
         ],
@@ -4455,13 +4455,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             label: "Priority 1",
-            title: "Website and enquiry flow",
+            title: "Website and inquiry flow",
             body: "Make it easier for patients to understand services, trust the practice and take the next step.",
           },
           {
             label: "Priority 2",
             title: "Recall and reminder automation",
-            body: "Reduce manual chasing and protect hygiene and exam utilisation.",
+            body: "Reduce manual chasing and protect hygiene and exam utilization.",
           },
           {
             label: "Priority 3",
@@ -4478,7 +4478,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How to evaluate an automation project before you buy",
         body: [
-          "Before you invest, define the operational problem in plain English. Are you losing new-patient enquiries? Is reception overloaded? Are recalls inconsistent? Are no-shows creating dead diary space? If the problem statement is vague, the solution will be vague too.",
+          "Before you invest, define the operational problem in plain English. Are you losing new-patient inquiries? Is reception overloaded? Are recalls inconsistent? Are no-shows creating dead diary space? If the problem statement is vague, the solution will be vague too.",
           "Then test each opportunity against four criteria: volume, repeatability, risk and ownership. High-volume, low-risk, repeatable tasks with clear owners are the best automation candidates. Low-volume edge cases with clinical nuance are not.",
           "This is also the point to decide whether you need configuration, integration or a custom build. Many UK small businesses overspend because they jump to software before tightening the process. A consulting-first approach is often cheaper and operationally safer. If you want to pressure-test scope, [book a call](/book#booking-calendar) or use the [contact page](/contact) to outline the workflow issue first.",
         ],
@@ -4511,7 +4511,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "A practical decision framework for dental practice owners",
         body: [
           "If you own or manage a UK dental practice, the fastest route to clarity is to map the patient journey as an operating system rather than a marketing funnel. Start at first contact and trace every handoff until attendance, treatment acceptance or drop-off. That exposes where speed matters, where reassurance matters and where automation can support the team cleanly.",
-          "The strongest setup is usually not dramatic. It is disciplined. Patients can find the right information quickly. Enquiries are captured reliably. Bookings and reminders are consistent. Recalls happen on time. Reception handles exceptions rather than every repetitive task. Content answers common questions before the phone rings.",
+          "The strongest setup is usually not dramatic. It is disciplined. Patients can find the right information quickly. Inquiries are captured reliably. Bookings and reminders are consistent. Recalls happen on time. Reception handles exceptions rather than every repetitive task. Content answers common questions before the phone rings.",
           "That is the standard to aim for: a practice that feels more responsive, more premium and more controlled without becoming impersonal. Automation should make the human team more effective, not less visible.",
         ],
         lede: "Think in layers: attract, capture, route, confirm, follow up, review.",
@@ -4522,12 +4522,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can AI answer calls for a UK dental practice?",
         answer:
-          "Yes, for approved non-clinical tasks such as capturing enquiries, answering routine questions, offering booking routes and routing messages. It should not act as a clinician or give treatment advice. Clear handoff rules are essential.",
+          "Yes, for approved non-clinical tasks such as capturing inquiries, answering routine questions, offering booking routes and routing messages. It should not act as a clinician or give treatment advice. Clear handoff rules are essential.",
       },
       {
         question: "What should a dental practice automate first?",
         answer:
-          "Usually missed-call capture, website enquiry handling, reminders, recalls and routine front-desk FAQs. These are repetitive, operational tasks with clear commercial value and lower risk than anything clinical.",
+          "Usually missed-call capture, website inquiry handling, reminders, recalls and routine front-desk FAQs. These are repetitive, operational tasks with clear commercial value and lower risk than anything clinical.",
       },
       {
         question: "Does every dental practice need a custom app?",
@@ -4623,7 +4623,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Build a sharper front desk, faster follow-up and a more reliable member journey without handing your business over to black-box tools.",
     summary: [
       "Most gyms lose revenue through slow follow-up, missed calls and fragmented systems.",
-      "The best first automations sit close to enquiries, trial bookings, attendance and retention.",
+      "The best first automations sit close to inquiries, trial bookings, attendance and retention.",
       "A stronger operating model connects website, reception, CRM and staff handoff into one visible workflow.",
     ],
     categoryLabel: "Gyms & Fitness Studios",
@@ -4637,7 +4637,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/gym-automation-operating-model-hero.webp",
     heroImageAlt:
-      "Premium high-tech system visual showing a UK gym enquiry, trial booking and follow-up workflow routed through website, reception and staff handoff layers.",
+      "Premium high-tech system visual showing a UK gym inquiry, trial booking and follow-up workflow routed through website, reception and staff handoff layers.",
     metaTitle: "Gym Automation for UK Fitness Businesses | Silverstone AI",
     metaDescription:
       "A practical UK guide to websites, AI receptionists and automation for gyms and fitness studios. See what to automate first and how to reduce lead leakage.",
@@ -4655,14 +4655,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The best-run gyms do not feel busy. They feel *switched on*. Enquiries move fast, trial bookings land cleanly, staff know who needs a follow-up, and members get timely nudges without the brand sounding robotic. That is not about chasing shiny tools. It is about building a tighter operating model around your website, booking flow, reception, CRM and retention journeys. **Silverstone AI** helps UK small businesses design those systems properly: human-led, commercially grounded and built to reduce friction where it actually costs money.",
+          "The best-run gyms do not feel busy. They feel *switched on*. Inquiries move fast, trial bookings land cleanly, staff know who needs a follow-up, and members get timely nudges without the brand sounding robotic. That is not about chasing shiny tools. It is about building a tighter operating model around your website, booking flow, reception, CRM and retention journeys. **Silverstone AI** helps UK small businesses design those systems properly: human-led, commercially grounded and built to reduce friction where it actually costs money.",
         ],
       },
       {
         heading: "The real problem is not leads. It is leakage.",
         body: [
           "For many UK gyms, the weak point is not brand awareness. It is what happens *after* someone taps your ad, fills out a form, calls the front desk, or asks a question on Instagram. If the response is slow, inconsistent or dependent on one overstretched team member, revenue leaks out quietly.",
-          "That leakage usually shows up in familiar places: missed calls during classes, trial enquiries sitting in inboxes, no structured follow-up after a first visit, and old member lists that are never reactivated because nobody has time to work through them properly.",
+          "That leakage usually shows up in familiar places: missed calls during classes, trial inquiries sitting in inboxes, no structured follow-up after a first visit, and old member lists that are never reactivated because nobody has time to work through them properly.",
           "A good automation system does not replace the energy of your coaches or front-of-house team. It handles the repeatable parts around them: capture, routing, reminders, tagging, nudges, handoffs and reporting. In UK terms, that matters because many small operators are balancing lean staffing, rising costs and fragmented tools across bookings, payments, email and messaging.",
           "The commercial question is simple: where are people dropping out before they become paying members, class regulars or retained clients?",
         ],
@@ -4674,7 +4674,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to automate first in a gym or fitness studio",
         body: [
-          "The best first automations sit close to revenue and service quality. They are usually front-end processes with clear triggers and clear owners. Think enquiry handling, trial booking, reminder sequences, missed-call recovery, attendance nudges and lapsed-member reactivation.",
+          "The best first automations sit close to revenue and service quality. They are usually front-end processes with clear triggers and clear owners. Think inquiry handling, trial booking, reminder sequences, missed-call recovery, attendance nudges and lapsed-member reactivation.",
           "Avoid the temptation to automate everything at once. A gym is a live service business with classes, staff rotas, member preferences and safeguarding considerations. The right approach is to create a stable base layer first, then add more intelligence where it helps.",
           "For UK fitness businesses, practical deployment often means connecting the website, CRM, booking system, forms, email, SMS and reception workflow so one source of truth drives the next action.",
         ],
@@ -4693,7 +4693,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Lead triage",
-            body: "Separate general questions, membership interest, PT enquiries and existing-member support before they hit the team.",
+            body: "Separate general questions, membership interest, PT inquiries and existing-member support before they hit the team.",
             icon: "filter",
           },
           {
@@ -4734,10 +4734,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           columns: ["Typical setup", "Stronger setup"],
           rows: [
             {
-              label: "Website enquiry",
+              label: "Website inquiry",
               cells: [
                 "Generic contact form with no routing logic",
-                "Structured enquiry path mapped to membership, trial, PT or support",
+                "Structured inquiry path mapped to membership, trial, PT or support",
               ],
             },
             {
@@ -4772,9 +4772,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         subsections: [
           {
-            heading: "Where human judgement must stay",
+            heading: "Where human judgment must stay",
             body: [
-              "Fitness businesses still need humans for sales nuance, community tone, safeguarding decisions, coaching recommendations, complaints and any health-related judgement. Automation can prepare context and move information, but it should not pretend to replace responsible staff judgement.",
+              "Fitness businesses still need humans for sales nuance, community tone, safeguarding decisions, coaching recommendations, complaints and any health-related judgment. Automation can prepare context and move information, but it should not pretend to replace responsible staff judgment.",
               "That matters especially in the UK where consent, privacy and accurate communication are not optional extras. If you are messaging old lead lists or lapsed members, your process needs to reflect proper permissions and clean data handling.",
             ],
           },
@@ -4784,7 +4784,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "The stack that usually makes sense for UK small gyms",
         body: [
           "For most small and mid-sized gyms, the winning stack is not the most advanced one. It is the one your team will actually use. That often means improving the tools already in place, then adding a focused website layer, automation layer and reception layer around them.",
-          "In practical terms, that may include a better lead-capture website, CRM syncing, booking or class integration, automated message sequences, AI-assisted reception for routine inbound queries, and reporting that shows where enquiries stall.",
+          "In practical terms, that may include a better lead-capture website, CRM syncing, booking or class integration, automated message sequences, AI-assisted reception for routine inbound queries, and reporting that shows where inquiries stall.",
           "If your current setup is split across a legacy site, a booking platform, a separate mailing tool and personal staff phones, the first value comes from clean joins and clear workflow ownership.",
           "A good implementation also respects UK communication habits. Some members want to call. Others expect WhatsApp-style speed, simple mobile forms and immediate confirmation. Your stack should support those expectations without creating chaos behind the scenes.",
         ],
@@ -4847,7 +4847,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What a sensible first step looks like",
         body: [
-          "Start by tracing one real member journey from first contact to conversion. For example: website enquiry, trial booked, reminder sent, trial attended, follow-up completed, membership decision logged. Then mark where that journey breaks, slows or depends on one person remembering to act.",
+          "Start by tracing one real member journey from first contact to conversion. For example: website inquiry, trial booked, reminder sent, trial attended, follow-up completed, membership decision logged. Then mark where that journey breaks, slows or depends on one person remembering to act.",
           "That simple audit usually exposes the first build priority. Sometimes it is a better website path. Sometimes it is an AI receptionist or missed-call capture layer. Sometimes it is retention automation triggered by attendance patterns. The answer depends on where your gym is leaking value now.",
           "If you want to benchmark your setup, our [industry](/industry) and [blog](/blog) content can help frame the right decisions. And if you already know the operational gap, you can [book a call](/book#booking-calendar) to scope the first workflow properly.",
           "The goal is not maximum automation. It is a cleaner system: faster response, better visibility, stronger follow-up and fewer dropped opportunities.",
@@ -4865,7 +4865,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What should a small UK gym automate first?",
         answer:
-          "Usually the first wins come from enquiry capture, trial-booking follow-up, missed-call handling and lapsed-member reactivation. These are high-frequency workflows where delays and inconsistency directly affect revenue.",
+          "Usually the first wins come from inquiry capture, trial-booking follow-up, missed-call handling and lapsed-member reactivation. These are high-frequency workflows where delays and inconsistency directly affect revenue.",
       },
       {
         question: "Do gyms need a new app to benefit from automation?",
@@ -4950,13 +4950,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
   },
   {
     slug: "fitness-coach-enquiry-automation",
-    title: "How UK Fitness Coaches Can Turn Enquiries into Booked Consultations",
+    title: "How UK Fitness Coaches Can Turn Inquiries into Booked Consultations",
     subtitle:
       "A practical systems view of websites, follow-up, booking and AI support for fitness coaches who want cleaner operations and more consistent sales conversations.",
     summary: [
-      "Most fitness coaches lose leads in the handoff between enquiry and booking, not in awareness.",
+      "Most fitness coaches lose leads in the handoff between inquiry and booking, not in awareness.",
       "The strongest setup combines a focused website, structured follow-up and clear human boundaries.",
-      "AI is useful for routine questions and routing, but coaching judgement should stay human-led.",
+      "AI is useful for routine questions and routing, but coaching judgment should stay human-led.",
     ],
     categoryLabel: "Fitness Coaches",
     categoryKey: "fitness-coaches",
@@ -4970,7 +4970,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage: "/assets/images/blog/fitness-coach-enquiry-automation-hero.webp",
     heroImageAlt:
       "Premium digital operating system for a UK fitness coach showing lead capture, booking, follow-up automation and human-led consultation handoff.",
-    metaTitle: "How UK Fitness Coaches Turn Enquiries Into Consultations",
+    metaTitle: "How UK Fitness Coaches Turn Inquiries Into Consultations",
     metaDescription:
       "A practical guide to websites, automation and AI support for UK fitness coaches who want more booked consultations and cleaner operations.",
     primaryKeyword: "UK fitness coach website and automation",
@@ -4986,7 +4986,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The modern fitness business is no longer won by energy alone. It is won by *response speed, system clarity and operational discipline*. The coach who replies late, loses leads. The coach whose website confuses, leaks demand. The coach who manually chases every enquiry eventually hits a ceiling. **Silverstone AI** helps UK small businesses design sharper digital operating systems: websites that convert, automations that follow up, and AI-supported workflows that keep momentum moving without losing the human relationship that coaching depends on. For fitness coaches, the commercial question is simple: how do you turn interest into booked consultations without building a clunky, overengineered machine?",
+          "The modern fitness business is no longer won by energy alone. It is won by *response speed, system clarity and operational discipline*. The coach who replies late, loses leads. The coach whose website confuses, leaks demand. The coach who manually chases every inquiry eventually hits a ceiling. **Silverstone AI** helps UK small businesses design sharper digital operating systems: websites that convert, automations that follow up, and AI-supported workflows that keep momentum moving without losing the human relationship that coaching depends on. For fitness coaches, the commercial question is simple: how do you turn interest into booked consultations without building a clunky, overengineered machine?",
         ],
       },
       {
@@ -4995,20 +4995,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Many fitness coaches across the UK generate enough initial interest through Instagram, referrals, local reputation, Google searches, email lists or paid campaigns. The breakdown usually happens *after* that first moment. A prospect sends a message. They fill out a form. They ask about coaching, pricing or availability. Then the response is delayed, vague or inconsistent.",
           "That gap matters because fitness is a trust purchase. People are often buying at a point of frustration, urgency or hesitation. If your process makes them work to understand what happens next, many will drift. Not necessarily to a better coach, but to a coach with a cleaner system.",
-          "A strong enquiry-to-consultation journey usually needs five things working together: a clear offer, a focused website or landing page, structured lead capture, fast follow-up and simple booking. If one stage is weak, the whole system underperforms.",
-          "For UK-based fitness coaches, this is especially relevant in a market where buyers compare options quickly, expect mobile-first booking, and often enquire outside normal working hours. If you coach in person, online or hybrid, the buying behaviour is already digital even when the service is personal.",
+          "A strong inquiry-to-consultation journey usually needs five things working together: a clear offer, a focused website or landing page, structured lead capture, fast follow-up and simple booking. If one stage is weak, the whole system underperforms.",
+          "For UK-based fitness coaches, this is especially relevant in a market where buyers compare options quickly, expect mobile-first booking, and often inquire outside normal working hours. If you coach in person, online or hybrid, the buying behavior is already digital even when the service is personal.",
         ],
         lede: "Attention is only useful if it reaches the right next step quickly.",
         variant: "signal",
         pullQuote:
-          "A fitness business rarely breaks because the coach lacks expertise. It breaks because the enquiry journey asks the prospect to do too much thinking.",
+          "A fitness business rarely breaks because the coach lacks expertise. It breaks because the inquiry journey asks the prospect to do too much thinking.",
       },
       {
         heading: "What a high-performing consultation funnel actually needs",
         body: [
           "The right setup is less about stacking software and more about arranging decisions in the correct order. Prospects should move from curiosity to confidence with minimal friction.",
           "A good system should answer three commercial questions quickly: *Is this for me?* *Can I trust you?* *What happens next?* If those answers are buried across DMs, a link-in-bio page and a slow contact form, conversion drops.",
-          "For most small fitness businesses, the cleanest structure is a simple operating chain: traffic source, focused page, short qualification form, confirmation flow, booking step, reminder sequence and human-led consultation. AI and automation can support the middle, but they should not replace coaching judgement, health judgement or programme suitability decisions.",
+          "For most small fitness businesses, the cleanest structure is a simple operating chain: traffic source, focused page, short qualification form, confirmation flow, booking step, reminder sequence and human-led consultation. AI and automation can support the middle, but they should not replace coaching judgment, health judgment or program suitability decisions.",
         ],
         lede: "Not more tools. Better sequence.",
         variant: "system",
@@ -5025,7 +5025,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Speed",
-            body: "Acknowledge and route enquiries immediately, even when you are training clients.",
+            body: "Acknowledge and route inquiries immediately, even when you are training clients.",
             icon: "bolt",
           },
           {
@@ -5045,7 +5045,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "AI support layer",
-            body: "Handles routine questions and routing while keeping human judgement for coaching decisions.",
+            body: "Handles routine questions and routing while keeping human judgment for coaching decisions.",
           },
         ],
       },
@@ -5053,7 +5053,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Where websites, AI and automation fit in a fitness coaching business",
         body: [
           "A common mistake is expecting one platform to solve everything. In practice, fitness coaches need a joined-up system where each component has a clear role. Your website should position the offer and capture intent. Your automation should handle repetitive admin. Your AI layer should support speed and consistency for bounded tasks, not pretend to be the coach.",
-          "This distinction matters. There is a meaningful difference between an AI receptionist answering common enquiries, an automated sequence reminding someone to book, and a coach personally assessing whether a client is suitable for a programme. The first two can often be systemised. The third should remain human-owned.",
+          "This distinction matters. There is a meaningful difference between an AI receptionist answering common inquiries, an automated sequence reminding someone to book, and a coach personally assessing whether a client is suitable for a program. The first two can often be systemized. The third should remain human-owned.",
           "That operating-system thinking is what keeps the setup commercially useful instead of gimmicky. A smarter business is not one with the most AI. It is one where the right tasks are handled at the right level.",
         ],
         lede: "Each tool should own a specific job.",
@@ -5065,7 +5065,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Website",
               cells: [
                 "Positioning, trust and conversion",
-                "Explaining offers, showing proof, capturing enquiry details",
+                "Explaining offers, showing proof, capturing inquiry details",
                 "Complex objections and tailored sales conversations",
               ],
             },
@@ -5074,7 +5074,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               cells: [
                 "Repeatable follow-up and admin",
                 "Confirmations, reminders, lead routing, nurture sequences",
-                "Relationship nuance, negotiation and judgement calls",
+                "Relationship nuance, negotiation and judgment calls",
               ],
             },
             {
@@ -5082,7 +5082,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               cells: [
                 "Fast first-response support",
                 "Answering routine questions, triage, handoff, booking prompts",
-                "Health advice, programme prescription and sensitive suitability decisions",
+                "Health advice, program prescription and sensitive suitability decisions",
               ],
             },
           ],
@@ -5092,7 +5092,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             heading: "A simple rule for coaches",
             body: [
               "If the task is repetitive, rules-based and low-risk, automate it.",
-              "If the task requires empathy, risk judgement, health context or sales nuance, keep a human in control.",
+              "If the task requires empathy, risk judgment, health context or sales nuance, keep a human in control.",
             ],
           },
         ],
@@ -5101,7 +5101,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "The practical build path for UK fitness coaches",
         body: [
           "Most coaches do not need a giant rebuild. They need the right first move. That usually begins with identifying where the current system leaks: low website conversion, missed follow-up, messy booking, poor lead qualification or weak retention content.",
-          "For some, the answer is a cleaner website architecture with stronger calls to action and a sharper consultation journey. For others, it is lead follow-up automation tied to enquiry forms, calendars and email or SMS reminders. If you are handling lots of repetitive questions, an AI receptionist or AI agent can reduce friction at the front door.",
+          "For some, the answer is a cleaner website architecture with stronger calls to action and a sharper consultation journey. For others, it is lead follow-up automation tied to inquiry forms, calendars and email or SMS reminders. If you are handling lots of repetitive questions, an AI receptionist or AI agent can reduce friction at the front door.",
           "In the UK market, practical details matter: consent-aware messaging, sensible data handling, clear boundaries around health information, mobile booking that works for busy users, and language that feels credible rather than salesy. Coaches who get these basics right often look more premium without becoming more complicated.",
         ],
         lede: "Start with the commercial bottleneck, not the shiny feature.",
@@ -5124,7 +5124,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Step 4: Add bounded AI carefully",
-            body: "Use AI for routine questions and routing, not for clinical, nutritional or programme judgement.",
+            body: "Use AI for routine questions and routing, not for clinical, nutritional or program judgment.",
             icon: "shield",
           },
         ],
@@ -5137,7 +5137,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Useful next step",
             title: "Fix response speed before buying software",
-            body: "Fast acknowledgement and clear handoff often produce more value than adding another platform.",
+            body: "Fast acknowledgment and clear handoff often produce more value than adding another platform.",
           },
           {
             label: "Useful next step",
@@ -5149,7 +5149,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What good looks like when the system is working",
         body: [
-          "A well-built fitness coaching system does not feel robotic. It feels organised. The prospect gets a quick acknowledgement. They understand the offer. They book without hassle. They receive reminders. The coach enters the consultation with context. Follow-up after the call is timely. Content and nurturing continue without requiring manual effort every day.",
+          "A well-built fitness coaching system does not feel robotic. It feels organized. The prospect gets a quick acknowledgment. They understand the offer. They book without hassle. They receive reminders. The coach enters the consultation with context. Follow-up after the call is timely. Content and nurturing continue without requiring manual effort every day.",
           "Operationally, this gives small businesses room to breathe. Instead of acting as marketer, admin assistant, receptionist and closer at the same time, the coach works inside a more controlled environment. That usually improves consistency first, then decision quality, then growth capacity.",
           "This is where Silverstone AI is useful as a UK automation studio. The value is not just in building a website, app, AI receptionist or automation flow in isolation. It is in connecting them into one commercial system that respects how a small business actually runs.",
           "If you are reviewing your current setup, start with the pages and flows closest to revenue. Then decide what should be simplified, what should be automated and what should remain firmly human-led.",
@@ -5164,18 +5164,18 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Do fitness coaches really need AI, or just a better website?",
         answer:
-          "Usually the website and enquiry flow come first. If the offer is unclear or the booking path is messy, AI will not fix the core issue. AI becomes useful when you already have demand and need faster first responses, better triage or cleaner handling of routine questions.",
+          "Usually the website and inquiry flow come first. If the offer is unclear or the booking path is messy, AI will not fix the core issue. AI becomes useful when you already have demand and need faster first responses, better triage or cleaner handling of routine questions.",
       },
       {
         question: "What should stay human in a fitness coaching sales process?",
         answer:
-          "Suitability decisions, nuanced sales conversations, health-related judgement, programme design and relationship-building should stay human-led. Automation and AI are better used for confirmations, reminders, lead routing, FAQs and other structured admin tasks.",
+          "Suitability decisions, nuanced sales conversations, health-related judgment, program design and relationship-building should stay human-led. Automation and AI are better used for confirmations, reminders, lead routing, FAQs and other structured admin tasks.",
       },
       {
         question:
           "Is this relevant for online coaches as well as in-person coaches in the UK?",
         answer:
-          "Yes. Online, hybrid and in-person coaches all depend on a clear digital journey. UK prospects still expect quick responses, mobile-friendly booking and a credible website even if most enquiries start on social platforms.",
+          "Yes. Online, hybrid and in-person coaches all depend on a clear digital journey. UK prospects still expect quick responses, mobile-friendly booking and a credible website even if most inquiries start on social platforms.",
       },
     ],
     internalLinks: [
@@ -5296,7 +5296,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What a high-performing small business website is really doing",
         body: [
           "For many UK firms, web design gets treated as a brand project first and an operations project second. That is usually backwards. The best small business websites do three jobs at once: they create trust quickly, make the offer easy to understand, and move the visitor into a clear next step.",
-          "That next step might be an enquiry, a booked call, a quote request, an application, a diary booking or a tracked download. Whatever it is, the website should be designed around *movement*, not just presentation.",
+          "That next step might be an inquiry, a booked call, a quote request, an application, a diary booking or a tracked download. Whatever it is, the website should be designed around *movement*, not just presentation.",
           "This matters even more in the UK market, where buyers often compare several providers quietly before making contact. If your site is vague, slow, cluttered or hard to navigate on mobile, you do not just lose style points. You lose commercial momentum.",
           "A capable build also needs the right handoff points behind the surface: analytics, forms, CRM routing, call tracking where relevant, consent-aware data capture, and a simple content structure your team can actually maintain.",
         ],
@@ -5325,17 +5325,17 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Start with the operating model, not the homepage mock-up",
         body: [
-          "A common mistake is commissioning design before making core decisions about enquiries, ownership, content and data flow. That creates attractive pages sitting on weak foundations. A better approach is to map the commercial system first.",
+          "A common mistake is commissioning design before making core decisions about inquiries, ownership, content and data flow. That creates attractive pages sitting on weak foundations. A better approach is to map the commercial system first.",
           "For example, who owns inbound leads? What happens after a form submission? Which pages should drive bookings and which should educate? What information needs to be collected upfront so the team is not chasing basics later? Which actions should stay fully human, and which can be automated safely?",
           "This is where web development becomes more than visual delivery. It becomes system design. For small businesses, that often means keeping the front end simple while making the back end more intelligent.",
-          "At Silverstone AI, this operating-system view matters because websites rarely live alone. They usually connect to content workflows, enquiry triage, CRM records, calendar booking, internal notifications and follow-up logic.",
+          "At Silverstone AI, this operating-system view matters because websites rarely live alone. They usually connect to content workflows, inquiry triage, CRM records, calendar booking, internal notifications and follow-up logic.",
         ],
-        lede: "Before colours, layouts or animations, define how the site should work inside the business.",
+        lede: "Before colors, layouts or animations, define how the site should work inside the business.",
         variant: "system",
         bullets: [
           {
             label: "Map the journey",
-            body: "Trace the path from first visit to booked action or qualified enquiry.",
+            body: "Trace the path from first visit to booked action or qualified inquiry.",
             icon: "map",
           },
           {
@@ -5350,7 +5350,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Keep humans in control",
-            body: "Automate routine steps, but leave judgement, pricing and exceptions with the business owner or team.",
+            body: "Automate routine steps, but leave judgment, pricing and exceptions with the business owner or team.",
             icon: "user-check",
           },
         ],
@@ -5385,7 +5385,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Template, bespoke or hybrid: which route fits a small business?",
         body: [
-          "A serious studio should help you choose the right level of build, not push everything towards the heaviest option. Commercial fit matters more than technical theatre.",
+          "A serious studio should help you choose the right level of build, not push everything toward the heaviest option. Commercial fit matters more than technical theater.",
           "If you are weighing platform and product choices, [how we work](/how-we-work) should be as important as the visuals. Process quality usually shows up later in content governance, launch smoothness and post-launch change control.",
         ],
         lede: "Not every business needs the same level of build complexity.",
@@ -5422,11 +5422,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         heading:
-          "What UK small businesses should prioritise in web design and development",
+          "What UK small businesses should prioritize in web design and development",
         body: [
           "The basics still matter: speed, mobile performance, clear messaging, sensible page hierarchy and accessible design. But commercial websites need a stronger filter than a generic design checklist.",
           "In the UK, practical considerations often include VAT and service clarity, geographic coverage, trust around form submissions, and compliance-aware handling of user data. Even where a site is not legally complex, it should still feel responsible and well governed.",
-          "The most valuable prioritisation question is simple: *what reduces friction for the buyer while improving signal quality for the business?*",
+          "The most valuable prioritization question is simple: *what reduces friction for the buyer while improving signal quality for the business?*",
         ],
         lede: "Focus on the pieces that affect revenue, credibility and team capacity first.",
         variant: "signal",
@@ -5472,7 +5472,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Where websites become more valuable: content, automation and AI-assisted workflows",
         body: [
           "Once the core site is working, the next leap in value usually comes from integration. This does not mean handing everything to autonomous AI. It means using automation and bounded AI support where they remove repetition and improve response quality.",
-          "Examples include routing enquiries by type, enriching lead records, triggering acknowledgements, assigning follow-up tasks, structuring approved content updates, or feeding submissions into internal systems for human review.",
+          "Examples include routing inquiries by type, enriching lead records, triggering acknowledgments, assigning follow-up tasks, structuring approved content updates, or feeding submissions into internal systems for human review.",
           "For UK small businesses with lean teams, this matters because growth often creates admin drag before it creates operational maturity. A better website can reduce that drag if the workflows are designed properly.",
           "This is where adjacent capability matters. A web build connected to [services](/services), booking logic or internal automation is usually more commercially useful than a site designed in isolation. If your next decision involves demand capture and routing, a direct [booking call](/book#booking-calendar) may be more useful than collecting another round of vague proposals.",
         ],
@@ -5482,7 +5482,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The website should not end at the submit button. That is where the operational design starts.",
         bullets: [
           {
-            label: "Smart enquiry routing",
+            label: "Smart inquiry routing",
             body: "Direct the right leads to the right person or queue without manual sorting.",
             icon: "route",
           },
@@ -5493,7 +5493,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Automation with limits",
-            body: "Let systems handle repeatable steps while humans own pricing, judgement and edge cases.",
+            body: "Let systems handle repeatable steps while humans own pricing, judgment and edge cases.",
             icon: "sliders",
           },
         ],
@@ -5535,7 +5535,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "What is the difference between web design and web development for a small business?",
         answer:
-          "Web design covers structure, user experience, layout, visual communication and conversion paths. Web development covers the technical build: CMS setup, performance, integrations, form handling, responsive behaviour and functional logic. Small businesses usually need both working together.",
+          "Web design covers structure, user experience, layout, visual communication and conversion paths. Web development covers the technical build: CMS setup, performance, integrations, form handling, responsive behavior and functional logic. Small businesses usually need both working together.",
       },
       {
         question:
@@ -5552,7 +5552,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "Can a website connect to automation or AI systems without becoming overcomplicated?",
         answer:
-          "Yes, if the automation is tied to specific repeatable steps such as enquiry routing, booking confirmations, lead logging or content workflows. The key is bounded design: automate routine actions, keep exceptions visible, and leave judgement-heavy decisions with people.",
+          "Yes, if the automation is tied to specific repeatable steps such as inquiry routing, booking confirmations, lead logging or content workflows. The key is bounded design: automate routine actions, keep exceptions visible, and leave judgment-heavy decisions with people.",
       },
     ],
     internalLinks: [
@@ -5668,7 +5668,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The smartest apps do not start with features. They start with friction: wasted staff time, missed enquiries, duplicated admin, patchy handovers, scattered data. For UK small businesses, the commercial edge often comes from building one tight system that removes operational drag and sharpens service. Silverstone AI approaches app development this way: not as digital theatre, but as infrastructure for better decisions, faster delivery and cleaner margins. If you are weighing up a customer app, an internal tool or an AI-assisted workflow, the first question is not what looks impressive. It is what changes the business fastest without creating a maintenance burden you will regret.",
+          "The smartest apps do not start with features. They start with friction: wasted staff time, missed inquiries, duplicated admin, patchy handovers, scattered data. For UK small businesses, the commercial edge often comes from building one tight system that removes operational drag and sharpens service. Silverstone AI approaches app development this way: not as digital theater, but as infrastructure for better decisions, faster delivery and cleaner margins. If you are weighing up a customer app, an internal tool or an AI-assisted workflow, the first question is not what looks impressive. It is what changes the business fastest without creating a maintenance burden you will regret.",
         ],
       },
       {
@@ -5676,7 +5676,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "For a UK small business, the right first app is usually the one that removes a repeated operational bottleneck. That could be booking management, lead handling, job status tracking, field reporting, document flow or staff approvals. The winning move is to identify the workflow where time, money or service quality is leaking every week.",
           "A lot of businesses say they need *an app* when they actually need one of three things: a customer-facing mobile experience, a browser-based web application, or an internal tool connected to existing systems. Those are very different decisions. They carry different costs, maintenance loads and rollout risks.",
-          "A practical rule: if the problem is mainly about staff coordination, process visibility or joining up systems, start with a web app or internal operations tool. If the problem depends on customer convenience, repeat usage or on-device behaviour, a mobile app may make sense. If neither is true, automation around your current stack may be the better answer.",
+          "A practical rule: if the problem is mainly about staff coordination, process visibility or joining up systems, start with a web app or internal operations tool. If the problem depends on customer convenience, repeat usage or on-device behavior, a mobile app may make sense. If neither is true, automation around your current stack may be the better answer.",
         ],
         lede: "Most weak app projects fail before a single screen is designed. The mistake is choosing iPhone, Android or web too early.",
         variant: "signal",
@@ -5709,7 +5709,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "A browser-based web app is often the most sensible first step for UK SMEs. It is easier to update, simpler to deploy across teams, and avoids app-store dependency for staff-facing operations. It also works well when the app needs to connect with CRMs, booking platforms, stock systems, payment tools or reporting layers.",
           "A mobile app becomes more attractive when users need push notifications, offline access, camera usage, location input or frequent on-the-go interaction. But mobile should earn its complexity. Native or cross-platform mobile development introduces more testing, more release coordination and more ongoing support decisions.",
-          "Internal tools are underrated. In many businesses, the highest-value app is not public at all. It is a focused system for enquiries, allocations, approvals, handovers or job tracking. That kind of build can tighten service delivery quickly because it improves the business engine rather than adding another marketing surface.",
+          "Internal tools are underrated. In many businesses, the highest-value app is not public at all. It is a focused system for inquiries, allocations, approvals, handovers or job tracking. That kind of build can tighten service delivery quickly because it improves the business engine rather than adding another marketing surface.",
         ],
         lede: "This is where commercial discipline matters. The platform should follow the job the software needs to do.",
         variant: "system",
@@ -5795,18 +5795,18 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where AI belongs in app development — and where it does not",
         body: [
-          "In small-business app development, AI is most useful when it helps classify inputs, draft structured outputs, summarise records, suggest next actions or route work into the right queue. It is less useful when businesses expect it to operate with no boundaries, no approval logic and no fallback path.",
-          "A sensible AI-enabled app design keeps a clear line between deterministic rules and bounded AI judgement. In plain terms: some things should always happen the same way, while some things can be assisted by models if the confidence is good enough and the risk is acceptable. Anything sensitive, ambiguous or commercially material should have a human-in-the-loop review step.",
+          "In small-business app development, AI is most useful when it helps classify inputs, draft structured outputs, summarize records, suggest next actions or route work into the right queue. It is less useful when businesses expect it to operate with no boundaries, no approval logic and no fallback path.",
+          "A sensible AI-enabled app design keeps a clear line between deterministic rules and bounded AI judgment. In plain terms: some things should always happen the same way, while some things can be assisted by models if the confidence is good enough and the risk is acceptable. Anything sensitive, ambiguous or commercially material should have a human-in-the-loop review step.",
           "That matters in the UK context, especially where personal data, service promises, regulated information or payment-related workflows are involved. The app should make it obvious what was automated, what was suggested, what was approved and who owns exceptions.",
         ],
-        lede: "AI can make an app more useful, but it should sit inside a controlled system, not replace judgement blindly.",
+        lede: "AI can make an app more useful, but it should sit inside a controlled system, not replace judgment blindly.",
         variant: "system",
         pullQuote: "Useful AI in an app is constrained, logged and accountable.",
         subsections: [
           {
             heading: "Good AI use cases inside an app",
             body: [
-              "Triage of inbound enquiries, extraction of key details from forms or documents, draft replies for staff review, record summaries and internal knowledge retrieval can all add practical value when the rules are clear.",
+              "Triage of inbound inquiries, extraction of key details from forms or documents, draft replies for staff review, record summaries and internal knowledge retrieval can all add practical value when the rules are clear.",
               "These are system improvements, not magic tricks. They work best when supported by clean data, defined approval steps and logging.",
             ],
           },
@@ -5975,7 +5975,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     subtitle:
       "How to decide where voice automation fits, where it does not, and how to keep calls useful, compliant and commercially sharp.",
     summary: [
-      "AI voice agents work best when they handle bounded, repeatable call flows rather than open-ended judgement.",
+      "AI voice agents work best when they handle bounded, repeatable call flows rather than open-ended judgment.",
       "The real buying criteria are scope, control, integration, oversight and measurable operational value.",
       "UK small businesses should design for compliance, trust and fast human handoff from day one.",
     ],
@@ -6008,15 +6008,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The phone is still where urgency lives. A missed call can be a lost booking, a cold lead, a delayed quote or a frustrated existing customer. Yet for many UK small businesses, the problem is not call volume alone. It is inconsistency: different answers, slow follow-up, no clear routing and too much dependence on whoever happens to be free. **Silverstone AI** approaches voice systems as operating infrastructure, not novelty. A well-designed AI voice agent can answer, qualify, route and log routine calls with precision, while keeping humans firmly in control where judgement, compliance or nuance matter.",
+          "The phone is still where urgency lives. A missed call can be a lost booking, a cold lead, a delayed quote or a frustrated existing customer. Yet for many UK small businesses, the problem is not call volume alone. It is inconsistency: different answers, slow follow-up, no clear routing and too much dependence on whoever happens to be free. **Silverstone AI** approaches voice systems as operating infrastructure, not novelty. A well-designed AI voice agent can answer, qualify, route and log routine calls with precision, while keeping humans firmly in control where judgment, compliance or nuance matter.",
         ],
       },
       {
         heading: "What an AI voice agent is — and what it is not",
         body: [
-          "In practical terms, an AI voice agent answers the phone, understands spoken intent, responds naturally and carries out specific tasks. That may include answering common questions, collecting enquiry details, checking simple availability, routing the caller, sending a follow-up message or creating a record in your CRM.",
+          "In practical terms, an AI voice agent answers the phone, understands spoken intent, responds naturally and carries out specific tasks. That may include answering common questions, collecting inquiry details, checking simple availability, routing the caller, sending a follow-up message or creating a record in your CRM.",
           "The useful word here is *bounded*. Good systems operate inside rules. They should know what they are allowed to answer, what data they can capture, what systems they can update and when to transfer to a human. That is especially important in the UK, where call handling can touch privacy, consent, sensitive business information and sector-specific boundaries.",
-          "What an AI voice agent should not do is improvise policy, invent service details, give regulated advice or bluff through uncertainty. If your business depends on pricing discretion, technical diagnosis, legal interpretation, clinical judgement or delicate complaints handling, those moments need a human owner.",
+          "What an AI voice agent should not do is improvise policy, invent service details, give regulated advice or bluff through uncertainty. If your business depends on pricing discretion, technical diagnosis, legal interpretation, clinical judgment or delicate complaints handling, those moments need a human owner.",
         ],
         lede: "Start with the right mental model. An AI voice agent is not a magic replacement for your front desk. It is a bounded call-handling system with defined inputs, approved actions and clear handoff rules.",
         variant: "signal",
@@ -6025,7 +6025,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Good fit",
-            body: "Missed-call recovery, routine enquiries, booking capture, lead qualification and simple call routing.",
+            body: "Missed-call recovery, routine inquiries, booking capture, lead qualification and simple call routing.",
             icon: "phone",
           },
           {
@@ -6035,7 +6035,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Never assume",
-            body: "That a fluent voice equals sound judgement. Conversation quality and operational reliability are different things.",
+            body: "That a fluent voice equals sound judgment. Conversation quality and operational reliability are different things.",
             icon: "shield",
           },
         ],
@@ -6044,7 +6044,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Where AI voice agents create value for UK small businesses",
         body: [
           "For a small business in the UK, the commercial value often appears in very ordinary places: the calls that arrive out of hours, the same questions asked ten times a day, the leads that need sorting before a callback, and the admin gap between a phone conversation and a usable record in your systems.",
-          'That is why the best deployments usually focus on one workflow first. Not "answer every call perfectly", but something narrower and more useful: capture weekend enquiries for a salon, classify urgent versus routine jobs for a trades firm, route property enquiries correctly, or handle common booking questions without tying up staff.',
+          'That is why the best deployments usually focus on one workflow first. Not "answer every call perfectly", but something narrower and more useful: capture weekend inquiries for a salon, classify urgent versus routine jobs for a trades firm, route property inquiries correctly, or handle common booking questions without tying up staff.',
           "This is also where voice agents connect to wider automation. A phone call should not end as an isolated event. It should become a structured next step: a booking request, a task, a CRM update, a follow-up SMS or an exception for a team member.",
         ],
         lede: "The strongest use cases are operational, not theatrical.",
@@ -6057,12 +6057,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Salons and clinics",
-            body: "Answer booking questions and gather contact details, but stop before suitability or clinical judgement.",
+            body: "Answer booking questions and gather contact details, but stop before suitability or clinical judgment.",
             icon: "calendar",
           },
           {
             label: "Estate and property businesses",
-            body: "Route tenant, landlord and buyer enquiries cleanly to the correct team with context attached.",
+            body: "Route tenant, landlord and buyer inquiries cleanly to the correct team with context attached.",
             icon: "building",
           },
           {
@@ -6113,7 +6113,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Control",
               cells: [
-                "Approved answers, prompts, actions and fallback behaviour",
+                "Approved answers, prompts, actions and fallback behavior",
                 "Protects brand accuracy and operational consistency",
                 "Clear rules for what the agent can answer, ask and trigger",
               ],
@@ -6159,7 +6159,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The guardrails that matter: compliance, trust and human handoff",
         body: [
-          "UK relevance is not cosmetic here. Call recording, personal data handling and sector-specific obligations all shape how an AI voice system should be designed. The right approach is operational caution: disclose what needs disclosing, minimise unnecessary data capture, avoid sensitive decisions in automation and keep clear auditability around what happened.",
+          "UK relevance is not cosmetic here. Call recording, personal data handling and sector-specific obligations all shape how an AI voice system should be designed. The right approach is operational caution: disclose what needs disclosing, minimize unnecessary data capture, avoid sensitive decisions in automation and keep clear auditability around what happened.",
           "Trust also depends on honesty. If the caller thinks they are dealing with a human when they are not, the experience can turn brittle fast. In many cases, a straightforward introduction and a smooth transfer path are better than trying to disguise the system.",
           "The most important design choice is the handoff threshold. If the caller sounds distressed, asks for something outside policy, raises a complaint, needs bespoke pricing or enters a regulated zone, the agent should stop trying to be clever and route the call.",
         ],
@@ -6195,7 +6195,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "At Silverstone AI, voice projects should be treated as part of a broader business operating system. The call is only the front edge. Behind it sit routing rules, approved content, data structure, integrations, exception paths and team ownership.",
           "That means starting with the workflow: what callers want, what your business can approve automatically, which systems hold the source of truth, and where a human must stay in the loop. Once that is mapped, the voice layer becomes far more dependable.",
-          "For many small businesses, the best first release is narrow and measurable. One line, one enquiry type, one handoff pattern, one reporting loop. Then expand once the basics are stable. That approach protects the customer experience and gives the business something useful rather than something merely impressive.",
+          "For many small businesses, the best first release is narrow and measurable. One line, one inquiry type, one handoff pattern, one reporting loop. Then expand once the basics are stable. That approach protects the customer experience and gives the business something useful rather than something merely impressive.",
           "If you are comparing options, it also helps to understand [how we work](/how-we-work), because delivery quality depends on scoping, control and iteration more than on voice polish alone.",
         ],
         lede: "The build should start with call architecture, not a shiny script.",
@@ -6208,7 +6208,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Then decide the boundary. What should the agent answer? What should it collect? What systems should it update? Where should it transfer? The tighter those answers are, the better the first implementation tends to go.",
           "If you want a broader view of connected systems, our work across [services](/services), [industry](/industry) workflows and practical AI product design on the [blog](/blog) can help frame what is possible without overbuilding. When you are ready to scope a real use case, you can [book a call](/book#booking-calendar) to map the workflow properly.",
         ],
-        lede: "Do not ask whether AI can answer your phones. Ask which call workflow is worth systemising first.",
+        lede: "Do not ask whether AI can answer your phones. Ask which call workflow is worth systemizing first.",
         variant: "operator",
       },
     ],
@@ -6216,12 +6216,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Are AI voice agents suitable for every small business?",
         answer:
-          "No. They are best for bounded, repeatable call flows such as routine enquiries, qualification, routing and after-hours capture. They are a weaker fit where every call requires expert judgement, bespoke negotiation or sensitive regulated advice.",
+          "No. They are best for bounded, repeatable call flows such as routine inquiries, qualification, routing and after-hours capture. They are a weaker fit where every call requires expert judgment, bespoke negotiation or sensitive regulated advice.",
       },
       {
         question: "Do AI voice agents replace reception staff?",
         answer:
-          "Usually the better model is support, not replacement. A voice agent can absorb repetitive calls and improve coverage, while staff handle exceptions, judgement calls, complaints and high-value conversations.",
+          "Usually the better model is support, not replacement. A voice agent can absorb repetitive calls and improve coverage, while staff handle exceptions, judgment calls, complaints and high-value conversations.",
       },
       {
         question: "What should a UK small business automate first on the phone?",
@@ -6348,14 +6348,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "Missed calls are expensive, but so is a clumsy front desk. The modern answer is not a gimmick bolted onto your phone line. It is a tightly designed reception system that can answer, route, capture, book and escalate with precision across calls, web and messages. For UK small businesses, that matters most when the day is busy, the team is stretched and every new enquiry needs a clean handoff. This is where Silverstone AI approaches AI receptionists as an operating system question, not a chatbot purchase: what should be automated, what must stay human, and how do you keep service standards intact while the business moves faster?",
+          "Missed calls are expensive, but so is a clumsy front desk. The modern answer is not a gimmick bolted onto your phone line. It is a tightly designed reception system that can answer, route, capture, book and escalate with precision across calls, web and messages. For UK small businesses, that matters most when the day is busy, the team is stretched and every new inquiry needs a clean handoff. This is where Silverstone AI approaches AI receptionists as an operating system question, not a chatbot purchase: what should be automated, what must stay human, and how do you keep service standards intact while the business moves faster?",
         ],
       },
       {
         heading: "What an AI receptionist actually is",
         body: [
-          "An AI receptionist is a voice-led front-door system that answers inbound enquiries, understands common requests, follows approved business rules and either completes a bounded task or passes the conversation to a person. In a UK small business, that usually means handling first contact for bookings, opening hours, service questions, lead capture, routing and callback requests.",
-          "The important phrase is *bounded task*. A good AI receptionist does not replace judgement-heavy work. It works best where the business can define clear rules: which calls can be answered, what information can be collected, when a booking can be offered, and when the call must go to a human.",
+          "An AI receptionist is a voice-led front-door system that answers inbound inquiries, understands common requests, follows approved business rules and either completes a bounded task or passes the conversation to a person. In a UK small business, that usually means handling first contact for bookings, opening hours, service questions, lead capture, routing and callback requests.",
+          "The important phrase is *bounded task*. A good AI receptionist does not replace judgment-heavy work. It works best where the business can define clear rules: which calls can be answered, what information can be collected, when a booking can be offered, and when the call must go to a human.",
           "This matters in the UK because small firms often run lean teams, mixed mobile and office coverage, and uneven call peaks across mornings, lunch periods and after-hours. A receptionist system needs to cope with local accents, UK time formats, business-hour rules, consent-aware workflows and practical escalation paths, not just answer politely.",
         ],
         lede: "Strip away the marketing language and the useful version is simple.",
@@ -6365,12 +6365,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Best uses",
-            body: "Answering common enquiries, routing to the right team, taking details and handling simple bookings.",
+            body: "Answering common inquiries, routing to the right team, taking details and handling simple bookings.",
             icon: "phone",
           },
           {
             label: "Poor uses",
-            body: "Clinical judgement, disputes, sensitive complaints, complex pricing or anything needing negotiation.",
+            body: "Clinical judgment, disputes, sensitive complaints, complex pricing or anything needing negotiation.",
             icon: "alert-circle",
           },
           {
@@ -6385,14 +6385,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Most small businesses do not need a flashy voice demo. They need fewer missed opportunities, cleaner admin and more consistent first response. That is why AI receptionists create value when they sit inside a wider workflow rather than acting as a standalone tool.",
           "If a caller asks for availability, the system should know whether it is allowed to offer a slot, gather the right details and write that information to the correct destination. If someone calls after hours, the system should know whether to book, log, triage or arrange a callback. If the query falls outside policy, it should escalate immediately.",
-          "That operating-system view is why reception AI often overlaps with [services](/services), workflow logic and internal process design. The voice layer is only the visible edge. The real gain comes from better routing, fewer manual re-entries and less ambiguity in how new enquiries move through the business.",
+          "That operating-system view is why reception AI often overlaps with [services](/services), workflow logic and internal process design. The voice layer is only the visible edge. The real gain comes from better routing, fewer manual re-entries and less ambiguity in how new inquiries move through the business.",
         ],
         lede: "The strongest commercial case is operational, not theatrical.",
         variant: "system",
         bullets: [
           {
             label: "Strong fit sectors",
-            body: "Trades, clinics for non-clinical enquiries, salons, hospitality, property and service businesses with repeated call types.",
+            body: "Trades, clinics for non-clinical inquiries, salons, hospitality, property and service businesses with repeated call types.",
             icon: "building",
           },
           {
@@ -6491,7 +6491,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How to decide whether your business is ready",
         body: [
-          "The best early deployments tend to share three traits. First, the business gets repeatable enquiry types. Second, there is a defined destination for each type of call. Third, management is willing to set boundaries on what the system may and may not do.",
+          "The best early deployments tend to share three traits. First, the business gets repeatable inquiry types. Second, there is a defined destination for each type of call. Third, management is willing to set boundaries on what the system may and may not do.",
           "If your call handling is currently informal, spread across personal mobiles, or dependent on one person remembering everything, an AI receptionist may still help — but only if you fix the process before the voice layer goes live. Otherwise you automate confusion.",
           "That is also why implementation should connect to a proper delivery method. Pages like [how we work](/how-we-work) and [pricing](/pricing) are useful decision points because they frame AI as a system build, not a one-click install.",
         ],
@@ -6518,7 +6518,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Ready",
             title: "You know the common call types",
-            body: "Your team can list the top enquiries and the correct next step for each.",
+            body: "Your team can list the top inquiries and the correct next step for each.",
           },
           {
             label: "Ready",
@@ -6541,13 +6541,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What to ask before you buy or build",
         body: [
           "A sensible buying process starts with control, not features. Who owns the call flow? Where is the booking truth held? What happens when the system is unsure? How are notes stored? Can the team review transcripts, outcomes and failed paths? These questions matter more than a polished demo.",
-          "In the UK, you also need to think practically about privacy, call recording, consent wording where relevant, and sector-specific boundaries. A receptionist for a salon, trade business or estate agency will have different operational rules from one handling healthcare-adjacent or sensitive enquiries. The system must reflect that reality.",
+          "In the UK, you also need to think practically about privacy, call recording, consent wording where relevant, and sector-specific boundaries. A receptionist for a salon, trade business or estate agency will have different operational rules from one handling healthcare-adjacent or sensitive inquiries. The system must reflect that reality.",
           "For many small firms, a bespoke or semi-bespoke setup is stronger than an off-the-shelf generic voice bot because it can connect to the actual booking, routing and follow-up logic the business already uses. That is the difference between software that sounds clever and a system that becomes useful.",
         ],
         lede: "The wrong question is 'Can it answer calls?'. Nearly every tool can. The right question is whether it can operate safely inside your business.",
         variant: "system",
         pullQuote:
-          "A reception system should make the business easier to run. If it creates more checking, more apologising or more manual repair, it is not finished.",
+          "A reception system should make the business easier to run. If it creates more checking, more apologizing or more manual repair, it is not finished.",
         bullets: [
           {
             label: "Ask about ownership",
@@ -6574,7 +6574,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A pragmatic rollout plan for UK small businesses",
         body: [
-          "The cleanest rollout usually begins with a limited slice of front-desk work: common inbound enquiries, after-hours capture, or one booking path with obvious rules. That gives the business a safe test bed and reveals where information, wording or routing still need work.",
+          "The cleanest rollout usually begins with a limited slice of front-desk work: common inbound inquiries, after-hours capture, or one booking path with obvious rules. That gives the business a safe test bed and reveals where information, wording or routing still need work.",
           "From there, review real interactions. Where did callers ask for something outside scope? Which answers were too vague? Which handoffs lacked enough context for the team? Good deployment is iterative. You are tuning a service layer, not pressing a launch button and hoping for the best.",
           "If you are weighing this up now, the next step is usually a workflow conversation rather than a product demo. [Book a call](/book#booking-calendar), explore more practical thinking on the [blog](/blog), or use [contact](/contact) if you already know the process gap you need to fix.",
         ],
@@ -6606,12 +6606,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can an AI receptionist replace a human receptionist completely?",
         answer:
-          "Usually, no. It can reduce repetitive front-desk load and improve coverage, but most UK small businesses still need human ownership for exceptions, sensitive conversations, complaints, negotiation and any judgement-heavy decisions.",
+          "Usually, no. It can reduce repetitive front-desk load and improve coverage, but most UK small businesses still need human ownership for exceptions, sensitive conversations, complaints, negotiation and any judgment-heavy decisions.",
       },
       {
         question: "Which small businesses are the best fit for an AI receptionist?",
         answer:
-          "Businesses with repeatable inbound enquiries and clear routing or booking rules tend to be the best fit. That often includes trades, salons, hospitality, property and service-led firms, plus non-clinical call handling in healthcare-adjacent settings.",
+          "Businesses with repeatable inbound inquiries and clear routing or booking rules tend to be the best fit. That often includes trades, salons, hospitality, property and service-led firms, plus non-clinical call handling in healthcare-adjacent settings.",
       },
       {
         question:
@@ -6707,7 +6707,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Use AI and automation to remove admin drag, tighten handoffs and build cleaner operations without losing human control.",
     summary: [
       "Learn where AI automation genuinely fits in a UK small business.",
-      "Prioritise the workflows that create the most operational drag.",
+      "Prioritize the workflows that create the most operational drag.",
       "Use a practical automate-assist-leave-alone framework before buying.",
     ],
     categoryLabel: "AI Automation",
@@ -6721,7 +6721,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/small-business-ai-automation-hero.webp",
     heroImageAlt:
-      "Premium visual of a UK small business automation system showing enquiry intake, workflow routing, approval points and human oversight in a refined high-tech interface.",
+      "Premium visual of a UK small business automation system showing inquiry intake, workflow routing, approval points and human oversight in a refined high-tech interface.",
     metaTitle: "AI Automation for UK Small Businesses | Silverstone AI",
     metaDescription:
       "Learn what UK small businesses should automate first, where AI genuinely fits, and how to design practical automation systems without losing human control.",
@@ -6738,14 +6738,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The next competitive edge for a UK small business is not louder marketing or another software subscription. It is a cleaner operating system. When enquiries, bookings, follow-ups, documents and internal handoffs move with less friction, the business feels faster, sharper and more expensive than it is. That is where **Silverstone AI** works best: turning messy, manual work into controlled systems with clear rules, visible ownership and sensible use of AI. The goal is not to automate everything. The goal is to fix the work that quietly leaks time, margin and responsiveness every single week.",
+          "The next competitive edge for a UK small business is not louder marketing or another software subscription. It is a cleaner operating system. When inquiries, bookings, follow-ups, documents and internal handoffs move with less friction, the business feels faster, sharper and more expensive than it is. That is where **Silverstone AI** works best: turning messy, manual work into controlled systems with clear rules, visible ownership and sensible use of AI. The goal is not to automate everything. The goal is to fix the work that quietly leaks time, margin and responsiveness every single week.",
         ],
       },
       {
         heading: "What AI automation actually means in a small business",
         body: [
-          "AI automation combines two layers. The first is **automation**: triggers, rules, routing, updates, alerts and task creation between the tools you already use. The second is **AI**: bounded judgement inside that flow, such as summarising an enquiry, classifying a lead, drafting a reply or extracting key details from a document.",
-          "For a UK small business, the useful question is not *'Do we need AI?'* It is *'Where are we repeating predictable work with enough volume to justify system design?'* If the task happens often, follows a recognisable pattern and slows down a commercial process, it is a candidate.",
+          "AI automation combines two layers. The first is **automation**: triggers, rules, routing, updates, alerts and task creation between the tools you already use. The second is **AI**: bounded judgment inside that flow, such as summarizing an inquiry, classifying a lead, drafting a reply or extracting key details from a document.",
+          "For a UK small business, the useful question is not *'Do we need AI?'* It is *'Where are we repeating predictable work with enough volume to justify system design?'* If the task happens often, follows a recognizable pattern and slows down a commercial process, it is a candidate.",
           "The best systems are not fully autonomous. They are structured. They know what can happen automatically, what needs approval, what must be logged, and when a human takes over. That matters even more in the UK, where privacy, consent, customer expectations and sector-specific obligations all shape what should or should not be automated.",
         ],
         lede: "Forget sci-fi. In practice, this is about moving routine work through a reliable flow.",
@@ -6760,7 +6760,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Bad fit",
-            body: "High-risk decisions needing nuanced judgement, legal interpretation or regulated advice.",
+            body: "High-risk decisions needing nuanced judgment, legal interpretation or regulated advice.",
             icon: "stop",
           },
           {
@@ -6778,16 +6778,16 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to fix first: the highest-friction workflows",
         body: [
-          "Start where operational friction touches revenue, service speed or staff time. That usually means front-door enquiries, follow-up, scheduling, document handling, internal handoffs or repetitive customer communication.",
+          "Start where operational friction touches revenue, service speed or staff time. That usually means front-door inquiries, follow-up, scheduling, document handling, internal handoffs or repetitive customer communication.",
           "In UK service businesses, missed calls, delayed replies and fragmented data are common losses. A prospect fills a form, sends a WhatsApp, leaves a voicemail or books partially, and the trail breaks. Automation closes those gaps by moving information into one usable workflow instead of leaving it scattered across inboxes and apps.",
-          "A practical rule: prioritise work that is frequent, annoying, measurable and commercially adjacent. Do not begin with the most technically interesting problem. Begin with the one that creates visible drag every week.",
+          "A practical rule: prioritize work that is frequent, annoying, measurable and commercially adjacent. Do not begin with the most technically interesting problem. Begin with the one that creates visible drag every week.",
         ],
         lede: "Most small businesses do not need an AI strategy deck. They need a shortlist.",
         variant: "system",
         bullets: [
           {
             label: "Fix first",
-            body: "Missed enquiries and delayed responses that directly affect sales.",
+            body: "Missed inquiries and delayed responses that directly affect sales.",
             icon: "arrow-up",
           },
           {
@@ -6816,7 +6816,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Document and data handling",
-            body: "Extract, categorise and route information from forms, PDFs, emails and notes.",
+            body: "Extract, categorize and route information from forms, PDFs, emails and notes.",
           },
         ],
       },
@@ -6825,7 +6825,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "A useful operating model has three choices. **Automate** work that is deterministic: clear rules, low ambiguity, low risk. **Assist** work where AI can speed up analysis or drafting, but a person still owns the decision. **Leave alone** work that is too rare, too messy or too sensitive to justify intervention.",
           "This approach prevents two expensive mistakes: overbuilding automations that nobody trusts, and underusing AI where it could remove obvious admin. It also gives a cleaner scoping conversation with a studio like [Silverstone AI's services](/services), because the project starts with business logic rather than software features.",
-          "For many UK SMEs, the strongest wins sit in the middle column. AI-assisted workflows can summarise calls, classify enquiries, prepare replies, suggest next actions and keep records tidy, while a human approves anything that affects pricing, commitments, regulated information or unusual cases.",
+          "For many UK SMEs, the strongest wins sit in the middle column. AI-assisted workflows can summarize calls, classify inquiries, prepare replies, suggest next actions and keep records tidy, while a human approves anything that affects pricing, commitments, regulated information or unusual cases.",
         ],
         lede: "Not every process should be touched. The discipline is knowing which mode fits.",
         variant: "operator",
@@ -6849,9 +6849,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Assist",
               cells: [
-                "Drafting, sorting, summarising and recommendation tasks",
+                "Drafting, sorting, summarizing and recommendation tasks",
                 "Approve outputs and own sensitive decisions",
-                "Medium because judgement still matters",
+                "Medium because judgment still matters",
                 "Quicker work without removing accountability",
               ],
             },
@@ -6879,8 +6879,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Common UK small business use cases that are worth attention",
         body: [
           "The strongest use cases are usually operational, not theatrical. They remove delay, inconsistency and hidden admin from the day-to-day running of the business.",
-          "Examples include enquiry triage, callback workflows, quote preparation support, appointment reminders, CRM updates, post-service follow-up, invoice-chasing triggers, internal alerts for stalled jobs, and content workflows that turn approved source material into reusable marketing assets.",
-          "Different UK sectors have different boundaries. A trades business may automate job intake and status updates but keep pricing and safety judgement human. A clinic can automate non-clinical bookings and reminders but must keep clinical judgement out of scope. A hospitality operator can automate reservation flows and pre-arrival messaging while escalating exceptions to staff.",
+          "Examples include inquiry triage, callback workflows, quote preparation support, appointment reminders, CRM updates, post-service follow-up, invoice-chasing triggers, internal alerts for stalled jobs, and content workflows that turn approved source material into reusable marketing assets.",
+          "Different UK sectors have different boundaries. A trades business may automate job intake and status updates but keep pricing and safety judgment human. A clinic can automate non-clinical bookings and reminders but must keep clinical judgment out of scope. A hospitality operator can automate reservation flows and pre-arrival messaging while escalating exceptions to staff.",
         ],
         lede: "Useful automation is often less glamorous than people expect. That is exactly why it pays.",
         variant: "signal",
@@ -6888,7 +6888,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The best use case is usually the one your team complains about weekly, not the one that sounds clever in a meeting.",
         bullets: [
           {
-            label: "Reception and enquiries",
+            label: "Reception and inquiries",
             body: "Capture inbound demand across phone, web and messaging, then route it cleanly.",
             icon: "phone",
           },
@@ -6937,7 +6937,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Step 4",
             title: "Monitor and refine",
-            body: "Review logs, failure points and user behaviour after launch.",
+            body: "Review logs, failure points and user behavior after launch.",
           },
         ],
       },
@@ -6945,7 +6945,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "How to buy AI automation without wasting money",
         body: [
           "If you are evaluating automation support, do not ask vendors which tools they use first. Ask how they define the workflow, boundary conditions, exception handling and ownership model. If those answers are vague, the build will be vague too.",
-          "A commercially sound project has a narrow starting scope, measurable operational aim and realistic human oversight. It might begin with enquiry intake, receptionist logic, lead follow-up or content operations rather than a business-wide transformation story. That is a better route to durable value.",
+          "A commercially sound project has a narrow starting scope, measurable operational aim and realistic human oversight. It might begin with inquiry intake, receptionist logic, lead follow-up or content operations rather than a business-wide transformation story. That is a better route to durable value.",
           "Silverstone AI is strongest when the brief is treated like systems design for a real company, not a generic AI experiment. If you want to explore that properly, the cleanest next step is to [book a call](/book#booking-calendar), review the broader [blog](/blog) for adjacent thinking, or use the [contact page](/contact) if the workflow already feels clear enough to discuss.",
         ],
         lede: "The wrong buy is usually a scope problem dressed up as a software problem.",
@@ -6973,17 +6973,17 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is AI automation for a small business?",
         answer:
-          "It is the use of software workflows and bounded AI to handle routine business tasks such as routing enquiries, updating records, drafting responses, extracting information and triggering follow-up. The aim is to reduce manual admin and improve consistency, while keeping human control where judgement is needed.",
+          "It is the use of software workflows and bounded AI to handle routine business tasks such as routing inquiries, updating records, drafting responses, extracting information and triggering follow-up. The aim is to reduce manual admin and improve consistency, while keeping human control where judgment is needed.",
       },
       {
         question: "What should a UK small business automate first?",
         answer:
-          "Start with high-frequency, low-ambiguity work that affects revenue or staff time: missed enquiries, lead follow-up, appointment handling, document processing or internal status updates. The best first project is usually a narrow workflow with clear inputs, outputs and an obvious owner.",
+          "Start with high-frequency, low-ambiguity work that affects revenue or staff time: missed inquiries, lead follow-up, appointment handling, document processing or internal status updates. The best first project is usually a narrow workflow with clear inputs, outputs and an obvious owner.",
       },
       {
         question: "Is AI automation suitable for regulated or sensitive work?",
         answer:
-          "Sometimes, but only within clear boundaries. AI can assist with summarising, categorising or preparing information, but sensitive decisions, regulated advice and high-risk exceptions should remain with a human. UK privacy expectations and sector rules make this especially important.",
+          "Sometimes, but only within clear boundaries. AI can assist with summarizing, categorizing or preparing information, but sensitive decisions, regulated advice and high-risk exceptions should remain with a human. UK privacy expectations and sector rules make this especially important.",
       },
       {
         question: "Do small businesses need a full AI strategy before starting?",
@@ -7107,7 +7107,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The next competitive edge for a small business is not another app, another hire or another dashboard. It is a cleaner operating system: enquiries routed properly, admin reduced, follow-up handled on time, and decisions supported by tools that are actually wired into the way the business runs. That is where AI & automation consulting becomes commercially serious. Silverstone AI helps UK small businesses design systems that remove friction without surrendering control, turning scattered processes into something faster, calmer and more profitable.",
+          "The next competitive edge for a small business is not another app, another hire or another dashboard. It is a cleaner operating system: inquiries routed properly, admin reduced, follow-up handled on time, and decisions supported by tools that are actually wired into the way the business runs. That is where AI & automation consulting becomes commercially serious. Silverstone AI helps UK small businesses design systems that remove friction without surrendering control, turning scattered processes into something faster, calmer and more profitable.",
         ],
       },
       {
@@ -7118,7 +7118,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "That distinction matters. A booking confirmation, lead-routing rule or invoice reminder may be suited to deterministic automation. A messy customer email, call summary or content draft may benefit from bounded AI support. Pricing decisions, legal judgment, clinical decisions and sensitive exceptions usually need human ownership.",
           "For many firms, the fastest wins are not glamorous. They sit in missed calls, slow quote turnaround, poor lead handling, fragmented inboxes, weak internal visibility and systems that do not talk to each other.",
         ],
-        lede: "Forget the theatre. Good consulting does not start with tools. It starts with operational pressure.",
+        lede: "Forget the theater. Good consulting does not start with tools. It starts with operational pressure.",
         variant: "signal",
         pullQuote:
           "The point of AI consulting is not more technology. It is fewer broken handoffs.",
@@ -7126,7 +7126,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where UK small businesses usually get the strongest return",
         body: [
-          "Most small businesses in the UK do not need a moonshot AI programme. They need a short list of operational fixes that improve response time, reduce admin and protect service quality. The best consulting work creates that priority list quickly.",
+          "Most small businesses in the UK do not need a moonshot AI program. They need a short list of operational fixes that improve response time, reduce admin and protect service quality. The best consulting work creates that priority list quickly.",
           "A practical review usually looks across sales, service delivery, administration, customer communication and reporting. It maps where inputs arrive, who owns the next action, what data gets duplicated, where delays happen and which steps are safe to automate.",
           "UK relevance matters here. Businesses are often working around fragmented software stacks, limited team capacity, GDPR concerns, call-handling gaps, and legacy habits built around email and spreadsheets. A usable plan has to fit that reality.",
         ],
@@ -7135,7 +7135,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Lead handling",
-            body: "Capture web, call and form enquiries properly, route them fast and trigger follow-up without relying on memory.",
+            body: "Capture web, call and form inquiries properly, route them fast and trigger follow-up without relying on memory.",
             icon: "inbox",
           },
           {
@@ -7175,7 +7175,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "One of the most useful outcomes of consulting is a **decision framework**. Instead of asking whether AI is good in general, assess each workflow against four options: automate it, assist it, redesign it first, or leave it alone.",
           "This avoids a common mistake: applying AI to a weak process and getting a faster version of the same mess. If a workflow has unclear rules, missing data or poor ownership, redesign usually comes before automation.",
-          "A strong consulting partner should be able to explain the boundary in plain English. If a process is rules-based and stable, automate it. If it contains nuance but still follows a recognisable pattern, use AI assistance with review. If the process is chaotic, fix the operating model first. If the task is rare or low-value, leave it manual.",
+          "A strong consulting partner should be able to explain the boundary in plain English. If a process is rules-based and stable, automate it. If it contains nuance but still follows a recognizable pattern, use AI assistance with review. If the process is chaotic, fix the operating model first. If the task is rare or low-value, leave it manual.",
         ],
         lede: "Not every process deserves AI. Some need cleaner operations before new technology.",
         variant: "operator",
@@ -7194,7 +7194,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Assist with AI",
               cells: [
-                "Pattern-based work needing judgement or summarisation",
+                "Pattern-based work needing judgment or summarization",
                 "Faster handling without removing human oversight",
                 "Hallucinations, tone errors or weak context",
                 "Review, approve and own final decision",
@@ -7232,7 +7232,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How a consulting engagement should work in practice",
         body: [
-          "Good AI & automation consulting should feel like operational engineering, not a brainstorm. The sequence is usually straightforward: audit the current workflow, identify friction, map systems, define decision boundaries, prioritise opportunities, then build or recommend the right path.",
+          "Good AI & automation consulting should feel like operational engineering, not a brainstorm. The sequence is usually straightforward: audit the current workflow, identify friction, map systems, define decision boundaries, prioritize opportunities, then build or recommend the right path.",
           "For a studio like Silverstone AI, that often means joining strategy to delivery. If a business needs a tighter website journey, an app, an AI receptionist, internal workflow automation or content systems, the consulting phase should reveal what actually deserves implementation first.",
           "There should also be a clear view of constraints. UK small businesses need to think about GDPR, consent, call recording practices, data storage, staff adoption, software sprawl and who remains accountable when automation takes action. None of that needs drama, but it does need design discipline.",
           "If you want to see how that kind of structured process translates into execution, the best place to start is [how we work](/how-we-work) and then review the broader [services](/services) available around websites, apps, automation and AI systems.",
@@ -7246,7 +7246,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             icon: "search",
           },
           {
-            label: "Prioritise commercially",
+            label: "Prioritize commercially",
             body: "Rank by business value, effort, risk and readiness rather than novelty.",
             icon: "matrix",
           },
@@ -7291,15 +7291,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Question 4",
             title: "What would you leave alone for now?",
-            body: "Good judgement includes saying no to low-value or high-risk ideas.",
+            body: "Good judgment includes saying no to low-value or high-risk ideas.",
           },
         ],
       },
       {
         heading: "What a sensible next step looks like",
         body: [
-          "For most UK small businesses, the next step is not a massive transformation programme. It is a focused review of where demand enters, where work slows down and where a better system would free capacity or protect revenue.",
-          "That could mean tightening web enquiries, building a structured follow-up sequence, introducing an AI receptionist with clear handoff rules, redesigning internal admin workflows, or deciding that a process needs cleaner ownership before any automation is introduced.",
+          "For most UK small businesses, the next step is not a massive transformation program. It is a focused review of where demand enters, where work slows down and where a better system would free capacity or protect revenue.",
+          "That could mean tightening web inquiries, building a structured follow-up sequence, introducing an AI receptionist with clear handoff rules, redesigning internal admin workflows, or deciding that a process needs cleaner ownership before any automation is introduced.",
           "The commercial value comes from sequencing. Fix the workflow that creates the most friction. Put clear controls around AI use. Connect the right systems. Keep people responsible for the decisions that matter.",
           "That is the practical case for AI & automation consulting: not more noise, but a smarter operating system for a business that wants to run with more speed and less waste.",
         ],
@@ -7318,7 +7318,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What should a UK small business automate first?",
         answer:
-          "Usually the best starting point is a repetitive workflow with clear rules and direct commercial impact, such as lead capture, enquiry routing, reminders, follow-up, internal notifications or document handling. The exact priority depends on where delay or inconsistency is currently hurting the business.",
+          "Usually the best starting point is a repetitive workflow with clear rules and direct commercial impact, such as lead capture, inquiry routing, reminders, follow-up, internal notifications or document handling. The exact priority depends on where delay or inconsistency is currently hurting the business.",
       },
       {
         question: "Is AI automation safe for customer-facing work?",
@@ -7409,7 +7409,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     summary: [
       "Why disconnected content wastes time and weakens commercial performance.",
       "How to build a practical content system with source truth, workflow and review gates.",
-      "Where AI helps in content creation, and where human judgement must stay in control.",
+      "Where AI helps in content creation, and where human judgment must stay in control.",
     ],
     categoryLabel: "Content Creation",
     categoryKey: "content-creation",
@@ -7425,7 +7425,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Premium editorial visual of a structured content system turning approved business source material into website, email and social modules through controlled review stages.",
     metaTitle: "Content Systems for UK Small Businesses | Silverstone AI",
     metaDescription:
-      "Learn how UK small businesses can build a content system that supports websites, sales, automation and better enquiry quality without wasted effort.",
+      "Learn how UK small businesses can build a content system that supports websites, sales, automation and better inquiry quality without wasted effort.",
     primaryKeyword: "content creation for UK small businesses",
     secondaryKeywords: [
       "content system for small business",
@@ -7439,7 +7439,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "Content is no longer a side task squeezed in after real work. For UK small businesses, it now sits much closer to revenue, trust, response times and operational clarity than most owners realise. The gap is no longer between businesses that publish and businesses that do not. It is between businesses with a system and businesses with a pile. **Silverstone AI** helps close that gap by designing content operations that produce sharper pages, better follow-up, cleaner reuse and less internal friction. If your website, email, social and sales materials all feel disconnected, the problem is rarely effort. It is architecture.",
+          "Content is no longer a side task squeezed in after real work. For UK small businesses, it now sits much closer to revenue, trust, response times and operational clarity than most owners realize. The gap is no longer between businesses that publish and businesses that do not. It is between businesses with a system and businesses with a pile. **Silverstone AI** helps close that gap by designing content operations that produce sharper pages, better follow-up, cleaner reuse and less internal friction. If your website, email, social and sales materials all feel disconnected, the problem is rarely effort. It is architecture.",
         ],
       },
       {
@@ -7458,7 +7458,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What a real content system looks like",
         body: [
           "A proper system starts with source truth. That means clear offer language, audience priorities, service boundaries, proof points, objections and next actions. Once that core is stable, content can be produced, adapted and approved with far less waste.",
-          "The point is not to industrialise bland content. The point is to stop rebuilding the same thinking for every channel. One strong source can become a service page, a blog article, an email sequence, a lead follow-up script and a shortlist of social cuts, provided the logic is sound.",
+          "The point is not to industrialize bland content. The point is to stop rebuilding the same thinking for every channel. One strong source can become a service page, a blog article, an email sequence, a lead follow-up script and a shortlist of social cuts, provided the logic is sound.",
           "This is where structured content beats ad hoc publishing. The best systems make reuse deliberate. They separate evergreen material from campaign material. They define what needs human review. They also make it easier to keep claims accurate and relevant to UK buyers.",
         ],
         lede: "A content system gives every asset a job, an owner and a route into the wider business.",
@@ -7503,10 +7503,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How to decide what content to create first",
         body: [
-          "Small businesses often start with whichever format feels most visible, usually social content or a blog. That can be useful, but it is not always the first fix. The smarter move is to identify where content is currently slowing enquiries, confusing prospects or creating manual admin.",
-          "For many UK service businesses, the first priority is not more top-of-funnel content. It is tightening the core journey: homepage clarity, service pages, FAQs, enquiry handling, lead qualification messages and follow-up sequences.",
+          "Small businesses often start with whichever format feels most visible, usually social content or a blog. That can be useful, but it is not always the first fix. The smarter move is to identify where content is currently slowing inquiries, confusing prospects or creating manual admin.",
+          "For many UK service businesses, the first priority is not more top-of-funnel content. It is tightening the core journey: homepage clarity, service pages, FAQs, inquiry handling, lead qualification messages and follow-up sequences.",
           "If prospects repeatedly ask the same questions, quote requests arrive half-complete, or the team keeps rewriting explanations, you already have a content problem with an operational cost attached. Fix that before chasing reach.",
-          "This is one reason Silverstone AI approaches content as part of a wider systems picture. The strongest content assets are often the ones that reduce friction between marketing, sales and fulfilment.",
+          "This is one reason Silverstone AI approaches content as part of a wider systems picture. The strongest content assets are often the ones that reduce friction between marketing, sales and fulfillment.",
         ],
         lede: "Start where commercial friction is highest, not where the content format feels easiest.",
         variant: "operator",
@@ -7514,7 +7514,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           columns: ["Best first move", "Why it matters", "What to avoid"],
           rows: [
             {
-              label: "Website gets traffic but few enquiries",
+              label: "Website gets traffic but few inquiries",
               cells: [
                 "Rewrite core pages and strengthen calls to action",
                 "Visitors need clearer offers, proof and next steps",
@@ -7524,7 +7524,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Leads come in but are poorly qualified",
               cells: [
-                "Improve enquiry forms, FAQs and pre-contact messaging",
+                "Improve inquiry forms, FAQs and pre-contact messaging",
                 "Better information upfront reduces wasted follow-up",
                 "Letting every prospect enter the same generic process",
               ],
@@ -7551,14 +7551,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where AI fits in content creation, and where it does not",
         body: [
-          "AI is useful when the business already knows what it wants to say, who it is speaking to and what the output needs to do. In that setting, AI can help with drafting, repurposing, summarising, structuring, formatting and adapting content for different channels.",
+          "AI is useful when the business already knows what it wants to say, who it is speaking to and what the output needs to do. In that setting, AI can help with drafting, repurposing, summarizing, structuring, formatting and adapting content for different channels.",
           "It is far less useful when the underlying strategy is vague. If the offer is muddy, the audience is unclear or the proof is weak, AI simply accelerates confusion. Faster production is not the same as better positioning.",
           "For UK small businesses, there is another practical issue: accuracy. If content touches regulated topics, customer commitments, pricing, service boundaries or sensitive sectors, human review is non-negotiable. AI can assist the workflow, but a person still owns the final message.",
           "The most commercially sound use of AI is inside a controlled system: approved inputs, clear prompts, bounded tasks, review checkpoints and measurable outputs.",
         ],
-        lede: "AI can speed production and improve structure. It should not replace judgement, offer design or accountability.",
+        lede: "AI can speed production and improve structure. It should not replace judgment, offer design or accountability.",
         variant: "signal",
-        pullQuote: "Use AI to compress production time, not to outsource judgement.",
+        pullQuote: "Use AI to compress production time, not to outsource judgment.",
         bullets: [
           {
             label: "Strong AI use",
@@ -7618,7 +7618,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "What to measure",
             body: [
-              "Measure content by business effect, not vanity. Useful signals include enquiry quality, conversion rate on key pages, time saved in follow-up, response consistency and how often assets get reused in live sales activity.",
+              "Measure content by business effect, not vanity. Useful signals include inquiry quality, conversion rate on key pages, time saved in follow-up, response consistency and how often assets get reused in live sales activity.",
               "A blog post with modest traffic can still be valuable if it improves sales conversations, supports search intent or answers objections that slow decisions.",
             ],
           },
@@ -7666,12 +7666,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Is AI content creation suitable for UK small businesses?",
         answer:
-          "Yes, if it is used with boundaries. AI is useful for drafting, repurposing and structuring approved material. It is not a substitute for offer clarity, customer insight, legal judgement or final sign-off. UK businesses should keep human review in place, especially where claims, pricing, regulated sectors or customer commitments are involved.",
+          "Yes, if it is used with boundaries. AI is useful for drafting, repurposing and structuring approved material. It is not a substitute for offer clarity, customer insight, legal judgment or final sign-off. UK businesses should keep human review in place, especially where claims, pricing, regulated sectors or customer commitments are involved.",
       },
       {
         question: "What content should a small business fix first?",
         answer:
-          "Usually the content closest to conversion: core website pages, service explanations, FAQs, enquiry forms, follow-up emails and sales support material. If the main journey is unclear, publishing more top-of-funnel content often adds volume without improving outcomes.",
+          "Usually the content closest to conversion: core website pages, service explanations, FAQs, inquiry forms, follow-up emails and sales support material. If the main journey is unclear, publishing more top-of-funnel content often adds volume without improving outcomes.",
       },
       {
         question: "Can content creation be connected to automation?",
@@ -7751,7 +7751,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     slug: "ai-estate-agents-systems-agencies",
     title: "AI for Estate Agents: Practical Systems for UK Small Agencies",
     subtitle:
-      "Websites, enquiry handling, automation and AI workflows that help small UK agencies respond faster, stay organised and keep the human parts human.",
+      "Websites, inquiry handling, automation and AI workflows that help small UK agencies respond faster, stay organized and keep the human parts human.",
     summary: [
       "See where small estate agencies actually lose time, leads and control.",
       "Learn what to automate first across websites, calls, CRM routing and diaries.",
@@ -7768,10 +7768,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/ai-estate-agents-systems-agencies-hero.webp",
     heroImageAlt:
-      "Premium high-tech estate agency operations system showing website enquiries, call routing, CRM ownership and viewing diary workflow for a UK small business.",
+      "Premium high-tech estate agency operations system showing website inquiries, call routing, CRM ownership and viewing diary workflow for a UK small business.",
     metaTitle: "AI for Estate Agents | UK Systems for Small Agencies",
     metaDescription:
-      "Practical advice for UK estate agents on websites, AI reception, automation and content systems that improve enquiry handling and operational control.",
+      "Practical advice for UK estate agents on websites, AI reception, automation and content systems that improve inquiry handling and operational control.",
     primaryKeyword: "AI for estate agents",
     secondaryKeywords: [
       "estate agency automation",
@@ -7785,14 +7785,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "Every missed valuation call, slow portal response and messy follow-up sequence leaks margin. In a tight UK property market, the agencies that win are not the loudest. They are the ones with cleaner systems: sharper websites, faster enquiry routing, tighter diaries and better handoffs between software and staff. That is where Silverstone AI fits. Not as a gimmick layer, but as an operating system for small estate agencies that need modern websites, AI reception, automation and content systems that actually support viewings, valuations, negotiations and local reputation.",
+          "Every missed valuation call, slow portal response and messy follow-up sequence leaks margin. In a tight UK property market, the agencies that win are not the loudest. They are the ones with cleaner systems: sharper websites, faster inquiry routing, tighter diaries and better handoffs between software and staff. That is where Silverstone AI fits. Not as a gimmick layer, but as an operating system for small estate agencies that need modern websites, AI reception, automation and content systems that actually support viewings, valuations, negotiations and local reputation.",
         ],
       },
       {
         heading: "Where small estate agencies actually lose time and deals",
         body: [
-          "A buyer enquires from a property portal. A landlord calls after hours. A seller fills in a valuation form but waits too long for a response. Notes sit in inboxes instead of the CRM. Viewings are booked, moved and confirmed across too many tools. None of this looks like a major systems problem on its own. Together, it creates slower response times, weaker client experience and lower staff focus.",
-          "For UK estate agents, the issue is rarely 'should we use AI?' The better question is *where should software take the repetitive load, and where must your negotiators stay in control?* That distinction matters. Valuation judgement, negotiation, deal handling and compliance decisions remain human-owned. But enquiry capture, triage, scheduling, reminders, content preparation and internal routing can be systemised.",
+          "A buyer inquires from a property portal. A landlord calls after hours. A seller fills in a valuation form but waits too long for a response. Notes sit in inboxes instead of the CRM. Viewings are booked, moved and confirmed across too many tools. None of this looks like a major systems problem on its own. Together, it creates slower response times, weaker client experience and lower staff focus.",
+          "For UK estate agents, the issue is rarely 'should we use AI?' The better question is *where should software take the repetitive load, and where must your negotiators stay in control?* That distinction matters. Valuation judgment, negotiation, deal handling and compliance decisions remain human-owned. But inquiry capture, triage, scheduling, reminders, content preparation and internal routing can be systemized.",
           "The commercial upside is simple: less admin drag, fewer missed leads, more consistent follow-up and cleaner visibility across your branch or team.",
         ],
         lede: "Most agency inefficiency is not dramatic. It is cumulative.",
@@ -7812,12 +7812,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Patchy follow-up",
-            body: "Valuation enquiries and buyer interest are handled differently depending on who is on shift.",
+            body: "Valuation inquiries and buyer interest are handled differently depending on who is on shift.",
             icon: "repeat",
           },
           {
             label: "Weak web conversion",
-            body: "Agency websites look fine but fail to route enquiries cleanly into action.",
+            body: "Agency websites look fine but fail to route inquiries cleanly into action.",
             icon: "globe",
           },
         ],
@@ -7825,8 +7825,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What good AI and automation looks like in an estate agency",
         body: [
-          "A useful estate agency system starts with inputs: website forms, portal enquiries, calls, email and messages. From there, each enquiry needs a clear path. Is this a valuation lead, rental enquiry, buyer question, vendor update or viewing request? Once classified, the system should route it to the right team, record the source, trigger the next action and surface exceptions for humans.",
-          "This is where websites, apps, AI reception and automation come together. A modern agency website should not just display stock. It should capture intent, qualify enquiry type and move it into your operating flow. An AI receptionist or voice layer can answer basic questions, collect structured details and route calls without pretending to replace negotiators. Automation can push those records into the CRM, prompt follow-up tasks and keep diaries and communications aligned.",
+          "A useful estate agency system starts with inputs: website forms, portal inquiries, calls, email and messages. From there, each inquiry needs a clear path. Is this a valuation lead, rental inquiry, buyer question, vendor update or viewing request? Once classified, the system should route it to the right team, record the source, trigger the next action and surface exceptions for humans.",
+          "This is where websites, apps, AI reception and automation come together. A modern agency website should not just display stock. It should capture intent, qualify inquiry type and move it into your operating flow. An AI receptionist or voice layer can answer basic questions, collect structured details and route calls without pretending to replace negotiators. Automation can push those records into the CRM, prompt follow-up tasks and keep diaries and communications aligned.",
           "For small UK agencies, the right build is usually *practical, not sprawling*. Start with the highest-friction journey and make it reliable. Then add the next layer.",
         ],
         lede: "The strongest setup is usually quiet, structured and tightly bounded.",
@@ -7834,7 +7834,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Website layer",
-            body: "Capture valuations, viewings and landlord enquiries with clearer forms, better routing and stronger conversion paths.",
+            body: "Capture valuations, viewings and landlord inquiries with clearer forms, better routing and stronger conversion paths.",
           },
           {
             title: "Reception layer",
@@ -7842,7 +7842,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Automation layer",
-            body: "Move enquiries into CRM workflows, assign owners, trigger reminders and log status cleanly.",
+            body: "Move inquiries into CRM workflows, assign owners, trigger reminders and log status cleanly.",
           },
           {
             title: "Content layer",
@@ -7854,7 +7854,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             heading: "A simple operating principle",
             body: [
               "Use AI where the answer is structured, repeatable and low-risk.",
-              "Use humans where context, judgement, negotiation or compliance interpretation matters.",
+              "Use humans where context, judgment, negotiation or compliance interpretation matters.",
             ],
           },
         ],
@@ -7862,8 +7862,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to automate first if you run a small UK agency",
         body: [
-          "Most small agencies should begin with front-end enquiry handling and follow-up discipline. That is where conversion is won or lost quickly, and where the process is usually most inconsistent.",
-          "A good first phase often includes a tighter website journey, structured lead capture, automated acknowledgement, call handling rules and diary-aware routing. If your team still depends on manual copying between inboxes, calendars and CRM records, that should move up the list immediately.",
+          "Most small agencies should begin with front-end inquiry handling and follow-up discipline. That is where conversion is won or lost quickly, and where the process is usually most inconsistent.",
+          "A good first phase often includes a tighter website journey, structured lead capture, automated acknowledgment, call handling rules and diary-aware routing. If your team still depends on manual copying between inboxes, calendars and CRM records, that should move up the list immediately.",
           "The key is sequencing. Build one reliable system, measure the operational effect, then extend.",
         ],
         lede: "Do not start with the flashiest idea. Start where the operational leakage is obvious.",
@@ -7881,7 +7881,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Operational hygiene",
-            body: "CRM updates, reminders and task creation triggered from real enquiries.",
+            body: "CRM updates, reminders and task creation triggered from real inquiries.",
             icon: "workflow",
           },
         ],
@@ -7889,7 +7889,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           columns: ["Best use", "Why it matters", "Human boundary"],
           rows: [
             {
-              label: "Valuation enquiry routing",
+              label: "Valuation inquiry routing",
               cells: [
                 "Capture seller details, postcode, timing and contact preference from web and phone",
                 "Stops high-value leads being lost or delayed",
@@ -7907,7 +7907,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Landlord and tenant triage",
               cells: [
-                "Direct enquiries to the right lettings path based on issue type",
+                "Direct inquiries to the right lettings path based on issue type",
                 "Cuts response lag and confusion across services",
                 "Tenancy, legal or dispute matters remain human-handled",
               ],
@@ -7933,7 +7933,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         lede: "Good systems create confidence because the edges are explicit.",
         variant: "signal",
         pullQuote:
-          "A smart agency system does not replace judgement. It protects it from being buried under admin.",
+          "A smart agency system does not replace judgment. It protects it from being buried under admin.",
         bullets: [
           {
             label: "Not for negotiation",
@@ -7969,9 +7969,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A practical decision framework for agency owners",
         body: [
-          "Ask four questions before you implement anything. First, is the process repeated often enough to justify design work? Second, is the information source clear enough for software to use safely? Third, does the workflow need judgement, or just routing and structure? Fourth, who owns the exception when something unusual happens?",
+          "Ask four questions before you implement anything. First, is the process repeated often enough to justify design work? Second, is the information source clear enough for software to use safely? Third, does the workflow need judgment, or just routing and structure? Fourth, who owns the exception when something unusual happens?",
           "If you cannot answer those four questions, the process is probably not ready for automation yet. Fix the operating rules first. If you can answer them clearly, you likely have a strong candidate for a website improvement, AI receptionist flow, automation sequence or internal tool.",
-          "That framing is especially useful in the UK estate agency context, where speed matters but trust matters more. Sellers, landlords, buyers and tenants do not want novelty. They want a smooth, responsive agency that appears organised from the first interaction.",
+          "That framing is especially useful in the UK estate agency context, where speed matters but trust matters more. Sellers, landlords, buyers and tenants do not want novelty. They want a smooth, responsive agency that appears organized from the first interaction.",
         ],
         lede: "Use this to separate sensible system investment from expensive noise.",
         variant: "operator",
@@ -7988,7 +7988,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "3",
-            title: "Judgement level",
+            title: "Judgment level",
             body: "Can the task be structured, or does it depend on negotiation and discretion?",
           },
           {
@@ -8001,7 +8001,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "Next action",
             body: [
-              "If your agency has clear growth goals but messy front-end operations, start with your enquiry path.",
+              "If your agency has clear growth goals but messy front-end operations, start with your inquiry path.",
               "If your website generates interest but not enough booked action, start with conversion architecture.",
               "If your team misses calls and follow-up windows, start with reception and routing.",
             ],
@@ -8018,7 +8018,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is the best first automation for a small estate agency?",
         answer:
-          "Usually lead capture and response handling. That includes website forms, valuation enquiries, missed-call recovery, CRM routing and follow-up tasks. These areas affect revenue quickly and are often poorly structured.",
+          "Usually lead capture and response handling. That includes website forms, valuation inquiries, missed-call recovery, CRM routing and follow-up tasks. These areas affect revenue quickly and are often poorly structured.",
       },
       {
         question: "Is AI suitable for UK estate agencies with only a small team?",
@@ -8102,7 +8102,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     summary: [
       "Start with visible guest friction such as missed calls, weak booking journeys and inconsistent follow-up.",
       "Build a simple hospitality stack: website, structured capture, AI reception, follow-up automation and reporting.",
-      "Keep human control clear around complaints, sensitive situations, exceptions and service judgement.",
+      "Keep human control clear around complaints, sensitive situations, exceptions and service judgment.",
     ],
     categoryLabel: "Hospitality",
     categoryKey: "hospitality",
@@ -8138,23 +8138,23 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Start with the friction guests already feel",
         body: [
-          "In hospitality, that friction often appears before a guest arrives. A venue website looks decent but does not convert. Phone calls land out of hours and vanish. Group enquiries sit in an inbox. Pre-arrival information is inconsistent. Staff answer the same questions repeatedly because the system around them is weak.",
+          "In hospitality, that friction often appears before a guest arrives. A venue website looks decent but does not convert. Phone calls land out of hours and vanish. Group inquiries sit in an inbox. Pre-arrival information is inconsistent. Staff answer the same questions repeatedly because the system around them is weak.",
           "For UK hospitality businesses, the smart move is to map the guest journey from *search to booking to arrival to follow-up* and identify where humans are doing repetitive work that a better website, app layer, AI receptionist, or automation flow could handle safely.",
           "This is where many small operators get the order wrong. They buy tools before they define the operating model. The result is more software, not more control. A stronger approach is to decide three things first: the source of truth, the approved actions, and the human handoff points.",
         ],
         lede: "The best first build is rarely the flashiest one. It is usually the point where demand leaks, staff lose time, or service quality becomes inconsistent.",
         variant: "signal",
         pullQuote:
-          "Good hospitality automation does not replace judgement. It removes operational clutter so judgement can be used where it actually matters.",
+          "Good hospitality automation does not replace judgment. It removes operational clutter so judgment can be used where it actually matters.",
         bullets: [
           {
             label: "High-value starting points",
-            body: "Missed calls, slow response to booking or event enquiries, and poor mobile conversion on the website.",
+            body: "Missed calls, slow response to booking or event inquiries, and poor mobile conversion on the website.",
             icon: "signal",
           },
           {
             label: "Low-risk automation zones",
-            body: "Opening hours, booking FAQs, enquiry routing, confirmation messages, and pre-arrival reminders.",
+            body: "Opening hours, booking FAQs, inquiry routing, confirmation messages, and pre-arrival reminders.",
             icon: "shield",
           },
           {
@@ -8168,21 +8168,21 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "What to build first: the practical stack for a small hospitality business",
         body: [
-          "For most independent hospitality brands in the UK, the first wins come from joining five layers properly: website, booking or enquiry capture, reception handling, follow-up automation, and management visibility. When those layers work together, staff stop acting as the integration layer.",
+          "For most independent hospitality brands in the UK, the first wins come from joining five layers properly: website, booking or inquiry capture, reception handling, follow-up automation, and management visibility. When those layers work together, staff stop acting as the integration layer.",
           "A modern hospitality stack should make it obvious what happens when a guest calls, submits a form, requests a group booking, asks a recurring question, or drops out before completing a reservation. If the business cannot see or route those moments cleanly, growth becomes expensive.",
-          "This is why website work should not sit in isolation from automation. A stylish site without structured enquiry flow is a branding asset, not an operational asset. The real commercial value appears when the website, forms, call handling and content system work as one.",
+          "This is why website work should not sit in isolation from automation. A stylish site without structured inquiry flow is a branding asset, not an operational asset. The real commercial value appears when the website, forms, call handling and content system work as one.",
         ],
         lede: "Not every business needs an app on day one. Most need a stronger front-end system and cleaner operational flow.",
         variant: "system",
         bullets: [
           {
             label: "Usually worth doing early",
-            body: "Website restructuring, enquiry routing, FAQ automation, confirmations, reminder flows, and content clean-up.",
+            body: "Website restructuring, inquiry routing, FAQ automation, confirmations, reminder flows, and content clean-up.",
             icon: "build",
           },
           {
             label: "Usually worth delaying",
-            body: "Custom apps, complex personalisation, broad AI autonomy, and deep integrations without a clear operational case.",
+            body: "Custom apps, complex personalization, broad AI autonomy, and deep integrations without a clear operational case.",
             icon: "pause",
           },
           {
@@ -8210,7 +8210,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Layer 4",
             title: "Follow-up automation",
-            body: "Pre-arrival messages, reminders, abandoned enquiry follow-up, and post-visit prompts with clear rules.",
+            body: "Pre-arrival messages, reminders, abandoned inquiry follow-up, and post-visit prompts with clear rules.",
           },
           {
             label: "Layer 5",
@@ -8222,7 +8222,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where AI reception and automation actually help in hospitality",
         body: [
-          "An AI receptionist is most useful when the business receives recurring enquiries that follow approved paths. Think opening hours, parking, booking policy, room or table availability process, event enquiry triage, voucher questions, or directing callers to the correct team.",
+          "An AI receptionist is most useful when the business receives recurring inquiries that follow approved paths. Think opening hours, parking, booking policy, room or table availability process, event inquiry triage, voucher questions, or directing callers to the correct team.",
           "The same logic applies to chat and form automation. A guest asks a standard question. The system answers or routes it. A lead asks about a private event. The system gathers the brief and sends it to the right human owner. A booking is incomplete. The system triggers a reminder. None of this requires pretending AI can run the business alone.",
           "In a UK hospitality setting, clear boundaries matter. If an interaction involves vulnerable guests, alcohol-related incidents, accessibility nuance, payment disputes, safeguarding concerns, or anything with reputational sensitivity, the system should escalate cleanly to a person. Good automation design is defined as much by its stop conditions as by its triggers.",
         ],
@@ -8234,7 +8234,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "AI receptionist",
               cells: [
-                "Handling repetitive inbound calls and routing enquiries",
+                "Handling repetitive inbound calls and routing inquiries",
                 "Reduces missed demand and frees staff from answering the same questions repeatedly",
                 "Transfers complaints, edge cases and sensitive situations to staff",
               ],
@@ -8242,7 +8242,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Website chatbot or agent",
               cells: [
-                "Answering common questions and guiding users to booking or enquiry steps",
+                "Answering common questions and guiding users to booking or inquiry steps",
                 "Improves response speed without forcing staff into live chat coverage",
                 "Stops at policy exceptions, disputes or unclear intent",
               ],
@@ -8269,7 +8269,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A sensible UK implementation model",
         body: [
-          "UK small businesses do not need a massive transformation programme. They need a disciplined rollout. That means starting with one workflow family, proving the operational value, then extending the system once the handoffs and ownership are clear.",
+          "UK small businesses do not need a massive transformation program. They need a disciplined rollout. That means starting with one workflow family, proving the operational value, then extending the system once the handoffs and ownership are clear.",
           "A practical sequence is simple. First, diagnose friction: where demand is lost, where staff repeat manual work, and where guest information becomes inconsistent. Next, choose the source systems and define what the AI or automation layer can and cannot do. Then launch the smallest useful version, observe real usage, and refine from evidence.",
           "This matters in the UK context because data handling, consent, and customer communication expectations are real operational considerations, not side notes. Hospitality businesses should be especially careful with guest data, call handling processes, and any workflow touching payments or sensitive personal detail. This is not legal advice; it is a practical reminder to design with governance in mind from day one.",
         ],
@@ -8281,7 +8281,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "The build order",
             body: [
-              "1. Fix the website path and enquiry capture.",
+              "1. Fix the website path and inquiry capture.",
               "2. Add reception or messaging automation for repetitive demand.",
               "3. Automate confirmations and reminders.",
               "4. Add content workflows so information stays current.",
@@ -8291,7 +8291,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "What owners should ask before signing off",
             body: [
-              "What is the source of truth for bookings, enquiries and guest information?",
+              "What is the source of truth for bookings, inquiries and guest information?",
               "Which actions are fully approved for the system to take automatically?",
               "Where does the workflow stop and hand over to a person?",
               "How will we review failures, missed intents and edge cases?",
@@ -8302,8 +8302,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What good hospitality systems look like in practice",
         body: [
-          "A strong hospitality setup feels simple from the outside. The guest finds the right page quickly, understands the offer, gets a fast answer, and reaches the next step with minimal friction. Inside the business, however, the system is doing disciplined work: capturing context, routing enquiries, triggering follow-up, and surfacing exceptions.",
-          "That is where Silverstone AI tends to be most useful: translating messy operational reality into an understandable system. Sometimes that means a better website architecture. Sometimes it means a bounded AI receptionist. Sometimes it means connecting enquiry forms, email flows and internal approvals so the team can move faster without becoming reckless.",
+          "A strong hospitality setup feels simple from the outside. The guest finds the right page quickly, understands the offer, gets a fast answer, and reaches the next step with minimal friction. Inside the business, however, the system is doing disciplined work: capturing context, routing inquiries, triggering follow-up, and surfacing exceptions.",
+          "That is where Silverstone AI tends to be most useful: translating messy operational reality into an understandable system. Sometimes that means a better website architecture. Sometimes it means a bounded AI receptionist. Sometimes it means connecting inquiry forms, email flows and internal approvals so the team can move faster without becoming reckless.",
           "For a small hotel, restaurant, venue, café group or hospitality brand, the right system usually looks less glamorous than people expect. It is not an all-knowing AI layer. It is a controlled set of practical flows that reduce missed demand, save staff time, and protect guest experience.",
         ],
         lede: "The goal is not more channels. It is a cleaner route from guest intent to business action.",
@@ -8311,7 +8311,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Signs the system is working",
-            body: "Fewer missed calls, cleaner enquiries, faster responses, more consistent guest communication, and less admin repetition.",
+            body: "Fewer missed calls, cleaner inquiries, faster responses, more consistent guest communication, and less admin repetition.",
             icon: "up",
           },
           {
@@ -8321,7 +8321,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Best operating principle",
-            body: "Automate the repeatable, expose the exceptions, and keep service judgement with people.",
+            body: "Automate the repeatable, expose the exceptions, and keep service judgment with people.",
             icon: "rule",
           },
         ],
@@ -8329,7 +8329,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How to decide your next move",
         body: [
-          "If your hospitality business is still relying on a brochure-style site, shared inboxes, manual call handling, and inconsistent guest messaging, there is probably a clear first build available. Usually it sits at the junction of website journey, enquiry handling and follow-up.",
+          "If your hospitality business is still relying on a brochure-style site, shared inboxes, manual call handling, and inconsistent guest messaging, there is probably a clear first build available. Usually it sits at the junction of website journey, inquiry handling and follow-up.",
           "If you are earlier in the process, start with operating-model clarity rather than software shopping. A short diagnostic will usually reveal whether the first gain is web structure, booking flow design, AI reception, content operations, or a simple automation layer between them.",
           "For operators that want a commercially grounded approach, the priority is not to automate everything. It is to create a cleaner system that staff trust and guests barely notice because it simply works.",
         ],
@@ -8341,17 +8341,17 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is the best first automation for a small hospitality business?",
         answer:
-          "Usually the best first move is one that removes obvious friction in bookings or enquiries: improving the website journey, capturing enquiries in a structured way, and automating standard confirmations or reminders. Missed calls and repetitive guest questions are also strong early candidates for AI reception.",
+          "Usually the best first move is one that removes obvious friction in bookings or inquiries: improving the website journey, capturing inquiries in a structured way, and automating standard confirmations or reminders. Missed calls and repetitive guest questions are also strong early candidates for AI reception.",
       },
       {
         question: "Can an AI receptionist handle hospitality calls safely?",
         answer:
-          "Yes, if the scope is clearly bounded. It can handle repetitive questions, route calls, and capture enquiry details. It should not be left to improvise around complaints, vulnerable guests, safeguarding issues, pricing exceptions, or other sensitive situations. Those need a clean human handoff.",
+          "Yes, if the scope is clearly bounded. It can handle repetitive questions, route calls, and capture inquiry details. It should not be left to improvise around complaints, vulnerable guests, safeguarding issues, pricing exceptions, or other sensitive situations. Those need a clean human handoff.",
       },
       {
         question: "Does every hospitality business need a custom app?",
         answer:
-          "No. Many UK hospitality SMEs will get more value from a stronger website, better booking or enquiry flow, AI reception, and practical automation than from building an app early. An app should follow a clear operational need, not trend pressure.",
+          "No. Many UK hospitality SMEs will get more value from a stronger website, better booking or inquiry flow, AI reception, and practical automation than from building an app early. An app should follow a clear operational need, not trend pressure.",
       },
     ],
     internalLinks: [
@@ -8464,15 +8464,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "A modern salon does not lose margin in one dramatic moment. It leaks it quietly: missed calls during colour appointments, patchy rebooking, no-shows that should have been filled, and a website that looks decent but does too little. The strongest operators in the UK are moving past random tools and stitched-together admin. They are building cleaner systems that capture demand, route enquiries, protect diary time and keep the client journey tight. That is where Silverstone AI fits: practical websites, apps, AI reception, automation and content systems designed to help small salons and barbers run with more control.",
+          "A modern salon does not lose margin in one dramatic moment. It leaks it quietly: missed calls during color appointments, patchy rebooking, no-shows that should have been filled, and a website that looks decent but does too little. The strongest operators in the UK are moving past random tools and stitched-together admin. They are building cleaner systems that capture demand, route inquiries, protect diary time and keep the client journey tight. That is where Silverstone AI fits: practical websites, apps, AI reception, automation and content systems designed to help small salons and barbers run with more control.",
         ],
       },
       {
         heading: "Start with friction, not features",
         body: [
-          "The commercial question is simple: *where is the business losing attention, bookings or repeat revenue because the system is weak?* In most UK salon businesses, the answer sits in a few predictable places: incoming enquiries, booking flow, reminders, cancellation handling, and post-visit follow-up.",
+          "The commercial question is simple: *where is the business losing attention, bookings or repeat revenue because the system is weak?* In most UK salon businesses, the answer sits in a few predictable places: incoming inquiries, booking flow, reminders, cancellation handling, and post-visit follow-up.",
           "Owners often buy tools one by one. A booking tool here, a chatbot there, maybe an email app later. The result is not a system. It is a stack of separate subscriptions with unclear ownership. That usually creates more admin, not less.",
-          "A better approach is to map the client journey from first visit to repeat appointment. Look at what should happen automatically, what should be guided by rules, and what still needs a person. For salons and barbers, that human boundary matters. Style suitability, chemical-service judgement, complaint handling and nuanced service advice should remain practitioner-owned.",
+          "A better approach is to map the client journey from first visit to repeat appointment. Look at what should happen automatically, what should be guided by rules, and what still needs a person. For salons and barbers, that human boundary matters. Style suitability, chemical-service judgment, complaint handling and nuanced service advice should remain practitioner-owned.",
         ],
         lede: "Most salons and barbers do not need a grand digital transformation. They need the first three operational fixes in the right order.",
         variant: "signal",
@@ -8485,13 +8485,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             icon: "signal",
           },
           {
-            label: "Systemise next",
+            label: "Systemize next",
             body: "Review requests, rebooking prompts, simple client segmentation and content publishing workflows.",
             icon: "system",
           },
           {
             label: "Keep human-led",
-            body: "Complex service suitability, pricing exceptions, complaint resolution and in-chair consultation judgement.",
+            body: "Complex service suitability, pricing exceptions, complaint resolution and in-chair consultation judgment.",
             icon: "operator",
           },
         ],
@@ -8499,8 +8499,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The five systems that usually matter most",
         body: [
-          "For most small salon and barber businesses, the website is the front door, but it should also behave like an operator. It needs to explain services clearly, route the right enquiries, support mobile booking, and reduce avoidable calls. In the UK market, where many bookings happen on mobile and outside trading hours, this matters more than visual polish alone.",
-          "Next comes reception and enquiry handling. If your team misses calls while serving clients, an AI receptionist or structured callback system can capture intent, answer bounded questions, route bookings, and hand off exceptions. The goal is not fake human performance. The goal is reliable first response with clear limits.",
+          "For most small salon and barber businesses, the website is the front door, but it should also behave like an operator. It needs to explain services clearly, route the right inquiries, support mobile booking, and reduce avoidable calls. In the UK market, where many bookings happen on mobile and outside trading hours, this matters more than visual polish alone.",
+          "Next comes reception and inquiry handling. If your team misses calls while serving clients, an AI receptionist or structured callback system can capture intent, answer bounded questions, route bookings, and hand off exceptions. The goal is not fake human performance. The goal is reliable first response with clear limits.",
           "Then there is diary protection: deposits, reminders, cancellation rules, and a sensible waitlist flow. After that, focus on repeat revenue through rebooking prompts and follow-up. Finally, sort the content system so offers, seasonal services, hiring messages and local updates can be published without chaos.",
         ],
         lede: "If the foundation is weak, more traffic just creates more mess. These are the systems worth tightening first.",
@@ -8526,7 +8526,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "1",
             title: "Website that converts",
-            body: "Clear service pages, mobile-first booking paths, FAQ handling and enquiry routing.",
+            body: "Clear service pages, mobile-first booking paths, FAQ handling and inquiry routing.",
           },
           {
             label: "2",
@@ -8553,7 +8553,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to automate first: a practical priority table",
         body: [
-          "The strongest first-phase automation is usually boring in the best way. It removes repeatable admin from the day without creating service risk. That means prioritising structured workflows over ambitious experiments.",
+          "The strongest first-phase automation is usually boring in the best way. It removes repeatable admin from the day without creating service risk. That means prioritizing structured workflows over ambitious experiments.",
           "For a salon or barber shop, the first automation choices should be judged on four things: booking value protected, admin time reduced, client experience improved, and operational risk introduced. If a process touches service suitability or requires nuance from a practitioner, keep a human in control.",
         ],
         lede: "Not every process deserves AI. Some tasks need rules, not intelligence.",
@@ -8564,7 +8564,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Missed-call capture",
               cells: [
-                "High-volume enquiry periods and out-of-hours contact",
+                "High-volume inquiry periods and out-of-hours contact",
                 "Captures demand that would otherwise disappear and creates a clean callback queue",
                 "Escalate complaints, unusual requests and urgent reschedules to staff",
               ],
@@ -8596,7 +8596,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "AI receptionist",
               cells: [
-                "Answering common questions and routing routine enquiries",
+                "Answering common questions and routing routine inquiries",
                 "Improves responsiveness when the team is hands-on with clients",
                 "Human takeover for complex consultations and sensitive situations",
               ],
@@ -8607,20 +8607,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where websites, AI reception and automation should connect",
         body: [
-          "A high-performing setup connects website, booking flow, call handling, reminders and follow-up into one operating system. The website should answer common service questions, guide people to the right booking route, and capture enquiries that are not ready to book. Your receptionist layer, whether human, AI-assisted or mixed, should work from the same rules.",
+          "A high-performing setup connects website, booking flow, call handling, reminders and follow-up into one operating system. The website should answer common service questions, guide people to the right booking route, and capture inquiries that are not ready to book. Your receptionist layer, whether human, AI-assisted or mixed, should work from the same rules.",
           "That means consistent information on services, timing, deposits, patch tests, opening hours and practitioner availability. It also means the system must know when *not* to answer freely. If a caller asks whether a treatment is suitable after a previous chemical service, that should route to a qualified team member, not an automated guess.",
           "This is where process design matters as much as technology. A sharp system defines the source of truth, the handoff point and the exception path. If those are vague, the tooling will feel clever but unreliable. If they are clear, even simple automation becomes commercially useful.",
         ],
         lede: "A salon does not need more channels. It needs channels that hand off properly.",
         variant: "system",
         pullQuote:
-          "The real win is not an isolated website or isolated AI receptionist. It is one clean journey from enquiry to booked appointment to repeat visit.",
+          "The real win is not an isolated website or isolated AI receptionist. It is one clean journey from inquiry to booked appointment to repeat visit.",
         subsections: [
           {
             heading: "A sensible connected journey",
             body: [
               "Client finds the salon via search, social or referral.",
-              "Website or landing page explains services clearly and routes to booking or enquiry.",
+              "Website or landing page explains services clearly and routes to booking or inquiry.",
               "If the client calls, the reception layer captures intent, answers bounded questions or routes the request.",
               "The booking and reminder system protects attendance and handles routine messages automatically.",
               "After the visit, follow-up supports reviews, rebooking and selected marketing consent paths.",
@@ -8644,7 +8644,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Check your data flow",
-            body: "Where enquiries land, where bookings live, who owns updates and how duplicate records are avoided.",
+            body: "Where inquiries land, where bookings live, who owns updates and how duplicate records are avoided.",
             icon: "flow",
           },
           {
@@ -8674,7 +8674,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can an AI receptionist replace a salon front desk?",
         answer:
-          "Not fully, and that should not be the aim. An AI receptionist can handle routine questions, capture enquiries and route calls, but complex service advice, complaints and sensitive situations should still go to a person.",
+          "Not fully, and that should not be the aim. An AI receptionist can handle routine questions, capture inquiries and route calls, but complex service advice, complaints and sensitive situations should still go to a person.",
       },
       {
         question: "Does a salon need a custom app?",
@@ -8761,7 +8761,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "A practical UK framework for turning missed calls, slow admin and patchy follow-up into a tighter commercial system.",
     summary: [
       "Why most trades firms need a connected operating system, not more disconnected tools.",
-      "What to automate first across missed calls, quote follow-up, booking flow and web enquiries.",
+      "What to automate first across missed calls, quote follow-up, booking flow and web inquiries.",
       "How to choose a UK build partner that improves operations rather than selling noise.",
     ],
     categoryLabel: "Trades & Home Services",
@@ -8776,10 +8776,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage:
       "/assets/images/blog/ai-trades-operating-system-websites-automation-hero.webp",
     heroImageAlt:
-      "Premium operational dashboard concept for a UK trades business showing website enquiries, call routing, quote follow-up and human-approved automation workflows.",
+      "Premium operational dashboard concept for a UK trades business showing website inquiries, call routing, quote follow-up and human-approved automation workflows.",
     metaTitle: "Trades Business Operating System | Silverstone AI",
     metaDescription:
-      "A practical UK guide to websites, AI receptionists and automation for trades and home services businesses that want better enquiry flow, follow-up and control.",
+      "A practical UK guide to websites, AI receptionists and automation for trades and home services businesses that want better inquiry flow, follow-up and control.",
     primaryKeyword: "AI for trades businesses UK",
     secondaryKeywords: [
       "automation for trades businesses",
@@ -8793,7 +8793,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "The strongest trades businesses in the UK no longer run on memory, call-backs scribbled on scraps of paper or a website that simply exists. They run on clean handoffs, fast response, sharper booking flow and better control of what happens after an enquiry lands. That is where Silverstone AI fits: not as a gimmick layer, but as the system builder behind modern websites, AI receptionists, automations, apps and content engines that help small firms operate with more precision. For plumbers, electricians, builders, roofers and installers, the real prize is simple: fewer missed opportunities, less admin drag and a business that feels tighter every week.",
+          "The strongest trades businesses in the UK no longer run on memory, call-backs scribbled on scraps of paper or a website that simply exists. They run on clean handoffs, fast response, sharper booking flow and better control of what happens after an inquiry lands. That is where Silverstone AI fits: not as a gimmick layer, but as the system builder behind modern websites, AI receptionists, automations, apps and content engines that help small firms operate with more precision. For plumbers, electricians, builders, roofers and installers, the real prize is simple: fewer missed opportunities, less admin drag and a business that feels tighter every week.",
         ],
       },
       {
@@ -8801,9 +8801,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Most trades businesses do not need more tools. They need one working system.",
         body: [
           "A typical UK trades business already has enough moving parts: phone calls, WhatsApp messages, web forms, diary bookings, quote requests, supplier delays, site visits and invoices. The issue is that these parts often sit in separate places with no clear flow between them.",
-          "That creates expensive friction. A missed call at 4:40pm becomes a lost boiler job. A web enquiry arrives, but nobody follows up until the next day. A quote is sent, then forgotten. Admin work grows around the cracks.",
-          "A better model is to treat the business like an operating system. Enquiries come in. They are qualified. They are routed. They are logged. They trigger the next action. The team can see status. Exceptions are escalated to a human. That is the difference between *being busy* and *being commercially organised*.",
-          "For UK small businesses in trades and home services, this matters because margins, travel time, labour availability and customer expectations are all under pressure. If response speed and workflow discipline improve, the business often feels calmer before it even grows.",
+          "That creates expensive friction. A missed call at 4:40pm becomes a lost boiler job. A web inquiry arrives, but nobody follows up until the next day. A quote is sent, then forgotten. Admin work grows around the cracks.",
+          "A better model is to treat the business like an operating system. Inquiries come in. They are qualified. They are routed. They are logged. They trigger the next action. The team can see status. Exceptions are escalated to a human. That is the difference between *being busy* and *being commercially organized*.",
+          "For UK small businesses in trades and home services, this matters because margins, travel time, labor availability and customer expectations are all under pressure. If response speed and workflow discipline improve, the business often feels calmer before it even grows.",
         ],
         lede: "The usual problem is not effort. It is fragmentation.",
         variant: "signal",
@@ -8814,8 +8814,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What to automate first in a trades and home services business",
         body: [
           "The smartest first move is not a giant transformation project. It is identifying the points where admin repeats every day and where delays cost real jobs. In trades, that usually means first response, booking coordination, quote follow-up and job-status updates.",
-          "Good automation should reduce hand typing, stop enquiries disappearing and make ownership obvious. It should *not* pretend to replace technical judgement, safety decisions or pricing nuance where a skilled person still needs control.",
-          "In practical terms, the first layer often combines a stronger website, structured enquiry capture, AI-assisted call handling and a few core automations between inboxes, forms, calendars and CRM records.",
+          "Good automation should reduce hand typing, stop inquiries disappearing and make ownership obvious. It should *not* pretend to replace technical judgment, safety decisions or pricing nuance where a skilled person still needs control.",
+          "In practical terms, the first layer often combines a stronger website, structured inquiry capture, AI-assisted call handling and a few core automations between inboxes, forms, calendars and CRM records.",
         ],
         lede: "Start where volume, repetition and delay hurt most.",
         variant: "system",
@@ -8826,7 +8826,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             icon: "phone",
           },
           {
-            label: "Web enquiry triage",
+            label: "Web inquiry triage",
             body: "Collect postcode, service need, property type and preferred timing so the team starts with usable information.",
             icon: "form",
           },
@@ -8852,14 +8852,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Human-owned boundary",
-            body: "Final price, technical advice, safety decisions and site-specific judgement.",
+            body: "Final price, technical advice, safety decisions and site-specific judgment.",
           },
         ],
         subsections: [
           {
             heading: "Where AI helps",
             body: [
-              "AI is useful when language needs to be captured, summarised, routed or turned into a next action. That includes call notes, enquiry summaries, FAQ handling and internal admin support.",
+              "AI is useful when language needs to be captured, summarized, routed or turned into a next action. That includes call notes, inquiry summaries, FAQ handling and internal admin support.",
               "It is less useful when the business problem is actually poor process design. If no one agrees who owns quotes, when follow-up happens or what counts as an urgent job, automation will only expose the mess faster.",
             ],
           },
@@ -8887,7 +8887,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "AI receptionist",
               cells: [
-                "Answers, captures and routes enquiries",
+                "Answers, captures and routes inquiries",
                 "Overflow calls, out-of-hours handling, first-response consistency",
                 "Complex jobs, complaints, technical diagnosis and negotiation",
               ],
@@ -8915,7 +8915,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What good looks like for a UK trades customer journey",
         body: [
           "A homeowner in Manchester, Kent or Glasgow does not care how many systems you use behind the scenes. They care whether they can reach you, whether you respond quickly and whether the next step is obvious. That makes customer journey design a commercial issue, not a branding extra.",
-          "For UK trades firms, mobile behaviour matters heavily. Many enquiries happen on the move, often with immediate intent. The site needs clear service paths, tap-to-call options, practical form design and direct signals about area coverage, timing and job type.",
+          "For UK trades firms, mobile behavior matters heavily. Many inquiries happen on the move, often with immediate intent. The site needs clear service paths, tap-to-call options, practical form design and direct signals about area coverage, timing and job type.",
           "The journey should also reflect UK realities: postcode-based travel logic, landlord and tenant scenarios, common domestic service categories, regional coverage limits and the difference between urgent call-outs and planned works.",
         ],
         lede: "The buyer experience should feel clean, fast and trustworthy from the first touch.",
@@ -8966,7 +8966,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Ask this",
             title: "Can they define human boundaries clearly?",
-            body: "Technical judgement, pricing and risk decisions should not be left vague.",
+            body: "Technical judgment, pricing and risk decisions should not be left vague.",
           },
           {
             label: "Ask this",
@@ -8978,7 +8978,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A practical next-step plan for trades firms",
         body: [
-          "The most effective rollout is usually staged. Pick one important chain such as *missed call to callback*, *website enquiry to quote*, or *quote sent to follow-up*. Fix that end to end. Then layer in the next workflow once the team trusts the first one.",
+          "The most effective rollout is usually staged. Pick one important chain such as *missed call to callback*, *website inquiry to quote*, or *quote sent to follow-up*. Fix that end to end. Then layer in the next workflow once the team trusts the first one.",
           "That approach reduces disruption and makes results easier to judge. It also helps owners keep control. You can see what enters the system, what gets automated, what still needs human review and where exceptions go. That is far more valuable than buying a broad toolset that nobody fully adopts.",
           "For trades and home services businesses, the strategic aim is simple: make demand capture tighter, make admin lighter and keep the skilled human work focused on diagnosis, delivery and customer trust.",
         ],
@@ -8988,7 +8988,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "Start with this audit",
             body: [
-              "List every route by which an enquiry arrives. Note who sees it first, how it is logged, how quickly it gets a response and where it most often stalls.",
+              "List every route by which an inquiry arrives. Note who sees it first, how it is logged, how quickly it gets a response and where it most often stalls.",
               "Then decide which parts should be automated, which parts can be AI-assisted and which parts must stay fully human. That boundary-setting is what makes the system commercially strong rather than risky or messy.",
             ],
           },
@@ -8999,13 +8999,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is the best first automation for a small trades business?",
         answer:
-          "Usually the best first move is missed-call and enquiry follow-up. It is high-frequency, easy to lose manually and closely tied to revenue. A simple callback workflow, structured enquiry capture and clear ownership can make an immediate operational difference.",
+          "Usually the best first move is missed-call and inquiry follow-up. It is high-frequency, easy to lose manually and closely tied to revenue. A simple callback workflow, structured inquiry capture and clear ownership can make an immediate operational difference.",
       },
       {
         question:
           "Can AI handle customer calls for plumbers, electricians or builders?",
         answer:
-          "It can handle parts of the process: first response, information capture, triage, FAQ-style answers and routing. It should not be treated as a substitute for technical judgement, safety advice, dispute handling or nuanced pricing decisions.",
+          "It can handle parts of the process: first response, information capture, triage, FAQ-style answers and routing. It should not be treated as a substitute for technical judgment, safety advice, dispute handling or nuanced pricing decisions.",
       },
       {
         question: "Do trades firms need a new website before adding automation?",
@@ -9015,7 +9015,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "How do I know if my business is ready for AI and automation?",
         answer:
-          "You are ready if you can identify repeated admin tasks, common enquiry types, clear ownership and at least one workflow that regularly breaks down. If your process is completely undefined, process mapping should come before heavier automation.",
+          "You are ready if you can identify repeated admin tasks, common inquiry types, clear ownership and at least one workflow that regularly breaks down. If your process is completely undefined, process mapping should come before heavier automation.",
       },
     ],
     internalLinks: [
@@ -9093,10 +9093,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     slug: "ecommerce-brands-websites-apps-ai-systems",
     title: "What eCommerce Brands Need from Websites, Apps and AI Systems",
     subtitle:
-      "A pragmatic UK guide to building the digital operating layer behind faster selling, cleaner fulfilment and better customer service.",
+      "A pragmatic UK guide to building the digital operating layer behind faster selling, cleaner fulfillment and better customer service.",
     summary: [
       "Why eCommerce growth usually breaks at the system handoffs, not the headline strategy.",
-      "How to prioritise websites, apps, automation and AI by operational bottleneck.",
+      "How to prioritize websites, apps, automation and AI by operational bottleneck.",
       "Where AI helps most in UK eCommerce and where human ownership should stay firm.",
     ],
     categoryLabel: "eCommerce Brands",
@@ -9111,10 +9111,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage:
       "/assets/images/blog/ecommerce-brands-websites-apps-ai-systems-hero.webp",
     heroImageAlt:
-      "Premium visual of a UK eCommerce operating system linking storefront, orders, fulfilment, support and controlled AI automation.",
+      "Premium visual of a UK eCommerce operating system linking storefront, orders, fulfillment, support and controlled AI automation.",
     metaTitle: "eCommerce Websites, Apps and AI Systems | Silverstone AI",
     metaDescription:
-      "What UK eCommerce brands need from websites, apps, automation and AI systems to improve conversion, fulfilment and customer service.",
+      "What UK eCommerce brands need from websites, apps, automation and AI systems to improve conversion, fulfillment and customer service.",
     primaryKeyword: "eCommerce brands",
     secondaryKeywords: [
       "eCommerce automation UK",
@@ -9129,7 +9129,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         variant: "signal",
         body: [
-          "Growth in eCommerce rarely breaks because of ambition. It breaks at the joins: the site that does not convert cleanly on mobile, the stock data that lags, the returns queue that swallows margin, the customer messages that pile up after 5pm. For UK brands, the commercial edge now sits in the system behind the storefront. **Silverstone AI** helps small businesses design that operating layer properly: websites, apps, AI agents, automation and content systems that reduce drag without handing the keys to chaos. If you run an eCommerce brand, the question is not whether to modernise. It is what to fix first, what to connect next and where human control must stay put.",
+          "Growth in eCommerce rarely breaks because of ambition. It breaks at the joins: the site that does not convert cleanly on mobile, the stock data that lags, the returns queue that swallows margin, the customer messages that pile up after 5pm. For UK brands, the commercial edge now sits in the system behind the storefront. **Silverstone AI** helps small businesses design that operating layer properly: websites, apps, AI agents, automation and content systems that reduce drag without handing the keys to chaos. If you run an eCommerce brand, the question is not whether to modernize. It is what to fix first, what to connect next and where human control must stay put.",
         ],
       },
       {
@@ -9137,7 +9137,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "A stronger website matters, but for many small brands the bigger issue is *system mismatch*. Product pages promise one thing, stock systems say another, support inboxes hold the truth, and the founder becomes the manual integration layer between them all.",
           "That is especially relevant in the UK, where small brands often sell across multiple channels, manage tight delivery expectations and juggle VAT, returns, carrier updates and seasonal spikes without a large ops team. The winner is usually not the brand with the most tools. It is the one with the clearest flow of information.",
-          "A modern eCommerce stack should do three things well: attract the right customer, move cleanly from order to fulfilment, and handle exceptions fast. That means your website, app layer, automations and AI systems need to behave like one commercial machine, not a pile of disconnected subscriptions.",
+          "A modern eCommerce stack should do three things well: attract the right customer, move cleanly from order to fulfillment, and handle exceptions fast. That means your website, app layer, automations and AI systems need to behave like one commercial machine, not a pile of disconnected subscriptions.",
         ],
         lede: "Most eCommerce problems look like marketing problems until you trace them into operations.",
         variant: "signal",
@@ -9170,7 +9170,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What a good eCommerce system should include",
         body: [
           "Small brands do not need enterprise complexity. They do need architectural discipline. The practical model is simple: one public-facing sales layer, one source-of-truth layer for operational data, and one controlled automation layer for actions and exceptions.",
-          "The website is still the commercial front door. It should load fast, explain products clearly, remove friction from buying and feed clean data into the rest of the business. But the site alone cannot solve catalogue changes, returns routing, support volume or post-purchase communication.",
+          "The website is still the commercial front door. It should load fast, explain products clearly, remove friction from buying and feed clean data into the rest of the business. But the site alone cannot solve catalog changes, returns routing, support volume or post-purchase communication.",
           "That is where apps, AI agents and workflow automation become useful. An app might give repeat buyers a cleaner account experience, subscription control or product tracking. An AI agent might answer bounded customer questions, route requests or draft responses. Automation might update records, trigger shipping notices, assign cases or escalate exceptions to a human operator.",
           "The key is *bounded intelligence*. AI should help process information and speed routine work, but your business rules, approval points and exception handling still need human ownership.",
         ],
@@ -9190,7 +9190,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Layer 3",
             title: "Automation",
-            body: "Order events, support routing, fulfilment triggers, notifications, tagging and internal task creation.",
+            body: "Order events, support routing, fulfillment triggers, notifications, tagging and internal task creation.",
           },
           {
             label: "Layer 4",
@@ -9210,7 +9210,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to build first if you are a small UK eCommerce brand",
         body: [
-          "The right first move depends on your current constraint. If conversion is weak, the website and checkout experience usually come first. If support volume is rising, service workflows and AI-assisted triage may return more value faster. If fulfilment errors hurt reviews and repeat purchase, your integration and exception-handling layer needs attention before another redesign.",
+          "The right first move depends on your current constraint. If conversion is weak, the website and checkout experience usually come first. If support volume is rising, service workflows and AI-assisted triage may return more value faster. If fulfillment errors hurt reviews and repeat purchase, your integration and exception-handling layer needs attention before another redesign.",
           "For UK operators, this often means balancing growth with practical realities: carrier communications, returns expectations, customer service responsiveness and stock accuracy. Fancy front-end work cannot compensate for weak back-office flow.",
           "A useful priority test is to score each problem by commercial impact, frequency and fixability. The best first project usually sits where those three overlap.",
         ],
@@ -9224,7 +9224,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Commercial relevance",
-            body: "It affects conversion, fulfilment, service cost or repeat purchase.",
+            body: "It affects conversion, fulfillment, service cost or repeat purchase.",
             icon: "→",
           },
           {
@@ -9244,7 +9244,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Low conversion, decent traffic",
               cells: [
-                "Website and checkout optimisation",
+                "Website and checkout optimization",
                 "Improves revenue capture from existing demand",
                 "Humans still own offer, pricing and merchandising decisions",
               ],
@@ -9258,7 +9258,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               ],
             },
             {
-              label: "Stock or fulfilment confusion",
+              label: "Stock or fulfillment confusion",
               cells: [
                 "Systems integration and exception workflow",
                 "Reduces operational errors and protects trust",
@@ -9270,7 +9270,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               cells: [
                 "Customer account app or retention flows",
                 "Makes reordering and account management easier",
-                "Humans own lifecycle strategy and campaign judgement",
+                "Humans own lifecycle strategy and campaign judgment",
               ],
             },
           ],
@@ -9279,7 +9279,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Where AI helps most in eCommerce and where it should stop",
         body: [
-          "The strongest eCommerce AI use cases are usually narrow rather than theatrical. Classifying incoming queries. Suggesting help-centre answers. Summarising customer context for a support agent. Drafting product copy from approved inputs. Routing returns by rule. Flagging unusual cases for review.",
+          "The strongest eCommerce AI use cases are usually narrow rather than theatrical. Classifying incoming queries. Suggesting help-center answers. Summarizing customer context for a support agent. Drafting product copy from approved inputs. Routing returns by rule. Flagging unusual cases for review.",
           "These are practical gains because they reduce handling time and improve consistency without pretending the machine understands your brand better than your team does. In a small business, that distinction matters.",
           "What should not be handed over blindly? Refund disputes, sensitive complaints, pricing changes, supplier commitments, legal edge cases and anything that could materially affect customer rights or brand trust in the UK market. Automation can prepare, route and recommend. A human should still own consequential decisions.",
         ],
@@ -9290,7 +9290,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "High-fit AI tasks",
-            body: "FAQ handling, classification, summarisation, routing and draft generation from approved sources.",
+            body: "FAQ handling, classification, summarization, routing and draft generation from approved sources.",
             icon: "✓",
           },
           {
@@ -9318,7 +9318,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Ask about architecture",
-            body: "Can they explain how website, fulfilment, support and content systems connect without jargon?",
+            body: "Can they explain how website, fulfillment, support and content systems connect without jargon?",
           },
           {
             title: "Ask about boundaries",
@@ -9345,12 +9345,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A sensible roadmap for the next 90 days",
         body: [
-          "For most small eCommerce brands, the right roadmap is not 'launch everything'. It is audit, prioritise, fix one critical flow, then add one intelligent layer at a time. That keeps risk lower and makes results easier to observe.",
-          "Month one should map the current customer and operational flow: traffic source to product view, checkout to fulfilment, customer query to resolution, return request to owner. That reveals bottlenecks, duplicated tools and manual workarounds.",
+          "For most small eCommerce brands, the right roadmap is not 'launch everything'. It is audit, prioritize, fix one critical flow, then add one intelligent layer at a time. That keeps risk lower and makes results easier to observe.",
+          "Month one should map the current customer and operational flow: traffic source to product view, checkout to fulfillment, customer query to resolution, return request to owner. That reveals bottlenecks, duplicated tools and manual workarounds.",
           "Month two should tackle the highest-value bottleneck with a contained build: website conversion fixes, support-routing automation, order-status messaging or structured product-content systems. Month three can then layer in a bounded AI function where the rules and data are already stable.",
           "That sequence is commercially sane for UK small businesses because it avoids paying for sophistication on top of weak foundations. Better systems do not have to be huge. They do have to be intentional.",
         ],
-        lede: "Clarity beats scope. Sequence beats speed theatre.",
+        lede: "Clarity beats scope. Sequence beats speed theater.",
         variant: "operator",
       },
     ],
@@ -9358,18 +9358,18 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Do small eCommerce brands really need an app?",
         answer:
-          "Not always. If most value still sits in first-time conversion, a better website and cleaner post-purchase flow may matter more. An app becomes more useful when repeat orders, subscriptions, account management or loyalty behaviour justify a dedicated experience.",
+          "Not always. If most value still sits in first-time conversion, a better website and cleaner post-purchase flow may matter more. An app becomes more useful when repeat orders, subscriptions, account management or loyalty behavior justify a dedicated experience.",
       },
       {
         question: "Can AI handle customer service for an online shop on its own?",
         answer:
-          "It can handle some bounded tasks well, such as answering common questions, routing requests and summarising context. It should not run unsupervised across complaints, refunds, edge cases or policy-sensitive interactions without clear human oversight.",
+          "It can handle some bounded tasks well, such as answering common questions, routing requests and summarizing context. It should not run unsupervised across complaints, refunds, edge cases or policy-sensitive interactions without clear human oversight.",
       },
       {
         question:
           "What should a UK eCommerce brand fix first: website, automation or support?",
         answer:
-          "Start with the constraint closest to revenue loss or trust erosion. Weak conversion points to website work. High service volume points to support systems. Fulfilment errors point to integration and exception handling. The right answer depends on where the commercial drag actually sits.",
+          "Start with the constraint closest to revenue loss or trust erosion. Weak conversion points to website work. High service volume points to support systems. Fulfillment errors point to integration and exception handling. The right answer depends on where the commercial drag actually sits.",
       },
     ],
     internalLinks: [
@@ -9485,7 +9485,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "When the diary or PMS is unavailable, the front desk should switch to a reduced set of tasks that keeps the day moving without creating uncontrolled records. That means separating patient-facing continuity from system-dependent actions.",
           "A sensible first decision is the incident owner. In most UK practices that is usually the practice manager, lead receptionist or principal’s delegated operations lead. That person owns the temporary process, the escalation path and the stop condition for returning to normal automation.",
           "The front desk should usually still be able to:",
-          "• answer calls and identify the reason for contact\n• check whether the issue is administrative or clinical\n• capture new enquiries in a temporary record\n• note arrival, cancellation and callback requests\n• tell patients when the team will confirm appointments rather than promising immediately\n• route emergencies, clinical questions and complaints to the practice team",
+          "• answer calls and identify the reason for contact\n• check whether the issue is administrative or clinical\n• capture new inquiries in a temporary record\n• note arrival, cancellation and callback requests\n• tell patients when the team will confirm appointments rather than promising immediately\n• route emergencies, clinical questions and complaints to the practice team",
           "The front desk should usually stop trying to:",
           "• amend multiple future appointments from memory\n• promise exact diary availability without a verified source\n• create duplicate patient profiles in side systems\n• give clinical guidance, urgency decisions or treatment advice\n• restart every automation manually without an owner",
           "A useful operating rule is simple: if the action changes the patient record, future diary or financial position, it needs a named owner and a temporary audit trail.",
@@ -9519,7 +9519,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Patient identification",
-            body: "Full name, date of birth, contact number and, where available, an existing patient number or a clear note that the person is a new enquiry.",
+            body: "Full name, date of birth, contact number and, where available, an existing patient number or a clear note that the person is a new inquiry.",
           },
           {
             title: "Contact context",
@@ -9527,7 +9527,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Request type",
-            body: "Booking request, cancellation, reschedule, arrival note, finance query, membership query, paperwork chase or general non-clinical enquiry.",
+            body: "Booking request, cancellation, reschedule, arrival note, finance query, membership query, paperwork chase or general non-clinical inquiry.",
           },
           {
             title: "Action status",
@@ -9592,7 +9592,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "If the team cannot verify real-time availability, chair allocation, clinician schedules or linked appointment rules, the default should be to hold the request rather than confirm it. That protects the diary from duplicate entries and protects patients from being given a time that later moves.",
           "Use three statuses during downtime:",
           "Held: the request is captured with a clear promise that the practice will confirm after the system is restored or checked against another approved source.",
-          "Confirmed: only where the practice has a verified secondary source and a named person authorised to use it.",
+          "Confirmed: only where the practice has a verified secondary source and a named person authorized to use it.",
           "Deferred: where the request depends on missing information, a clinician decision, finance context or linked treatment planning.",
         ],
         lede: "Not every request should be treated as a booking decision during downtime.",
@@ -9602,7 +9602,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "Good reasons to hold",
             body: [
-              "New patient enquiries, routine hygiene requests, non-urgent reschedules and cancellation-slot interest often fit a hold status. The patient receives a clear callback or message window, and the queue owner keeps the request visible.",
+              "New patient inquiries, routine hygiene requests, non-urgent reschedules and cancellation-slot interest often fit a hold status. The patient receives a clear callback or message window, and the queue owner keeps the request visible.",
             ],
           },
           {
@@ -9648,7 +9648,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Queue cleared",
-            body: "Every temporary record has a final status: restored, closed, escalated or intentionally cancelled.",
+            body: "Every temporary record has a final status: restored, closed, escalated or intentionally canceled.",
           },
           {
             label: "Duplicate spot-check",
@@ -9679,7 +9679,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "Should a dental practice keep booking patients if the diary is down?",
         answer:
-          "Only where availability can be verified from an approved secondary source and a named person is authorised to confirm it. Otherwise, hold the request and confirm later. That is usually safer than creating avoidable diary conflicts.",
+          "Only where availability can be verified from an approved secondary source and a named person is authorized to confirm it. Otherwise, hold the request and confirm later. That is usually safer than creating avoidable diary conflicts.",
       },
       {
         question: "What should be escalated immediately during downtime?",
@@ -9813,7 +9813,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Most gyms do not have a freeze problem. They have a workflow problem.\n\nWhen a member asks to pause, the pressure lands on policy, dates, evidence, billing and staff visibility all at once. If those parts are disconnected, simple admin becomes friction for the member and rework for the team.\n\nFor a UK operator, gym membership freeze automation is useful when it applies clear rules, records what happened and hands exceptions to the right person. It becomes risky when it tries to replace judgement, hide policy detail or change account status without a reliable source of truth.\n\nThat is the line Silverstone AI focuses on: practical automation that helps gyms and fitness studios process routine pause requests faster, while keeping ownership, escalation and member-facing decisions under human control.",
+          "Most gyms do not have a freeze problem. They have a workflow problem.\n\nWhen a member asks to pause, the pressure lands on policy, dates, evidence, billing and staff visibility all at once. If those parts are disconnected, simple admin becomes friction for the member and rework for the team.\n\nFor a UK operator, gym membership freeze automation is useful when it applies clear rules, records what happened and hands exceptions to the right person. It becomes risky when it tries to replace judgment, hide policy detail or change account status without a reliable source of truth.\n\nThat is the line Silverstone AI focuses on: practical automation that helps gyms and fitness studios process routine pause requests faster, while keeping ownership, escalation and member-facing decisions under human control.",
         ],
       },
       {
@@ -9854,7 +9854,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "A better model is selective self-serve.",
           "Use self-serve where the rules are clear, such as:",
           "- collecting the request\n- confirming identity\n- capturing preferred dates\n- showing the policy in plain English\n- collecting a reason category where your terms require one\n- requesting documents only where your published policy allows it",
-          "Keep human review where judgement is required, such as:",
+          "Keep human review where judgment is required, such as:",
           "- unclear eligibility\n- disputed dates\n- missing or inconsistent evidence\n- exceptions outside published terms\n- linked account or billing anomalies",
           "This is where bounded automation helps. It gathers structured information, checks obvious rules, logs the event and routes the case. It does not make the membership decision by itself.",
           "That same principle often applies in [AI automation](/services/ai-automation): automate the repeatable work, not the discretionary call.",
@@ -9930,7 +9930,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Exceptional cases are where automation should become more cautious, not more ambitious.",
           "A member may say they were told something different by staff. A studio may want to help a long-standing member outside normal terms. A submitted document may be incomplete. These are not good candidates for automated decision-making.",
-          "The safer pattern is human-in-the-loop. The system can assemble the case, summarise the relevant policy, show the request history and route it to the right owner. But the decision remains with a person.",
+          "The safer pattern is human-in-the-loop. The system can assemble the case, summarize the relevant policy, show the request history and route it to the right owner. But the decision remains with a person.",
           "A sensible exceptional-case workflow usually works like this:",
           "1. The member submits a request through a form, message flow or assisted staff intake.\n2. The workflow checks standard fields such as membership type, request date and declared reason category.\n3. If all standard conditions match, the request moves to the next approved step.\n4. If a rule is missing, ambiguous or outside policy, the case is paused.\n5. The system assigns the case to the named human owner or queue with context attached.\n6. The owner decides, updates the status and triggers the appropriate member message.",
           "This protects both the member experience and the internal process. Staff can see what triggered the escalation, what has already been collected and what action is waiting.",
@@ -9943,7 +9943,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Reality: status changes, billing and staff visibility must stay in sync",
         body: [
           "A member should not be told their account is frozen while billing still charges as normal, or while reception still sees them as fully active. Those mismatches damage trust quickly.",
-          "The core requirement is synchronisation. Not every gym stack supports the same integrations, and not every step should be automated. But the workflow must define how key state changes are reflected across the tools your team actually uses.",
+          "The core requirement is synchronization. Not every gym stack supports the same integrations, and not every step should be automated. But the workflow must define how key state changes are reflected across the tools your team actually uses.",
           "At minimum, you need alignment between:",
           "- request status\n- membership status\n- billing status or next payment treatment\n- staff-facing notes or task ownership\n- member confirmation messages",
           "Many projects go wrong because the visible front end gets the attention while the back-office consequences are left vague. The hard part is not the form. It is making sure the right systems and staff all reflect the same current state.",
@@ -10119,7 +10119,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "“A prospect missed their consultation call. Should I chase them, send a rebooking link, or leave it?”\n\nFor a UK fitness coach, that question matters because no-show follow-up sits close to sales, scheduling and trust. Too little follow-up and warm enquiries drift away. Too much automation and the process starts to feel impersonal or pushy.\n\nThe right answer is not to automate everything at once. It is to build a simple maturity model: one owner, one source of truth, one clear stop condition, then add reminders, rebooking and branching only when the basics are working. That is the sort of operational design Silverstone AI helps fitness businesses put in place through [AI automation](/services/ai-automation), with the coach still owning judgement, exceptions and the final conversation.",
+          "“A prospect missed their consultation call. Should I chase them, send a rebooking link, or leave it?”\n\nFor a UK fitness coach, that question matters because no-show follow-up sits close to sales, scheduling and trust. Too little follow-up and warm inquiries drift away. Too much automation and the process starts to feel impersonal or pushy.\n\nThe right answer is not to automate everything at once. It is to build a simple maturity model: one owner, one source of truth, one clear stop condition, then add reminders, rebooking and branching only when the basics are working. That is the sort of operational design Silverstone AI helps fitness businesses put in place through [AI automation](/services/ai-automation), with the coach still owning judgment, exceptions and the final conversation.",
         ],
       },
       {
@@ -10132,16 +10132,16 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- A named human owner for the no-show process",
           "- A time window for the first follow-up",
           "- A clear stop condition so automation does not keep nudging somebody who has opted out, replied negatively or already rebooked",
-          "- An escalation path back to the coach when the context needs human judgement",
+          "- An escalation path back to the coach when the context needs human judgment",
           "This matters commercially because a consultation no-show is not always low intent. People miss calls for ordinary reasons: work overruns, school pick-up, train delays, diary confusion or cold feet. A defined workflow lets you respond quickly without sounding robotic.",
-          "Research around coaching and scheduling platforms consistently points to the value of standardised follow-up and clear process steps after consultations. The practical lesson for fitness coaches is simple: treat no-show follow-up as an operating system, not as an afterthought.",
+          "Research around coaching and scheduling platforms consistently points to the value of standardized follow-up and clear process steps after consultations. The practical lesson for fitness coaches is simple: treat no-show follow-up as an operating system, not as an afterthought.",
         ],
         lede: "A missed consultation is not just a diary issue. It is a workflow issue.",
         variant: "system",
         bullets: [
           {
             label: "Source of truth",
-            body: "The booking or CRM record must decide whether the prospect attended, cancelled, rebooked or asked not to be contacted.",
+            body: "The booking or CRM record must decide whether the prospect attended, canceled, rebooked or asked not to be contacted.",
             icon: "database",
           },
           {
@@ -10169,7 +10169,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "5. If the prospect replies, the owner handles the next step personally.",
           "The message itself should be practical, not emotional. Keep it easy to answer. For example, ask whether they want to rebook and give a simple next step. Avoid health advice, body promises or pressure-heavy wording.",
           "This stage often exposes the real process gaps. You may find duplicated messages, unclear diary status, or leads who sit in several places at once. That is useful information. It shows what needs sorting before automation is layered on top.",
-          "If you want a broader view of how this fits into the full lead journey, see Silverstone AI’s page for [fitness coaches](/industry/fitness-coaches) and the related article on [fitness coach enquiry automation](/blog/fitness-coach-enquiry-automation).",
+          "If you want a broader view of how this fits into the full lead journey, see Silverstone AI’s page for [fitness coaches](/industry/fitness-coaches) and the related article on [fitness coach inquiry automation](/blog/fitness-coach-enquiry-automation).",
         ],
         lede: "If your current process is messy, start by making it visible before you make it automatic.",
         variant: "operator",
@@ -10190,7 +10190,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Manual only",
               cells: [
-                "Personal tone and flexible judgement",
+                "Personal tone and flexible judgment",
                 "Slow response, inconsistent timing and hard-to-track outcomes",
               ],
             },
@@ -10223,7 +10223,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Missed the call after confirming earlier that day",
           "- Has missed more than one consultation",
           "At this level, the system can do more of the admin while the coach keeps control of anything sensitive or commercially important. For example, the workflow can classify the route, send the right approved message, update the CRM status and notify the coach when direct contact is needed.",
-          "What it should not do is make coaching judgements. It should not assess readiness for a programme, interpret health information, suggest training suitability or handle nuanced objections without a human review point.",
+          "What it should not do is make coaching judgments. It should not assess readiness for a program, interpret health information, suggest training suitability or handle nuanced objections without a human review point.",
           "A strong Level 3 setup usually includes these design rules:",
           "- The CRM or booking platform remains the source of truth",
           "- Each branch has a named owner if the lead replies or the workflow stalls",
@@ -10267,7 +10267,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- The source systems disagree on the booking status",
           "- The prospect opts out or asks not to be contacted",
           "For UK operators, this is also where process discipline matters from a privacy and consumer perspective. Use the contact permissions you actually have. Keep records accurate. Make sure a staff member can see what the automation sent and why. If calls or messages are handled through tools such as [AI receptionists](/services/ai-receptionists) or related systems, the handoff route must still end with a named human owner.",
-          "In practical terms, the coach should always remain accountable for relationship-sensitive moments. Automation can support the process, but it should not replace judgement.",
+          "In practical terms, the coach should always remain accountable for relationship-sensitive moments. Automation can support the process, but it should not replace judgment.",
         ],
         lede: "Good follow-up automation is defined as much by its boundaries as by its messages.",
         variant: "operator",
@@ -10345,7 +10345,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         href: "/industry/fitness-coaches",
       },
       {
-        label: "fitness coach enquiry automation",
+        label: "fitness coach inquiry automation",
         href: "/blog/fitness-coach-enquiry-automation",
       },
       {
@@ -10426,7 +10426,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     summary: [
       "A homepage redesign can improve presentation while leaving the real conversion bottleneck untouched.",
       "Many UK websites lose leads on service pages, mobile handoff points or weak buyer-route structure.",
-      "Audit landing pages, intent alignment and enquiry quality before approving a homepage-first rebuild.",
+      "Audit landing pages, intent alignment and inquiry quality before approving a homepage-first rebuild.",
     ],
     categoryLabel: "Web Design & Development",
     categoryKey: "web-design-development",
@@ -10440,7 +10440,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage:
       "/assets/images/blog/homepage-first-redesigns-misdiagnose-conversion-hero.webp",
     heroImageAlt:
-      "Conceptual website conversion audit showing homepage, service pages and enquiry routes across a premium UK business website",
+      "Conceptual website conversion audit showing homepage, service pages and inquiry routes across a premium UK business website",
     metaTitle: "Homepage Redesign Conversion Problems | Silverstone",
     metaDescription:
       "Learn why homepage-first redesigns often miss the real conversion problem and what UK businesses should audit before changing website design.",
@@ -10456,7 +10456,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "A homepage redesign is often the most visible answer to a website that is underperforming. It feels decisive. Stakeholders can see it. Agencies can scope it. But if enquiry quality is weak, sales calls are patchy or traffic lands deep on service pages, starting with the homepage can misread the real conversion problem.\n\nFor many UK businesses, the issue sits further down the journey: unclear service positioning, weak proof on decision pages, poor mobile page structure, slow handoff into forms or booking, or content that attracts the wrong kind of lead. Silverstone AI sees this regularly in web projects where the commercial problem is not visual freshness but route design. A homepage matters, but it is rarely the whole mechanism by which someone decides to contact you.",
+          "A homepage redesign is often the most visible answer to a website that is underperforming. It feels decisive. Stakeholders can see it. Agencies can scope it. But if inquiry quality is weak, sales calls are patchy or traffic lands deep on service pages, starting with the homepage can misread the real conversion problem.\n\nFor many UK businesses, the issue sits further down the journey: unclear service positioning, weak proof on decision pages, poor mobile page structure, slow handoff into forms or booking, or content that attracts the wrong kind of lead. Silverstone AI sees this regularly in web projects where the commercial problem is not visual freshness but route design. A homepage matters, but it is rarely the whole mechanism by which someone decides to contact you.",
         ],
       },
       {
@@ -10464,14 +10464,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "For a UK owner reviewing leads, the first practical question is simple: where are serious prospects actually landing? Organic search, paid traffic, maps, social and referrals frequently send people straight to a service page, location page, treatment page, product category or contact route. If those pages are vague, thin or poorly structured, a homepage redesign will not repair the break in the buying path.",
           "This is especially true where the service is specific and the buyer intent is already formed. Someone searching for emergency electrical work, Invisalign options, commercial fit-out design or bookkeeping automation is often trying to validate fit quickly. They want evidence, relevance, next steps and confidence. The homepage may support that decision, but it may not be the page doing the heavy lifting.",
-          "A homepage-first redesign can also overstate aesthetic problems and understate structural ones. If users reach the site but still do not enquire, the cause may be one of the following:",
+          "A homepage-first redesign can also overstate aesthetic problems and understate structural ones. If users reach the site but still do not inquire, the cause may be one of the following:",
         ],
         lede: "Most visitors do not behave like internal teams imagine. They do not always start at the front door, read every section and then convert neatly.",
         variant: "signal",
         bullets: [
           {
             label: "Traffic mismatch",
-            body: "The site attracts broad visitors, but decision pages do not narrow them into the right enquiry.",
+            body: "The site attracts broad visitors, but decision pages do not narrow them into the right inquiry.",
           },
           {
             label: "Route friction",
@@ -10491,7 +10491,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "The hidden risks of redesigning before mapping buyer routes",
         body: [
           "A redesign without route mapping tends to reward opinion over evidence. Senior staff may prefer a new look, a shorter homepage or a different menu style, but those decisions can easily distract from what buyers need to do next.",
-          "Before changing page design, it helps to map the main commercial journeys on the site. That means identifying how different visitors arrive, what question they need answered, which page should answer it, what proof supports it and how they move into an enquiry, booking or call.",
+          "Before changing page design, it helps to map the main commercial journeys on the site. That means identifying how different visitors arrive, what question they need answered, which page should answer it, what proof supports it and how they move into an inquiry, booking or call.",
           "If that work has not been done, redesign risk increases in several ways:",
         ],
         pullQuote:
@@ -10506,11 +10506,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "You create content drift",
             body: [
-              "Content often gets treated as something to fill in later. That is where redesigns start to lose commercial accuracy. A polished layout with weak copy produces a better-looking site that still cannot qualify demand. For service businesses in the UK, that usually means more time spent fielding unsuitable enquiries.",
+              "Content often gets treated as something to fill in later. That is where redesigns start to lose commercial accuracy. A polished layout with weak copy produces a better-looking site that still cannot qualify demand. For service businesses in the UK, that usually means more time spent fielding unsuitable inquiries.",
             ],
           },
           {
-            heading: "You optimise the wrong page",
+            heading: "You optimize the wrong page",
             body: [
               "Some businesses have a homepage that performs reasonably well, while service pages, quote pages or booking paths do not. In that case, the homepage is not the priority. The audit should follow revenue logic, not design visibility.",
             ],
@@ -10518,13 +10518,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
       },
       {
-        heading: "How service-page gaps create weak enquiry quality",
+        heading: "How service-page gaps create weak inquiry quality",
         body: [
-          "For example, a UK trades business might redesign its homepage to look more premium, yet still lose good enquiries because each service page fails to explain coverage area, job type, response process and what should be phoned through urgently. An estate agency might refresh branding, but valuation or landlord pages still leave sellers unsure what happens next. A dental clinic may modernise its homepage while treatment pages remain too thin to answer cost-qualification questions sensibly.",
-          "The practical consequence is lower enquiry quality. Visitors either contact you with the wrong expectations or leave because the site gives them too little confidence to proceed.",
+          "For example, a UK trades business might redesign its homepage to look more premium, yet still lose good inquiries because each service page fails to explain coverage area, job type, response process and what should be phoned through urgently. An estate agency might refresh branding, but valuation or landlord pages still leave sellers unsure what happens next. A dental clinic may modernize its homepage while treatment pages remain too thin to answer cost-qualification questions sensibly.",
+          "The practical consequence is lower inquiry quality. Visitors either contact you with the wrong expectations or leave because the site gives them too little confidence to proceed.",
           "This is one reason Silverstone AI treats web design and development as a route problem, not just a page problem. The pages that qualify intent deserve as much attention as the page that introduces the brand.",
         ],
-        lede: "Poor conversion is not always too few enquiries. Sometimes it is too many of the wrong ones.",
+        lede: "Poor conversion is not always too few inquiries. Sometimes it is too many of the wrong ones.",
         grid: [
           {
             title: "Unclear scope",
@@ -10536,7 +10536,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Thin process detail",
-            body: "There is no clear explanation of how the project starts, what information is needed or what happens after enquiry.",
+            body: "There is no clear explanation of how the project starts, what information is needed or what happens after inquiry.",
           },
           {
             title: "Poor proof structure",
@@ -10573,7 +10573,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Service clarity",
               cells: [
                 "How clearly pages explain scope, process, fit and next steps",
-                "Improves qualification and reduces unsuitable enquiries",
+                "Improves qualification and reduces unsuitable inquiries",
               ],
             },
             {
@@ -10629,7 +10629,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Key next steps are buried",
-            body: "Visitors who are ready to call, book or enquire have to hunt for the right action.",
+            body: "Visitors who are ready to call, book or inquire have to hunt for the right action.",
           },
         ],
       },
@@ -10638,22 +10638,22 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Should a small UK business redesign its homepage first?",
         answer:
-          "Only if the homepage is clearly a major source of conversion loss. Many small UK businesses get better results from improving service pages, enquiry forms, booking routes or mobile usability before changing the homepage.",
+          "Only if the homepage is clearly a major source of conversion loss. Many small UK businesses get better results from improving service pages, inquiry forms, booking routes or mobile usability before changing the homepage.",
       },
       {
         question: "How do I know whether my homepage is hurting conversions?",
         answer:
-          "Check landing-page data, user behaviour and lead quality. If visitors often enter through deeper pages, or if poor-fit enquiries come from unclear service content, the homepage may be less important than the route beneath it.",
+          "Check landing-page data, user behavior and lead quality. If visitors often enter through deeper pages, or if poor-fit inquiries come from unclear service content, the homepage may be less important than the route beneath it.",
       },
       {
         question: "Can better content fix conversion problems without a full redesign?",
         answer:
-          "Often, yes. Clearer service scope, stronger buyer-fit signals, better proof and simpler next steps can improve how the site qualifies enquiries without rebuilding every template.",
+          "Often, yes. Clearer service scope, stronger buyer-fit signals, better proof and simpler next steps can improve how the site qualifies inquiries without rebuilding every template.",
       },
       {
         question: "What should happen before a redesign brief is signed off?",
         answer:
-          "Map the main buyer journeys, review the pages that receive commercial traffic, test mobile handoff points and compare enquiry quality by route. That gives the redesign a commercial reason rather than a purely visual one.",
+          "Map the main buyer journeys, review the pages that receive commercial traffic, test mobile handoff points and compare inquiry quality by route. That gives the redesign a commercial reason rather than a purely visual one.",
       },
     ],
     internalLinks: [
@@ -10737,7 +10737,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     summary: [
       "Prototype and MVP answer different business questions.",
       "Choose a prototype when the biggest risk is around workflow, usability or stakeholder alignment.",
-      "Choose an MVP when you need evidence from real users, live operations or market behaviour.",
+      "Choose an MVP when you need evidence from real users, live operations or market behavior.",
     ],
     categoryLabel: "App Development",
     categoryKey: "app-development",
@@ -10781,7 +10781,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Will real users complete the key action if the product is live?",
           "- Can operations cope with real data, support requests and exceptions?",
           "- Is the commercial model strong enough to justify a broader build?",
-          "If your question is about behaviour in a live setting, a prototype is too early a stage to answer it well. If your question is about journey design, proposition clarity or internal alignment, an MVP may be too expensive a first move.",
+          "If your question is about behavior in a live setting, a prototype is too early a stage to answer it well. If your question is about journey design, proposition clarity or internal alignment, an MVP may be too expensive a first move.",
         ],
         lede: "Most startup teams say they are choosing between two build types. In reality, they are choosing which risk to test first.",
         variant: "signal",
@@ -10811,7 +10811,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- The user journey includes unfamiliar steps that need observing before development choices harden.",
           "- You are deciding between several product directions and need to compare them cheaply.",
           "- The product depends on trust, speed or simplicity of use, and you have not tested that interaction yet.",
-          "- You need buy-in from a regulated, risk-aware or process-heavy organisation, but they are not ready for a live rollout.",
+          "- You need buy-in from a regulated, risk-aware or process-heavy organization, but they are not ready for a live rollout.",
           "A prototype is also sensible when the app idea touches several systems but you still do not know which part should become the first release. In that case, a prototype can narrow the scope before backend architecture and integration work begin.",
           "For example, if a startup wants to build a field-service app for UK trades businesses, the first uncertainty may not be whether engineers can create bookings and job states. It may be whether office staff and field staff actually agree on the sequence of triage, quoting and status updates. A prototype helps expose those process mismatches early.",
           "This is often where a bespoke team adds value. Rather than coding every idea, Silverstone AI can help shape what the first release should and should not include before a production backlog grows around assumptions. If you are weighing the wider build route, our [app development service](/services/app-development) is the main pillar page for that process.",
@@ -10895,7 +10895,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Pricing and retention remain untested because the product is not actually in use.",
           "- The business treats design approval as validation, which it is not.",
           "There is also a strategic risk for UK founders raising capital or trying to win pilot customers. If you present a prototype as if it were meaningful market evidence, sharper buyers will spot the gap. A clickable concept can help conversation, but it is not a substitute for measured usage.",
-          "The safer approach is to be explicit about what the artefact is for. A prototype is illustrative. An MVP is operational. Each has value when matched to the right question.",
+          "The safer approach is to be explicit about what the artifact is for. A prototype is illustrative. An MVP is operational. Each has value when matched to the right question.",
         ],
         pullQuote:
           "The right early build is the one that answers your next business question with the least irreversible cost.",
@@ -10905,7 +10905,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Founders often ask agencies for an MVP when they really want clarity. Or they ask for a prototype when they really need evidence. This five-step test helps separate the two.",
           "1. Define the one assumption that matters most.\nIs it about user understanding, internal workflow, willingness to pay, operational delivery or technical feasibility?",
-          "2. Ask what evidence would genuinely change your mind.\nIf a stakeholder demo would be enough, a prototype may be right. If you need behaviour from real users, you need an MVP.",
+          "2. Ask what evidence would genuinely change your mind.\nIf a stakeholder demo would be enough, a prototype may be right. If you need behavior from real users, you need an MVP.",
           "3. Strip the product down to one core outcome.\nIf you cannot describe the first release in one sentence, you are not ready for an MVP scope.",
           "4. Check what must be real for the learning to count.\nIf live data, user accounts, integrations or notifications are essential, a prototype will not answer the question properly.",
           "5. Decide what can remain illustrative.\nIf screens, journeys and service logic can be simulated for now, prototyping is likely the more sensible stage.",
@@ -11024,7 +11024,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     subtitle:
       "A practical framework for deciding what an after-hours voice agent should handle, when it should escalate, and how to keep UK call flows auditable and owner-led.",
     summary: [
-      "Out-of-hours voice AI works best as a triage and routing layer, not a full-resolution replacement for human judgement.",
+      "Out-of-hours voice AI works best as a triage and routing layer, not a full-resolution replacement for human judgment.",
       "Escalation thresholds, named ownership, message capture and call-back expectations matter more than fluent small talk.",
       "UK businesses should test disclosure, consent, handoff paths and audit trails before putting a live number in front of callers.",
     ],
@@ -11064,8 +11064,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "When owners first explore out-of-hours voice AI, they often focus on the conversation itself. The stronger design starts elsewhere: who owns urgent calls, which scenarios justify a wake-up, what information the on-call person needs, and which requests can wait until business hours.",
           "A useful out-of-hours voice agent usually sits between inbound telephony and your operational teams. Its job is to identify intent, gather structured information and apply bounded routing rules. Bounded means the agent only works within approved paths. It should not improvise clinical advice, legal advice, pricing commitments or safety decisions.",
-          "For a UK business, that often means one service for evenings, weekends and bank holidays, but with different thresholds by industry. An estate agency may escalate for lockouts or flooding. A dental practice may separate administrative requests from urgent pain or post-treatment concerns, while keeping clinical judgement with a human. A trades business may capture postcode, hazard type and site access details before contacting the duty engineer.",
-          "External context supports this emphasis on routing and staffing rather than pure conversation quality. Research on conversational agents in call-centre settings found call patterns can shift by time block after introduction, which means owners still need to align staff cover and escalation capacity. In other words, an agent can improve responsiveness, but it does not remove the need for deliberate on-call design.",
+          "For a UK business, that often means one service for evenings, weekends and bank holidays, but with different thresholds by industry. An estate agency may escalate for lockouts or flooding. A dental practice may separate administrative requests from urgent pain or post-treatment concerns, while keeping clinical judgment with a human. A trades business may capture postcode, hazard type and site access details before contacting the duty engineer.",
+          "External context supports this emphasis on routing and staffing rather than pure conversation quality. Research on conversational agents in call-center settings found call patterns can shift by time block after introduction, which means owners still need to align staff cover and escalation capacity. In other words, an agent can improve responsiveness, but it does not remove the need for deliberate on-call design.",
         ],
         lede: "A good after-hours setup is less about sounding fluent and more about creating a calm, predictable path from caller to owner.",
         variant: "signal",
@@ -11077,7 +11077,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Human boundary",
-            body: "Urgent judgement, approvals, sensitive cases and exceptions stay owner-led.",
+            body: "Urgent judgment, approvals, sensitive cases and exceptions stay owner-led.",
             icon: "handoff",
           },
           {
@@ -11112,7 +11112,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "What should usually remain with a human",
             body: [
-              "- Clinical or safety judgement",
+              "- Clinical or safety judgment",
               "- Complaint handling where nuance and discretion matter",
               "- Price negotiation or bespoke commercial commitments",
               "- Identity-sensitive actions without an approved verification flow",
@@ -11127,7 +11127,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Reality: triage rules, escalation thresholds and on-call ownership matter more than fluency",
         body: [
           "Before going live, define thresholds that fit your service model. For example:",
-          "- What counts as an emergency, an urgent issue, a priority next-day call-back, or a standard enquiry?",
+          "- What counts as an emergency, an urgent issue, a priority next-day call-back, or a standard inquiry?",
           "- Which caller intents justify waking the on-call person?",
           "- What minimum information must be captured before escalation?",
           "- If the on-call owner does not answer, where does the case go next?",
@@ -11182,7 +11182,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Myth: voicemail replacement is enough for nights and weekends",
         body: [
-          "For low-value, low-risk enquiries, voicemail can be acceptable. For mixed inbound demand, it is usually too blunt.",
+          "For low-value, low-risk inquiries, voicemail can be acceptable. For mixed inbound demand, it is usually too blunt.",
           "A voicemail records speech, but it does not qualify urgency, confirm key details, set expectations cleanly or route according to rules. It also leaves too much room for inconsistent messages. One caller leaves a perfect summary. Another leaves no number, no postcode, no booking reference and no clue whether the issue can wait.",
           "An AI voice agent can improve that if, and only if, the design goes beyond replacing a beep with synthetic speech. The useful difference is structured capture.",
           "Instead of asking callers to tell their story unaided, the agent can ask a short sequence of approved questions and collect the minimum data required for a decision. That reduces the burden on both the caller and the next human who has to act.",
@@ -11203,7 +11203,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             body: [
               "- Multi-branch or multi-service businesses",
               "- Businesses with different urgency classes",
-              "- Enquiries that need specific fields before action",
+              "- Inquiries that need specific fields before action",
               "- Services where the next team member must know exactly what happened on the call",
             ],
           },
@@ -11217,12 +11217,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The exact legal position depends on your setup and sector, so this is not legal advice. The practical point is simpler: do not assume your current phone notice, privacy wording or call recording process automatically covers a new AI voice workflow.",
           "Design these items deliberately before launch:",
           "- How the caller is informed they are speaking with an automated system",
-          "- Whether calls are recorded, transcribed, summarised or all three",
+          "- Whether calls are recorded, transcribed, summarized or all three",
           "- What lawful basis or notice position you rely on for the data captured",
           "- Which fields are mandatory before an escalation can be sent",
           "- How the caller is told when they should expect a reply",
           "- What the system logs when the agent hands off, fails over or cannot classify the issue confidently",
-          "- How long call artefacts are retained and who can access them",
+          "- How long call artifacts are retained and who can access them",
           'Call-back windows deserve particular care. If the agent tells a caller they will hear back "shortly" but your rota only reviews the queue at 09:00, you have created a trust gap. Better to state a precise, approved expectation than a vague reassurance.',
           "Audit trails are just as important internally. A manager should be able to review what the caller said, what the agent captured, which rule fired, who was notified and whether the issue was accepted. That matters for quality control, complaints, and simply learning which after-hours scenarios deserve a better script or clearer routing logic.",
           "This is one area where a bespoke agency approach matters. Silverstone AI can shape the voice flow around your existing service standards, team ownership and data-handling requirements rather than forcing your operation into a generic template.",
@@ -11382,7 +11382,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     subtitle:
       "A maturity model for UK trade businesses that want faster response times without filling the diary with poor-fit surveys and unnecessary call-outs.",
     summary: [
-      "Faster answering only helps if quote enquiries are properly qualified before anyone is sent out.",
+      "Faster answering only helps if quote inquiries are properly qualified before anyone is sent out.",
       "Strong receptionist setups for trades use narrow intake, clear postcode and urgency rules, and explicit human handoff points.",
       "Measure unnecessary surveys, re-qualification effort and exception volume before expanding the workflow.",
     ],
@@ -11413,31 +11413,31 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Speed is not the main problem in a trade quote pipeline. Bad qualification is. A missed call from a homeowner in Leeds, Bristol or Croydon can become a booked survey that never should have gone in the diary in the first place. If the job is outside area, wrongly categorised, clearly urgent, or impossible to price without photos, a faster answer alone can still waste engineer time.\n\nThat is where an AI receptionist for trades can help, if it is designed as a gatekeeper rather than a generic answering layer. The aim is not to let software make every judgement. It is to collect the right facts, apply clear UK service rules, and hand off the cases that need a person. At Silverstone AI, that is the commercial lens: tighter triage, cleaner next steps, and explicit boundaries around channel, system, handoff and sensitive-topic ownership.",
+          "Speed is not the main problem in a trade quote pipeline. Bad qualification is. A missed call from a homeowner in Leeds, Bristol or Croydon can become a booked survey that never should have gone in the diary in the first place. If the job is outside area, wrongly categorized, clearly urgent, or impossible to price without photos, a faster answer alone can still waste engineer time.\n\nThat is where an AI receptionist for trades can help, if it is designed as a gatekeeper rather than a generic answering layer. The aim is not to let software make every judgment. It is to collect the right facts, apply clear UK service rules, and hand off the cases that need a person. At Silverstone AI, that is the commercial lens: tighter triage, cleaner next steps, and explicit boundaries around channel, system, handoff and sensitive-topic ownership.",
         ],
       },
       {
         heading: "Why faster answer rates can still produce worse quote pipelines",
         body: [
-          "Many trades firms first look at an AI receptionist because they want better cover when the office is busy or the team is out on jobs. That makes sense. But if the system only takes a message and pushes every quote enquiry towards a survey or callback, it can increase wasted effort rather than reduce it.",
+          "Many trades firms first look at an AI receptionist because they want better cover when the office is busy or the team is out on jobs. That makes sense. But if the system only takes a message and pushes every quote inquiry toward a survey or callback, it can increase wasted effort rather than reduce it.",
           "The real cost sits in the wrong next action. A roofer may be able to assess a small repair from good photos. A builder may need enough context to decide whether a survey is worthwhile at all. A plumber may need to split routine quote work from urgent call-outs before anyone touches the diary.",
           "A better approach starts with boundaries:",
           "- The channel can handle inbound calls, web forms or messages where configured.",
           "- The system should capture structured details and apply fixed business rules.",
-          "- The handoff should send the enquiry to the right queue with useful notes, not just a transcript.",
+          "- The handoff should send the inquiry to the right queue with useful notes, not just a transcript.",
           "- Sensitive topics such as safety, complaints or vulnerable-customer situations should move to a human-owned path.",
           "When those boundaries are missing, improved answer rates can still create a weaker pipeline: more callbacks, more unsuitable surveys and more time spent re-qualifying jobs that should have been filtered earlier.",
         ],
-        lede: "More answered enquiries are only useful when the next step is right.",
+        lede: "More answered inquiries are only useful when the next step is right.",
         variant: "signal",
         bullets: [
           {
             label: "Good fit",
-            body: "Repeatable inbound quote enquiries with known service areas, job categories and routing rules.",
+            body: "Repeatable inbound quote inquiries with known service areas, job categories and routing rules.",
           },
           {
             label: "Poor fit",
-            body: "Safety-critical, disputed or highly bespoke situations that rely on professional judgement from the start.",
+            body: "Safety-critical, disputed or highly bespoke situations that rely on professional judgment from the start.",
           },
           {
             label: "Commercial aim",
@@ -11472,7 +11472,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Too little detail",
-            body: "Name and number only. The office has to re-qualify every enquiry from scratch.",
+            body: "Name and number only. The office has to re-qualify every inquiry from scratch.",
           },
           {
             title: "Too much ambition",
@@ -11497,18 +11497,18 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "2. Detect whether the issue sounds urgent enough for a call-out path.",
           "3. Confirm whether the job type matches the services offered.",
           "4. Ask for photos where that would help estimate triage.",
-          "5. Route the enquiry to estimate, survey, decline or human review.",
+          "5. Route the inquiry to estimate, survey, decline or human review.",
           "This rule layer matters because it protects margin. A van sent to the wrong area, a survey booked for a job your firm does not take on, or an estimator forced to chase basic details all erode capacity.",
-          "The key is to keep the logic deterministic. The system should follow clear business rules that your team can inspect and amend. It should not improvise commercial commitments, create pricing expectations or blur the line between routine triage and professional judgement.",
+          "The key is to keep the logic deterministic. The system should follow clear business rules that your team can inspect and amend. It should not improvise commercial commitments, create pricing expectations or blur the line between routine triage and professional judgment.",
         ],
         variant: "operator",
         comparisonTable: {
-          columns: ["How it handles quote enquiries", "Operational effect"],
+          columns: ["How it handles quote inquiries", "Operational effect"],
           rows: [
             {
               label: "Basic answering",
               cells: [
-                "Takes a message and forwards every enquiry",
+                "Takes a message and forwards every inquiry",
                 "Fast response, but heavy rework for the office",
               ],
             },
@@ -11533,25 +11533,25 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "Level 3: Route between estimate, survey, emergency call-out and human review",
         body: [
-          "Level 3 is where the workflow becomes commercially sharp. Instead of treating all enquiries as one queue, the receptionist sorts them into a small set of named destinations.",
+          "Level 3 is where the workflow becomes commercially sharp. Instead of treating all inquiries as one queue, the receptionist sorts them into a small set of named destinations.",
           "For many trades firms, four destinations are enough:",
           "- Estimate path for straightforward work with sufficient information",
           "- Survey path for jobs that need an on-site assessment before scope can be agreed",
           "- Emergency call-out path for urgent issues under defined business rules",
           "- Human review path for anything unclear, sensitive or outside the standard model",
-          "Each destination should have an owner. Estimate requests may sit with an estimator or office manager. Survey requests may enter a review queue rather than being booked directly. Emergency enquiries may go to an on-call process, a transfer option or a priority callback path. Human review should exist for edge cases the rules cannot safely settle.",
+          "Each destination should have an owner. Estimate requests may sit with an estimator or office manager. Survey requests may enter a review queue rather than being booked directly. Emergency inquiries may go to an on-call process, a transfer option or a priority callback path. Human review should exist for edge cases the rules cannot safely settle.",
           "The handoff quality matters as much as the routing. A strong handoff includes the caller’s details, postcode, job summary, urgency class, service match, evidence available and the reason the route was chosen. That saves your team from listening back to a full call just to recover basics.",
           "If your wider setup goes beyond front-of-house answering, [AI voice agents](/services/ai-voice-agents) can support deeper routing and follow-up. The same boundary still applies: the system can sort and collect, but a person should own decisions involving pricing, safety, unusual scope or customer sensitivity.",
         ],
         pullQuote:
-          "Good trade automation moves routine sorting earlier. It does not try to replace judgement where judgement carries risk.",
+          "Good trade automation moves routine sorting earlier. It does not try to replace judgment where judgment carries risk.",
         subsections: [
           {
             heading: "What a strong Level 3 workflow looks like",
             body: [
               "1. The caller explains the job in plain language.",
               "2. The system captures the core facts and checks service rules.",
-              "3. It classifies the enquiry into estimate, survey, emergency or human review.",
+              "3. It classifies the inquiry into estimate, survey, emergency or human review.",
               "4. It states the next step clearly without implying a guaranteed appointment or price.",
               "5. It sends structured notes to the right person or queue.",
               "6. A human reviews exceptions, weak-data cases and sensitive matters.",
@@ -11562,14 +11562,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The exceptions that should never be auto-qualified",
         body: [
-          "Even a well-designed workflow needs hard boundaries. Some enquiries are poor candidates for automated qualification because the risk of getting the route wrong is too high.",
+          "Even a well-designed workflow needs hard boundaries. Some inquiries are poor candidates for automated qualification because the risk of getting the route wrong is too high.",
           "Typical exceptions include:",
           "- Safety-critical incidents such as gas concerns, major electrical risk or structural instability",
           "- Complaints, disputes or emotionally charged calls",
           "- Vulnerable-customer situations that may need extra care or adapted communication",
           "- Existing live jobs involving access issues, workmanship concerns or payment conflict",
           "- Requests for fixed pricing where your process requires a survey, drawings or detailed specification",
-          "- Jobs involving regulated or compliance-heavy judgement that cannot be assessed from a short intake",
+          "- Jobs involving regulated or compliance-heavy judgment that cannot be assessed from a short intake",
           "There is also an expectation-management issue. If the receptionist sounds certain where the business itself would still need to inspect, the caller may assume more than the process can support. It is usually better to be precise about what happens next than to sound impressively confident.",
           "This is also where data handling needs discipline. Capture only what is relevant, store it in the right system, and limit access to the team that actually needs the information. Those system and handoff boundaries are part of a good commercial setup, not an afterthought.",
         ],
@@ -11580,14 +11580,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Do not broaden the workflow just because the first version works technically. Expand when the evidence shows that it is improving pipeline quality and reducing avoidable admin.",
           "Start with a practical measurement set:",
-          "- Number of quote enquiries captured by each channel",
+          "- Number of quote inquiries captured by each channel",
           "- Percentage with enough information for a clear next-step decision",
           "- Percentage routed to estimate, survey, emergency and human review",
           "- Number of surveys later judged unnecessary",
-          "- Time the office spends re-qualifying routed enquiries",
-          "- Common reasons enquiries fall into exception handling",
+          "- Time the office spends re-qualifying routed inquiries",
+          "- Common reasons inquiries fall into exception handling",
           "- Points where callers appear confused about the next step",
-          "These measures tell you where the design is weak. If too many enquiries still end in human review, the rules may be too vague. If surveys keep being rejected later, Level 1 capture is missing key facts. If routine jobs are regularly landing in the emergency path, your urgency prompts may be too broad.",
+          "These measures tell you where the design is weak. If too many inquiries still end in human review, the rules may be too vague. If surveys keep being rejected later, Level 1 capture is missing key facts. If routine jobs are regularly landing in the emergency path, your urgency prompts may be too broad.",
           "For many businesses, staying at Level 2 or Level 3 is enough. Maturity is not about adding features for their own sake. It is about making the next step more accurate, reducing wasted field time and giving staff cleaner information to act on.",
           "For broader context on where this fits within a field-service operation, see our page on [trades](/industry/trades).",
         ],
@@ -11597,17 +11597,17 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can an AI receptionist give quotes for trade jobs?",
         answer:
-          "It can collect the details needed for an estimate path, but it should not replace human pricing judgement. Straightforward jobs may be suitable for estimate triage. Work that depends on inspection, risk, specification or unusual scope should stay with a person.",
+          "It can collect the details needed for an estimate path, but it should not replace human pricing judgment. Straightforward jobs may be suitable for estimate triage. Work that depends on inspection, risk, specification or unusual scope should stay with a person.",
       },
       {
         question: "Which UK trades are a good fit for AI receptionist triage?",
         answer:
-          "It often fits trades with repeatable inbound enquiries and clear service rules, such as plumbing, heating, electrical, roofing, drainage, glazing and some building services. The clearer your service area, job categories and handoff process, the better the fit.",
+          "It often fits trades with repeatable inbound inquiries and clear service rules, such as plumbing, heating, electrical, roofing, drainage, glazing and some building services. The clearer your service area, job categories and handoff process, the better the fit.",
       },
       {
         question: "Will an AI receptionist replace office staff?",
         answer:
-          "No sensible setup should assume that. Its role is to handle routine intake, apply agreed rules and pass structured information to the right queue. Staff still own exceptions, sensitive calls, customer judgement and many pricing or scheduling decisions.",
+          "No sensible setup should assume that. Its role is to handle routine intake, apply agreed rules and pass structured information to the right queue. Staff still own exceptions, sensitive calls, customer judgment and many pricing or scheduling decisions.",
       },
     ],
     internalLinks: [
@@ -11730,14 +11730,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Which cost drivers matter before any build starts",
         body: [
-          "A first workflow can look simple on paper: capture an enquiry, classify it, send it to the right place, update a system and alert a member of staff. But the real cost depends on the condition of the operation behind it.",
+          "A first workflow can look simple on paper: capture an inquiry, classify it, send it to the right place, update a system and alert a member of staff. But the real cost depends on the condition of the operation behind it.",
           "Before build starts, the main cost drivers are usually:",
           "- The business goal: whether the workflow is reducing admin, improving response handling, speeding internal processing or supporting a regulated process",
           "- The source of truth: which system holds the final record and whether that is reliable enough to drive actions",
           "- Data structure: whether the inputs are clean, consistent and machine-readable or spread across inboxes, PDFs, notes and spreadsheets",
           "- Tool landscape: whether your existing stack already exposes workable integrations or needs middleware, custom logic or manual fallbacks",
           "- Decision boundaries: what the workflow may automate directly and what must stop for review",
-          "- Operational owner: who signs off changes, handles exceptions and decides when the workflow behaviour is correct",
+          "- Operational owner: who signs off changes, handles exceptions and decides when the workflow behavior is correct",
           "This is why two apparently similar briefs can price differently. One SME may already have a tidy CRM, consistent form fields and clear routing rules. Another may have three inboxes, duplicated records, staff-specific workarounds and no agreed definition of a valid handoff.",
           "The second brief is not just 'more work'. It carries more delivery risk. An agency has to spend more time discovering the real process, setting boundaries and protecting the business from bad automation decisions.",
           "If you are still at the selection stage, our guide on [how to choose a workflow approach](/blog/workflow-automation-selection-guide) can help you separate a good first use case from an expensive one.",
@@ -11747,7 +11747,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Source of truth",
-            body: "Name the system that owns the final record before discussing AI behaviour.",
+            body: "Name the system that owns the final record before discussing AI behavior.",
           },
           {
             label: "Owner",
@@ -11788,7 +11788,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Approvals add effort because they are not only a button. A proper approval model needs authority, timing and reversibility. Who can approve? What happens if they do nothing? Can the action be undone? Which record is updated first?",
           "Exceptions are often underestimated. Every useful automation needs a failure posture. If the workflow cannot classify a message, cannot find the matching customer, or receives conflicting information, where does it go? Who owns that queue? How is recovery handled?",
           "For UK operators, this is especially important in sectors where records, booking commitments or customer communications affect compliance, scheduling or service delivery. The aim is not full autonomy. The aim is a workflow that behaves predictably inside agreed limits.",
-          "If your current process depends on staff judgement, the right question is not 'Can AI replace that?' It is 'Which parts are deterministic, which parts are bounded judgement, and which parts must remain human-owned?'",
+          "If your current process depends on staff judgment, the right question is not 'Can AI replace that?' It is 'Which parts are deterministic, which parts are bounded judgment, and which parts must remain human-owned?'",
           "That distinction often makes the estimate far clearer.",
         ],
         lede: "Once you move from concept to execution, integration detail starts to dominate the estimate.",
@@ -11819,7 +11819,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Exceptions",
               cells: [
                 "Few known failure states with a clear fallback",
-                "Frequent ambiguous cases requiring manual judgement",
+                "Frequent ambiguous cases requiring manual judgment",
                 "Extra design is needed for safe stopping, routing and recovery",
               ],
             },
@@ -11849,7 +11849,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Hypercare immediately after launch",
           "- Ongoing monitoring or managed support",
           "- Out-of-scope change work",
-          "That separation protects both sides. You can compare proposals more fairly, and the agency can avoid burying future labour inside an unclear one-off price.",
+          "That separation protects both sides. You can compare proposals more fairly, and the agency can avoid burying future labor inside an unclear one-off price.",
           "Silverstone AI tends to frame this around observability and ownership. Observability means you can see what the workflow did, what it could not do and where it stopped. Ownership means someone on the client side can approve changes, answer operational questions and validate whether the outputs still match the real process.",
           "Without those two things, the cheapest launch can become the most expensive workflow to maintain.",
         ],
@@ -11866,7 +11866,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Change control",
-            body: "A clear line between bug fixing, optimisation and new scope.",
+            body: "A clear line between bug fixing, optimization and new scope.",
           },
           {
             title: "Recovery",
@@ -12003,7 +12003,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "A practical decision guide for UK manufacturers choosing the first office and production-admin workflows worth auditing for AI and automation.",
     summary: [
       "Focus first on workflows where shop floor events should trigger predictable office actions.",
-      "Separate rules-based admin from judgement-heavy work before you shortlist candidates.",
+      "Separate rules-based admin from judgment-heavy work before you shortlist candidates.",
       "Rank opportunities across value, effort, risk and readiness so leadership can approve the right next step.",
     ],
     categoryLabel: "AI & Automation Consulting",
@@ -12033,7 +12033,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Picture the business 12 months after a sensible first wave of AI and automation work. A job leaves the shop floor, and the right office actions follow quickly. Production updates feed planning. Delivery notes are easier to trace. Customer queries are answered from current order information rather than scraps of memory. Supervisors spend less time chasing paperwork and more time dealing with exceptions that genuinely need judgement.\n\nThat future rarely starts with a dramatic platform replacement. For most UK manufacturing SMEs, it starts with an AI opportunity audit: a disciplined review of production admin workflows to find where rules, repetition and delay are creating avoidable friction.\n\nThe point is not to automate everything. It is to identify the few workflows where better system design, bounded AI support and clear human ownership can improve operational flow without creating fresh risk. Silverstone AI approaches this as a commercial consulting problem first.",
+          "Picture the business 12 months after a sensible first wave of AI and automation work. A job leaves the shop floor, and the right office actions follow quickly. Production updates feed planning. Delivery notes are easier to trace. Customer queries are answered from current order information rather than scraps of memory. Supervisors spend less time chasing paperwork and more time dealing with exceptions that genuinely need judgment.\n\nThat future rarely starts with a dramatic platform replacement. For most UK manufacturing SMEs, it starts with an AI opportunity audit: a disciplined review of production admin workflows to find where rules, repetition and delay are creating avoidable friction.\n\nThe point is not to automate everything. It is to identify the few workflows where better system design, bounded AI support and clear human ownership can improve operational flow without creating fresh risk. Silverstone AI approaches this as a commercial consulting problem first.",
         ],
       },
       {
@@ -12045,7 +12045,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Routine downstream actions follow a documented rule set.",
           "- Exceptions are visible quickly and assigned to a named person.",
           "- Staff can see which system holds the current truth.",
-          "- AI is used where it helps classify, extract, summarise or route work, not where unmanaged judgement would create operational risk.",
+          "- AI is used where it helps classify, extract, summarize or route work, not where unmanaged judgment would create operational risk.",
           "External context supports a pragmatic route. Many SMEs are still working through workflow readiness, system fit and internal capability. That matters because the first gain is usually not an advanced model. It is getting an important but messy workflow into a controlled state leadership can trust.",
         ],
         lede: "The strongest audit candidates sit where a physical event in the factory should trigger a predictable office response, but currently depends on manual follow-up.",
@@ -12053,7 +12053,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Good first-audit signal",
-            body: "A repeat admin task linked to production, planning, stock, quality or fulfilment.",
+            body: "A repeat admin task linked to production, planning, stock, quality or fulfillment.",
           },
           {
             label: "Poor first-audit signal",
@@ -12069,13 +12069,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Which manufacturing admin workflows usually justify an audit first",
         body: [
           "Not every admin process is equally suitable. The first review should usually concentrate on workflows that are frequent, structured enough to map and close to day-to-day operational performance.\n\nIn UK manufacturing SMEs, the shortlist often includes:",
-          "- Sales order entry and acknowledgement where information arrives by email, PDF or portal and is rekeyed into an ERP or finance system.",
+          "- Sales order entry and acknowledgment where information arrives by email, PDF or portal and is rekeyed into an ERP or finance system.",
           "- Production scheduling updates where changes in capacity, material availability or job status trigger manual customer or internal communication.",
           "- Purchase order matching and supplier paperwork handling, especially where delivery notes and invoices are checked by hand.",
           "- Stock movement and replenishment administration where signals sit across spreadsheets, ERP records and email trails.",
           "- Quality and non-conformance administration where evidence, photos, forms and follow-up actions are hard to track consistently.",
           "- Dispatch, proof-of-delivery and customer update workflows where warehouse activity and office communication are disconnected.",
-          "These tend to justify an audit because they combine volume with process drag. They also sit in a useful middle ground: important enough to matter, but often bounded enough to improve without redesigning the whole business.\n\nIf you are reviewing options internally, it helps to distinguish between automation and AI support. Some steps may only need rules-based integration. Others may benefit from AI for document extraction, categorisation, summarisation or drafting. A combined consulting view is usually stronger than chasing AI for its own sake. That is where a structured [AI consulting approach](/services/ai-consulting) helps.",
+          "These tend to justify an audit because they combine volume with process drag. They also sit in a useful middle ground: important enough to matter, but often bounded enough to improve without redesigning the whole business.\n\nIf you are reviewing options internally, it helps to distinguish between automation and AI support. Some steps may only need rules-based integration. Others may benefit from AI for document extraction, categorization, summarization or drafting. A combined consulting view is usually stronger than chasing AI for its own sake. That is where a structured [AI consulting approach](/services/ai-consulting) helps.",
         ],
         comparisonTable: {
           columns: [
@@ -12094,7 +12094,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Planning updates",
               cells: [
                 "Production changes need fast downstream communication",
-                "Final judgement on priority changes and customer commitments",
+                "Final judgment on priority changes and customer commitments",
               ],
             },
             {
@@ -12114,7 +12114,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Dispatch communications",
               cells: [
-                "Physical fulfilment often lags in office systems",
+                "Physical fulfillment often lags in office systems",
                 "Escalations for delays, shortages or sensitive accounts",
               ],
             },
@@ -12122,13 +12122,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
       },
       {
-        heading: "How to separate rules-based admin from judgement-heavy operations",
+        heading: "How to separate rules-based admin from judgment-heavy operations",
         body: [
-          "A practical audit asks a simple question early: is this workflow mainly rules-based, or does it depend on nuanced human judgement?\n\nRules-based admin usually has defined inputs, expected outputs and a limited set of exceptions. That makes it a better candidate for standard automation, sometimes with AI assisting on extraction or classification. Judgement-heavy operations involve trade-offs, tacit knowledge, negotiation or technical interpretation. Those may still benefit from support tools, but not from aggressive workflow automation.\n\nUse this separation test:",
+          "A practical audit asks a simple question early: is this workflow mainly rules-based, or does it depend on nuanced human judgment?\n\nRules-based admin usually has defined inputs, expected outputs and a limited set of exceptions. That makes it a better candidate for standard automation, sometimes with AI assisting on extraction or classification. Judgment-heavy operations involve trade-offs, tacit knowledge, negotiation or technical interpretation. Those may still benefit from support tools, but not from aggressive workflow automation.\n\nUse this separation test:",
           "- If two trained staff members would usually make the same decision from the same information, the step is likely rules-based enough to assess for automation.",
           "- If the step often depends on commercial context, engineering interpretation, customer relationship sensitivity or safety considerations, keep a stronger human-in-the-loop design.",
           "- If the process owner cannot explain the decision criteria clearly, the workflow is not ready for AI; it needs process definition first.",
-          "For manufacturing SMEs, common rules-based steps include extracting order details from documents, routing standard enquiries, matching routine records, generating draft updates and flagging exceptions against tolerances. Judgement-heavy steps include approving substitutions, resolving quality disputes, committing to revised delivery dates or interpreting ambiguous customer specifications.\n\nThat distinction matters commercially. It affects risk, system design and staff confidence. Silverstone AI typically treats AI as one component in a wider operating workflow, with explicit approval points where business judgement must remain with your team.\n\nIf internal discussions keep collapsing into tool debates, this broader framing may help: [AI & automation consulting as a smarter operating system](/blog/ai-automation-consulting-smarter-operating-system).",
+          "For manufacturing SMEs, common rules-based steps include extracting order details from documents, routing standard inquiries, matching routine records, generating draft updates and flagging exceptions against tolerances. Judgment-heavy steps include approving substitutions, resolving quality disputes, committing to revised delivery dates or interpreting ambiguous customer specifications.\n\nThat distinction matters commercially. It affects risk, system design and staff confidence. Silverstone AI typically treats AI as one component in a wider operating workflow, with explicit approval points where business judgment must remain with your team.\n\nIf internal discussions keep collapsing into tool debates, this broader framing may help: [AI & automation consulting as a smarter operating system](/blog/ai-automation-consulting-smarter-operating-system).",
         ],
         lede: "The fastest way to waste an audit is to treat every messy process as an automation problem.",
         pullQuote:
@@ -12149,7 +12149,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- System connectivity: can the core systems exchange data reliably, or would manual bridges remain?",
           "- Process clarity: are trigger, actions, approvals and exceptions defined?",
           "- Operational ownership: does one leader have the authority to approve changes and handle exceptions?",
-          "Many manufacturers operate with a practical mix of long-serving systems and manual workarounds built over years. That is normal. The goal is not to criticise the stack. It is to identify where a well-scoped intervention could create cleaner operational flow.",
+          "Many manufacturers operate with a practical mix of long-serving systems and manual workarounds built over years. That is normal. The goal is not to criticize the stack. It is to identify where a well-scoped intervention could create cleaner operational flow.",
         ],
         grid: [
           {
@@ -12166,7 +12166,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Keep human-led",
-            body: "High judgement, sensitive trade-offs or safety-critical interpretation.",
+            body: "High judgment, sensitive trade-offs or safety-critical interpretation.",
           },
         ],
       },
@@ -12177,7 +12177,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Once you have a shortlist, rank it with a consistent method rather than whoever argues hardest in the room.\n\nA useful AI opportunity audit should score each candidate workflow across value, effort and risk. You do not need false precision. You do need a method leadership can use to compare unlike options fairly.\n\nStart with these criteria:",
           "- Value: how much operational drag, delay, rework or management effort does the workflow currently create?",
           "- Frequency: how often does the workflow happen in a normal week or month?",
-          "- Standardisation: how consistent are the inputs, decisions and outputs?",
+          "- Standardization: how consistent are the inputs, decisions and outputs?",
           "- Effort to change: how difficult will process redesign, integration and adoption be?",
           "- Risk: what is the consequence of error, ambiguity or poor exception handling?",
           "- Readiness: how mature are the data, ownership and systems around the workflow?",
@@ -12186,7 +12186,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "2. Mark which steps are purely rules-based, which use bounded AI support and which need human approval.",
           "3. Score each workflow high, medium or low against value, effort, risk and readiness.",
           "4. Remove any candidate with unclear ownership or poorly defined exceptions.",
-          "5. Prioritise one or two workflows with solid value, tolerable effort and controlled risk.",
+          "5. Prioritize one or two workflows with solid value, tolerable effort and controlled risk.",
           "For many firms, the winning candidate is not the largest process by headcount. It is the workflow where slow office follow-up causes disproportionate knock-on effects across planning, customer communication or cash collection.\n\nIf the scoring shows that a workflow is strategically interesting but operationally immature, leadership can defer it without losing momentum. That is a better outcome than launching a fragile project that staff will not trust.",
         ],
         lede: "Once you have a shortlist, rank it with a consistent method rather than whoever argues hardest in the room.",
@@ -12202,7 +12202,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- The main dependencies: data cleanup, integration work, policy decisions, approval ownership and change management needs.",
           "- A recommendation on what to do next: pilot now, prepare first, buy or configure, build selectively, or leave alone.",
           "- Success criteria framed as operational observability rather than hype, such as faster routing, fewer manual touches, clearer exception handling or better traceability.",
-          "That recommendation should be specific enough for a managing director, operations lead or finance lead to approve the next stage confidently. It should also make clear what is outside scope.\n\nFor example, if delivery-date decisions still require experienced planner judgement, that boundary should stay explicit. If supplier paperwork could be extracted and matched automatically but disputes still need manual review, that should be stated plainly.\n\nSilverstone AI typically sees the first audit as a way to reduce ambiguity before implementation. If the output is good, leadership can decide whether to proceed with deeper solution design, workflow automation, system integration or a limited pilot using the right level of human control.\n\nFor owners comparing routes, a broader primer on [AI automation consulting](/blog/ai-automation-consulting-guide) can help frame what should be assessed before any build begins.\n\nThe practical test is simple: after reading the audit, can your leadership team say yes to one next move, no to two weak ideas and understand the dependencies behind both decisions? If so, the audit has done its job.",
+          "That recommendation should be specific enough for a managing director, operations lead or finance lead to approve the next stage confidently. It should also make clear what is outside scope.\n\nFor example, if delivery-date decisions still require experienced planner judgment, that boundary should stay explicit. If supplier paperwork could be extracted and matched automatically but disputes still need manual review, that should be stated plainly.\n\nSilverstone AI typically sees the first audit as a way to reduce ambiguity before implementation. If the output is good, leadership can decide whether to proceed with deeper solution design, workflow automation, system integration or a limited pilot using the right level of human control.\n\nFor owners comparing routes, a broader primer on [AI automation consulting](/blog/ai-automation-consulting-guide) can help frame what should be assessed before any build begins.\n\nThe practical test is simple: after reading the audit, can your leadership team say yes to one next move, no to two weak ideas and understand the dependencies behind both decisions? If so, the audit has done its job.",
         ],
         variant: "operator",
       },
@@ -12223,7 +12223,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "How do we know whether a workflow is suitable for AI or standard automation?",
         answer:
-          "Check whether the step is repeatable, rules-based and explainable. If the decision criteria are clear and exceptions are known, standard automation with some AI support may fit. If the work depends on tacit knowledge, negotiation, technical interpretation or safety judgement, keep stronger human ownership.",
+          "Check whether the step is repeatable, rules-based and explainable. If the decision criteria are clear and exceptions are known, standard automation with some AI support may fit. If the work depends on tacit knowledge, negotiation, technical interpretation or safety judgment, keep stronger human ownership.",
       },
     ],
     internalLinks: [
@@ -12348,7 +12348,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Myth: a good agency can remove most approvals",
         body: [
-          "Approvals exist because content carries consequences. Some are commercial, such as pricing language, offer terms or weak calls to action. Some are legal or reputational, such as regulated claims, inaccurate service descriptions or outdated policy wording. AI can help draft, transform and structure content, but that does not remove the need for review where judgement matters.",
+          "Approvals exist because content carries consequences. Some are commercial, such as pricing language, offer terms or weak calls to action. Some are legal or reputational, such as regulated claims, inaccurate service descriptions or outdated policy wording. AI can help draft, transform and structure content, but that does not remove the need for review where judgment matters.",
           "A stronger agency model is not ‘fewer approvals at any cost’. It is fewer unnecessary approvals, with clearer sign-off where the business carries the risk.",
           "That distinction matters in the UK because many firms operate in sectors where wording has real implications. Estate agents, dentists, physios, hospitality businesses and trades all publish content that can affect customer expectations, bookings, complaints handling or suitability decisions. Even outside regulated sectors, a weak claim on a service page can create sales friction later.",
           "What should usually be reduced is duplicate review. What should usually stay is accountable review.",
@@ -12432,7 +12432,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "Reality: approver roles should follow claim risk, channel and page purpose",
         body: [
-          "Once those lenses are defined, approval routes become easier to standardise. A UK eCommerce brand may have one route for product collection pages, another for retention emails, and another for help-centre updates. A dental clinic may define a clear stop condition where non-clinical content can be drafted quickly, but anything that could imply treatment suitability requires explicit review.",
+          "Once those lenses are defined, approval routes become easier to standardize. A UK eCommerce brand may have one route for product collection pages, another for retention emails, and another for help-center updates. A dental clinic may define a clear stop condition where non-clinical content can be drafted quickly, but anything that could imply treatment suitability requires explicit review.",
           "This is also where a bespoke agency earns its place. A workflow should fit the operating reality of the business, not a generic agency template. Silverstone AI works across sectors with very different review needs, so the content process should reflect the actual decision rights in the business rather than forcing everyone into the same model.",
         ],
         lede: "A homepage, a nurture email and a social caption should not share the same approval logic just because they all count as content.",
@@ -12448,7 +12448,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Page purpose",
-            body: "Is the asset designed to inform, convert, qualify, reassure, or prompt a booking or enquiry?",
+            body: "Is the asset designed to inform, convert, qualify, reassure, or prompt a booking or inquiry?",
           },
         ],
       },
@@ -12476,7 +12476,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "A useful model for UK businesses is to classify content into approval bands:",
           "1. Pre-approved transformations. These are adaptations of already approved source material into another format, such as turning a published article into social posts or an email summary.\n2. Low-risk operating content. These include routine updates where no new claims are introduced, such as opening hours, venue notices or plain-language reminders.\n3. Commercial conversion content. These include landing pages, service pages, promotional emails and offer-led web copy.\n4. Sensitive or boundary-heavy content. These include regulated, suitability-sensitive or policy-sensitive assets where wording needs subject-owner review.",
           "Each band can have its own route, service-level expectation and stop conditions.",
-          "That means you can automate the movement of content, notifications and version control without pretending that approval judgement itself has vanished.",
+          "That means you can automate the movement of content, notifications and version control without pretending that approval judgment itself has vanished.",
           "For owners comparing agencies, this is often the difference between a content engine and a content risk. If the agency cannot explain which content types can move quickly and which must pause for review, the workflow is not mature enough.",
           "If you want a broader view of how content operations fit together, [this content creation framework](/blog/content-creation-framework) is a useful companion because it looks beyond drafting and into the full production system.",
         ],
@@ -12658,7 +12658,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What businesses usually mean when they ask about AI automation cost",
         body: [
           "A request for “AI automation” can describe anything from configuring a low-code tool to building a governed workflow that connects several business systems. Those are not comparable purchases.",
-          "Begin with a specific operational outcome: triaging enquiries, extracting information from documents, preparing draft responses or moving approved data between systems. Then define where the workflow starts, where it ends and which decisions must remain with a person.",
+          "Begin with a specific operational outcome: triaging inquiries, extracting information from documents, preparing draft responses or moving approved data between systems. Then define where the workflow starts, where it ends and which decisions must remain with a person.",
           "Accessible low-code products can reduce the technical barrier to experimentation, as research into SME adoption notes. That does not make implementation free. Process design, data preparation, testing, training and oversight still consume time.",
           "For businesses exploring the category, [a guide to small-business AI automation](/blog/small-business-ai-automation) explains how to identify a sensible first workflow before requesting a price.",
         ],
@@ -12666,7 +12666,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         variant: "signal",
         grid: [
           {
-            body: "The workflow uses established software and a controlled process. Budget pressure usually comes from configuration, testing, licences and staff time.",
+            body: "The workflow uses established software and a controlled process. Budget pressure usually comes from configuration, testing, licenses and staff time.",
             title: "Existing tools, limited connections",
             label: "Configuration",
           },
@@ -12704,7 +12704,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Two apparently similar automations can require very different delivery effort. A workflow that drafts text for approval has a different risk profile from one that changes customer records or initiates a financial action.",
           "The most useful quote describes each driver rather than hiding everything inside a project total. GOV.UK cost-estimating guidance supports documenting assumptions, testing the quality of underlying data and refining an estimate as better information becomes available.",
-          "If the current process is inconsistent, discovery may reveal that standardisation should happen before automation. That is useful evidence, not wasted work.",
+          "If the current process is inconsistent, discovery may reveal that standardization should happen before automation. That is useful evidence, not wasted work.",
         ],
         lede: "Scope size matters, but uncertainty and operational risk can matter just as much.",
         variant: "system",
@@ -12776,7 +12776,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Tool fees, integration costs and internal time to budget for",
         body: [
-          "Software may be charged by user, task, transaction, environment or consumption. Public prices can help with an initial licence estimate, but the chosen plan, taxes, usage limits and contract terms should be verified directly before approval.",
+          "Software may be charged by user, task, transaction, environment or consumption. Public prices can help with an initial license estimate, but the chosen plan, taxes, usage limits and contract terms should be verified directly before approval.",
           "Enterprise figures should not be repurposed as small-business benchmarks. A Worcestershire County Council document, for example, cites an OutSystems platform cost of approximately £300,000 annually and additional environments at approximately £80,000. It also notes adjacent platform and integration expenditure. This is useful evidence that environments and integrations can be separate cost lines, not evidence of what an SME workflow should cost.",
           "Broader UK bespoke-software guides publish very wide ranges, but they cover materially different products and are vendor-authored. They should be treated as context rather than an AI automation rate card.",
         ],
@@ -12787,7 +12787,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           rows: [
             {
               cells: [
-                "Licences, consumption, environments and required add-ons",
+                "Licenses, consumption, environments and required add-ons",
                 "Current supplier quotation, plan limits and renewal basis",
               ],
               label: "Software and usage",
@@ -13145,7 +13145,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/calculate-ai-automation-roi-uk-hero.webp",
     heroImageAlt:
-      "An abstract balance of workflow inputs, operating costs and realised value represented by precision-machined translucent forms",
+      "An abstract balance of workflow inputs, operating costs and realized value represented by precision-machined translucent forms",
     metaTitle: "How to Calculate AI Automation ROI for a UK Small Business",
     metaDescription:
       "Calculate AI automation ROI using full costs, measured benefits, payback periods and a transparent hypothetical UK small-business example.",
@@ -13161,14 +13161,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "“Will this automation actually pay for itself?” is the right question, but a credible answer needs more than an estimate of hours saved. UK small businesses should compare the measurable value created over a defined period with the complete cost of implementing, operating and governing the system. That means establishing a baseline, separating cashable savings from released capacity, and including software, internal time, integration, training, monitoring and maintenance. It also means labelling assumptions about adoption, automation coverage and exception handling rather than presenting optimistic scenarios as certainty. This calculator shows how to build a transparent ROI and payback case, test low, expected and high outcomes, and replace forecast inputs with observed pilot data.",
+          "“Will this automation actually pay for itself?” is the right question, but a credible answer needs more than an estimate of hours saved. UK small businesses should compare the measurable value created over a defined period with the complete cost of implementing, operating and governing the system. That means establishing a baseline, separating cashable savings from released capacity, and including software, internal time, integration, training, monitoring and maintenance. It also means labeling assumptions about adoption, automation coverage and exception handling rather than presenting optimistic scenarios as certainty. This calculator shows how to build a transparent ROI and payback case, test low, expected and high outcomes, and replace forecast inputs with observed pilot data.",
         ],
       },
       {
         heading: "What should count in an AI automation ROI calculation",
         body: [
           "The core calculation is: **ROI (%) = ((total benefit − total cost) ÷ total cost) × 100**. If an automation creates £30,000 of measurable benefit and costs £20,000 over the same period, its ROI is 50%. This formula is consistent with the approaches described by Auxiliobits, Robomercato and Camunda.",
-          "Total benefit can include labour capacity that is genuinely released, expenditure avoided, additional contribution from increased capacity, fewer errors and reduced rework. Thomson Reuters distinguishes this tangible return from other forms of value, which helps prevent softer improvements from being presented as guaranteed savings.",
+          "Total benefit can include labor capacity that is genuinely released, expenditure avoided, additional contribution from increased capacity, fewer errors and reduced rework. Thomson Reuters distinguishes this tangible return from other forms of value, which helps prevent softer improvements from being presented as guaranteed savings.",
           "Time saved is not automatically cash saved. If nobody’s hours, overtime, contractor use or recruitment plan changes, the benefit is usually additional capacity rather than a cashable reduction. That capacity may still be valuable, but the business case should say how it will be used.",
           "Before investing, compare the candidate workflow with other opportunities using the [workflow automation selection guide](/blog/workflow-automation-selection-guide). A technically possible automation is not necessarily the best financial priority.",
         ],
@@ -13188,7 +13188,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             label: "Incremental contribution",
           },
           {
-            body: "Measured reductions in rework, missed enquiries, processing errors or service credits.",
+            body: "Measured reductions in rework, missed inquiries, processing errors or service credits.",
             label: "Avoided loss",
           },
           {
@@ -13209,8 +13209,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Set a baseline before you estimate any return",
         body: [
           "Choose one defined workflow, an accountable owner and a representative measurement period. Record volumes, handling time, waiting time, exception rates, rework and current technology costs. Avoid using a particularly quiet or unusually busy week.",
-          "Use the team’s fully loaded cost rather than salary alone when valuing labour. Halo Technology Lab specifically recommends including employment-related costs in UK calculations. Finance should approve the rate and document what it contains.",
-          "Separate touch time from elapsed time. An invoice may wait three days but require only twelve minutes of staff effort. Automation can reduce both, yet only the twelve minutes should enter a labour-saving calculation unless the shorter delay creates another measurable benefit.",
+          "Use the team’s fully loaded cost rather than salary alone when valuing labor. Halo Technology Lab specifically recommends including employment-related costs in UK calculations. Finance should approve the rate and document what it contains.",
+          "Separate touch time from elapsed time. An invoice may wait three days but require only twelve minutes of staff effort. Automation can reduce both, yet only the twelve minutes should enter a labor-saving calculation unless the shorter delay creates another measurable benefit.",
           "If the baseline cannot be measured, treat the first phase as discovery rather than approving a full return forecast. Silverstone AI’s [AI automation consulting service](/services/ai-consulting) and published [implementation approach](/how-we-work) provide routes for examining workflows before delivery.",
         ],
         lede: "A forecast is only as reliable as the current-state measurement beneath it.",
@@ -13245,12 +13245,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         steps: [
           {
-            body: "Specify what is being processed: an enquiry, invoice, booking, report or another repeatable item.",
+            body: "Specify what is being processed: an inquiry, invoice, booking, report or another repeatable item.",
             title: "Define the unit",
             label: "Step 1",
           },
           {
-            body: "Record monthly volume, seasonal variation and the proportion requiring exceptions or human judgement.",
+            body: "Record monthly volume, seasonal variation and the proportion requiring exceptions or human judgment.",
             title: "Measure current demand",
             label: "Step 2",
           },
@@ -13272,11 +13272,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
       },
       {
-        heading: "The core ROI formula with labelled assumptions",
+        heading: "The core ROI formula with labeled assumptions",
         body: [
           "For a one-year case, calculate **annual benefit = cashable savings + value of usable capacity + incremental contribution + avoided loss**. Then calculate **year-one cost = implementation + internal delivery time + software + integration + training + monitoring + maintenance**.",
           "The resulting formula is **year-one ROI = ((annual benefit − year-one cost) ÷ year-one cost) × 100**. A negative result means the project has not recovered its cost during that period; it does not necessarily mean it will never do so.",
-          "Payback answers a different question: how long it takes cumulative net benefit to cover the investment. Where benefits and recurring costs are reasonably even, an indicative calculation is **upfront cost ÷ monthly benefit after recurring costs**. Model irregular licence charges, seasonal demand and phased adoption month by month instead.",
+          "Payback answers a different question: how long it takes cumulative net benefit to cover the investment. Where benefits and recurring costs are reasonably even, an indicative calculation is **upfront cost ÷ monthly benefit after recurring costs**. Model irregular license charges, seasonal demand and phased adoption month by month instead.",
           "OpenKit recommends comparing annual value with the full cost of ownership and checking how long savings take to cover that cost. Robomercato likewise treats ROI percentage and payback period as separate decision metrics.",
           "Create three cases. The low case should reduce automation coverage and adoption or increase exception handling. The expected case should use evidence-backed assumptions. The high case can show upside, but it should not become the approved budget case without support.",
         ],
@@ -13295,7 +13295,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Evaluation horizon",
               value: "12, 24 and 36 months",
-              note: "Calculate each period separately rather than annualising an incomplete result.",
+              note: "Calculate each period separately rather than annualizing an incomplete result.",
             },
             {
               label: "Automation coverage",
@@ -13303,7 +13303,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               note: "The share of current work the system can address before adoption and exceptions.",
             },
             {
-              label: "Benefit realisation",
+              label: "Benefit realization",
               value: "Your measured assumption",
               note: "The share of technically saved time that becomes usable or cashable value.",
             },
@@ -13363,7 +13363,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "A separately labelled allowance for identified uncertainty",
+                "A separately labeled allowance for identified uncertainty",
                 "Treating contingency as available benefit",
                 "Risk register and approval rationale",
               ],
@@ -13376,7 +13376,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Worked examples for common SME workflow types",
         body: [
           "Assume a small business spends 30 staff hours each week on repetitive administration across 46 working weeks. Its finance-approved loaded rate is £25 per hour. The annual baseline value of that time is therefore **30 × 46 × £25 = £34,500**.",
-          "The proposed automation is assumed to cover 65% of the work. Only 60% of covered time is expected to become usable capacity after adoption, checking and exceptions. The labour benefit is therefore **1,380 hours × 65% × 60% × £25 = £13,455**. An additional £2,400 of measured annual rework is assumed to be avoidable, producing total annual benefit of **£15,855**.",
+          "The proposed automation is assumed to cover 65% of the work. Only 60% of covered time is expected to become usable capacity after adoption, checking and exceptions. The labor benefit is therefore **1,380 hours × 65% × 60% × £25 = £13,455**. An additional £2,400 of measured annual rework is assumed to be avoidable, producing total annual benefit of **£15,855**.",
           "Year-one costs are assumed to be £12,000 for implementation, £3,600 for internal project time and £4,800 for software, monitoring and support. Total year-one cost is **£20,400**.",
           "Year-one ROI is **((£15,855 − £20,400) ÷ £20,400) × 100 = −22.3%**. If benefit remains constant and the second year contains only £4,800 of recurring cost, two-year ROI becomes **((£31,710 − £25,200) ÷ £25,200) × 100 = 25.8%**.",
           "Assuming the £15,600 implementation and internal cost is paid upfront, while benefit and recurring cost accrue evenly, indicative payback is **£15,600 ÷ ((£15,855 − £4,800) ÷ 12) = approximately 16.9 months**. Real cash flows should replace this simplified timing assumption.",
@@ -13389,14 +13389,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "Test the result rather than accepting it",
             body: [
-              "The pivotal assumptions are coverage and benefit realisation. If either falls, the return changes quickly. Recalculate using actual pilot data before approving wider deployment.",
+              "The pivotal assumptions are coverage and benefit realization. If either falls, the return changes quickly. Recalculate using actual pilot data before approving wider deployment.",
               "Also ask what the released 538 hours will do. If the team absorbs additional demand, estimate contribution using gross profit rather than revenue. If no productive use is defined, show the hours as capacity rather than cash.",
             ],
           },
           {
             heading: "Compare workflow types consistently",
             body: [
-              "The same structure works for enquiry triage, appointment administration, document preparation, reporting and invoice processing. The inputs will differ, but every case should contain a measured baseline, constrained coverage, realistic human review and full ownership cost.",
+              "The same structure works for inquiry triage, appointment administration, document preparation, reporting and invoice processing. The inputs will differ, but every case should contain a measured baseline, constrained coverage, realistic human review and full ownership cost.",
               "For broader opportunity identification, use the [small-business AI automation guide](/blog/small-business-ai-automation). For a line-by-line review of existing or proposed expenditure, follow the [AI automation cost audit](/blog/ai-automation-cost-audit).",
             ],
           },
@@ -13406,7 +13406,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What can distort ROI and how to avoid false confidence",
         body: [
           "Do not assume that every workflow step can be automated. Halo Technology Lab identifies overestimated coverage, ignored ongoing costs and undervalued team time as common calculation problems. InsightfulAI also stresses that assumptions about cashable time need careful sizing.",
-          "Avoid double-counting. Faster processing and released labour may describe the same benefit. Increased revenue and contribution are also different: only the portion remaining after associated variable costs belongs in the return model.",
+          "Avoid double-counting. Faster processing and released labor may describe the same benefit. Increased revenue and contribution are also different: only the portion remaining after associated variable costs belongs in the return model.",
           "Reforecast after a controlled pilot using observed adoption, exception handling, review time, usage costs and failure demand. Keep the original forecast so decision-makers can see what changed.",
           "There is no official UK-standard automation ROI formula in the supplied research. Most sources are provider or consultancy publications, and publication dates are not consistently stated. The method here is an editorial decision framework for UK SME finance and operations leaders, not accounting, tax or investment advice.",
           "If you have a measured workflow and want to test its business case, review Silverstone AI’s [bespoke automation delivery service](/services/ai-automation), then [book a working session](/book#booking-calendar) to examine scope, assumptions and implementation options.",
@@ -13714,8 +13714,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What AI readiness actually means for a small business",
         body: [
-          "For a UK SME, AI readiness is not a test of whether you have a large data team or an ambitious innovation programme. It is a practical test of whether a specific business problem can be improved safely, measured sensibly and operated by real people.",
-          "A ready workflow has a clear trigger, repeatable steps, a recognisable outcome and someone accountable for exceptions. It does not need to be entirely automated. In fact, retaining human judgement for high-impact, nuanced or strategic decisions is an important implementation principle for SMEs, particularly where stakeholder relationships or ethical judgement matter. [The Journal of Small Business Strategy](https://jsbs.scholasticahq.com/article/157792) frames automation as an augmentation of human expertise rather than a replacement for it.",
+          "For a UK SME, AI readiness is not a test of whether you have a large data team or an ambitious innovation program. It is a practical test of whether a specific business problem can be improved safely, measured sensibly and operated by real people.",
+          "A ready workflow has a clear trigger, repeatable steps, a recognizable outcome and someone accountable for exceptions. It does not need to be entirely automated. In fact, retaining human judgment for high-impact, nuanced or strategic decisions is an important implementation principle for SMEs, particularly where stakeholder relationships or ethical judgment matter. [The Journal of Small Business Strategy](https://jsbs.scholasticahq.com/article/157792) frames automation as an augmentation of human expertise rather than a replacement for it.",
           "The most useful starting point is therefore operational: where does work regularly stall, get copied between systems, wait for a reply or depend on one person remembering the next action? Those symptoms reveal a workflow worth assessing.",
         ],
         lede: "Readiness is the ability to introduce a useful system without creating a new operational burden.",
@@ -13738,7 +13738,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Assessment unit",
               value: "One workflow",
-              note: "For example, enquiry triage, quote follow-up or appointment reminders.",
+              note: "For example, inquiry triage, quote follow-up or appointment reminders.",
             },
             {
               label: "Suggested first test",
@@ -13785,7 +13785,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Score a workflow for automation or AI suitability",
         body: [
-          "Add your five scores for a total out of 10. The thresholds below are decision bands, not an industry benchmark or a promise of return. They are designed to turn an informal conversation into a prioritised action.",
+          "Add your five scores for a total out of 10. The thresholds below are decision bands, not an industry benchmark or a promise of return. They are designed to turn an informal conversation into a prioritized action.",
         ],
         lede: "A score helps you choose the next action, rather than pretending it predicts a result.",
         variant: "operator",
@@ -13835,10 +13835,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         subsections: [
           {
-            heading: "Prioritise impact separately from readiness",
+            heading: "Prioritize impact separately from readiness",
             body: [
               "A high score does not automatically make a workflow the best first project. Rank shortlisted workflows on two further questions: does it remove a persistent bottleneck, and can you observe whether the change is helping?",
-              "A sensible first project is usually high-frequency, bounded and easy to reverse. Examples may include routing routine enquiries, preparing a draft from approved information or prompting a follow-up task. Decisions affecting price, employment, eligibility, safety or major customer commitments deserve stronger human review.",
+              "A sensible first project is usually high-frequency, bounded and easy to reverse. Examples may include routing routine inquiries, preparing a draft from approved information or prompting a follow-up task. Decisions affecting price, employment, eligibility, safety or major customer commitments deserve stronger human review.",
             ],
           },
         ],
@@ -13846,7 +13846,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Common readiness gaps that delay implementation",
         body: [
-          "The gaps below are not reasons to abandon AI. They are design constraints to make visible early. Governance-oriented implementation guidance emphasises documented controls, data provenance, lifecycle oversight, transparency, continuous validation and human oversight. [The supplied Walden research excerpt](https://scholarworks.waldenu.edu/cgi/viewcontent.cgi?article=22364&context=dissertations) summarises these as foundational to trustworthy AI performance.",
+          "The gaps below are not reasons to abandon AI. They are design constraints to make visible early. Governance-oriented implementation guidance emphasizes documented controls, data provenance, lifecycle oversight, transparency, continuous validation and human oversight. [The supplied Walden research excerpt](https://scholarworks.waldenu.edu/cgi/viewcontent.cgi?article=22364&context=dissertations) summarizes these as foundational to trustworthy AI performance.",
         ],
         lede: "Most stalled projects begin with an understandable business need, then meet an unexamined dependency.",
         variant: "signal",
@@ -13886,14 +13886,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "If you need independent structure around this work, review Silverstone AI’s [AI and automation consulting service](/services/ai-consulting) and its published approach to [how we work](/how-we-work). For a deeper buying lens, see the [AI automation consulting guide](/blog/ai-automation-consulting-guide) and the [workflow automation selection guide](/blog/workflow-automation-selection-guide).",
           "Publisher disclosure: Silverstone AI publishes the article and may include itself as a provider reference; any self-reference must be limited to verified first-party capability statements. This is editorial guidance for UK SME owners and operations leaders, not independent procurement advice. Public information about providers and tools can be incomplete; corrections or concerns can be raised through [contact](/contact).",
         ],
-        lede: "Preparation should produce decisions and artefacts that make a later pilot smaller, clearer and easier to evaluate.",
+        lede: "Preparation should produce decisions and artifacts that make a later pilot smaller, clearer and easier to evaluate.",
         variant: "system",
         checklist: {
           items: [
             {
               label: "Map one current workflow",
               detail:
-                "Record trigger, steps, systems, hand-offs, delays and the point at which human judgement is required.",
+                "Record trigger, steps, systems, hand-offs, delays and the point at which human judgment is required.",
             },
             {
               label: "Define an outcome measure",
@@ -13935,7 +13935,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         steps: [
           {
             body: "Document the process, remove obvious duplication and appoint an owner. Reassess when the work is repeatable.",
-            title: "Stabilise the workflow",
+            title: "Stabilize the workflow",
             label: "Score 0–3",
           },
           {
@@ -14204,10 +14204,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         variant: "operator",
       },
       {
-        heading: "The cannibalisation risks when multiple clips cover the same topic",
+        heading: "The cannibalization risks when multiple clips cover the same topic",
         body: [
-          "This is where many content programmes lose discipline. A host answers a question in the main presentation, revisits it in the Q&A, then touches it again while comparing tools. Three clips appear useful. Three article ideas get logged. In practice, all three may target the same search need.",
-          "Cannibalisation is not only about duplicated keywords. It is about duplicated intent. If two URLs mainly answer the same question, you split authority, confuse internal linking and create maintenance work.",
+          "This is where many content programs lose discipline. A host answers a question in the main presentation, revisits it in the Q&A, then touches it again while comparing tools. Three clips appear useful. Three article ideas get logged. In practice, all three may target the same search need.",
+          "Cannibalization is not only about duplicated keywords. It is about duplicated intent. If two URLs mainly answer the same question, you split authority, confuse internal linking and create maintenance work.",
           "Typical overlap patterns include:",
           "- A 'what is it' article and a 'how it works' article that cover nearly identical ground",
           "- Separate pages for clip-level variants of the same buying question",
@@ -14226,7 +14226,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "1. Search intent: is there a real informational or commercial-investigation question underneath the segment?",
           "2. Specificity: is the topic narrow enough to own one article without becoming vague or repetitive?",
           "3. Proof: do you have enough explanation, examples, process detail or source material to support a trustworthy article?",
-          "Use a low, medium or high judgement, or a simple 1-3 rating for each criterion. Then look at the combined picture.",
+          "Use a low, medium or high judgment, or a simple 1-3 rating for each criterion. Then look at the combined picture.",
           "A high-intent, high-specificity, high-proof moment is a strong article candidate. A high-intent topic with weak proof may still work, but only if you can add approved evidence before briefing. A low-specificity segment usually belongs in social, email or a broader article rather than as its own page.",
         ],
         lede: "A practical score helps remove personal preference from repurposing decisions.",
@@ -14266,7 +14266,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "When a webinar moment should stay social-only instead of becoming a URL",
         body: [
-          "This is the judgement many teams skip. They assume every decent point should become a page because a page feels more permanent. Often the opposite is true. A short, punchy or reactive moment can perform better as a clip, carousel, email section or sales follow-up note.",
+          "This is the judgment many teams skip. They assume every decent point should become a page because a page feels more permanent. Often the opposite is true. A short, punchy or reactive moment can perform better as a clip, carousel, email section or sales follow-up note.",
           "Keep a webinar moment social-only when:",
           "- The value is mostly emotional energy, not detailed explanation",
           "- The point is timely but likely to date quickly",
@@ -14496,7 +14496,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "The action is low impact, reversible and inside a defined policy.",
-                "Routine classification, duplicate detection, creating a draft, routing a standard enquiry.",
+                "Routine classification, duplicate detection, creating a draft, routing a standard inquiry.",
                 "Action log, defined permissions and alert thresholds.",
               ],
               label: "Auto-run",
@@ -14532,7 +14532,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "The reviewer should not have to reconstruct the case from several systems. An approval request needs the proposed action, the reason it was triggered, the evidence used, the applicable rule, the expected effect and the available alternatives.",
           "Route by capability, not just seniority. A standard booking exception may go to an operations lead; a policy exception may require a named owner. Give each route a service expectation, an escalation path and an expiry rule so requests do not sit indefinitely.",
-          "For help choosing the workflow before building it, see our guide to [selecting workflow automation](/blog/workflow-automation-selection-guide). For a wider view of operating with AI in a smaller organisation, read [small business AI automation](/blog/small-business-ai-automation).",
+          "For help choosing the workflow before building it, see our guide to [selecting workflow automation](/blog/workflow-automation-selection-guide). For a wider view of operating with AI in a smaller organization, read [small business AI automation](/blog/small-business-ai-automation).",
         ],
         lede: "A slow approval process normally signals poor routing or poor reviewer context, rather than an unavoidable cost of human oversight.",
         variant: "operator",
@@ -14736,7 +14736,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is human approval in an AI agent workflow?",
         answer:
-          "It is a defined pause where an agent presents a proposed action and supporting context to an authorised person. That person can approve, reject, amend or escalate before the agent continues.",
+          "It is a defined pause where an agent presents a proposed action and supporting context to an authorized person. That person can approve, reject, amend or escalate before the agent continues.",
       },
       {
         question: "Should every AI agent action require approval?",
@@ -14945,9 +14945,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     title:
       "AI Opportunity Audit for a UK Professional Services Firm: Which Internal Reporting Tasks Should You Rule Out First?",
     subtitle:
-      "A practical teardown for partners and operations leaders deciding which reporting workflows are poor early AI candidates, and which are viable once data, ownership and judgement are clear.",
+      "A practical teardown for partners and operations leaders deciding which reporting workflows are poor early AI candidates, and which are viable once data, ownership and judgment are clear.",
     summary: [
-      "Many reporting tasks look automatable because they are repetitive, but the real work often sits in judgement, reconciliation and narrative.",
+      "Many reporting tasks look automatable because they are repetitive, but the real work often sits in judgment, reconciliation and narrative.",
       "The best early candidates have stable inputs, clear owners and bounded review rules; weak candidates depend on hidden spreadsheet fixes and partner interpretation.",
       "A useful audit decision names the workflow, owner, stop conditions and human approval points before any build is approved.",
     ],
@@ -14979,7 +14979,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "It is 8:40 on a Monday. A partner wants the weekly WIP view. Finance needs utilisation by team. Client service leads want pipeline movement explained before the management call. Three people are copying figures out of different systems, two spreadsheets disagree, and someone is rewriting the same narrative from scratch because the numbers changed late on Friday. That scene feels highly automatable. Sometimes it is. Often it is not yet worth automating. For a UK professional services firm, an AI opportunity audit should start by ruling out weak reporting candidates before anyone talks about tools, prompts or build plans. The first question is not whether AI can produce a report. It is whether the reporting task has stable inputs, a clear owner, a repeatable decision pattern and a low enough judgement burden to automate safely.",
+          "It is 8:40 on a Monday. A partner wants the weekly WIP view. Finance needs utilization by team. Client service leads want pipeline movement explained before the management call. Three people are copying figures out of different systems, two spreadsheets disagree, and someone is rewriting the same narrative from scratch because the numbers changed late on Friday. That scene feels highly automatable. Sometimes it is. Often it is not yet worth automating. For a UK professional services firm, an AI opportunity audit should start by ruling out weak reporting candidates before anyone talks about tools, prompts or build plans. The first question is not whether AI can produce a report. It is whether the reporting task has stable inputs, a clear owner, a repeatable decision pattern and a low enough judgment burden to automate safely.",
         ],
       },
       {
@@ -14987,7 +14987,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Monday-morning reporting pain usually looks automatable before it is worth automating",
         body: [
           "Internal reporting sits in a difficult middle ground. It is repetitive enough to attract automation interest, but important enough that hidden weaknesses matter. If the report draws from fragmented practice-management records, finance exports, CRM notes and ad hoc partner commentary, the reporting task may only be the visible symptom.",
-          "That matters because automation works best when the underlying task is already coherent. If a human currently resolves contradictions, interprets exceptions and decides what the numbers mean for a client or a matter, the real job is not simply producing a report. The real job is judgement, reconciliation and narrative framing.",
+          "That matters because automation works best when the underlying task is already coherent. If a human currently resolves contradictions, interprets exceptions and decides what the numbers mean for a client or a matter, the real job is not simply producing a report. The real job is judgment, reconciliation and narrative framing.",
           "For a UK owner or managing partner, that changes the order of decisions. You do not start with a model or a vendor demo. You start by testing whether the workflow is bounded enough to automate without creating more review work than you remove.",
           "A quick first screen helps.",
           "- Is the report built from stable systems rather than last-minute manual fixes?",
@@ -15008,13 +15008,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Board packs where each partner expects different commentary and the real value lies in framing difficult trading issues.",
           "- Margin or profitability reports where time coding is inconsistent and write-offs are applied differently across teams.",
           "- Pipeline reports built from CRM data that is incomplete, stale or updated only when a deal is nearly closed.",
-          "- Cross-office utilisation reports where departments define billable activity differently.",
+          "- Cross-office utilization reports where departments define billable activity differently.",
           "- Client health summaries that rely on delivery leads informally explaining risk, sentiment or scope creep.",
           "- Exception reports where the exceptions themselves are not governed, so every reviewer applies a different threshold.",
           "These tasks fail the first audit test for one or more of four reasons:",
           "- The source data is not trustworthy enough.",
           "- The decision logic is not agreed.",
-          "- The output depends on narrative judgement.",
+          "- The output depends on narrative judgment.",
           "- No one owns the corrections when the report is challenged.",
           "That last point matters more than many firms expect. A workflow can look technically feasible and still be commercially weak because no operational owner is willing to stand behind the output. If a disputed figure starts a chain of emails across finance, operations and partners, the automation has not solved the problem. It has just accelerated the argument.",
         ],
@@ -15023,7 +15023,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         heading:
-          "How to separate recurring admin from partner judgement and client narrative",
+          "How to separate recurring admin from partner judgment and client narrative",
         body: [
           "A useful AI opportunity audit breaks a reporting workflow into smaller jobs. That is usually where the decision becomes clearer.",
           "Split the work into three layers:",
@@ -15031,8 +15031,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Analytical preparation: grouping, flagging variances, spotting missing fields and drafting standard observations.",
           "- Commercial interpretation: explaining causation, deciding materiality and shaping client-facing or board-facing narrative.",
           "The first layer is often the best automation starting point. The second can be partly automated if thresholds and review rules are stable. The third usually needs explicit human ownership.",
-          "For example, a weekly fee-earner utilisation report may contain a viable automated sub-workflow even if the full report is not a fit. Pulling timesheet data, mapping staff to teams and flagging missing entries can be system work. Explaining why one practice area dipped, whether partner behaviour caused it and whether the issue is temporary is management judgement.",
-          "That distinction matters commercially. If you automate the judgement-heavy layer too early, you create review overhead and credibility risk. If you automate the preparation layer first, you shorten the cycle while keeping professional control where it belongs.",
+          "For example, a weekly fee-earner utilization report may contain a viable automated sub-workflow even if the full report is not a fit. Pulling timesheet data, mapping staff to teams and flagging missing entries can be system work. Explaining why one practice area dipped, whether partner behavior caused it and whether the issue is temporary is management judgment.",
+          "That distinction matters commercially. If you automate the judgment-heavy layer too early, you create review overhead and credibility risk. If you automate the preparation layer first, you shorten the cycle while keeping professional control where it belongs.",
           "If you need a wider framework before any build, see the [AI automation consulting guide](/blog/ai-automation-consulting-guide).",
         ],
         lede: "Most firms overestimate how much of reporting is admin and underestimate how much is interpretation.",
@@ -15060,7 +15060,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Commercial interpretation",
               cells: [
                 "Usually no as a first workflow",
-                "Depends on context, judgement, internal politics and client nuance",
+                "Depends on context, judgment, internal politics and client nuance",
                 "Retain partner or management ownership of conclusions and narrative",
               ],
             },
@@ -15114,7 +15114,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               ],
             },
             {
-              label: "Need for judgement",
+              label: "Need for judgment",
               cells: ["High", "Lower and more rule-driven"],
             },
             {
@@ -15144,7 +15144,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- The parts that can be automated deterministically and the parts that require human sign-off.",
           "- The stop conditions that should delay or block implementation.",
           "- The expected operational benefit in qualitative terms, such as shorter cycle time, fewer manual handoffs or cleaner exception management.",
-          "In practice, a strong decision often sounds like this: automate the collection and standard preparation of weekly utilisation inputs; do not automate the narrative summary for partner review until definitions, thresholds and ownership are standardised across teams.",
+          "In practice, a strong decision often sounds like this: automate the collection and standard preparation of weekly utilization inputs; do not automate the narrative summary for partner review until definitions, thresholds and ownership are standardized across teams.",
           "That is commercially useful because it gives a UK firm a sequencing plan. It avoids buying tooling to cover poor process design. It also gives internal stakeholders a common language for saying not yet, rather than yes to everything.",
           "If you are reviewing internal reporting candidates now, the next sensible move is usually an [AI consulting](/services/ai-consulting) discussion focused on workflow scope, ownership and stop conditions rather than a tool demo.",
           "Silverstone AI helps UK ai and automation consulting put this operating model in place without losing human oversight.",
@@ -15157,13 +15157,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is an AI opportunity audit for a professional services firm?",
         answer:
-          "It is a structured review of business workflows to decide where AI or automation is genuinely suitable, where it should wait and where a process should be left alone. In a professional services firm, that usually means separating routine data preparation from work that depends on partner judgement, client context or weak source systems.",
+          "It is a structured review of business workflows to decide where AI or automation is genuinely suitable, where it should wait and where a process should be left alone. In a professional services firm, that usually means separating routine data preparation from work that depends on partner judgment, client context or weak source systems.",
       },
       {
         question:
           "Which reporting tasks are usually the worst first candidates for AI?",
         answer:
-          "Tasks are usually poor early candidates when they rely on inconsistent definitions, manual spreadsheet fixes, informal approvals or senior narrative judgement. Board packs, partner commentary reports and profitability summaries built on disputed inputs often fall into this category.",
+          "Tasks are usually poor early candidates when they rely on inconsistent definitions, manual spreadsheet fixes, informal approvals or senior narrative judgment. Board packs, partner commentary reports and profitability summaries built on disputed inputs often fall into this category.",
       },
       {
         question: "Can AI still help if our reporting process is messy?",
@@ -15289,9 +15289,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What each option actually means in practice",
         body: [
-          "Off-the-shelf software is a ready-made product sold to many organisations. It usually comes with a defined feature set, configuration options and standard integrations. In an AI context, that may mean a business platform with AI features, or an automation tool that connects commonly used applications.",
+          "Off-the-shelf software is a ready-made product sold to many organizations. It usually comes with a defined feature set, configuration options and standard integrations. In an AI context, that may mean a business platform with AI features, or an automation tool that connects commonly used applications.",
           "Bespoke AI automation is designed around a particular workflow, decision point or hand-off. It may connect existing systems, structure information, route work and introduce defined human approval. It should not mean automating every process simply because automation is possible.",
-          "A third route is hybrid: retain standard software where it already fits, then add a tailored integration or workflow only where the standard product stops serving the business. UK government research on SME technology adoption notes the importance of minimising disruption, using pre-built integrations or easy APIs, and meeting specific operational needs.",
+          "A third route is hybrid: retain standard software where it already fits, then add a tailored integration or workflow only where the standard product stops serving the business. UK government research on SME technology adoption notes the importance of minimizing disruption, using pre-built integrations or easy APIs, and meeting specific operational needs.",
         ],
         lede: "This is less a technology contest than a decision about how your business should operate.",
         grid: [
@@ -15321,7 +15321,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Choose an established product first if the problem is widely understood and the team can adopt its operating model without material compromise. This route is particularly sensible when the business needs a dependable starting point rather than a new technical asset to maintain.",
           "The UK government's AI procurement guidance frames this as a requirements question: buyers should consider whether an off-the-shelf product, an existing product with AI elements, an outsourced build or co-creation is most appropriate. Start with the requirement, not the tool.",
-          "Off-the-shelf is usually the more proportionate choice where the value lies in getting consistent basics in place: capturing enquiries, assigning routine tasks, standardising reminders or giving staff a clearer shared process.",
+          "Off-the-shelf is usually the more proportionate choice where the value lies in getting consistent basics in place: capturing inquiries, assigning routine tasks, standardizing reminders or giving staff a clearer shared process.",
         ],
         bullets: [
           {
@@ -15346,14 +15346,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             "If a process has no clear owner, no agreed exception rules and no useful baseline measure, resolve those operating questions before commissioning bespoke work.",
           ],
           tone: "caution",
-          title: "Do not customise around uncertainty",
+          title: "Do not customize around uncertainty",
         },
       },
       {
         heading: "When bespoke AI automation is worth the extra effort",
         body: [
           "Bespoke is justified by a specific business case, not by the label. Look for a narrow workflow that matters commercially or operationally, has recurring volume, and depends on information moving between systems or people in a way generic software cannot represent well.",
-          "Government SME adoption research recognises that bespoke solutions may suit niche industries or unique business cases. Supplier-authored commentary similarly argues that specific integration needs and workflows unmet by standard products can make custom work appropriate. These are decision signals, not proof that a bespoke build will produce a particular outcome.",
+          "Government SME adoption research recognizes that bespoke solutions may suit niche industries or unique business cases. Supplier-authored commentary similarly argues that specific integration needs and workflows unmet by standard products can make custom work appropriate. These are decision signals, not proof that a bespoke build will produce a particular outcome.",
           "A useful test is the workaround test: if staff repeatedly export data, rekey information, chase context across inboxes, or manually interpret the same rules before passing work on, document that path. The point is to improve a defined system of work, not to remove judgment from it.",
         ],
         checklist: {
@@ -15399,7 +15399,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How cost, control, speed and risk differ",
         body: [
-          "The purchase price is only one part of the decision. A standard product may have lower initial commitment but can create ongoing configuration, licence and workaround costs. Bespoke work generally needs more discovery and design up front, while its continuing cost depends on the support, changes and integrations required. Public, comparable pricing and delivery outcomes for suppliers are not publicly stated in the supplied evidence.",
+          "The purchase price is only one part of the decision. A standard product may have lower initial commitment but can create ongoing configuration, license and workaround costs. Bespoke work generally needs more discovery and design up front, while its continuing cost depends on the support, changes and integrations required. Public, comparable pricing and delivery outcomes for suppliers are not publicly stated in the supplied evidence.",
           "Control is also not absolute. A bespoke workflow can be designed around your rules, but it still needs governance over data, access, changes and human escalation. A packaged product can be easier to administer, but its constraints may become more visible as the business changes.",
           "Use a cost model that separates verified facts from assumptions. Your actual cost and return depend on your process, systems, adoption and ongoing operating choices. Read [how to audit automation costs](/blog/ai-automation-cost-audit), [UK small-business automation costs](/blog/ai-automation-cost-uk-small) and [how to calculate an automation ROI case](/blog/calculate-ai-automation-roi-uk) before setting a budget.",
         ],
@@ -15425,7 +15425,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Budget view",
               value: "Initial plus ongoing",
-              note: "Include licences, implementation, internal time, support and change requests.",
+              note: "Include licenses, implementation, internal time, support and change requests.",
             },
           ],
           title: "Decision inputs to collect before comparing proposals",
@@ -15444,7 +15444,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               cells: [
                 "Established patterns, potentially quicker adoption and commonly available integrations.",
                 "May require the business to adapt its process; exceptions can remain manual.",
-                "Standard, stable workflows where minimising disruption is the main objective.",
+                "Standard, stable workflows where minimizing disruption is the main objective.",
               ],
               label: "Off-the-shelf software",
             },
@@ -15532,7 +15532,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         steps: [
           {
-            body: "Prioritise a repeated, visible operational problem over a broad transformation ambition.",
+            body: "Prioritize a repeated, visible operational problem over a broad transformation ambition.",
             title: "Choose one workflow",
             label: "1",
           },
@@ -15571,7 +15571,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "Is bespoke AI automation always more expensive than off-the-shelf software?",
         answer:
-          "Not necessarily over the full life of a workflow, but bespoke work normally requires more upfront discovery and delivery. Compare initial implementation, licences, internal effort, support, change requests and the cost of continuing manual workarounds. Do not assume a return before measuring a pilot or rollout.",
+          "Not necessarily over the full life of a workflow, but bespoke work normally requires more upfront discovery and delivery. Compare initial implementation, licenses, internal effort, support, change requests and the cost of continuing manual workarounds. Do not assume a return before measuring a pilot or rollout.",
       },
       {
         question:
@@ -15753,7 +15753,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
   {
     slug: "cross-location-workflows-standardise-first",
     title:
-      "AI Opportunity Audit for a UK Multi-Site Service Business: Which Cross-Location Workflows Should You Standardise First?",
+      "AI Opportunity Audit for a UK Multi-Site Service Business: Which Cross-Location Workflows Should You Standardize First?",
     subtitle:
       "A practical audit method for deciding which site-level workflows should become one group standard before you invest in AI automation.",
     summary: [
@@ -15774,9 +15774,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "/assets/images/blog/cross-location-workflows-standardise-first-hero.webp",
     heroImageAlt:
       "Opportunity matrix for a UK multi-site service business showing cross-location workflows, readiness signals and human approval points before AI rollout",
-    metaTitle: "Cross-Location Workflows to Standardise First",
+    metaTitle: "Cross-Location Workflows to Standardize First",
     metaDescription:
-      "Audit cross-location workflows in a UK multi-site service business to decide which processes to standardise before AI rollout and tighter control.",
+      "Audit cross-location workflows in a UK multi-site service business to decide which processes to standardize before AI rollout and tighter control.",
     primaryKeyword: "AI opportunity audit multi site service business UK",
     secondaryKeywords: [
       "cross-location workflows standardise first",
@@ -15789,7 +15789,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Head office is ready to talk about AI. Site managers are still handling work in three different ways.\n\nThat is the decision moment for a multi-site service business. If you automate before you understand where locations diverge, you can hard-wire avoidable inconsistency into customer handling, reporting and internal control. One branch may capture clean enquiry data, another may rely on inbox habits, and a third may route work based on who happens to be on shift.\n\nThe sharper move is to run an opportunity audit across cross-location workflows before any serious rollout. For a UK operator, that means separating useful local variation from drift, then choosing which processes should become a group standard first. The point is not to force every site into identical behaviour. The point is to identify where one clear operating method creates better conditions for automation, oversight and service quality.",
+          "Head office is ready to talk about AI. Site managers are still handling work in three different ways.\n\nThat is the decision moment for a multi-site service business. If you automate before you understand where locations diverge, you can hard-wire avoidable inconsistency into customer handling, reporting and internal control. One branch may capture clean inquiry data, another may rely on inbox habits, and a third may route work based on who happens to be on shift.\n\nThe sharper move is to run an opportunity audit across cross-location workflows before any serious rollout. For a UK operator, that means separating useful local variation from drift, then choosing which processes should become a group standard first. The point is not to force every site into identical behavior. The point is to identify where one clear operating method creates better conditions for automation, oversight and service quality.",
         ],
       },
       {
@@ -15798,9 +15798,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Multi-site businesses often think the hard decision is which AI tool to buy. In practice, the harder question is whether the underlying workflow is stable enough to automate at all.",
           "If each location records information differently, applies different handoff rules and resolves exceptions in its own way, the same automation will produce uneven results. That makes rollout slower, governance weaker and reporting less trustworthy.",
           "This is a commercial issue before it is a technical one. Process variation increases rework, blurs accountability and makes group-level performance harder to compare. It can also hide policy gaps. A site may appear to be doing something 'locally' when it is actually compensating for unclear central rules.",
-          "For UK service businesses, that matters because brand consistency usually sits alongside practical local autonomy. Sites may share systems, scripts and service standards, yet still run important workflows through branch-level judgement and workarounds. Some of that variation is sensible. Some of it is simply operational debt.",
+          "For UK service businesses, that matters because brand consistency usually sits alongside practical local autonomy. Sites may share systems, scripts and service standards, yet still run important workflows through branch-level judgment and workarounds. Some of that variation is sensible. Some of it is simply operational debt.",
           "An audit gives leadership a clearer basis for action:",
-          "- Which workflows already have enough common structure to standardise now",
+          "- Which workflows already have enough common structure to standardize now",
           "- Which workflows need process redesign before any automation decision",
           "- Which workflows should stay partly local because operating conditions genuinely differ",
           "- Which decisions must remain under named human ownership",
@@ -15810,20 +15810,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         variant: "system",
       },
       {
-        heading: "Which multi-site workflows usually justify standardisation first",
+        heading: "Which multi-site workflows usually justify standardization first",
         body: [
           "The best early candidates are not the most fashionable workflows. They are the ones that repeat across sites, carry commercial weight and already follow roughly the same purpose even if the method varies.",
           "In most service groups, the first shortlist tends to include:",
-          "- Enquiry capture and qualification",
+          "- Inquiry capture and qualification",
           "- Booking, scheduling or appointment handling",
           "- Missed-call and out-of-hours response",
           "- Quote or estimate preparation",
           "- Post-service follow-up and rebooking prompts",
           "- Internal handoffs between front desk, operations and site leadership",
           "- Complaint or exception routing",
-          "These workflows usually justify attention first because they sit near revenue, customer experience or utilisation. They also create useful structured data once standardised.",
+          "These workflows usually justify attention first because they sit near revenue, customer experience or utilization. They also create useful structured data once standardized.",
           "A simple comparison helps leadership avoid spreading effort too widely at the start:",
-          "By contrast, some workflows should wait. Anything shaped heavily by specialist judgement, complex local constraints or sensitive approvals may need stronger policy definition before standardisation becomes useful.",
+          "By contrast, some workflows should wait. Anything shaped heavily by specialist judgment, complex local constraints or sensitive approvals may need stronger policy definition before standardization becomes useful.",
           "That does not rule AI out. It means the workflow needs firmer boundaries first, potentially alongside [AI automation](/services/ai-automation) planning that respects operational control.",
         ],
         comparisonTable: {
@@ -15833,9 +15833,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "High volume, easy to compare across sites, shapes follow-up quality",
-                "Sites may define a 'qualified' enquiry differently",
+                "Sites may define a 'qualified' inquiry differently",
               ],
-              label: "Enquiry capture",
+              label: "Inquiry capture",
             },
             {
               cells: [
@@ -15854,13 +15854,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Standard fields can reduce rework",
-                "Specialist pricing judgement may still vary",
+                "Specialist pricing judgment may still vary",
               ],
               label: "Quote preparation",
             },
             {
               cells: [
-                "Repeatable prompts and reminders suit standardisation",
+                "Repeatable prompts and reminders suit standardization",
                 "Tone, timing and permissions need governance",
               ],
               label: "Post-service follow-up",
@@ -15890,11 +15890,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Is it solving a structural issue upstream, such as poor data capture or unclear policy?",
           "- Would it add complexity for the majority of sites without improving outcomes enough to justify that burden?",
           "- Can the local feature be handled as a configurable rule instead of becoming the default process for everyone?",
-          "This is where leadership needs discipline. Standardisation should protect the common path, not absorb every branch-level preference. The right answer is often a core workflow with explicit local parameters and a documented exception route.",
+          "This is where leadership needs discipline. Standardization should protect the common path, not absorb every branch-level preference. The right answer is often a core workflow with explicit local parameters and a documented exception route.",
           "For example:",
-          "- A hospitality group may standardise enquiry handling but allow site-specific event capacity rules",
-          "- A trades business may standardise job intake fields while keeping local urgency thresholds linked to coverage area",
-          "- A dental, physio or salon group may standardise non-clinical communication while reserving clinical or treatment decisions to qualified staff",
+          "- A hospitality group may standardize inquiry handling but allow site-specific event capacity rules",
+          "- A trades business may standardize job intake fields while keeping local urgency thresholds linked to coverage area",
+          "- A dental, physio or salon group may standardize non-clinical communication while reserving clinical or treatment decisions to qualified staff",
           "That distinction matters because group process design is also control design. You are deciding what must be uniform, what can vary safely and what should never be delegated without human review.",
         ],
         lede: "A high-performing branch is not always showing you the future group process. It may be showing you a local condition the standard must account for.",
@@ -15907,9 +15907,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "A useful audit method should help you rank workflows without pretending the decision is purely mathematical. Simple scoring bands are usually enough.",
           "Assess each candidate workflow against three dimensions: value, rollout difficulty and control risk.",
           "1. Score value.\n- High value: the workflow is frequent, commercially important and currently inconsistent across sites\n- Medium value: the workflow matters, but impact or volume varies by location\n- Low value: the workflow is occasional, low-stakes or already fairly consistent\n2. Score rollout difficulty.\n- Low difficulty: most sites already work in a similar way and systems are compatible enough\n- Medium difficulty: some policy clarification, retraining or field redesign is needed\n- High difficulty: sites use materially different logic, systems or ownership models\n3. Score control risk.\n- Low risk: errors are easy to identify and correct\n- Medium risk: mistakes affect customer experience, margin, reporting or service quality\n- High risk: mistakes could create legal, safeguarding, clinical, financial or reputational exposure",
-          "Once you have those scores, prioritise workflows with a strong value case, manageable rollout difficulty and acceptable control risk. That usually produces a better first sequence than chasing whichever workflow sounds most innovative.",
+          "Once you have those scores, prioritize workflows with a strong value case, manageable rollout difficulty and acceptable control risk. That usually produces a better first sequence than chasing whichever workflow sounds most innovative.",
           "A short signals panel can keep the shortlist practical:",
-          "- Prioritise first: high value, low to medium difficulty, low to medium control risk",
+          "- Prioritize first: high value, low to medium difficulty, low to medium control risk",
           "- Design before rollout: high value, high difficulty, medium risk",
           "- Keep human-led for now: mixed value, high control risk, unclear ownership",
           "This method also helps in board or leadership discussion. Instead of arguing abstractly about 'AI readiness', you can compare actual workflows on commercial relevance, change effort and downside exposure.",
@@ -15943,7 +15943,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Call, web form, walk-in, referral, repeat customer request",
-                "Defines where standardisation should begin",
+                "Defines where standardization should begin",
               ],
               label: "Trigger",
             },
@@ -15990,23 +15990,23 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What the first audit output should let leadership decide",
         body: [
-          "The first output should be operationally decisive. It should not be a vague catalogue of ideas or a broad statement that AI has potential.",
+          "The first output should be operationally decisive. It should not be a vague catalog of ideas or a broad statement that AI has potential.",
           "Leadership should leave the audit able to decide:",
-          "- Which two or three workflows should be standardised first",
+          "- Which two or three workflows should be standardized first",
           "- Which workflow should be piloted next and why",
           "- Which local variations are acceptable parameters and which are not",
           "- Which approvals and exceptions must remain human-led",
           "- Which systems or data fields need cleanup before rollout",
           "- Which candidate workflows should wait because the control model is still weak",
           "A strong first audit output usually includes:",
-          "- A prioritised shortlist of workflows scored for value, rollout difficulty and control risk",
+          "- A prioritized shortlist of workflows scored for value, rollout difficulty and control risk",
           "- A draft standard workflow for the first target, including trigger, mandatory fields, handoffs and approval points",
           "- A list of site-level parameters that can remain configurable",
           "- A record of data gaps, policy ambiguities and ownership issues",
-          "- A proposed sequence of standardise, pilot, review and extend",
+          "- A proposed sequence of standardize, pilot, review and extend",
           "That gives an owner or operator a grounded next move. You may choose to redesign one process, test one automation use case, clean up data definitions or pause where governance is not yet good enough.",
           "If you want a broader operating model view, [this related piece](/blog/ai-automation-consulting-smarter-operating-system) explains how process, data and ownership fit together before technology does the heavy lifting.",
-          "The point of the audit is not to justify buying AI. It is to help the business make a controlled decision about where standardisation creates a real platform for useful automation.",
+          "The point of the audit is not to justify buying AI. It is to help the business make a controlled decision about where standardization creates a real platform for useful automation.",
           "Silverstone AI helps UK ai and automation consulting put this operating model in place without losing human oversight.",
         ],
         lede: "The first deliverable should support a clear operating decision, not just a discussion about possibilities.",
@@ -16018,18 +16018,18 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "Should every site follow exactly the same workflow before AI automation?",
         answer:
-          "No. Most multi-site groups need a common core workflow, not absolute uniformity. The important distinction is between non-negotiable group rules, safe local parameters and exceptions that still require human judgement.",
+          "No. Most multi-site groups need a common core workflow, not absolute uniformity. The important distinction is between non-negotiable group rules, safe local parameters and exceptions that still require human judgment.",
       },
       {
         question:
           "Which workflow is usually the best first target in a multi-site service business?",
         answer:
-          "Often it is a high-volume customer-facing process such as enquiry capture, booking management, missed-call follow-up or post-service communication. The best choice depends on value, rollout difficulty and control risk across the estate.",
+          "Often it is a high-volume customer-facing process such as inquiry capture, booking management, missed-call follow-up or post-service communication. The best choice depends on value, rollout difficulty and control risk across the estate.",
       },
       {
         question: "Can AI still help if our sites use different systems?",
         answer:
-          "Sometimes, but mixed systems usually make rollout harder and reporting less reliable. In many businesses, the better first step is to standardise the process and the required data fields, even if full system consolidation happens later.",
+          "Sometimes, but mixed systems usually make rollout harder and reporting less reliable. In many businesses, the better first step is to standardize the process and the required data fields, even if full system consolidation happens later.",
       },
     ],
     internalLinks: [
@@ -16112,9 +16112,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     slug: "automate-lead-qualification",
     title: "How to Automate Lead Qualification",
     subtitle:
-      "A practical decision framework for UK SME sales teams that want faster routing without losing judgement, consent controls or CRM discipline.",
+      "A practical decision framework for UK SME sales teams that want faster routing without losing judgment, consent controls or CRM discipline.",
     summary: [
-      "Automate repeatable, low-consequence qualification tasks; retain human review for ambiguity and commercial judgement.",
+      "Automate repeatable, low-consequence qualification tasks; retain human review for ambiguity and commercial judgment.",
       "Build consent, ownership, capacity, data validation and override controls into the workflow from the start.",
       "Pilot one narrow route, measure exceptions and decision quality, then expand only when the operating model is stable.",
     ],
@@ -16129,7 +16129,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/automate-lead-qualification-hero.webp",
     heroImageAlt:
-      "Premium editorial illustration of a controlled lead-routing workflow, with an enquiry moving through three distinct decision paths towards a human review desk.",
+      "Premium editorial illustration of a controlled lead-routing workflow, with an inquiry moving through three distinct decision paths toward a human review desk.",
     metaTitle: "How to Automate Lead Qualification | UK SME Guide",
     metaDescription:
       "Learn how to automate lead qualification with explainable rules, consent checks, CRM data controls and human review paths for UK SME sales teams.",
@@ -16145,16 +16145,16 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Lead qualification should be automated where the decision is repeatable, the data is trustworthy and the consequence of a wrong decision is low. Keep people involved where context, commercial judgement, consent uncertainty or an exception could materially affect a prospect or the business.,For most UK SME teams, the first useful workflow is not an autonomous sales agent. It is a controlled system that captures an enquiry, checks required fields and permitted contact rules, applies transparent qualification criteria, routes clear cases to an owner and sends ambiguous cases to a named review queue.",
+          "Lead qualification should be automated where the decision is repeatable, the data is trustworthy and the consequence of a wrong decision is low. Keep people involved where context, commercial judgment, consent uncertainty or an exception could materially affect a prospect or the business.,For most UK SME teams, the first useful workflow is not an autonomous sales agent. It is a controlled system that captures an inquiry, checks required fields and permitted contact rules, applies transparent qualification criteria, routes clear cases to an owner and sends ambiguous cases to a named review queue.",
         ],
       },
       {
         heading:
           "Why lead qualification breaks when ownership and criteria are unclear",
         body: [
-          "A lead can be technically ‘qualified’ yet still sit untouched if no one owns the next action. Equally, a sales team can be busy with enquiries that were never suitable for the offer. These are operating-model problems before they are automation problems.",
-          "Start by defining the decision your workflow must make. Is it deciding whether an enquiry is complete, whether it fits a target segment, who should respond, or whether a person should review it? Combining all four into one opaque score makes errors harder to diagnose.",
-          "Use observable rules before inferred intent. A completed service area, stated budget range or requested appointment can be checked. A vague AI judgement that someone is ‘high intent’ should not alone decide whether they are contacted, rejected or deprioritised.",
+          "A lead can be technically ‘qualified’ yet still sit untouched if no one owns the next action. Equally, a sales team can be busy with inquiries that were never suitable for the offer. These are operating-model problems before they are automation problems.",
+          "Start by defining the decision your workflow must make. Is it deciding whether an inquiry is complete, whether it fits a target segment, who should respond, or whether a person should review it? Combining all four into one opaque score makes errors harder to diagnose.",
+          "Use observable rules before inferred intent. A completed service area, stated budget range or requested appointment can be checked. A vague AI judgment that someone is ‘high intent’ should not alone decide whether they are contacted, rejected or deprioritized.",
         ],
         lede: "Automation exposes unclear sales operations. It cannot reliably resolve them.",
         pullQuote: "A fast route to the wrong owner is not a qualification win.",
@@ -16174,7 +16174,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         callout: {
           body: [
-            "Automate the administrative and evidence-based parts of qualification first: capture, validation, deduplication checks, enrichment review, score calculation, routing and acknowledgements. Put a human review point before sensitive outreach, ambiguous rejection, commercial approval or any decision based on incomplete or conflicting data.",
+            "Automate the administrative and evidence-based parts of qualification first: capture, validation, deduplication checks, enrichment review, score calculation, routing and acknowledgments. Put a human review point before sensitive outreach, ambiguous rejection, commercial approval or any decision based on incomplete or conflicting data.",
           ],
           tone: "answer",
           title: "The direct answer",
@@ -16187,10 +16187,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Deloitte identifies lead qualification and CRM automation as use cases for AI support, including data validation and routine CRM record-keeping. That is a sensible starting point for SMEs: reduce repetitive handling while keeping sales expertise focused on the conversations and decisions that carry context.",
           "AETHUS similarly frames sales automation as augmentation rather than replacement, with human review appropriate around qualification notes, proposal tailoring and commercial approvals. Treat this as an operating principle, not a temporary compromise.",
         ],
-        lede: "The dividing line is not whether AI can produce an answer; it is whether the organisation can safely act on that answer without further judgement.",
+        lede: "The dividing line is not whether AI can produce an answer; it is whether the organization can safely act on that answer without further judgment.",
         grid: [
           {
-            body: "Create or update a CRM record; standardise format; check mandatory fields; identify obvious duplicates; calculate a published score; assign a queue using territory or capacity rules; acknowledge receipt; and create a task with a deadline.",
+            body: "Create or update a CRM record; standardize format; check mandatory fields; identify obvious duplicates; calculate a published score; assign a queue using territory or capacity rules; acknowledge receipt; and create a task with a deadline.",
             title: "Usually suitable for controlled automation",
           },
           {
@@ -16198,7 +16198,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             title: "Usually needs a human decision",
           },
           {
-            body: "Summarise an enquiry, suggest a category, flag missing evidence, propose an owner or draft a reply. The system can assist, but a person should confirm the consequential action.",
+            body: "Summarize an inquiry, suggest a category, flag missing evidence, propose an owner or draft a reply. The system can assist, but a person should confirm the consequential action.",
             title: "Use automation with a review gate",
           },
         ],
@@ -16224,7 +16224,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Write qualification rules in plain language before building them in a CRM or automation platform. For each rule, record the source field, the accepted values, the action, the owner and what happens when the value is absent or contradictory.",
           "Edilec’s CRM automation guidance usefully highlights guardrails around lead assignment, consent, frequency, exit rules, capacity and account-owner review. These controls matter because a technically successful workflow can still create poor customer experience if its routing or messaging is inappropriate.",
-          "For consent and permitted-purpose checks, use your organisation’s agreed policy and obtain appropriate privacy or legal advice where needed. This article is general operational information, not legal advice. Do not assume that an email address, a form completion or a third-party data point automatically permits every follow-up action.",
+          "For consent and permitted-purpose checks, use your organization’s agreed policy and obtain appropriate privacy or legal advice where needed. This article is general operational information, not legal advice. Do not assume that an email address, a form completion or a third-party data point automatically permits every follow-up action.",
         ],
         lede: "A dependable workflow is explicit about inputs, decisions, action and recovery when the data does not support a decision.",
         scorecard: {
@@ -16311,7 +16311,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Protect source and audit information",
               detail:
-                "Retain original enquiry content, source, timestamps and meaningful changes to qualification status.",
+                "Retain original inquiry content, source, timestamps and meaningful changes to qualification status.",
             },
             {
               label: "Set lifecycle definitions",
@@ -16319,14 +16319,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
                 "Make stages such as new, reviewed, accepted, disqualified and nurture operationally distinct.",
             },
             {
-              label: "Test suppression and exit behaviour",
+              label: "Test suppression and exit behavior",
               detail:
                 "Confirm that opt-outs, account changes and closed cases stop inappropriate automated follow-up.",
             },
             {
               label: "Give people an override",
               detail:
-                "Allow authorised users to correct a score, owner or status, with a reason recorded for learning.",
+                "Allow authorized users to correct a score, owner or status, with a reason recorded for learning.",
             },
           ],
           title: "CRM readiness checklist before switching on routing",
@@ -16436,18 +16436,18 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can AI qualify leads without a sales person?",
         answer:
-          "AI can support structured qualification, CRM updates, data checks and suggested categorisation. A sales person or designated reviewer should remain responsible for ambiguous, sensitive, commercially material or policy-dependent decisions.",
+          "AI can support structured qualification, CRM updates, data checks and suggested categorization. A sales person or designated reviewer should remain responsible for ambiguous, sensitive, commercially material or policy-dependent decisions.",
       },
       {
         question: "What is the first lead-qualification workflow to automate?",
         answer:
-          "Start with a narrow, repeatable route such as a standard web enquiry: validate required fields, identify obvious duplicates, apply published fit rules, assign a clear owner and send exceptions to review.",
+          "Start with a narrow, repeatable route such as a standard web inquiry: validate required fields, identify obvious duplicates, apply published fit rules, assign a clear owner and send exceptions to review.",
       },
       {
         question:
           "How do we prevent automated lead scoring from creating bad follow-up?",
         answer:
-          "Keep the score explainable, retain source data, test consent and suppression behaviour, use capacity and ownership rules, sample outcomes with human reviewers and record override reasons.",
+          "Keep the score explainable, retain source data, test consent and suppression behavior, use capacity and ownership rules, sample outcomes with human reviewers and record override reasons.",
       },
       {
         question: "Should we buy a tool before mapping the process?",
@@ -16672,7 +16672,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "When consultants are buried in CVs, inboxes and interview notes, candidate screening looks like the obvious place to add AI. That instinct is understandable. Screening contains repetition, delay and admin drag.\n\nBut a recruitment agency audit should start with exclusion, not enthusiasm. Some tasks feel efficient to automate because they happen often. That is not the same as being safe, well-scoped or commercially worth building.\n\nFor a UK recruitment agency, the first useful question is not “where can AI help?” It is “which screening tasks should be kept out of scope until the workflow, data and accountability are clear?” That is where a proper opportunity audit creates value.\n\nSilverstone AI approaches this as an operational design problem, not a software shopping exercise. The aim is to separate low-risk repeatable work from judgement-heavy decisions, privacy-sensitive processing and poorly owned workflows so directors can approve the next step with confidence.",
+          "When consultants are buried in CVs, inboxes and interview notes, candidate screening looks like the obvious place to add AI. That instinct is understandable. Screening contains repetition, delay and admin drag.\n\nBut a recruitment agency audit should start with exclusion, not enthusiasm. Some tasks feel efficient to automate because they happen often. That is not the same as being safe, well-scoped or commercially worth building.\n\nFor a UK recruitment agency, the first useful question is not “where can AI help?” It is “which screening tasks should be kept out of scope until the workflow, data and accountability are clear?” That is where a proper opportunity audit creates value.\n\nSilverstone AI approaches this as an operational design problem, not a software shopping exercise. The aim is to separate low-risk repeatable work from judgment-heavy decisions, privacy-sensitive processing and poorly owned workflows so directors can approve the next step with confidence.",
         ],
       },
       {
@@ -16680,7 +16680,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "The surface logic is persuasive: CVs arrive, consultants review them, notes are written, candidates are contacted, records are updated. That looks structured. In reality, screening work often spans job boards, email, ATS records, consultant notes, WhatsApp messages and client-specific criteria that live in someone’s head.",
           "An AI opportunity audit for recruitment in the UK needs to test whether the work is stable enough to automate in the first place. If the process changes by desk, consultant or client brief, automation can hard-code inconsistency rather than remove it.",
-          "External context supports starting with workflow audit rather than immediate deployment. The recruitment-focused source supplied emphasises that a structured audit is the sensible starting point for agencies trying to remove admin burden. That aligns with what UK owners usually need: a map of where work is repeatable, where judgement still carries the value, and where the data chain is too weak to trust.",
+          "External context supports starting with workflow audit rather than immediate deployment. The recruitment-focused source supplied emphasizes that a structured audit is the sensible starting point for agencies trying to remove admin burden. That aligns with what UK owners usually need: a map of where work is repeatable, where judgment still carries the value, and where the data chain is too weak to trust.",
           "A simple rule helps here:",
           "- High volume is not enough.",
           "- Repetition is not enough.",
@@ -16716,7 +16716,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Tasks where consultants routinely override the supposed rules because the real decision sits in nuance, market context or relationship knowledge.",
           "- Use cases where the agency cannot identify whether it is acting as controller, processor or joint decision-maker for the relevant processing activity.",
         ],
-        lede: "If a task depends on contested judgement, special-category data, or unclear accountability, it should usually be excluded before scoping.",
+        lede: "If a task depends on contested judgment, special-category data, or unclear accountability, it should usually be excluded before scoping.",
         variant: "signal",
         bullets: [
           {
@@ -16737,12 +16737,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
       },
       {
-        heading: "How to separate repeatable admin from recruiter judgement",
+        heading: "How to separate repeatable admin from recruiter judgment",
         body: [
           "A useful audit line is this: if the agency would still want a competent recruiter to review the output before it affects candidate progression, the task may be suitable as assisted screening rather than automated decision-making.",
           "That distinction matters. It keeps AI in a bounded support role and preserves recruiter control over material decisions.",
         ],
-        lede: "The strongest first workflows remove handling time around screening without pretending that recruiter judgement can be reduced to a fixed formula.",
+        lede: "The strongest first workflows remove handling time around screening without pretending that recruiter judgment can be reduced to a fixed formula.",
         variant: "operator",
         subsections: [
           {
@@ -16751,13 +16751,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "These are usually stronger places to begin:",
               "- Parsing inbound CVs and extracting standard fields into the ATS.",
               "- Drafting structured candidate summaries from existing application material for recruiter review.",
-              "- Flagging missing information, such as notice period or work authorisation, before a consultant follows up.",
+              "- Flagging missing information, such as notice period or work authorization, before a consultant follows up.",
               "- Preparing outreach drafts or interview-confirmation messages for approval and sending through the existing system.",
               "- Deduplicating or reconciling candidate records where the matching logic is clear and a human can confirm exceptions.",
             ],
           },
           {
-            heading: "Tasks that still depend on recruiter judgement",
+            heading: "Tasks that still depend on recruiter judgment",
             body: [
               "These usually need explicit recruiter ownership:",
               "- Interpreting whether non-linear career history is a positive, a risk or neutral for a specific brief.",
@@ -16806,7 +16806,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "Why it is usually stronger:",
               "- The inputs and outputs are easier to define.",
               "- The recruiter remains the decision-maker.",
-              "- The workflow removes admin time around screening rather than replacing judgement.",
+              "- The workflow removes admin time around screening rather than replacing judgment.",
               "- Exceptions can be routed to the correct consultant quickly.",
               "- The agency can test quality in a contained environment before widening scope.",
             ],
@@ -16818,7 +16818,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "That final point matters. A pilot should test whether the workflow improves handling quality, consistency and recruiter time use in a bounded way. It should not be framed as proof that all screening can now be automated.",
           "If your agency is still deciding what a sound audit should look like, the adjacent piece on [AI automation consulting](/blog/ai-automation-consulting-guide) is a useful next read for framing ownership, implementation logic and handover expectations.",
-          "For most UK recruitment agencies, the commercially sensible first move is modest: remove admin drag around screening, preserve recruiter judgement where it adds value, and rule out use cases that create accountability and trust problems before they create cost.",
+          "For most UK recruitment agencies, the commercially sensible first move is modest: remove admin drag around screening, preserve recruiter judgment where it adds value, and rule out use cases that create accountability and trust problems before they create cost.",
         ],
         lede: "A useful audit should end with a decision pack, not a vague list of ideas.",
         variant: "signal",
@@ -16833,7 +16833,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Should a recruitment agency automate candidate shortlisting first?",
         answer:
-          "Not usually. Shortlisting often depends on subjective judgement, client nuance and explainability issues. Many agencies get better results by starting with admin-heavy support tasks around screening rather than autonomous ranking or selection.",
+          "Not usually. Shortlisting often depends on subjective judgment, client nuance and explainability issues. Many agencies get better results by starting with admin-heavy support tasks around screening rather than autonomous ranking or selection.",
       },
       {
         question: "Which screening tasks are usually safest to assess first?",
@@ -16923,7 +16923,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     slug: "integrate-ai-without-replacing-software",
     title: "How to Integrate AI Without Replacing Existing Software",
     subtitle:
-      "A practical decision framework for adding useful AI to established systems without turning a workflow improvement into a replacement programme.",
+      "A practical decision framework for adding useful AI to established systems without turning a workflow improvement into a replacement program.",
     summary: [
       "Keep existing software as the source of truth while testing AI at a defined workflow hand-off.",
       "Verify permissions, data quality, human oversight, monitoring and fallback before live use.",
@@ -16971,7 +16971,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Replacing a core system can be justified, but it should be a conclusion from evidence, not the starting assumption.",
         variant: "signal",
         pullQuote:
-          "The first AI integration should reduce one specific operational burden, not create a second transformation programme.",
+          "The first AI integration should reduce one specific operational burden, not create a second transformation program.",
         callout: {
           body: [
             "Integrate AI without replacing existing software by preserving the current source of truth, selecting one measurable workflow bottleneck, connecting through an appropriate interface where available, and retaining human approval and a fallback route.",
@@ -17015,7 +17015,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         steps: [
           {
             body:
-              "Select a process with a clear trigger, a recognisable finish and enough recurring volume to test. Avoid starting with an exceptional or politically sensitive process.",
+              "Select a process with a clear trigger, a recognizable finish and enough recurring volume to test. Avoid starting with an exceptional or politically sensitive process.",
             title: "Choose a repeatable workflow",
             label: "Phase 1",
           },
@@ -17027,13 +17027,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "Document where information is copied, where work waits and where a person makes a judgement. These are the likely integration points.",
+              "Document where information is copied, where work waits and where a person makes a judgment. These are the likely integration points.",
             title: "Mark hand-offs and decisions",
             label: "Phase 3",
           },
           {
             body:
-              "State whether the AI may summarise, draft, classify, recommend, create a task or update a record. Start with the least consequential action that can be useful.",
+              "State whether the AI may summarize, draft, classify, recommend, create a task or update a record. Start with the least consequential action that can be useful.",
             title: "Define the permitted action",
             label: "Phase 4",
           },
@@ -17062,9 +17062,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "AI prepares a draft, summary or recommendation while a person completes the action.",
-                "Lower operational risk; easy to compare output with existing practice; preserves human judgement.",
+                "Lower operational risk; easy to compare output with existing practice; preserves human judgment.",
                 "May not remove every manual step; review time remains necessary.",
-                "Early pilots, judgement-heavy work and workflows with variable inputs.",
+                "Early pilots, judgment-heavy work and workflows with variable inputs.",
               ],
               label: "Human-in-the-loop assistant",
             },
@@ -17082,7 +17082,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
                 "An AI service connects through documented interfaces to retrieve or write tightly defined data.",
                 "Supports modular change and may avoid a full system overhaul.",
                 "Compatibility, rate limits, data fields and access rights must be verified case by case.",
-                "Organisations with an established system of record and suitable technical access.",
+                "Organizations with an established system of record and suitable technical access.",
               ],
               label: "API-led modular integration",
             },
@@ -17109,7 +17109,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "Integration risks to check: permissions, data quality, monitoring and fallback",
         body: [
-          "The supplied UK-focused research emphasises risk-based governance, policies, training and data-protection considerations. For organisations affecting people in the EU, the EU AI Act may also apply on a phased basis; UK location alone does not settle that question. This is general information, not legal advice.",
+          "The supplied UK-focused research emphasizes risk-based governance, policies, training and data-protection considerations. For organizations affecting people in the EU, the EU AI Act may also apply on a phased basis; UK location alone does not settle that question. This is general information, not legal advice.",
           "Governance does not need to begin as a large committee. It does need named owners, a defined permitted use, a way to detect failure and an agreed response when something goes wrong.",
         ],
         lede:
@@ -17227,7 +17227,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         callout: {
           body: [
-            "A pilot should establish whether the workflow, data access and controls are viable. It should not be framed as a promise of ROI. If costs and benefits need modelling, begin with assumptions and sensitivity ranges; our [AI automation cost audit guide](/blog/ai-automation-cost-audit) explains a useful starting point.",
+            "A pilot should establish whether the workflow, data access and controls are viable. It should not be framed as a promise of ROI. If costs and benefits need modeling, begin with assumptions and sensitivity ranges; our [AI automation cost audit guide](/blog/ai-automation-cost-audit) explains a useful starting point.",
           ],
           tone: "recommendation",
           title: "Make the investment decision after the pilot",
@@ -17321,7 +17321,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "What is the safest first AI integration?",
         answer:
-          "A narrow, reversible task with human review is usually the safest starting point. Examples include preparing a draft, summarising approved context or classifying incoming work for a person to confirm.",
+          "A narrow, reversible task with human review is usually the safest starting point. Examples include preparing a draft, summarizing approved context or classifying incoming work for a person to confirm.",
       },
       {
         question: "Do UK businesses need AI governance for a small pilot?",
@@ -17526,7 +17526,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "A typical approval chain now includes briefs, transcripts, notes, AI-assisted drafting, manual edits, stakeholder comments and CMS changes. Each handoff can strip away context. By the time a page goes live, the final version may read cleanly, but the route it took to get there is hard to reconstruct.",
           "That is a commercial risk as much as an editorial one. A UK owner or marketing lead may need to answer simple questions: Which source supported this claim? Was this sentence lifted from an old deck? Did compliance review this version or the previous one? If the answers depend on memory, the process is weaker than it looks.",
-          "External context points in the same direction. Content authenticity and provenance are moving from voluntary good practice towards closer scrutiny, while transparency around AI-generated content is becoming more relevant in policy and platform discussions. The practical lesson for UK firms is straightforward: assume you may need to show your working.",
+          "External context points in the same direction. Content authenticity and provenance are moving from voluntary good practice toward closer scrutiny, while transparency around AI-generated content is becoming more relevant in policy and platform discussions. The practical lesson for UK firms is straightforward: assume you may need to show your working.",
           "An agency workflow should therefore be designed for auditability. That means clear source ownership, visible review gates and controlled use of AI assistance rather than opaque generation followed by hurried sign-off.",
         ],
         lede:
@@ -17557,7 +17557,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Primary business inputs: approved service notes, internal process documents, product details, policy wording and stakeholder interviews.",
           "- External context: regulation summaries, standards commentary and market interpretation used to frame the article, not to prove Silverstone performance.",
           "- Legacy content: existing site copy, sales decks and older blogs that may be useful but still need verification.",
-          "- Illustrative material: examples used to explain a process, clearly labelled as examples rather than factual operating claims.",
+          "- Illustrative material: examples used to explain a process, clearly labeled as examples rather than factual operating claims.",
           "Then ask four practical questions:",
           "1. Which claims must be source-anchored before drafting begins?",
           "2. Which claims require UK jurisdiction checks because wording could imply legal, regulatory or sector-specific certainty?",
@@ -17581,7 +17581,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Publication changes: any edits made after sign-off and who made them.",
           "- Reuse rules: whether parts of the article can be repurposed elsewhere without another review.",
           "This record does not need to be public-facing to be useful. It simply needs to exist in a format the business can inspect later.",
-          "Research supplied here supports the wider direction of travel. Provenance is increasingly tied to a 'show me' standard, where organisations need to demonstrate how AI-related outputs hold up to scrutiny. For a UK business owner, that means choosing workflow visibility over convenience theatre.",
+          "Research supplied here supports the wider direction of travel. Provenance is increasingly tied to a 'show me' standard, where organizations need to demonstrate how AI-related outputs hold up to scrutiny. For a UK business owner, that means choosing workflow visibility over convenience theater.",
         ],
         lede:
           "A provenance trail does not need to be ornate. It needs to be complete enough that a sensible person can retrace the logic.",
@@ -17748,7 +17748,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "A practical comparison for UK SMEs deciding how inbound calls should be answered, progressed and safely handed over.",
     summary: [
       "AI receptionists suit bounded, repeatable call journeys with approved information and a clear fallback.",
-      "Human answering services suit sensitive, complex or judgement-heavy conversations.",
+      "Human answering services suit sensitive, complex or judgment-heavy conversations.",
       "The right choice depends on operating design, not a headline claim about cost or availability.",
     ],
     categoryLabel: "AI Receptionists",
@@ -17778,15 +17778,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "An AI receptionist is usually the stronger fit when your calls follow repeatable patterns and you need consistent coverage, structured capture and workflow progression. A human answering service is usually the safer fit when callers regularly need empathy, judgement or nuanced handling that cannot be reduced to approved rules and escalation routes.\n\nThe better option is not the one that sounds more modern. It is the one that can handle your highest-value routine calls without creating risk when a caller falls outside the intended path.",
+          "An AI receptionist is usually the stronger fit when your calls follow repeatable patterns and you need consistent coverage, structured capture and workflow progression. A human answering service is usually the safer fit when callers regularly need empathy, judgment or nuanced handling that cannot be reduced to approved rules and escalation routes.\n\nThe better option is not the one that sounds more modern. It is the one that can handle your highest-value routine calls without creating risk when a caller falls outside the intended path.",
         ],
       },
       {
         heading: "The short answer: choose the operating model, not the label",
         body: [
-          "An AI receptionist is voice software configured with approved information, rules and, where appropriate, authorised connections to business systems. It can answer defined questions, collect details and request permitted actions. Its usefulness depends on clear source information, permissions, testing and a reliable fallback route.",
-          "An answering service is normally a third-party human team answering calls under your brand or script. It is often used for message-taking, triage and passing enquiries to the right person. The quality of coverage, scripting, staffing and escalation varies by provider.",
-          "For a UK SME, the practical distinction is simple: use automation where the intended outcome is bounded and repeatable; retain human handling where the caller's situation needs interpretation, reassurance or accountable judgement.",
+          "An AI receptionist is voice software configured with approved information, rules and, where appropriate, authorized connections to business systems. It can answer defined questions, collect details and request permitted actions. Its usefulness depends on clear source information, permissions, testing and a reliable fallback route.",
+          "An answering service is normally a third-party human team answering calls under your brand or script. It is often used for message-taking, triage and passing inquiries to the right person. The quality of coverage, scripting, staffing and escalation varies by provider.",
+          "For a UK SME, the practical distinction is simple: use automation where the intended outcome is bounded and repeatable; retain human handling where the caller's situation needs interpretation, reassurance or accountable judgment.",
         ],
         lede:
           "Start with the type of call, the consequence of getting it wrong and the handover your team can genuinely support.",
@@ -17840,22 +17840,22 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "Designed to deal with variable volumes of defined calls. Strength: structured handling can scale across routine enquiries. Limitation: unusual calls still require a fallback.",
+                "Designed to deal with variable volumes of defined calls. Strength: structured handling can scale across routine inquiries. Limitation: unusual calls still require a fallback.",
                 "Typically handles conversations through staffed agents. Strength: human conversation where needed. Limitation: capacity may be constrained during busy periods.",
               ],
               label: "Call volume",
             },
             {
               cells: [
-                "Can use approved knowledge, rules and authorised system actions. Strength: can create structured outcomes. Limitation: requires stable data, permissions and testing.",
-                "Usually centres on script-led triage and messages. Strength: flexible interpretation of a brief. Limitation: system actions and data capture depend on the provider's process.",
+                "Can use approved knowledge, rules and authorized system actions. Strength: can create structured outcomes. Limitation: requires stable data, permissions and testing.",
+                "Usually centers on script-led triage and messages. Strength: flexible interpretation of a brief. Limitation: system actions and data capture depend on the provider's process.",
               ],
               label: "Workflow control and integrations",
             },
             {
               cells: [
                 "Best for: teams able to define triggers, transfer destinations and failure handling. Strength: consistent routing rules. Limitation: escalation design must be explicit.",
-                "Best for: businesses needing people to assess unexpected calls. Strength: conversational judgement. Limitation: handover quality depends on training, instructions and availability.",
+                "Best for: businesses needing people to assess unexpected calls. Strength: conversational judgment. Limitation: handover quality depends on training, instructions and availability.",
               ],
               label: "Escalation and fallback",
             },
@@ -17868,7 +17868,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "Typically presented as a software subscription category. Strength: cost may be less tied to individual agent time. Limitation: implementation, integration and optimisation still need budgeting.",
+                "Typically presented as a software subscription category. Strength: cost may be less tied to individual agent time. Limitation: implementation, integration and optimization still need budgeting.",
                 "Often priced around human handling time or call activity. Strength: can be appropriate for low-volume, high-touch work. Limitation: pricing and coverage arrangements vary by provider.",
               ],
               label: "Cost drivers",
@@ -17894,7 +17894,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             body:
               "The majority of callers ask approved questions or follow a predictable route such as a booking, quote request or basic qualification.",
-            label: "Repeatable enquiry types",
+            label: "Repeatable inquiry types",
           },
           {
             body:
@@ -17904,7 +17904,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             body:
               "You know precisely which actions may be requested, which need human approval and which must never be attempted.",
-            label: "Authorised next actions",
+            label: "Authorized next actions",
           },
           {
             body:
@@ -17917,7 +17917,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             heading: "What good fit looks like in practice",
             body: [
               "A trade business might use a defined flow to capture location, job type and urgency before passing a qualified request to the duty person. A clinic or professional service should be more conservative: an assistant can gather administrative details, but it should not improvise advice or decide on urgent matters.",
-              "If your goal is to progress enquiries rather than merely collect messages, review how voice journeys connect to the rest of the operating system in our [AI voice agent development guide](/blog/ai-voice-agent-development).",
+              "If your goal is to progress inquiries rather than merely collect messages, review how voice journeys connect to the rest of the operating system in our [AI voice agent development guide](/blog/ai-voice-agent-development).",
             ],
           },
         ],
@@ -17926,7 +17926,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "When a human answering service is the better fit",
         body: [
           "Choose a human answering service where the call itself is part of the service experience and where a script cannot safely cover the range of situations. This may include distressed callers, complaints, complex account conversations, safeguarding concerns or matters where a person must interpret context before deciding what happens next.",
-          "Human coverage can also be the sensible interim option when your processes are not yet documented. If nobody can agree the approved answer, transfer rule or owner for an enquiry, an automated version of that uncertainty will not improve it.",
+          "Human coverage can also be the sensible interim option when your processes are not yet documented. If nobody can agree the approved answer, transfer rule or owner for an inquiry, an automated version of that uncertainty will not improve it.",
           "A blended approach can work well: automation handles the narrow, well-tested administrative routes, while people receive sensitive or uncertain calls. The important question is whether the transfer is prompt, explained and visible to the receiving team.",
         ],
         pullQuote:
@@ -17934,7 +17934,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             body:
-              "Complex, sensitive or unusual conversations where empathy, discretion and judgement materially affect the outcome.",
+              "Complex, sensitive or unusual conversations where empathy, discretion and judgment materially affect the outcome.",
             title: "Best for human-first handling",
           },
           {
@@ -18018,7 +18018,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Improved briefing example",
             prompt:
-              "Handle only opening-hours, location, routine quote-request and appointment-enquiry calls. Collect the agreed fields, use approved service information, transfer complaints and urgent issues to the duty route, and take a message when no transfer is available. Do not give advice or make decisions outside these rules.",
+              "Handle only opening-hours, location, routine quote-request and appointment-inquiry calls. Collect the agreed fields, use approved service information, transfer complaints and urgent issues to the duty route, and take a message when no transfer is available. Do not give advice or make decisions outside these rules.",
             explanation:
               "This gives a delivery team a bounded scope, a defined handover and clear exclusions to test.",
             tone: "improved",
@@ -18033,7 +18033,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "If the answer relies on individual judgement, keep a person in the loop. If it comes from controlled sources and rules, it is a candidate for configuration.",
+              "If the answer relies on individual judgment, keep a person in the loop. If it comes from controlled sources and rules, it is a candidate for configuration.",
             title: "Is there an approved answer and action for each journey?",
             label: "2",
           },
@@ -18057,7 +18057,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "If someone can review calls, maintain information and adjust the workflow, a carefully scoped AI receptionist can improve. If not, favour the model you can reliably supervise.",
+              "If someone can review calls, maintain information and adjust the workflow, a carefully scoped AI receptionist can improve. If not, favor the model you can reliably supervise.",
             title: "Can your team own continuous improvement?",
             label: "6",
           },
@@ -18080,7 +18080,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can an AI receptionist replace a human receptionist?",
         answer:
-          "It can support or handle defined, repeatable call journeys. It should not be assumed to replace human judgement, empathy or specialist decision-making. Many businesses will benefit more from a blended design than an all-or-nothing replacement.",
+          "It can support or handle defined, repeatable call journeys. It should not be assumed to replace human judgment, empathy or specialist decision-making. Many businesses will benefit more from a blended design than an all-or-nothing replacement.",
       },
       {
         question: "What should an AI receptionist do when it cannot help?",
@@ -18311,7 +18311,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "The best AI automation agency in Newcastle depends on the job you need done. For enterprise tooling and integration work, Adaptavist ranks first on the public evidence reviewed. Silverstone AI ranks second for UK business buyers seeking bespoke workflow automation and consulting with a published implementation approach. Elevate AI is a strong alternative for SME-focused process audits and pilots.\n\nThis is not a list of agencies with verified Newcastle offices. The supplied research does not establish a Newcastle location or Newcastle-specific service page for Silverstone AI or the other ranked providers. Instead, it is a buyer-fit shortlist for organisations in Newcastle choosing a UK AI automation partner.",
+          "The best AI automation agency in Newcastle depends on the job you need done. For enterprise tooling and integration work, Adaptavist ranks first on the public evidence reviewed. Silverstone AI ranks second for UK business buyers seeking bespoke workflow automation and consulting with a published implementation approach. Elevate AI is a strong alternative for SME-focused process audits and pilots.\n\nThis is not a list of agencies with verified Newcastle offices. The supplied research does not establish a Newcastle location or Newcastle-specific service page for Silverstone AI or the other ranked providers. Instead, it is a buyer-fit shortlist for organizations in Newcastle choosing a UK AI automation partner.",
         ],
       },
       {
@@ -18372,7 +18372,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The scores below are not shown because the supplied evidence does not provide enough consistent provider-level detail to calculate defensible numeric marks. The rank order applies the declared methodology qualitatively and records the limitations openly.",
         ],
         lede:
-          "The list is deliberately limited to providers with concrete capability statements in the supplied research. Rank is a practical evidence-led judgement, not a claim that one provider is universally better.",
+          "The list is deliberately limited to providers with concrete capability statements in the supplied research. Rank is a practical evidence-led judgment, not a claim that one provider is universally better.",
         rankedCards: [
           {
             name: "Adaptavist",
@@ -18385,7 +18385,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "Clear fit for enterprise and mid-market buyers",
             ],
             bestFor:
-              "Enterprise or mid-market organisations where Atlassian, DevOps tooling and integration are material parts of the automation brief.",
+              "Enterprise or mid-market organizations where Atlassian, DevOps tooling and integration are material parts of the automation brief.",
             limitations:
               "Newcastle-specific presence, pricing, detailed governance approach and comparable delivery outcomes are Not publicly stated in the supplied research.",
           },
@@ -18423,11 +18423,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             name: "Faculty",
             rank: 4,
             summary:
-              "Applied AI consultancy with stated data science delivery, AI safety and assurance work, and public-sector AI programmes.",
+              "Applied AI consultancy with stated data science delivery, AI safety and assurance work, and public-sector AI programs.",
             strengths: [
               "AI safety and assurance work is publicly stated",
               "Applied AI consulting and data science delivery are publicly stated",
-              "Public-sector programme experience is publicly stated",
+              "Public-sector program experience is publicly stated",
             ],
             bestFor:
               "Enterprise, public-sector and larger SME buyers whose brief places substantial weight on applied AI, assurance and governance.",
@@ -18460,7 +18460,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "Marketing technology capability is publicly stated",
             ],
             bestFor:
-              "Enterprise and mid-market organisations whose automation requirement sits inside a wider product, platform or marketing-technology programme.",
+              "Enterprise and mid-market organizations whose automation requirement sits inside a wider product, platform or marketing-technology program.",
             limitations:
               "A pure AI automation specialism, Newcastle-specific presence, pricing and governance detail are Not publicly stated in the supplied research.",
           },
@@ -18484,7 +18484,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A fair provider comparison before you contact anyone",
         body: [
-          "The list favours explicit evidence over broad AI positioning. That is why specialist enterprise integration and intelligent automation providers sit above broader digital or marketing transformation agencies for a general automation-buying brief.",
+          "The list favors explicit evidence over broad AI positioning. That is why specialist enterprise integration and intelligent automation providers sit above broader digital or marketing transformation agencies for a general automation-buying brief.",
         ],
         lede:
           "This matrix separates stated strengths from information that the supplied research does not establish. It is more useful than treating every agency as interchangeable.",
@@ -18581,7 +18581,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "Consider Brilliant Noise, or DEPT where the work belongs within a wider marketing technology or digital platform programme.",
+              "Consider Brilliant Noise, or DEPT where the work belongs within a wider marketing technology or digital platform program.",
             title: "You need marketing-team AI adoption",
           },
           {
@@ -18651,7 +18651,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             body:
               "Select the proposal that makes integration, human control, delivery boundaries and ownership clearest.",
-            title: "Decide on evidence, not theatre",
+            title: "Decide on evidence, not theater",
             label: "Phase 4",
           },
         ],
@@ -18981,7 +18981,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The list is editorial, intended for UK buyers, and based only on the supplied public evidence reviewed in August 2026. Incomplete public information is marked as **Not publicly stated** rather than inferred. To suggest a correction or provide verifiable evidence, contact us via [Silverstone AI’s contact page](/contact).",
         ],
         lede:
-          "For UK business decision-makers comparing a partner for a defined automation initiative rather than buying a generic software licence.",
+          "For UK business decision-makers comparing a partner for a defined automation initiative rather than buying a generic software license.",
         variant: "signal",
         callout: {
           body: [
@@ -19014,8 +19014,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Methodology: how these UK AI automation agencies were assessed",
         body: [
-          "Before comparing providers, define the job to be done. An enterprise platform integration, an RPA programme, an SME workflow pilot and a bespoke software build require different evidence. We applied the same five criteria to every provider, using only the supplied evidence.",
-          "Public evidence can establish stated services and declared audience fit. It cannot reliably establish delivery quality, security posture, commercial terms or outcomes where those details are not published. Those fields therefore remain unresolved rather than being used to reward or penalise a provider.",
+          "Before comparing providers, define the job to be done. An enterprise platform integration, an RPA program, an SME workflow pilot and a bespoke software build require different evidence. We applied the same five criteria to every provider, using only the supplied evidence.",
+          "Public evidence can establish stated services and declared audience fit. It cannot reliably establish delivery quality, security posture, commercial terms or outcomes where those details are not published. Those fields therefore remain unresolved rather than being used to reward or penalize a provider.",
         ],
         lede:
           "The ordering is a buyer-fit assessment, not a claim that one agency is better for every project.",
@@ -19025,7 +19025,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "30",
-                "How clearly the stated offer matches a UK buyer’s operating context and organisation type",
+                "How clearly the stated offer matches a UK buyer’s operating context and organization type",
               ],
               label: "Intended UK buyer fit",
             },
@@ -19061,7 +19061,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         callout: {
           body: [
-            "The ranking favours a clear match between stated services and a buyer’s likely implementation needs. It does not use review badges, unsupplied case studies, assumed platform partnerships, private proposals or unverified claims.",
+            "The ranking favors a clear match between stated services and a buyer’s likely implementation needs. It does not use review badges, unsupplied case studies, assumed platform partnerships, private proposals or unverified claims.",
           ],
           tone: "evidence",
           title: "How to read the order",
@@ -19083,7 +19083,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             strengths: [
               "Publicly stated workflow automation and enterprise integration capability",
               "Named Atlassian and DevOps tooling focus",
-              "Stated fit for enterprise and mid-market organisations",
+              "Stated fit for enterprise and mid-market organizations",
             ],
             bestFor:
               "Enterprise or mid-market teams where tooling, workflow design and integration are central to the brief.",
@@ -19101,7 +19101,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "Published implementation process supports evidence transparency",
             ],
             bestFor:
-              "UK organisations seeking a bespoke automation partner for a defined workflow or operating-system improvement.",
+              "UK organizations seeking a bespoke automation partner for a defined workflow or operating-system improvement.",
             limitations:
               "Sector breadth is Not publicly stated in the supplied evidence,Named integrations, managed-services depth, governance certifications and pricing are Not publicly stated",
           },
@@ -19113,10 +19113,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             strengths: [
               "Specific RPA and intelligent document processing focus",
               "Automation strategy and delivery are publicly stated",
-              "Stated fit for enterprise and mid-market organisations",
+              "Stated fit for enterprise and mid-market organizations",
             ],
             bestFor:
-              "Organisations with document-heavy or process-led automation requirements where RPA is a principal delivery route.",
+              "Organizations with document-heavy or process-led automation requirements where RPA is a principal delivery route.",
             limitations:
               "Pricing is Not publicly stated,Governance details, support SLAs, named integrations and case-study outcomes are Not publicly stated in the supplied evidence",
           },
@@ -19128,7 +19128,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             strengths: [
               "Broad publicly stated application, cloud, data and AI delivery scope",
               "Managed services are publicly stated",
-              "Stated fit for enterprise and public-sector organisations",
+              "Stated fit for enterprise and public-sector organizations",
             ],
             bestFor:
               "Enterprise or public-sector buyers whose automation work is part of wider application, cloud or data-platform change.",
@@ -19146,7 +19146,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "Stated fit includes financial services, energy and public sector",
             ],
             bestFor:
-              "Regulated or complex-domain organisations needing bespoke software and data engineering alongside AI or technology strategy.",
+              "Regulated or complex-domain organizations needing bespoke software and data engineering alongside AI or technology strategy.",
             limitations:
               "Workflow automation specialism is Not publicly stated,Pricing, governance details, support SLAs, named integrations and case-study outcomes are Not publicly stated in the supplied evidence",
           },
@@ -19158,7 +19158,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             strengths: [
               "Digital product and platform delivery are publicly stated",
               "Data and AI services are publicly stated",
-              "Marketing technology capability may suit digitally led programmes",
+              "Marketing technology capability may suit digitally led programs",
             ],
             bestFor:
               "Enterprise or mid-market teams combining AI work with digital product, platform or marketing-technology requirements.",
@@ -19261,17 +19261,17 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             body:
-              "Prioritise Adaptavist where Atlassian, DevOps tooling, workflow automation and enterprise integration are material requirements.",
+              "Prioritize Adaptavist where Atlassian, DevOps tooling, workflow automation and enterprise integration are material requirements.",
             title: "Enterprise tooling and cross-system workflows",
           },
           {
             body:
-              "Prioritise Robiquity where robotic process automation or intelligent document processing is at the centre of the problem.",
+              "Prioritize Robiquity where robotic process automation or intelligent document processing is at the center of the problem.",
             title: "Document-led and RPA-led processes",
           },
           {
             body:
-              "Prioritise Silverstone AI where you need AI and automation consulting followed by bespoke workflow delivery and a clear implementation route.",
+              "Prioritize Silverstone AI where you need AI and automation consulting followed by bespoke workflow delivery and a clear implementation route.",
             title: "Bespoke UK workflow automation",
           },
           {
@@ -19294,7 +19294,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "Decide whether you need an audit, pilot, bespoke build, RPA programme, platform integration or wider technology change.",
+              "Decide whether you need an audit, pilot, bespoke build, RPA program, platform integration or wider technology change.",
             title: "Choose the delivery shape",
             label: "2",
           },
@@ -19841,7 +19841,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "Reality: repeated comments usually point to unclear reviewer roles or weak briefing upstream",
         body: [
-          "Most review pain starts before the first draft. If the content brief does not define audience, page goal, acceptable claims, source boundaries and approval owner, reviewers fill the gap with personal judgement.",
+          "Most review pain starts before the first draft. If the content brief does not define audience, page goal, acceptable claims, source boundaries and approval owner, reviewers fill the gap with personal judgment.",
           "That creates predictable noise. Marketing comments on tone. Sales comments on objection handling. Operations comments on process detail. The SME comments on technical nuance. None of them are wrong. They are just working without a shared decision frame.",
           "A better upstream brief should cover:",
           "- the page's commercial purpose",
@@ -20030,7 +20030,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Who this London AI agency ranking is for",
         body: [
-          "The right agency depends on whether your priority is strategic direction, data foundations, operational optimisation, document-heavy automation, marketing adoption or a bespoke workflow that connects existing systems.",
+          "The right agency depends on whether your priority is strategic direction, data foundations, operational optimization, document-heavy automation, marketing adoption or a bespoke workflow that connects existing systems.",
           "Start with the operating problem: delayed responses, fragmented information, manual hand-offs, unreliable reporting, slow content approval or a complex scheduling decision. That produces a better procurement brief than starting with a preferred model or tool.",
           "For a useful internal baseline before speaking to providers, see Silverstone AI’s guide to [AI automation consulting](/blog/ai-automation-consulting-guide) and its [AI readiness assessment for small businesses](/blog/ai-readiness-assessment-small-businesses).",
         ],
@@ -20055,12 +20055,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             body:
               "Best when scheduling, routing, resource allocation or another decision problem is the central constraint.",
-            title: "Operational optimisation",
+            title: "Operational optimization",
           },
         ],
         callout: {
           body: [
-            "Choose Faculty for broad applied AI consulting where assurance and public-sector-scale delivery matter; Aiimi where governed data, enterprise search and information management lead the brief; and Silverstone AI where a UK business needs consulting plus bespoke AI workflow and automation delivery. Choose a specialist such as Satalia or Robiquity when optimisation or intelligent automation is the defined problem.",
+            "Choose Faculty for broad applied AI consulting where assurance and public-sector-scale delivery matter; Aiimi where governed data, enterprise search and information management lead the brief; and Silverstone AI where a UK business needs consulting plus bespoke AI workflow and automation delivery. Choose a specialist such as Satalia or Robiquity when optimization or intelligent automation is the defined problem.",
           ],
           tone: "answer",
           title: "Direct answer",
@@ -20080,7 +20080,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Applied AI consulting, data science, safety and assurance",
-                "Enterprise, public-sector and larger-SME applied AI programmes",
+                "Enterprise, public-sector and larger-SME applied AI programs",
                 "Pricing and detailed integration scope: Not publicly stated",
               ],
               label: "Faculty",
@@ -20088,7 +20088,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Data engineering, governance, enterprise search and applied AI",
-                "Information-intensive organisations needing a stronger data foundation",
+                "Information-intensive organizations needing a stronger data foundation",
                 "Pricing and detailed assurance approach: Not publicly stated",
               ],
               label: "Aiimi",
@@ -20111,8 +20111,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "AI optimisation, scheduling, routing and decision systems",
-                "Complex operational optimisation",
+                "AI optimization, scheduling, routing and decision systems",
+                "Complex operational optimization",
                 "Pricing and broader integration detail: Not publicly stated",
               ],
               label: "Satalia",
@@ -20120,7 +20120,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "RPA, intelligent document processing and automation delivery",
-                "Document-led and process automation programmes",
+                "Document-led and process automation programs",
                 "Pricing and broader AI governance detail: Not publicly stated",
               ],
               label: "Robiquity",
@@ -20151,7 +20151,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The ranked shortlist of AI agencies serving London buyers",
         body: [
-          "No public evidence set can replace a technical discovery, security review or reference process. Treat the order as a focused starting point: a broader applied AI brief favours the first two entries; a practical bespoke automation brief can make the third entry a compelling first conversation.",
+          "No public evidence set can replace a technical discovery, security review or reference process. Treat the order as a focused starting point: a broader applied AI brief favors the first two entries; a practical bespoke automation brief can make the third entry a compelling first conversation.",
         ],
         lede:
           "This order reflects the published evidence against the stated criteria, not a claim of universal superiority.",
@@ -20160,14 +20160,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             name: "Faculty",
             rank: 1,
             summary:
-              "An AI consultancy with publicly evidenced applied AI consulting, data science delivery, AI safety and assurance work, and public-sector programmes.",
+              "An AI consultancy with publicly evidenced applied AI consulting, data science delivery, AI safety and assurance work, and public-sector programs.",
             strengths: [
               "Broad applied AI consulting and delivery evidence",
               "Published safety and assurance-related capability",
               "Fit stated for enterprise, public sector and larger SMEs",
             ],
             bestFor:
-              "Organisations seeking broad applied AI capability where assurance and large-programme context are important.",
+              "Organizations seeking broad applied AI capability where assurance and large-program context are important.",
             limitations:
               "Pricing, specific integration depth and project availability are Not publicly stated.",
           },
@@ -20197,7 +20197,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "Published implementation process",
             ],
             bestFor:
-              "UK businesses that need to turn a defined operational problem into an integrated AI workflow or automation programme.",
+              "UK businesses that need to turn a defined operational problem into an integrated AI workflow or automation program.",
             limitations:
               "A London office is Not publicly stated in the supplied evidence. Public detail on enterprise integration depth and governance is less specific than Faculty or Aiimi.",
           },
@@ -20220,14 +20220,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             name: "Satalia",
             rank: 5,
             summary:
-              "An AI optimisation consultancy with public evidence of workforce scheduling, logistics and routing, and decision systems.",
+              "An AI optimization consultancy with public evidence of workforce scheduling, logistics and routing, and decision systems.",
             strengths: [
-              "Clear operational optimisation specialism",
+              "Clear operational optimization specialism",
               "Scheduling, routing and decision-system capability",
               "Fit stated for enterprise and complex operations",
             ],
             bestFor:
-              "Organisations solving a defined optimisation challenge in operations, logistics or workforce planning.",
+              "Organizations solving a defined optimization challenge in operations, logistics or workforce planning.",
             limitations:
               "Broader integration scope, governance detail and pricing are Not publicly stated.",
           },
@@ -20274,7 +20274,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             "Applied AI consultancy",
             "Data and information partner",
             "Automation specialist",
-            "Optimisation specialist",
+            "Optimization specialist",
           ],
           rows: [
             {
@@ -20306,7 +20306,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         callout: {
           body: [
-            "Choose the provider whose established specialism matches your hardest constraint. Do not select a broad consultancy for a routing problem, or an automation specialist for a data-governance programme, unless it can demonstrate the missing capability during discovery.",
+            "Choose the provider whose established specialism matches your hardest constraint. Do not select a broad consultancy for a routing problem, or an automation specialist for a data-governance program, unless it can demonstrate the missing capability during discovery.",
           ],
           tone: "recommendation",
           title: "A practical selection rule",
@@ -20364,7 +20364,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A sensible next step for your shortlist",
         body: [
-          "For a broad applied AI or assurance-sensitive programme, begin with Faculty. For a data, information-management or enterprise-search-led brief, begin with Aiimi. For a clearly bounded optimisation or document automation challenge, begin with Satalia or Robiquity respectively. For marketing-team AI adoption, Brilliant Noise is the most directly aligned specialist in this evidence set.",
+          "For a broad applied AI or assurance-sensitive program, begin with Faculty. For a data, information-management or enterprise-search-led brief, begin with Aiimi. For a clearly bounded optimization or document automation challenge, begin with Satalia or Robiquity respectively. For marketing-team AI adoption, Brilliant Noise is the most directly aligned specialist in this evidence set.",
           "If your requirement is a practical UK AI workflow, automation or bespoke systems brief, explore Silverstone AI’s [AI consulting service](/services/ai-consulting), [AI automation service](/services/ai-automation) and [implementation approach](/how-we-work). You can then [book a focused discovery conversation](/book#booking-calendar) with a defined workflow, data boundary and desired business outcome.",
           "No provider should be selected on this article alone. A short, comparable discovery process is the appropriate way to test technical fit, governance, commercial scope and the people who would actually deliver the work.",
         ],
@@ -20409,7 +20409,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Should I choose an AI consultancy or an automation specialist?",
         answer:
-          "Choose a consultancy where strategy, data science, assurance or a wider operating model are central. Choose an automation specialist where the problem is a repeatable process, document flow or system hand-off. Choose an optimisation specialist for routing, scheduling or resource-allocation challenges.",
+          "Choose a consultancy where strategy, data science, assurance or a wider operating model are central. Choose an automation specialist where the problem is a repeatable process, document flow or system hand-off. Choose an optimization specialist for routing, scheduling or resource-allocation challenges.",
       },
     ],
     internalLinks: [
@@ -20732,7 +20732,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         variant: "signal",
         callout: {
           body: [
-            "Choose Elevate AI for an SME-focused process audit and automation pilot; choose Silverstone AI for bespoke workflow automation and a structured implementation route; choose Studio Graphene when the outcome is an AI-enabled product or MVP. Larger transformation, public-sector or complex optimisation briefs may suit Faculty, Kainos, Version 1 or Satalia better.",
+            "Choose Elevate AI for an SME-focused process audit and automation pilot; choose Silverstone AI for bespoke workflow automation and a structured implementation route; choose Studio Graphene when the outcome is an AI-enabled product or MVP. Larger transformation, public-sector or complex optimization briefs may suit Faculty, Kainos, Version 1 or Satalia better.",
           ],
           tone: "answer",
           title: "Direct answer",
@@ -20805,7 +20805,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         callout: {
           body: [
-            "The supplied assessment places Silverstone AI second on evidence of bespoke AI workflow and automation delivery, AI and automation consulting, and a published implementation process. Elevate AI places ahead because its public evidence states UK SME fit directly alongside process audits, workflow automation pilots and SME delivery. Broader enterprise providers show wider programme scope, but a less direct SME fit.",
+            "The supplied assessment places Silverstone AI second on evidence of bespoke AI workflow and automation delivery, AI and automation consulting, and a published implementation process. Elevate AI places ahead because its public evidence states UK SME fit directly alongside process audits, workflow automation pilots and SME delivery. Broader enterprise providers show wider program scope, but a less direct SME fit.",
           ],
           tone: "evidence",
           title: "Why Silverstone AI is second",
@@ -20814,7 +20814,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Ranked shortlist: AI consulting firms UK SMEs should compare",
         body: [
-          "A lower position does not mean inferior delivery. It means the public evidence in this review aligns less directly with the defined SME buyer, or is more specialised toward enterprise, public-sector or complex operational work.",
+          "A lower position does not mean inferior delivery. It means the public evidence in this review aligns less directly with the defined SME buyer, or is more specialized toward enterprise, public-sector or complex operational work.",
         ],
         lede:
           "Ranked for the stated SME buyer and fixed methodology, with public-information gaps made explicit.",
@@ -20874,7 +20874,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "AI safety and assurance work",
             ],
             bestFor:
-              "Larger SMEs or organisations whose brief needs applied AI and visible assurance signals.",
+              "Larger SMEs or organizations whose brief needs applied AI and visible assurance signals.",
             limitations:
               "Its stated fit is enterprise and public sector as well as larger SMEs.,Public pricing, detailed support model and integration specifics are Not publicly stated.",
           },
@@ -20889,7 +20889,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "Workday and public-sector digital services",
             ],
             bestFor:
-              "Organisations with a substantial platform, data or transformation programme.",
+              "Organizations with a substantial platform, data or transformation program.",
             limitations:
               "The stated fit is enterprise, government and healthcare rather than SMEs.,Public pricing, detailed AI governance and support model are Not publicly stated.",
           },
@@ -20912,14 +20912,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             name: "Satalia",
             rank: 7,
             summary:
-              "An AI optimisation consultancy focused on decision systems and operational complexity.",
+              "An AI optimization consultancy focused on decision systems and operational complexity.",
             strengths: [
-              "AI-led optimisation",
+              "AI-led optimization",
               "Workforce scheduling",
               "Logistics, routing and decision systems",
             ],
             bestFor:
-              "Businesses with a materially complex scheduling, routing or optimisation challenge.",
+              "Businesses with a materially complex scheduling, routing or optimization challenge.",
             limitations:
               "The stated fit is enterprise and complex operations rather than a general SME brief.,Public pricing, detailed support model, governance and deployment methods are Not publicly stated.",
           },
@@ -20928,14 +20928,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Match the provider to your actual brief",
         body: [
-          "Use this decision framework to separate a workflow improvement project from a product build or a wider transformation programme. It prevents a common buying mistake: appointing a technically credible provider whose delivery model does not match the work.",
+          "Use this decision framework to separate a workflow improvement project from a product build or a wider transformation program. It prevents a common buying mistake: appointing a technically credible provider whose delivery model does not match the work.",
         ],
         lede:
           "The fastest way to improve a shortlist is to classify the job before discussing tools.",
         grid: [
           {
             body:
-              "If enquiries, follow-up, handovers or repetitive administration are the issue, start with Elevate AI or Silverstone AI. Ask for the workflow boundary, human approval points and integration assumptions.",
+              "If inquiries, follow-up, handovers or repetitive administration are the issue, start with Elevate AI or Silverstone AI. Ask for the workflow boundary, human approval points and integration assumptions.",
             title: "Audit, pilot and integrate",
             label: "Workflow bottleneck",
           },
@@ -20949,13 +20949,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             body:
               "For larger SME, enterprise or public-sector contexts, Faculty's applied AI and assurance evidence may be relevant. Kainos and Version 1 fit broader technology transformation briefs.",
             title: "Plan for more formal delivery",
-            label: "Data, assurance or wider programme",
+            label: "Data, assurance or wider program",
           },
           {
             body:
-              "For workforce scheduling, routing or decision-system problems, Satalia's stated optimisation focus is more relevant than a general automation brief.",
+              "For workforce scheduling, routing or decision-system problems, Satalia's stated optimization focus is more relevant than a general automation brief.",
             title: "Solve a specific complex system",
-            label: "Operational optimisation",
+            label: "Operational optimization",
           },
         ],
         subsections: [
@@ -21034,7 +21034,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "For most UK SMEs, the right next step is a focused conversation about one operating problem rather than a broad request for “an AI strategy”.",
         callout: {
           body: [
-            "Choose Elevate AI if an SME-focused automation audit and pilot is your immediate priority. Choose Silverstone AI when you want bespoke workflow automation with a defined implementation route. Choose Studio Graphene when the deliverable is an AI-enabled product or MVP. Move to Faculty, Kainos, Version 1 or Satalia when your brief genuinely requires their more enterprise-oriented, transformation or optimisation focus.",
+            "Choose Elevate AI if an SME-focused automation audit and pilot is your immediate priority. Choose Silverstone AI when you want bespoke workflow automation with a defined implementation route. Choose Studio Graphene when the deliverable is an AI-enabled product or MVP. Move to Faculty, Kainos, Version 1 or Satalia when your brief genuinely requires their more enterprise-oriented, transformation or optimization focus.",
           ],
           tone: "recommendation",
           title: "Recommendation",
@@ -21050,7 +21050,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Why are larger consultancies lower in this ranking?",
         answer:
-          "This shortlist weights stated UK SME fit at 30%. Faculty, Kainos, Version 1 and Satalia show substantial public capability evidence, but their stated fit is more enterprise, public-sector or complex-operation oriented. A lower position reflects the defined buyer, not a blanket judgement on quality.",
+          "This shortlist weights stated UK SME fit at 30%. Faculty, Kainos, Version 1 and Satalia show substantial public capability evidence, but their stated fit is more enterprise, public-sector or complex-operation oriented. A lower position reflects the defined buyer, not a blanket judgment on quality.",
       },
       {
         question: "Are AI consulting prices publicly available?",
@@ -21342,9 +21342,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     title:
       "When a Valuation Request Should Bypass Automation and Go Straight to a Branch Manager",
     subtitle:
-      "A practical UK risk audit for estate agents deciding which valuation enquiries need immediate senior human ownership.",
+      "A practical UK risk audit for estate agents deciding which valuation inquiries need immediate senior human ownership.",
     summary: [
-      "Not every valuation enquiry should follow standard automation routing.",
+      "Not every valuation inquiry should follow standard automation routing.",
       "Sensitive cases need clear escalation rules, a named human owner and a stop condition.",
       "Automation still has value in capturing facts, preserving audit trail and preparing the handoff.",
     ],
@@ -21360,7 +21360,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage:
       "/assets/images/blog/valuation-request-go-straight-branch-manager-hero.webp",
     heroImageAlt:
-      "Bright editorial illustration of an estate agency enquiry-routing system sending sensitive valuation requests to a branch manager for human review.",
+      "Bright editorial illustration of an estate agency inquiry-routing system sending sensitive valuation requests to a branch manager for human review.",
     metaTitle: "Valuation Requests That Need Manager Escalation",
     metaDescription:
       "Learn which UK estate agent valuation requests should go straight to a branch manager, which rules to set, and what automation should still capture.",
@@ -21376,21 +21376,21 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "“Should this valuation lead go straight to my branch manager, or can automation route it first?”\n\nFor a UK estate agency owner, that is not a technical question. It is a commercial control question.\n\nSome enquiries are routine: a standard owner-occupier sale lead, clear contact details, normal timing, no dispute, no unusual instruction. Automation can capture the basics, create the CRM record and route the job.\n\nOthers need senior judgement from the start. If the request touches pricing sensitivity, legal standing, complaint risk, negotiation history, material-information uncertainty or a fragile vendor relationship, sending it through a generic workflow can cost you time and trust.\n\nThe safer model is simple. Let automation handle intake and evidence capture where appropriate, but keep valuations, pricing judgement and escalation ownership with qualified people. Silverstone AI helps UK estate agents design that boundary clearly so the system knows its source of truth, human owner, escalation path and stop condition.",
+          "“Should this valuation lead go straight to my branch manager, or can automation route it first?”\n\nFor a UK estate agency owner, that is not a technical question. It is a commercial control question.\n\nSome inquiries are routine: a standard owner-occupier sale lead, clear contact details, normal timing, no dispute, no unusual instruction. Automation can capture the basics, create the CRM record and route the job.\n\nOthers need senior judgment from the start. If the request touches pricing sensitivity, legal standing, complaint risk, negotiation history, material-information uncertainty or a fragile vendor relationship, sending it through a generic workflow can cost you time and trust.\n\nThe safer model is simple. Let automation handle intake and evidence capture where appropriate, but keep valuations, pricing judgment and escalation ownership with qualified people. Silverstone AI helps UK estate agents design that boundary clearly so the system knows its source of truth, human owner, escalation path and stop condition.",
         ],
       },
       {
         heading:
-          "Which valuation enquiries are too commercially sensitive for standard routing",
+          "Which valuation inquiries are too commercially sensitive for standard routing",
         body: [
-          "The first test is whether the enquiry can be handled as structured intake, or whether the branch needs judgement before anyone promises a next step.",
+          "The first test is whether the inquiry can be handled as structured intake, or whether the branch needs judgment before anyone promises a next step.",
           "For UK estate agents, the highest-risk categories usually include:",
           "- Requests where the person making contact may not be the legal client or may be acting as a representative. RICS guidance is clear that where valuation requests come from representatives, the valuer should ensure the client is correctly identified. In agency terms, that means ownership and authority should be checked before the branch treats the instruction as straightforward.",
-          "- Enquiries linked to probate, separation, power of attorney or family disputes, where the relationship between contact, property and decision-maker may not be simple.",
+          "- Inquiries linked to probate, separation, power of attorney or family disputes, where the relationship between contact, property and decision-maker may not be simple.",
           "- Requests that already contain a price challenge, complaint, grievance or criticism of a prior valuation.",
-          "- Cases involving unusual property attributes, incomplete material information or facts that could materially affect marketing and pricing judgement.",
+          "- Cases involving unusual property attributes, incomplete material information or facts that could materially affect marketing and pricing judgment.",
           "- High-value or strategically important instructions where vendor handling matters as much as speed.",
-          "- Landlord, developer or portfolio enquiries where one request may imply a wider commercial relationship.",
+          "- Landlord, developer or portfolio inquiries where one request may imply a wider commercial relationship.",
           "- Requests that mention another branch, a previous negotiator, an offer dispute or dissatisfaction with service.",
           "These are not reasons to avoid automation entirely. They are reasons to stop automation short of making assumptions.",
           "A useful rule is this: if the agency needs to judge authority, risk, price position or relationship sensitivity before confirming the next action, the branch manager should own the decision.",
@@ -21406,14 +21406,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Good trigger rules are specific, observable and easy for staff to audit. They should sit above any AI or automation layer, not inside a vague prompt that no one can inspect later.",
           "In practice, immediate escalation is justified when one or more of these conditions are met:",
           "- The identity of the instructing party is uncertain, or the person making the request appears to be different from the client with authority to proceed.",
-          "- The enquiry refers to a complaint, ombudsman, redress issue, prior misvaluation, withdrawn instruction or broken chain.",
+          "- The inquiry refers to a complaint, ombudsman, redress issue, prior misvaluation, withdrawn instruction or broken chain.",
           "- The request concerns probate, repossession, divorce, power of attorney, executor sale or another scenario needing careful authority and communication handling.",
           "- The property appears to be mixed-use, non-standard construction, tenanted with complications, development land or otherwise outside the branch's normal scripted intake path.",
           "- The contact asks for immediate price positioning, marketing advice or negotiation guidance before a qualified person has reviewed the case.",
           "- The lead is marked internally as VIP, repeat client, introducer-linked or strategically important.",
-          "- The enquiry creates ambiguity over which branch, negotiator or business unit owns the relationship.",
+          "- The inquiry creates ambiguity over which branch, negotiator or business unit owns the relationship.",
           "Each rule should also define the human owner. For example, the branch manager may be first owner for complaints and strategic vendor handling, while a lister or valuer may become owner after manager review.",
-          "The stop condition matters too. Once a human has confirmed authority, risk level and next step, the enquiry can re-enter normal workflow for booking, reminders and CRM updates.",
+          "The stop condition matters too. Once a human has confirmed authority, risk level and next step, the inquiry can re-enter normal workflow for booking, reminders and CRM updates.",
         ],
         lede:
           "Escalation works best when it is rule-led rather than left to guesswork.",
@@ -21422,7 +21422,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What automation should still capture before handoff",
         body: [
-          "Even where a valuation request must go straight to a branch manager, automation can still do useful preparatory work. The aim is to gather facts without straying into judgement.",
+          "Even where a valuation request must go straight to a branch manager, automation can still do useful preparatory work. The aim is to gather facts without straying into judgment.",
           "That means the system can capture structured intake fields, preserve the contact trail and present the manager with enough context to act quickly.",
           "Before handoff, your workflow should usually capture:",
           "- Contact name, phone, email and preferred callback window.",
@@ -21434,7 +21434,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Existing CRM matches, including previous appraisals, notes, branch ownership and open issues, where your systems genuinely support that check.",
           "- The exact reason for escalation and the named human owner.",
           "That gives the branch manager a reliable brief. It also preserves an audit trail showing why the lead was routed differently.",
-          "Silverstone AI typically advises agencies to separate information capture from judgement. The automation may classify and flag; it should not decide price, negotiate terms or interpret legal authority on its own.",
+          "Silverstone AI typically advises agencies to separate information capture from judgment. The automation may classify and flag; it should not decide price, negotiate terms or interpret legal authority on its own.",
         ],
         lede:
           "Bypass does not mean blank handover. The branch manager should receive a clean case, not a vague message.",
@@ -21485,9 +21485,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "A practical risk-audit checklist for your current valuation workflow",
         body: [
-          "Use this checklist against your live process, including web forms, phone handling, portal enquiries and branch inboxes.",
+          "Use this checklist against your live process, including web forms, phone handling, portal inquiries and branch inboxes.",
           "If you cannot answer one of these points clearly, the workflow needs tightening before you automate further.",
-          "You can also compare your current setup with the wider workflow questions in our [estate agent automation guide](/blog/estate-agent-automation-guide), then map the valuation boundary separately because it carries more judgement risk than ordinary lead admin.",
+          "You can also compare your current setup with the wider workflow questions in our [estate agent automation guide](/blog/estate-agent-automation-guide), then map the valuation boundary separately because it carries more judgment risk than ordinary lead admin.",
           "For agencies reviewing broader operational design, Silverstone AI's work in [estate agents](/industry/estate-agents) is usually less about adding more AI and more about defining where AI must stop.",
         ],
         lede:
@@ -21511,7 +21511,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "What is the minimum information to collect before escalating a valuation request?",
         answer:
-          "At minimum: contact details, property address, request type, stated relationship to the property, original enquiry text or call summary, and the specific trigger that caused escalation. That gives the branch manager enough context to act.",
+          "At minimum: contact details, property address, request type, stated relationship to the property, original inquiry text or call summary, and the specific trigger that caused escalation. That gives the branch manager enough context to act.",
       },
       {
         question:
@@ -21631,7 +21631,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Picture the cleaner future first. A guest phones after receiving a booking confirmation, the receptionist opens the PMS, and everyone sees the same room status, the same next action and the same owner for the problem. No improvised promises. No OTA message sent from one system while the front desk says something else. That is the standard hotel booking automation should aim for when a channel manager overbooking appears.\n\nFor UK operators, the point is not to automate every judgement. It is to make fast, bounded decisions around inventory conflicts while keeping a named human in control of recovery, guest communication and any discretionary remedy. Silverstone AI helps hospitality businesses design these workflows so the system knows its source of truth, its stop condition and its escalation path before live pressure hits.",
+          "Picture the cleaner future first. A guest phones after receiving a booking confirmation, the receptionist opens the PMS, and everyone sees the same room status, the same next action and the same owner for the problem. No improvised promises. No OTA message sent from one system while the front desk says something else. That is the standard hotel booking automation should aim for when a channel manager overbooking appears.\n\nFor UK operators, the point is not to automate every judgment. It is to make fast, bounded decisions around inventory conflicts while keeping a named human in control of recovery, guest communication and any discretionary remedy. Silverstone AI helps hospitality businesses design these workflows so the system knows its source of truth, its stop condition and its escalation path before live pressure hits.",
         ],
       },
       {
@@ -21666,7 +21666,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- two systems still disagree after a defined retry or sync window",
           "- the guest is already in transit or has arrived",
           "- the only remaining options involve room moves, relocation, refunds or goodwill gestures",
-          "- accessibility, family configuration, or other suitability issues need judgement",
+          "- accessibility, family configuration, or other suitability issues need judgment",
           "- a direct booking and an OTA booking conflict and your policy requires commercial discretion",
           "- staff need to speak to the OTA or another property manually",
           "This is where an [AI automation service](/services/ai-automation) is useful only if it is built around operational boundaries. The workflow must know what it may do, what it must ask and when it must stop.",
@@ -21732,7 +21732,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         heading:
-          "How to prioritise direct bookings, OTAs and staff visibility during recovery",
+          "How to prioritize direct bookings, OTAs and staff visibility during recovery",
         body: [
           "When an overbooking happens, many hotels immediately argue about channel priority. That discussion is too late if it starts after the guest has booked.",
           "Your workflow should separate two things:",
@@ -21754,7 +21754,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Reservations verifies the booking records, mapping issues and channel details.",
           "- Front desk works from the approved incident status and avoids making unverified promises.",
           "- The duty manager approves exceptions, relocation decisions, discretionary remedies and final guest outcome where required.",
-          "That structure matters if you later add [AI receptionists](/services/ai-receptionists) or voice-based enquiry handling. Automated reception should be able to inform staff and capture detail, but uncertainty must still reach the human team.",
+          "That structure matters if you later add [AI receptionists](/services/ai-receptionists) or voice-based inquiry handling. Automated reception should be able to inform staff and capture detail, but uncertainty must still reach the human team.",
         ],
         lede:
           "A handoff is good when the next person can act without re-interviewing the guest or rechecking every system from scratch.",
@@ -21786,7 +21786,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "There is no universal answer. Many hotels use the PMS as the inventory master, with the channel manager distributing availability. The right rule depends on your setup, but it must be documented, visible to staff and tested before go-live.",
       },
       {
-        question: "Should direct bookings always be prioritised over OTA bookings?",
+        question: "Should direct bookings always be prioritized over OTA bookings?",
         answer:
           "Not automatically. That is a commercial policy decision for management. The important operational point is that all teams see the same status and that the workflow follows a pre-agreed rule instead of improvising under pressure.",
       },
@@ -21919,7 +21919,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "The direct answer: there is not enough public, like-for-like evidence to name a universally best dedicated AI receptionist provider from this group. The six organisations below are better assessed as UK-relevant AI, automation and delivery partners that may be suitable for designing a receptionist workflow. For a bespoke UK implementation, Silverstone AI ranks third on the supplied public evidence; Elevate AI ranks first for stated UK SME fit, while Faculty ranks second for broader applied-AI and assurance credentials.\n\nIf you need an off-the-shelf voice answering product today, ask providers to demonstrate the exact call, booking, transfer and escalation journeys you require before treating any shortlist as a product comparison.",
+          "The direct answer: there is not enough public, like-for-like evidence to name a universally best dedicated AI receptionist provider from this group. The six organizations below are better assessed as UK-relevant AI, automation and delivery partners that may be suitable for designing a receptionist workflow. For a bespoke UK implementation, Silverstone AI ranks third on the supplied public evidence; Elevate AI ranks first for stated UK SME fit, while Faculty ranks second for broader applied-AI and assurance credentials.\n\nIf you need an off-the-shelf voice answering product today, ask providers to demonstrate the exact call, booking, transfer and escalation journeys you require before treating any shortlist as a product comparison.",
         ],
       },
       {
@@ -21935,7 +21935,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         variant: "signal",
         callout: {
           body: [
-            "Choose Elevate AI first to explore an SME-oriented UK automation pilot; choose Faculty where a larger organisation values applied AI and assurance work; choose Silverstone AI where you want a UK AI systems studio with a published bespoke delivery process. None should be assumed to provide a ready-made AI receptionist without a specific demonstration.",
+            "Choose Elevate AI first to explore an SME-oriented UK automation pilot; choose Faculty where a larger organization values applied AI and assurance work; choose Silverstone AI where you want a UK AI systems studio with a published bespoke delivery process. None should be assumed to provide a ready-made AI receptionist without a specific demonstration.",
           ],
           tone: "answer",
           title: "Direct answer",
@@ -22009,7 +22009,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         callout: {
           body: [
-            "This evidence set is weakly aligned to the exact category. Most ranked organisations are broader AI consultancies or automation partners, not publicly evidenced specialist AI receptionist vendors. Treat the order as a route to a more focused buying conversation, not as proof of product functionality.",
+            "This evidence set is weakly aligned to the exact category. Most ranked organizations are broader AI consultancies or automation partners, not publicly evidenced specialist AI receptionist vendors. Treat the order as a route to a more focused buying conversation, not as proof of product functionality.",
           ],
           tone: "caution",
           title: "Important limitation",
@@ -22018,7 +22018,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Ranked shortlist of AI receptionist delivery partners",
         body: [
-          "The shortlist deliberately contains six providers because those are the organisations with registry-verified official evidence in the research set. Pricing, deployment time, support model, certifications and receptionist-specific capabilities are not publicly stated unless noted otherwise.",
+          "The shortlist deliberately contains six providers because those are the organizations with registry-verified official evidence in the research set. Pricing, deployment time, support model, certifications and receptionist-specific capabilities are not publicly stated unless noted otherwise.",
         ],
         lede:
           "These positions reflect the fixed methodology and the public evidence supplied, rather than claimed call-handling performance.",
@@ -22044,10 +22044,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               "An applied-AI consultancy with stated data science, AI safety and assurance work.",
             strengths: [
               "States applied AI consulting and data science delivery.",
-              "States AI safety and assurance work alongside public-sector AI programmes.",
+              "States AI safety and assurance work alongside public-sector AI programs.",
             ],
             bestFor:
-              "Larger SMEs, enterprise or public-sector buyers whose receptionist project sits within a wider applied-AI and assurance programme.",
+              "Larger SMEs, enterprise or public-sector buyers whose receptionist project sits within a wider applied-AI and assurance program.",
             limitations:
               "Dedicated receptionist capability is Not publicly stated.,Telephony, calendar, routing, escalation and CRM integration details are Not publicly stated.",
           },
@@ -22098,13 +22098,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             name: "Satalia",
             rank: 6,
             summary:
-              "An AI optimisation consultancy with stated scheduling, routing and decision-system expertise.",
+              "An AI optimization consultancy with stated scheduling, routing and decision-system expertise.",
             strengths: [
-              "States AI-led optimisation, workforce scheduling and logistics routing.",
+              "States AI-led optimization, workforce scheduling and logistics routing.",
               "States decision-system work for complex enterprise operations.",
             ],
             bestFor:
-              "Enterprise organisations where the front desk must feed a wider scheduling, routing or operational decision problem.",
+              "Enterprise organizations where the front desk must feed a wider scheduling, routing or operational decision problem.",
             limitations:
               "Dedicated receptionist capability is Not publicly stated.,Telephony, booking, escalation, CRM integration and governance detail are Not publicly stated.",
           },
@@ -22131,7 +22131,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Applied AI, data science, safety and assurance",
-                "Larger or assurance-conscious programmes",
+                "Larger or assurance-conscious programs",
                 "Not publicly stated",
               ],
               label: "Faculty",
@@ -22162,7 +22162,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "Optimisation, scheduling, routing and decision systems",
+                "Optimization, scheduling, routing and decision systems",
                 "Complex operational planning",
                 "Not publicly stated",
               ],
@@ -22205,7 +22205,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         steps: [
           {
             body:
-              "List the calls that create revenue, reduce delay or protect service quality: new enquiries, bookings, changes, quote requests, status checks or urgent issues.",
+              "List the calls that create revenue, reduce delay or protect service quality: new inquiries, bookings, changes, quote requests, status checks or urgent issues.",
             title: "Define the highest-value call types",
             label: "Step 1",
           },
@@ -22282,17 +22282,17 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Recommendation for UK business decision-makers",
         body: [
-          "Choose Elevate AI if you are a UK SME and want the clearest publicly stated starting point for process audits, automation pilots and delivery. Choose Faculty if your organisation needs applied-AI delivery with publicly stated safety and assurance work. Choose Silverstone AI if you want a UK-based, bespoke workflow and automation conversation with a published implementation approach.",
+          "Choose Elevate AI if you are a UK SME and want the clearest publicly stated starting point for process audits, automation pilots and delivery. Choose Faculty if your organization needs applied-AI delivery with publicly stated safety and assurance work. Choose Silverstone AI if you want a UK-based, bespoke workflow and automation conversation with a published implementation approach.",
           "Choose Aiimi when governed data and information management are the primary constraints. Choose Robiquity when front-door requests must initiate structured back-office automation. Choose Satalia when scheduling, routing and complex operational decisions are the central problem.",
           "Before choosing any provider, ask them to prove the receptionist-specific journey in a scoped demonstration. If you want to map that journey before approaching the market, [book an AI receptionist discovery conversation](/book#booking-calendar).",
           "See our work with UK [ai and automation consulting](/services/ai-consulting) practices for how these systems are planned, built and run.",
         ],
         lede:
-          "The best option depends on whether you are procuring a focused automation pilot, a governed enterprise programme or a bespoke receptionist workflow.",
+          "The best option depends on whether you are procuring a focused automation pilot, a governed enterprise program or a bespoke receptionist workflow.",
         variant: "operator",
         callout: {
           body: [
-            "Bring one week of anonymised call reasons, your current hand-off rules and the systems your team uses. A provider should then be able to say clearly what can be automated, what requires approval and what should remain with people.",
+            "Bring one week of anonymized call reasons, your current hand-off rules and the systems your team uses. A provider should then be able to say clearly what can be automated, what requires approval and what should remain with people.",
           ],
           tone: "recommendation",
           title: "Practical next move",
@@ -22308,7 +22308,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Why are dedicated AI receptionist brands not ranked here?",
         answer:
-          "The ranking is limited to organisations with registry-verified official evidence supplied for this assessment. Third-party round-ups were background context only, rather than sufficient verification for a ranked position.",
+          "The ranking is limited to organizations with registry-verified official evidence supplied for this assessment. Third-party round-ups were background context only, rather than sufficient verification for a ranked position.",
       },
       {
         question: "What should an AI receptionist demonstration include?",
@@ -22610,12 +22610,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
   },
   {
     slug: "set-rebooking-reminders-irregular-colour",
-    title: "How UK Salons Should Set Rebooking Reminders for Irregular Colour Clients",
+    title: "How UK Salons Should Set Rebooking Reminders for Irregular Color Clients",
     subtitle:
-      "A practical field guide for UK salon owners who need smarter reminder rules for colour clients who do not return on a neat repeat cycle.",
+      "A practical field guide for UK salon owners who need smarter reminder rules for color clients who do not return on a neat repeat cycle.",
     summary: [
-      "Irregular colour clients need reminder rules based on service behaviour and diary reality, not a blanket six-week cadence.",
-      "Split toner, gloss, balayage and full-colour follow-up so each reminder suggests the right next appointment type.",
+      "Irregular color clients need reminder rules based on service behavior and diary reality, not a blanket six-week cadence.",
+      "Split toner, gloss, balayage and full-color follow-up so each reminder suggests the right next appointment type.",
       "Set a source of truth, human owner, escalation path and stop condition before automating any salon rebooking workflow.",
     ],
     categoryLabel: "Salons & Barbers",
@@ -22629,10 +22629,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/set-rebooking-reminders-irregular-colour-hero.webp",
     heroImageAlt:
-      "Bright editorial illustration of a UK salon booking workflow showing colour-service reminder triggers, diary availability and human approval points.",
-    metaTitle: "Salon Rebooking Rules for Irregular Colour Clients",
+      "Bright editorial illustration of a UK salon booking workflow showing color-service reminder triggers, diary availability and human approval points.",
+    metaTitle: "Salon Rebooking Rules for Irregular Color Clients",
     metaDescription:
-      "Learn how UK salons can time rebooking reminders for irregular colour clients using service signals, diary reality and clear human stop points.",
+      "Learn how UK salons can time rebooking reminders for irregular color clients using service signals, diary reality and clear human stop points.",
     primaryKeyword: "salon rebooking reminders for irregular colour clients UK",
     secondaryKeywords: [
       "salon colour rebooking reminders",
@@ -22645,24 +22645,24 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "A client leaves happy after a balayage, toner or full-colour service. The obvious question is whether to prompt a rebooking now, wait six weeks, or leave it alone. For irregular colour clients, that decision affects chair utilisation, team diaries and client experience more than most salons admit.\n\nA fixed reminder cadence is usually too blunt. Some clients need a nudge based on colour behaviour, event timing or diary drift, while others should only hear from you when there is genuine booking value. The better approach is a controlled reminder system with clear triggers, a named owner and an explicit stop condition.\n\nFor UK salons, the source of truth should be your booking record and service history, not guesswork or blanket marketing sends. Silverstone AI helps businesses design automations around real operating rules, and salons are a good example: reminders can support rebooking, but suitability, patch tests, health disclosures, complaints, refunds and consent decisions must stay with a human owner.",
+          "A client leaves happy after a balayage, toner or full-color service. The obvious question is whether to prompt a rebooking now, wait six weeks, or leave it alone. For irregular color clients, that decision affects chair utilization, team diaries and client experience more than most salons admit.\n\nA fixed reminder cadence is usually too blunt. Some clients need a nudge based on color behavior, event timing or diary drift, while others should only hear from you when there is genuine booking value. The better approach is a controlled reminder system with clear triggers, a named owner and an explicit stop condition.\n\nFor UK salons, the source of truth should be your booking record and service history, not guesswork or blanket marketing sends. Silverstone AI helps businesses design automations around real operating rules, and salons are a good example: reminders can support rebooking, but suitability, patch tests, health disclosures, complaints, refunds and consent decisions must stay with a human owner.",
         ],
       },
       {
-        heading: "Why irregular colour clients need a different rebooking rule",
+        heading: "Why irregular color clients need a different rebooking rule",
         body: [
-          "Irregular colour clients do not behave like a standard repeat-cut client, or even like a client on a strict root-retouch cycle. They may book around holidays, weddings, work events, budget windows or the visible lifespan of a specific colour result.",
+          "Irregular color clients do not behave like a standard repeat-cut client, or even like a client on a strict root-retouch cycle. They may book around holidays, weddings, work events, budget windows or the visible lifespan of a specific color result.",
           "That matters because a reminder is only useful when it matches a real next-step decision. If it arrives too early, it feels generic. If it arrives too late, the salon has already lost the chance to shape diary demand.",
           "The practical issue is not just retention. It is operational fit. A salon needs to know which reminder is intended to do what:",
           "- secure the next likely appointment before the diary gets tight",
           "- prompt a maintenance service before the full service becomes necessary",
           "- offer waitlist or cancellation-slot access when ideal timing has slipped",
           "- stop messaging when the client is inactive, unsuitable to automate, or needs a human conversation",
-          "Research around salon rebooking consistently points to a simple truth: rebooking works better when the suggested next step is specific rather than open-ended. That is especially relevant for colour services, where maintenance timing varies by service type and client behaviour.",
+          "Research around salon rebooking consistently points to a simple truth: rebooking works better when the suggested next step is specific rather than open-ended. That is especially relevant for color services, where maintenance timing varies by service type and client behavior.",
           "For a UK owner, the commercial point is straightforward. The reminder rule should reflect how the service wears, how your diary fills, and how much lead time a client needs to act.",
         ],
         lede:
-          "A six-week reminder works for some root clients. It breaks down quickly for mixed colour work.",
+          "A six-week reminder works for some root clients. It breaks down quickly for mixed color work.",
         variant: "system",
         grid: [
           {
@@ -22673,7 +22673,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             title: "Signal-based reminder",
             body:
-              "Better for balayage, gloss, toner and occasional colour where visible maintenance and diary timing matter more than a set interval.",
+              "Better for balayage, gloss, toner and occasional color where visible maintenance and diary timing matter more than a set interval.",
           },
           {
             title: "Manual owner review",
@@ -22685,15 +22685,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Which signals should trigger a reminder instead of a fixed cadence",
         body: [
-          "The best reminder trigger is rarely just \"X weeks since last visit\". For irregular colour clients, a better rule combines service history with diary reality.",
+          "The best reminder trigger is rarely just \"X weeks since last visit\". For irregular color clients, a better rule combines service history with diary reality.",
           "A useful starting point is to separate reminder signals into booking signals and service signals.",
           "Booking signals tell you whether a reminder is commercially sensible now:",
           "- no future appointment is already in the diary",
           "- the preferred stylist's diary is tightening for the likely return window",
           "- the client usually books with short lead time and is approaching a risky period",
           "- a quieter patch is available and a maintenance service could sensibly fill it",
-          "Service signals tell you whether a reminder is relevant to the colour result:",
-          "- the last service typically needs a toner or gloss before a full colour revisit",
+          "Service signals tell you whether a reminder is relevant to the color result:",
+          "- the last service typically needs a toner or gloss before a full color revisit",
           "- the client has historically drifted beyond the ideal maintenance window",
           "- the previous visit notes indicate event-led timing such as holidays or weddings",
           "- the next logical step is maintenance rather than a repeat of the last full service",
@@ -22712,7 +22712,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Human owner",
             body:
-              "Usually the salon owner, manager or colour lead should approve reminder rules and exceptions.",
+              "Usually the salon owner, manager or color lead should approve reminder rules and exceptions.",
           },
           {
             label: "Escalation path",
@@ -22722,14 +22722,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Stop condition",
             body:
-              "Do not send if the client already has a booking, has withdrawn consent, or the next step needs human judgement.",
+              "Do not send if the client already has a booking, has withdrawn consent, or the next step needs human judgment.",
           },
         ],
       },
       {
-        heading: "How to separate toner, gloss, balayage and full-colour follow-up",
+        heading: "How to separate toner, gloss, balayage and full-color follow-up",
         body: [
-          "Many salons miss rebooking opportunities because all colour services enter the same reminder flow. That creates two problems. First, the message can be wrong. Second, the suggested booking length can be wrong, which damages diary quality.",
+          "Many salons miss rebooking opportunities because all color services enter the same reminder flow. That creates two problems. First, the message can be wrong. Second, the suggested booking length can be wrong, which damages diary quality.",
           "A better method is to classify follow-up by the likely maintenance path.",
         ],
         lede:
@@ -22738,8 +22738,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "Toner and gloss follow-up",
             body: [
-              "These services often suit earlier, lighter-touch reminders because the client may not need a full colour appointment yet.",
-              "A practical rule is to prompt when the result is likely to be fading but before the client feels the overall look has gone too far. The message should suggest a refresh option, not assume a major colour correction.",
+              "These services often suit earlier, lighter-touch reminders because the client may not need a full color appointment yet.",
+              "A practical rule is to prompt when the result is likely to be fading but before the client feels the overall look has gone too far. The message should suggest a refresh option, not assume a major color correction.",
             ],
           },
           {
@@ -22750,9 +22750,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             ],
           },
           {
-            heading: "Full-colour and root-led follow-up",
+            heading: "Full-color and root-led follow-up",
             body: [
-              "Where regrowth, grey coverage or an all-over result drives the booking, the reminder can be more direct because the maintenance window is usually clearer.",
+              "Where regrowth, gray coverage or an all-over result drives the booking, the reminder can be more direct because the maintenance window is usually clearer.",
               "Even here, you should still separate clients who reliably pre-book from those who drift and need an earlier nudge before diary pressure builds.",
             ],
           },
@@ -22772,20 +22772,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Where automation should stop and manual outreach should begin",
         body: [
           "For salons, the safest and most commercially useful automations handle repeatable communication and booking prompts. They should not make suitability decisions or improvise around risk.",
-          "That boundary matters even more with colour services. Client history may include patch tests, sensitivities, previous dissatisfaction, significant timing drift or a service correction. Those are not cases for unattended messaging.",
+          "That boundary matters even more with color services. Client history may include patch tests, sensitivities, previous dissatisfaction, significant timing drift or a service correction. Those are not cases for unattended messaging.",
           "Your operating model should name four things clearly:",
           "- the source of truth for service history and upcoming bookings",
           "- the human owner of reminder rules and exceptions",
           "- the escalation path when client notes indicate risk or uncertainty",
           "- the stop condition that halts any automated send",
-          "For most UK salons, the human owner is likely to be the owner, manager or senior colour lead. The source of truth is usually the booking system plus service notes. The escalation path may be a task for front of house or the relevant stylist. The stop condition should cover active complaints, consent withdrawal, existing future bookings, patch-test requirements, health disclosures and any case where the right next service is unclear.",
-          "This is where a bespoke setup matters. Silverstone AI is not selling a fantasy where every salon platform magically connects and every judgement can be automated. The useful work is deciding what should run automatically, what should prompt staff action, and what should stop entirely.",
+          "For most UK salons, the human owner is likely to be the owner, manager or senior color lead. The source of truth is usually the booking system plus service notes. The escalation path may be a task for front of house or the relevant stylist. The stop condition should cover active complaints, consent withdrawal, existing future bookings, patch-test requirements, health disclosures and any case where the right next service is unclear.",
+          "This is where a bespoke setup matters. Silverstone AI is not selling a fantasy where every salon platform magically connects and every judgment can be automated. The useful work is deciding what should run automatically, what should prompt staff action, and what should stop entirely.",
           "If you are planning wider salon automation, our [salons and barbers industry page](/industry/salons-barbers) and [guide to what salons should automate first](/blog/salon-automation-salons-barbers-first-should) are the best next reads.",
         ],
         lede:
-          "Good automation respects the line between repeatable admin and professional judgement.",
+          "Good automation respects the line between repeatable admin and professional judgment.",
         pullQuote:
-          "The right reminder system is not more messages. It is better timing, clearer service logic and a hard stop where judgement belongs with your team.",
+          "The right reminder system is not more messages. It is better timing, clearer service logic and a hard stop where judgment belongs with your team.",
         subsections: [
           {
             heading: "What automation is good at",
@@ -22806,9 +22806,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     ],
     faqs: [
       {
-        question: "Should every colour client get an automatic rebooking reminder?",
+        question: "Should every color client get an automatic rebooking reminder?",
         answer:
-          "No. Clients on predictable repeat services may suit a standard reminder, but irregular colour clients usually need signal-based timing. If the next appointment depends on suitability, patch-test status, consent or a nuanced service decision, a team member should handle it.",
+          "No. Clients on predictable repeat services may suit a standard reminder, but irregular color clients usually need signal-based timing. If the next appointment depends on suitability, patch-test status, consent or a nuanced service decision, a team member should handle it.",
       },
       {
         question: "What is the best source of truth for salon reminder timing?",
@@ -22935,20 +22935,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "When an agent ignores an instruction, the cause is usually not a single bad prompt. It is commonly a **production-system failure** across priorities, context, tools or state. Start by identifying the exact step where expected behaviour diverges, then test that step in isolation.",
-          "Silverstone AI is UK-based and serves UK and international clients. For UK decision-makers, use this as a practical governance baseline alongside your own policies and advice; the engineering controls described here generally apply internationally, while legal and organisational duties can differ.",
+          "When an agent ignores an instruction, the cause is usually not a single bad prompt. It is commonly a **production-system failure** across priorities, context, tools or state. Start by identifying the exact step where expected behavior diverges, then test that step in isolation.",
+          "Silverstone AI is UK-based and serves UK and international clients. For UK decision-makers, use this as a practical governance baseline alongside your own policies and advice; the engineering controls described here generally apply internationally, while legal and organizational duties can differ.",
         ],
       },
       {
         heading: "What instruction failure looks like in production",
         body: [
-          "The first task is to turn “it ignored me” into an observable event. Record the instruction, the user input, the retrieved context, the tool available, the action taken and the expected action. ==A passing demo does not establish reliable production behaviour== when live inputs and systems differ.",
+          "The first task is to turn “it ignored me” into an observable event. Record the instruction, the user input, the retrieved context, the tool available, the action taken and the expected action. ==A passing demo does not establish reliable production behavior== when live inputs and systems differ.",
           "Use the incident record to compare:\n\n- **Expected action** against the actual action.\n- **Available context** against the context actually supplied.\n- **Permitted tools** against the tool called.",
           "A failure may be direct, such as sending an unapproved response, or indirect, such as using an unsuitable tool after a malformed previous result. Research on production agents identifies tool-calling errors, loops and propagated malformed responses as practical failure modes. Read [Openlayer’s production failure overview](https://www.openlayer.com/blog/ai-agent-failure-modes-tool-calling-loops-propagation) for the underlying patterns.",
         ],
         sectionNumber: "01",
         lede:
-          "**An ignored instruction is a traceable behaviour mismatch, not a verdict on the model.**",
+          "**An ignored instruction is a traceable behavior mismatch, not a verdict on the model.**",
         leadStyle: "lead",
         variant: "signal",
         callout: {
@@ -22989,7 +22989,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Check instruction hierarchy, conflicts and missing priorities",
         body: [
-          "An agent cannot reliably resolve competing rules if you have not defined **instruction hierarchy** and a clear owner for each rule. Research documents failures on basic constraints and identifies explicit prioritisation as relevant to instruction-following and injection risks. See [The Instruction Gap](https://arxiv.org/html/2601.03269v1) for context.",
+          "An agent cannot reliably resolve competing rules if you have not defined **instruction hierarchy** and a clear owner for each rule. Research documents failures on basic constraints and identifies explicit prioritization as relevant to instruction-following and injection risks. See [The Instruction Gap](https://arxiv.org/html/2601.03269v1) for context.",
           "Use a short, testable specification rather than stacking prose requests. *Instruction hierarchy* means deciding which source wins when policy, workflow, user request and retrieved content disagree.",
           "1. List every instruction source that can reach the agent.\n2. Assign each source a priority and a permitted scope.\n3. Write one conflict rule for each decision that matters.\n4. Test an ordinary request and an adversarial or contradictory request.",
         ],
@@ -22997,7 +22997,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         variant: "system",
         callout: {
           body: [
-            "Prompt wording can guide behaviour, but **high-consequence controls** should not depend only on a prompt. Use permission checks and workflow boundaries where an action could create material operational or data risk.",
+            "Prompt wording can guide behavior, but **high-consequence controls** should not depend only on a prompt. Use permission checks and workflow boundaries where an action could create material operational or data risk.",
           ],
           tone: "caution",
           title: "Do not rely on wording alone",
@@ -23079,7 +23079,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Inspect tool calls, state handling and external system constraints",
         body: [
           "A compliant text response can still produce an unsafe workflow outcome if the agent selects the wrong tool, receives an unexpected schema or carries stale **state** into a later step. Inspect each boundary where the agent moves from reasoning to an external action.",
-          "Separate what the model proposes from what the system permits. The IEEE-USA submission recommends a shift from prompt-based safeguards towards system-enforced policies and hard execution boundaries, with monitoring and rollback. That is a useful general operating principle, not legal advice.",
+          "Separate what the model proposes from what the system permits. The IEEE-USA submission recommends a shift from prompt-based safeguards toward system-enforced policies and hard execution boundaries, with monitoring and rollback. That is a useful general operating principle, not legal advice.",
         ],
         sectionNumber: "04",
         variant: "signal",
@@ -23116,7 +23116,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Use logs and controlled tests to isolate where compliance breaks",
         body: [
-          "Do not alter prompts, retrieval and tools at once. A **controlled replay** holds one variable steady so you can identify whether the break began in specification, context assembly, tool execution or output checking. Centralised orchestration can simplify troubleshooting because the logic is easier to inspect in one place.",
+          "Do not alter prompts, retrieval and tools at once. A **controlled replay** holds one variable steady so you can identify whether the break began in specification, context assembly, tool execution or output checking. Centralized orchestration can simplify troubleshooting because the logic is easier to inspect in one place.",
           "For each failed run, retain an action-level trace and compare it with a known-good run. {{underline:Change one variable per test}}; otherwise, an apparent improvement may conceal the real cause.",
         ],
         sectionNumber: "05",
@@ -23159,7 +23159,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to tighten before trusting the agent with broader tasks",
         body: [
-          "Broader autonomy should follow evidence, not optimism. Start with a **bounded capability**, develop it independently, then combine it with adjacent steps only after its traces and exceptions are understood. [ZenML’s multi-agent material](https://www.zenml.io/llmops-tags/multi-agent-systems) similarly highlights constrained capabilities, optimised context and human feedback cycles.",
+          "Broader autonomy should follow evidence, not optimism. Start with a **bounded capability**, develop it independently, then combine it with adjacent steps only after its traces and exceptions are understood. [ZenML’s multi-agent material](https://www.zenml.io/llmops-tags/multi-agent-systems) similarly highlights constrained capabilities, optimized context and human feedback cycles.",
           "Before expanding scope, make the {{accent:conversion path}} from incident to improvement explicit: detect, classify, reproduce, fix, approve and monitor. For a practical implementation route, review [how Silverstone AI works](/how-we-work) or [arrange a conversation](/book#booking-calendar).",
           "Silverstone AI is a UK-based AI automation agency serving clients in the UK and internationally; its [AI automation services](/services/ai-automation) turn this framework into a practical delivery plan.",
         ],
@@ -23187,7 +23187,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               label: "Rollback route",
-              detail: "A tested way exists to disable or revert changed behaviour.",
+              detail: "A tested way exists to disable or revert changed behavior.",
             },
           ],
           title: "Trust expansion checklist",
@@ -23204,7 +23204,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     faqs: [
       {
         answer:
-          "Sometimes, but not reliably where the cause is conflicting priorities, missing context, tool behaviour or stale state. Diagnose the failing boundary before rewriting the prompt.",
+          "Sometimes, but not reliably where the cause is conflicting priorities, missing context, tool behavior or stale state. Diagnose the failing boundary before rewriting the prompt.",
         question: "Can a better prompt alone fix an agent that ignores instructions?",
       },
       {
@@ -23394,7 +23394,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     summary: [
       "Start with workflow activation and one traceable live event.",
       "Separate source delivery, credentials, webhook access and execution evidence.",
-      "Stabilise the trigger with ownership, repeatable tests and documented controls.",
+      "Stabilize the trigger with ownership, repeatable tests and documented controls.",
     ],
     categoryLabel: "Troubleshooting",
     categoryKey: "automation-troubleshooting",
@@ -23423,7 +23423,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "If an [n8n](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook) workflow is not triggering, start at the boundary: is the workflow active, can the event source reach it, and did n8n receive or reject the event? **Do not rebuild the workflow first**; isolate the missing hand-off.",
-          "For UK organisations, that means checking the production endpoint, credentials and access controls before changing business logic. Silverstone AI is UK-based and serves UK and international clients; this diagnostic sequence generalises wherever n8n connects systems across public networks and third-party APIs.",
+          "For UK organizations, that means checking the production endpoint, credentials and access controls before changing business logic. Silverstone AI is UK-based and serves UK and international clients; this diagnostic sequence generalizes wherever n8n connects systems across public networks and third-party APIs.",
         ],
       },
       {
@@ -23520,7 +23520,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         callout: {
           body: [
-            "This guide assumes you are authorised to inspect the connected accounts and workflow configuration. If access is split between operations, IT and a supplier, assign one owner for the test record and one for the change.",
+            "This guide assumes you are authorized to inspect the connected accounts and workflow configuration. If access is split between operations, IT and a supplier, assign one owner for the test record and one for the change.",
           ],
           tone: "assumption",
           title: "Working assumption",
@@ -23605,7 +23605,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             label: "Scheduled retrieval",
             points: [
               "Check credential and resource access",
-              "Expect behaviour to depend on the source and configured polling cycle",
+              "Expect behavior to depend on the source and configured polling cycle",
             ],
           },
           eyebrow: "Choose the diagnostic path",
@@ -23667,9 +23667,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
       },
       {
-        heading: "How to stabilise triggering before expanding the workflow",
+        heading: "How to stabilize triggering before expanding the workflow",
         body: [
-          "Once the trigger works, make its behaviour repeatable before adding more branches, AI steps or destinations. **A stable trigger has a named owner, a repeatable test and enough evidence to diagnose the next failure**. This is where many promising automations become dependable operating systems rather than fragile demonstrations.",
+          "Once the trigger works, make its behavior repeatable before adding more branches, AI steps or destinations. **A stable trigger has a named owner, a repeatable test and enough evidence to diagnose the next failure**. This is where many promising automations become dependable operating systems rather than fragile demonstrations.",
           "Use the following launch standard. It is an original practical framework for decision-makers: {{accent:prove the boundary, then scale the workflow}}. For implementation planning, see [how Silverstone AI works](/how-we-work), explore [AI automation services](/services/ai-automation), and review [workflow automation selection](/blog/workflow-automation-selection-guide) before committing to a wider build.",
         ],
         sectionNumber: "06",
@@ -23731,7 +23731,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             "Protect and audit webhook routes; do not relax controls without a documented replacement.",
             "Use execution evidence to classify failures before adding complexity.",
           ],
-          title: "Trigger stabilisation checklist",
+          title: "Trigger stabilization checklist",
         },
         entityLinks: [
           {
@@ -23750,7 +23750,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         answer:
-          "Use polling as a diagnostic alternative where the source supports it and webhook delivery is uncertain. It does not remove the need to validate credentials, permissions and the source’s own behaviour.",
+          "Use polling as a diagnostic alternative where the source supports it and webhook delivery is uncertain. It does not remove the need to validate credentials, permissions and the source’s own behavior.",
         question: "Should I switch from webhooks to polling?",
       },
       {
@@ -23929,7 +23929,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     subtitle:
       "A UK-first implementation guide for turning current AI automation signals into governed, measurable workflow decisions.",
     summary: [
-      "AI automation is moving from isolated experimentation towards connected, accountable workflows.",
+      "AI automation is moving from isolated experimentation toward connected, accountable workflows.",
       "UK leaders should test trends against their own data, systems, controls and measurable operating outcomes.",
       "Use a bounded pilot with human exception handling before committing to wider deployment.",
     ],
@@ -23960,15 +23960,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "The defining AI automation trend for 2026 is not simply wider tool use: it is the move from isolated experiments towards **governed workflows connected to real operating systems**. UK leaders should prioritise integration, information quality, accountable oversight and a small number of measurable use cases.",
+          "The defining AI automation trend for 2026 is not simply wider tool use: it is the move from isolated experiments toward **governed workflows connected to real operating systems**. UK leaders should prioritize integration, information quality, accountable oversight and a small number of measurable use cases.",
           "That shift is commercially practical rather than futuristic. Current UK and enterprise research points to more investment and piloting alongside persistent integration, skills and scaling barriers. The question is where automation can safely earn its place within an existing process.",
         ],
       },
       {
         heading: "What changed in AI automation going into 2026",
         body: [
-          "The near-term signal is clear: organisations are trying to connect AI to business processes, but dependable delivery still depends on the foundations beneath it. [OneAdvanced’s 2026 UK research](https://www.oneadvanced.com/resources/the-real-ai-adoption-challenges-holding-uk-businesses-back) reports more investment and piloting while implementation barriers remain material.",
-          "Silverstone AI is UK-based and serves UK and international clients. The UK is the primary lens here: data protection, sector obligations and internal accountability should shape deployment. The practical disciplines below generalise internationally, but local legal and regulatory requirements must still be checked.",
+          "The near-term signal is clear: organizations are trying to connect AI to business processes, but dependable delivery still depends on the foundations beneath it. [OneAdvanced’s 2026 UK research](https://www.oneadvanced.com/resources/the-real-ai-adoption-challenges-holding-uk-businesses-back) reports more investment and piloting while implementation barriers remain material.",
+          "Silverstone AI is UK-based and serves UK and international clients. The UK is the primary lens here: data protection, sector obligations and internal accountability should shape deployment. The practical disciplines below generalize internationally, but local legal and regulatory requirements must still be checked.",
           "- **Start with a bounded workflow:** choose one repeatable process with a clear owner, input and outcome.\n- **Connect before expanding:** establish how data, permissions and exceptions pass between existing systems.\n- **Measure the hand-off:** record time, quality, escalation and rework before claiming value.",
         ],
         sectionNumber: "01",
@@ -23988,13 +23988,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Integration barrier",
               value: "58%",
               note:
-                "OneAdvanced reports organisations facing a platform integration crisis.",
+                "OneAdvanced reports organizations facing a platform integration crisis.",
             },
             {
               label: "Automation stagnation",
               value: "55%",
               note:
-                "OneAdvanced reports organisations stuck in “automation purgatory”.",
+                "OneAdvanced reports organizations stuck in “automation purgatory”.",
             },
           ],
           title: "Current UK implementation signals",
@@ -24041,7 +24041,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         callout: {
           body: [
-            "Rossum reports a move from pilots to enterprise-scale deployment and widespread governance activity in its surveyed market. This is useful international vendor evidence, not a universal forecast for every UK organisation.",
+            "Rossum reports a move from pilots to enterprise-scale deployment and widespread governance activity in its surveyed market. This is useful international vendor evidence, not a universal forecast for every UK organization.",
           ],
           tone: "evidence",
           title: "Evidence boundary",
@@ -24073,7 +24073,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "The supplied evidence is strongest on scaling, governance and information management rather than on a universal list of use cases. For that reason, treat the following as a practical design pattern, not a market-wide ranking.",
           "A durable workflow commonly follows this route:\n1. Capture a structured request or document.\n2. Classify, extract or prepare information against defined rules.\n3. Route low-confidence, high-impact or unusual cases to a named reviewer.\n4. Write the approved result back to the system of record.\n5. Review exceptions and outcomes on a fixed cadence.",
-          "This structure protects the point at which human judgement matters. It also makes {{accent:conversion path}} easier to observe: enquiry or document, triage, decision, system update, then follow-up. For related implementation choices, read [how to integrate AI without replacing software](/blog/integrate-ai-without-replacing-software).",
+          "This structure protects the point at which human judgment matters. It also makes {{accent:conversion path}} easier to observe: inquiry or document, triage, decision, system update, then follow-up. For related implementation choices, read [how to integrate AI without replacing software](/blog/integrate-ai-without-replacing-software).",
         ],
         sectionNumber: "03",
         lede:
@@ -24137,7 +24137,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Where governance, security and human oversight are tightening",
         body: [
           "As automation reaches more consequential work, the control environment needs to travel with it. [Deloitte’s 2026 enterprise AI report](https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-ai-in-the-enterprise.html) argues for governance integrated with existing risk and oversight structures, including high-risk identification, responsible design and independent validation where appropriate.",
-          "For UK organisations, this should sit alongside applicable data-protection duties, contractual commitments and sector rules. This is general information, not legal advice; obtain specialist advice for your circumstances.",
+          "For UK organizations, this should sit alongside applicable data-protection duties, contractual commitments and sector rules. This is general information, not legal advice; obtain specialist advice for your circumstances.",
         ],
         sectionNumber: "04",
         leadStyle: "drop-cap",
@@ -24186,21 +24186,21 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "A practical method to assess which trends matter to your business",
         body: [
           "Use this five-question decision framework for each candidate workflow. It turns broad trends into an implementation decision and prevents a pilot from becoming a permanent holding pattern.",
-          "### A decision rule for pilot readiness\n\nScore each question from 0 to 2, then discuss the total with the process owner. A higher score is a signal to design a controlled pilot, *not* a promise of return. {{chip:idea|Prioritisation model}}",
+          "### A decision rule for pilot readiness\n\nScore each question from 0 to 2, then discuss the total with the process owner. A higher score is a signal to design a controlled pilot, *not* a promise of return. {{chip:idea|Prioritization model}}",
         ],
         sectionNumber: "05",
         lede: "Score the workflow, not the excitement around the technology.",
         leadStyle: "lead",
         callout: {
           body: [
-            "It assumes an existing process is worth improving. If the underlying process is inconsistent, first standardise it; automation may otherwise reproduce confusion faster.",
+            "It assumes an existing process is worth improving. If the underlying process is inconsistent, first standardize it; automation may otherwise reproduce confusion faster.",
           ],
           tone: "assumption",
           title: "What this framework assumes",
         },
         keyTakeaways: {
           items: [
-            "Prioritise measurable work, not the most visible AI feature.",
+            "Prioritize measurable work, not the most visible AI feature.",
             "Require an owner, an exception route and a baseline before launch.",
             "Use evidence from the pilot to decide whether to extend scope.",
             "If integration or governance is unresolved, treat it as a design task rather than an afterthought.",
@@ -24258,7 +24258,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     faqs: [
       {
         answer:
-          "The practical trend is moving from isolated pilots towards integrated, governed workflows with measurable outcomes, clear ownership and human exception handling.",
+          "The practical trend is moving from isolated pilots toward integrated, governed workflows with measurable outcomes, clear ownership and human exception handling.",
         question: "What is the biggest AI automation trend for UK businesses in 2026?",
       },
       {
@@ -24273,7 +24273,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         answer:
-          "The operational themes of integration, information management and governance generalise internationally. Legal, regulatory, data and sector requirements must be assessed in the relevant jurisdiction.",
+          "The operational themes of integration, information management and governance generalize internationally. Legal, regulatory, data and sector requirements must be assessed in the relevant jurisdiction.",
         question: "Are AI automation trends the same outside the UK?",
       },
     ],
@@ -24413,7 +24413,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "A conservative UK decision framework for estimating automation value, full cost and payback before you approve a build.",
     summary: [
       "Start with observed workflow volume, time, cost and exceptions.",
-      "Model realised benefit separately from gross time released.",
+      "Model realized benefit separately from gross time released.",
       "Use conservative scenarios and a bounded pilot when the result is unclear.",
     ],
     categoryLabel: "Templates & Toolkits",
@@ -24443,13 +24443,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "An AI automation ROI calculator should answer one practical question: **will this workflow create enough verified value to justify its full cost and risk?** Start with the existing process, model conservative benefit scenarios, then compare annual net benefit with year-one investment and ongoing operating cost.",
-          "For UK decision-makers, use fully loaded employment costs, GBP and documented assumptions. The same framework generalises internationally when you replace local labour, tax and compliance inputs. Silverstone AI is UK-based and serves UK and international clients, with the UK as its primary commercial and regulatory lens.",
+          "For UK decision-makers, use fully loaded employment costs, GBP and documented assumptions. The same framework generalizes internationally when you replace local labor, tax and compliance inputs. Silverstone AI is UK-based and serves UK and international clients, with the UK as its primary commercial and regulatory lens.",
         ],
       },
       {
         heading: "What this calculator is designed to answer",
         body: [
-          "The calculator is deliberately simple: establish the current monthly cost, estimate the portion automation can safely change, subtract every delivery and operating cost, then test the result under less favourable assumptions. {{chip:idea|Decision framework}}",
+          "The calculator is deliberately simple: establish the current monthly cost, estimate the portion automation can safely change, subtract every delivery and operating cost, then test the result under less favorable assumptions. {{chip:idea|Decision framework}}",
           "A credible result is a range, not a sales headline. ==Observed baseline data== is more useful than a generic benchmark because volume, exception rates, adoption and integration needs differ materially between businesses.",
         ],
         sectionNumber: "01",
@@ -24464,7 +24464,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "Only the time, error reduction or additional capacity likely to be realised after exceptions and human checks.",
+              "Only the time, error reduction or additional capacity likely to be realized after exceptions and human checks.",
             title: "Realistic benefit",
           },
           {
@@ -24474,7 +24474,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "The minimum return, payback window and risk tolerance your organisation requires before proceeding.",
+              "The minimum return, payback window and risk tolerance your organization requires before proceeding.",
             title: "Decision threshold",
           },
         ],
@@ -24491,7 +24491,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "The inputs you need before you calculate ROI",
         body: [
           "Collect one comparable monthly period where possible. The UK-oriented worksheet approach described by [JD Teach AI](https://jdteachai.com/en/blog/ai-automation-examples-business-roi) starts with business-as-usual evidence, affected tasks and operating costs rather than vendor claims.",
-          "Use the following input set. {{chip:proof|Baseline first}}\n- **Eligible monthly volume:** Cases that genuinely meet the automation criteria, excluding work that will always need specialist judgement.\n- **Current effort per case:** Timed handling minutes, including rework where it is routinely present.\n- **Fully loaded hourly cost:** Salary plus employer costs, pension, management and relevant overhead allocation.\n- Automation and acceptance rate: The share processed and accepted without creating equivalent downstream work.\n- Cash costs and capacity value: Distinguish a hard saving from *released capacity* that still needs a plan to be used.\n- Cost and risk inputs: Delivery, subscriptions, support, internal ownership, security review and contingency.",
+          "Use the following input set. {{chip:proof|Baseline first}}\n- **Eligible monthly volume:** Cases that genuinely meet the automation criteria, excluding work that will always need specialist judgment.\n- **Current effort per case:** Timed handling minutes, including rework where it is routinely present.\n- **Fully loaded hourly cost:** Salary plus employer costs, pension, management and relevant overhead allocation.\n- Automation and acceptance rate: The share processed and accepted without creating equivalent downstream work.\n- Cash costs and capacity value: Distinguish a hard saving from *released capacity* that still needs a plan to be used.\n- Cost and risk inputs: Delivery, subscriptions, support, internal ownership, security review and contingency.",
           "### Input definitions",
         ],
         sectionNumber: "02",
@@ -24506,10 +24506,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               term: "Fully loaded cost",
               definition:
-                "The employment cost of time, beyond base salary, used to value labour released by a workflow.",
+                "The employment cost of time, beyond base salary, used to value labor released by a workflow.",
             },
             {
-              term: "Realised benefit",
+              term: "Realized benefit",
               definition:
                 "Value that has a credible route to cash saving, avoided recruitment, throughput or service improvement.",
               note: "It is not automatically equal to every minute saved.",
@@ -24521,8 +24521,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How to estimate benefit without overstating gains",
         body: [
-          "Estimate labour value from the process, not from an assumed percentage improvement. [Wingenious](https://www.wingenious.ai/services/use-cases/ai-roi-calculation) illustrates the structure as hours saved multiplied by fully loaded hourly rate and volume, while documenting ranges for uncertain inputs.",
-          "Worked structure: 12 minutes saved per invoice across 800 invoices monthly at £28 per fully loaded hour produces £4,480 gross monthly labour value, or £53,760 annualised, before costs, exceptions or whether the capacity can be realised. ==This is an illustrative source scenario, not a forecast for your business.==",
+          "Estimate labor value from the process, not from an assumed percentage improvement. [Wingenious](https://www.wingenious.ai/services/use-cases/ai-roi-calculation) illustrates the structure as hours saved multiplied by fully loaded hourly rate and volume, while documenting ranges for uncertain inputs.",
+          "Worked structure: 12 minutes saved per invoice across 800 invoices monthly at £28 per fully loaded hour produces £4,480 gross monthly labor value, or £53,760 annualized, before costs, exceptions or whether the capacity can be realized. ==This is an illustrative source scenario, not a forecast for your business.==",
           "Use {{accent:three scenarios}} rather than one estimate: conservative, expected and downside. The downside case should reduce acceptance, lower time saved, add review time and allow for a slower launch.",
         ],
         sectionNumber: "03",
@@ -24553,7 +24553,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             points: ["Can reveal workflow scale", "Does not prove cash saving"],
           },
           right: {
-            title: "Realised business value",
+            title: "Realized business value",
             body:
               "Capacity linked to reduced spend, avoided hiring, higher throughput or a measured service outcome.",
             label: "Approval case",
@@ -24561,18 +24561,18 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           eyebrow: "Benefit discipline",
           verdict:
-            "Approve against realised value, while retaining gross time released as a diagnostic measure.",
+            "Approve against realized value, while retaining gross time released as a diagnostic measure.",
         },
       },
       {
         heading: "How to include implementation, software and internal costs",
         body: [
           "Count costs over the same period as benefits. [Vladislav Ioanno](https://vladislavioanno.com/blog/calculate-ai-automation-roi) identifies one-time implementation alongside recurring model, infrastructure, monitoring and review costs, and recommends stress-testing a delay scenario.",
-          "For a UK business, cost drivers commonly include scope, data readiness, integration complexity and organisational change requirements, as set out by [Helium42](https://helium42.com/blog/ai-business-case-roi). Internationally, the categories remain useful, but procurement, data-protection and employment-cost treatment should be checked locally.",
+          "For a UK business, cost drivers commonly include scope, data readiness, integration complexity and organizational change requirements, as set out by [Helium42](https://helium42.com/blog/ai-business-case-roi). Internationally, the categories remain useful, but procurement, data-protection and employment-cost treatment should be checked locally.",
         ],
         sectionNumber: "04",
         lede:
-          "A low subscription price can still sit inside a high-cost change programme.",
+          "A low subscription price can still sit inside a high-cost change program.",
         leadStyle: "drop-cap",
         variant: "signal",
         comparisonTable: {
@@ -24975,16 +24975,16 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "AI automation is the use of AI within a workflow to interpret information, make bounded judgements or generate a useful next action before systems carry out routine steps. For a business owner, its value is usually {{accent:less manual handling at repeatable decision points}}, not automation for its own sake.",
-          "Unlike fixed-rule automation, it can work with less structured inputs such as emails, calls, documents and customer enquiries. That flexibility also makes **clear guardrails, testing and human ownership** essential before a workflow reaches customers, staff records or commercially important decisions.",
-          "This guide uses the UK as its primary commercial and regulatory lens. Silverstone AI is UK-based and serves UK and international clients; the practical principles here generalise internationally, while sector rules, contracts and data obligations should always be checked locally.",
+          "AI automation is the use of AI within a workflow to interpret information, make bounded judgments or generate a useful next action before systems carry out routine steps. For a business owner, its value is usually {{accent:less manual handling at repeatable decision points}}, not automation for its own sake.",
+          "Unlike fixed-rule automation, it can work with less structured inputs such as emails, calls, documents and customer inquiries. That flexibility also makes **clear guardrails, testing and human ownership** essential before a workflow reaches customers, staff records or commercially important decisions.",
+          "This guide uses the UK as its primary commercial and regulatory lens. Silverstone AI is UK-based and serves UK and international clients; the practical principles here generalize internationally, while sector rules, contracts and data obligations should always be checked locally.",
         ],
       },
       {
         heading: "What AI automation means in a business context",
         body: [
-          "A conventional workflow follows a prewritten path: if a form field equals a value, send an email or create a task. AI automation adds an interpretation layer. It may classify an enquiry, extract details from a document, draft a response or route work according to context. The resulting action should still be constrained by **approved business rules**.",
-          "The direct answer is simple: use it where people repeatedly read, sort, summarise or prepare information before completing a predictable process. Guidance on AI-enabled business transformation points to high-volume, repetitive work and data governance as sensible starting considerations. ==The aim is a more reliable operating flow, not a replacement for accountable management.==",
+          "A conventional workflow follows a prewritten path: if a form field equals a value, send an email or create a task. AI automation adds an interpretation layer. It may classify an inquiry, extract details from a document, draft a response or route work according to context. The resulting action should still be constrained by **approved business rules**.",
+          "The direct answer is simple: use it where people repeatedly read, sort, summarize or prepare information before completing a predictable process. Guidance on AI-enabled business transformation points to high-volume, repetitive work and data governance as sensible starting considerations. ==The aim is a more reliable operating flow, not a replacement for accountable management.==",
           "A useful boundary is {{underline:AI proposes or interprets; the workflow executes within permission}}. For critical outcomes, a person should be able to *review, override or stop* the process.",
         ],
         sectionNumber: "01",
@@ -25028,8 +25028,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "How AI automation differs from standard automation",
         body: [
-          "Standard automation is usually the better fit when every input is structured and every route is known. AI becomes relevant when the process begins with natural language, inconsistent documents or a judgement that can be safely bounded. *It is not automatically the better technology simply because AI is available.*",
-          "For example, a rule can move a completed web form into a CRM. An AI-assisted step may first identify whether a free-text enquiry is a sales lead, support request or supplier message, then send it to the appropriate queue. In both cases, **the process owner remains responsible for the outcome**.",
+          "Standard automation is usually the better fit when every input is structured and every route is known. AI becomes relevant when the process begins with natural language, inconsistent documents or a judgment that can be safely bounded. *It is not automatically the better technology simply because AI is available.*",
+          "For example, a rule can move a completed web form into a CRM. An AI-assisted step may first identify whether a free-text inquiry is a sales lead, support request or supplier message, then send it to the appropriate queue. In both cases, **the process owner remains responsible for the outcome**.",
         ],
         sectionNumber: "02",
         lede: "The difference is not magic; it is how the workflow handles ambiguity.",
@@ -25083,7 +25083,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The main components of an AI automation workflow",
         body: [
-          "The most useful design question is not “Which AI should we use?” but “Where does a reliable hand-off fail today?” Map the current journey before changing it. [Silverstone AI](/services/ai-automation) publishes information about bespoke AI workflow and automation delivery for organisations considering a supported implementation.",
+          "The most useful design question is not “Which AI should we use?” but “Where does a reliable hand-off fail today?” Map the current journey before changing it. [Silverstone AI](/services/ai-automation) publishes information about bespoke AI workflow and automation delivery for organizations considering a supported implementation.",
           "Use this five-part frame to turn an idea into a testable design. {{chip:idea|Working idea}} Keep each component visible to the person who owns the workflow, rather than hiding the logic inside a technical build.",
         ],
         sectionNumber: "03",
@@ -25094,7 +25094,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             body:
-              "A new enquiry, document, call summary, record change or scheduled event begins the flow.",
+              "A new inquiry, document, call summary, record change or scheduled event begins the flow.",
             title: "1. Trigger",
           },
           {
@@ -25104,7 +25104,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "A narrow instruction classifies, extracts, summarises or drafts within a defined scope.",
+              "A narrow instruction classifies, extracts, summarizes or drafts within a defined scope.",
             title: "3. AI task",
           },
           {
@@ -25155,7 +25155,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Where AI automation tends to help most",
         body: [
           "Useful early examples include:",
-          "- **Enquiry triage:** classify incoming requests and prepare the right team’s next task.\n- **Document intake:** extract agreed fields for staff verification rather than rekeying.\n- **Follow-up preparation:** draft a contextual response or reminder for approval.\n- **Knowledge routing:** direct a question to the maintained source or accountable specialist.",
+          "- **Inquiry triage:** classify incoming requests and prepare the right team’s next task.\n- **Document intake:** extract agreed fields for staff verification rather than rekeying.\n- **Follow-up preparation:** draft a contextual response or reminder for approval.\n- **Knowledge routing:** direct a question to the maintained source or accountable specialist.",
           "For a focused discovery discussion, [arrange a conversation](/book#booking-calendar). If the issue is broader operating design rather than a single process, [AI consulting](/services/ai-consulting) may be the more appropriate starting point.",
         ],
         sectionNumber: "04",
@@ -25275,7 +25275,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           options: ["Good pilot candidate", "Needs redesign first"],
           rows: [
             {
-              cells: ["Frequent, recognisable task", "Rare or highly bespoke task"],
+              cells: ["Frequent, recognizable task", "Rare or highly bespoke task"],
               criterion: "Repeated volume",
               weight: "High",
             },
@@ -25443,8 +25443,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     subtitle:
       "A practical UK framework for trade firms to triage missed calls, ask the right questions and keep safety, pricing and dispatch under human control.",
     summary: [
-      "Calling back quickly matters less than calling back with enough context to route the enquiry properly.",
-      "Trade firms should check source, service area and likely job type before dialling, then collect only the brief needed for the next decision.",
+      "Calling back quickly matters less than calling back with enough context to route the inquiry properly.",
+      "Trade firms should check source, service area and likely job type before dialing, then collect only the brief needed for the next decision.",
       "Safety, pricing and dispatch should stay under qualified human control with a clear owner, escalation path and stop condition.",
     ],
     categoryLabel: "Trades & Home Services",
@@ -25461,7 +25461,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Bright editorial scene showing a UK trades missed-call workflow moving from incoming call to postcode, urgency band, callback brief and human escalation point.",
     metaTitle: "Missed Trade Call Recovery | Silverstone AI",
     metaDescription:
-      "Learn what to ask before calling back a missed trade enquiry, with a UK triage framework for service area, urgency and handoff control.",
+      "Learn what to ask before calling back a missed trade inquiry, with a UK triage framework for service area, urgency and handoff control.",
     primaryKeyword: "what to ask after a missed trade call before calling back",
     secondaryKeywords: [
       "missed trade call callback questions",
@@ -25474,7 +25474,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "“We missed the call — what should we ask before we ring them back?”\n\nIf you run a plumbing, electrical, heating, roofing or general trades business in the UK, that question matters more than most owners admit. A fast callback helps, but speed on its own can waste time, misroute jobs and create avoidable risk.\n\nThe better approach is simple: know what you already know before you dial, ask only what moves the decision forward, and keep clear boundaries around safety, price and dispatch. That is where a workable missed-call process earns its keep.\n\nSilverstone AI helps UK service businesses design practical AI and automation workflows around real operational decisions, not vague “efficiency” promises. For trades, that means a callback process with a clear source of truth, a named human owner, an escalation path and a stop condition when the job needs qualified judgement.",
+          "“We missed the call — what should we ask before we ring them back?”\n\nIf you run a plumbing, electrical, heating, roofing or general trades business in the UK, that question matters more than most owners admit. A fast callback helps, but speed on its own can waste time, misroute jobs and create avoidable risk.\n\nThe better approach is simple: know what you already know before you dial, ask only what moves the decision forward, and keep clear boundaries around safety, price and dispatch. That is where a workable missed-call process earns its keep.\n\nSilverstone AI helps UK service businesses design practical AI and automation workflows around real operational decisions, not vague “efficiency” promises. For trades, that means a callback process with a clear source of truth, a named human owner, an escalation path and a stop condition when the job needs qualified judgment.",
         ],
       },
       {
@@ -25482,14 +25482,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "The common myth is that the first priority is simply to ring back as quickly as possible. In reality, the first priority is to ring back with enough context to avoid confusion.",
           "Before anyone calls, check what the business already holds. That may include the incoming number, the page or advert source, any website form, the postcode, previous customer history, notes from an earlier job, or a voicemail left outside hours.",
-          "If the caller came from a website enquiry, paid advert or tracked number, that source helps frame the callback. A blocked drain request is not the same as a boiler service query, and neither should land in the same script.",
-          "For many UK trades, the callback owner should be able to answer four questions before dialling:",
+          "If the caller came from a website inquiry, paid advert or tracked number, that source helps frame the callback. A blocked drain request is not the same as a boiler service query, and neither should land in the same script.",
+          "For many UK trades, the callback owner should be able to answer four questions before dialing:",
           "- Where did the lead come from?",
           "- Is the postcode inside the active service area?",
           "- What job type is most likely from the available evidence?",
           "- Is there anything already logged that changes how this should be handled?",
           "That is not overengineering. It is basic triage.",
-          "When firms skip this step, they often ask the customer to repeat information already provided. That slows the call, irritates the caller and makes the business appear less organised than it is.",
+          "When firms skip this step, they often ask the customer to repeat information already provided. That slows the call, irritates the caller and makes the business appear less organized than it is.",
         ],
         lede:
           "A rapid callback is useful. An uninformed callback often creates a second avoidable call.",
@@ -25522,14 +25522,14 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
       },
       {
-        heading: "Reality: check source, service area and job type before dialling",
+        heading: "Reality: check source, service area and job type before dialing",
         body: [
           "A missed call is not yet a booked job. It is an open item that needs qualification. The smartest first move is a quick pre-call scan.",
           "For UK trade operators, the practical order is usually:",
-          "1. Confirm the source of the enquiry.",
+          "1. Confirm the source of the inquiry.",
           "2. Check whether the postcode sits within the current service area.",
           "3. Identify the likely job type from any available evidence.",
-          "The source matters because it tells you what promise the caller may think they responded to. A website visitor may expect a general callback. A local ad caller may think you offer immediate attendance. A returning customer may expect you to recognise the property and prior work.",
+          "The source matters because it tells you what promise the caller may think they responded to. A website visitor may expect a general callback. A local ad caller may think you offer immediate attendance. A returning customer may expect you to recognize the property and prior work.",
           "Service area matters because there is no point pushing a long callback on work you do not cover. If your business only serves selected parts of the Midlands, the South East or a defined radius around your base, establish that before discussing attendance.",
           "Job type matters because it determines ownership. A routine quote request can often follow one path. A possible urgent issue may need faster human review. A safety-critical matter should stop the normal workflow and move to a qualified person immediately.",
           "Silverstone AI typically frames this as a controlled intake problem rather than a pure phone problem. The phone call is just one input. The source of truth might be your CRM, job management system, diary, website form stack or a shared operations board. The callback process should read from that source rather than rely on memory.",
@@ -25543,7 +25543,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Myth: you should ask every question on the callback",
         body: [
-          "Many firms overcorrect once they realise a callback needs structure. They build a huge question list and expect every caller to work through it.",
+          "Many firms overcorrect once they realize a callback needs structure. They build a huge question list and expect every caller to work through it.",
           "That usually backfires. The aim of the callback is not to complete an entire survey. It is to gather the brief needed for the next decision.",
           "That means you do not need full technical detail, a final diagnosis, a binding price or a confirmed attendance slot on the first callback unless your process genuinely supports that.",
           "A practical first callback brief often needs only:",
@@ -25555,8 +25555,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Timing expectation from the customer",
           "- Any obvious access or occupancy constraint",
           "Beyond that, extra questions should only be asked when they change the next action.",
-          "For example, a landlord certificate enquiry may need different routing from a no-hot-water report. A gutter repair request may need photos later, but not necessarily during the first missed-call callback. A suspected electrical fault may need an immediate human escalation rather than a longer script.",
-          "The strongest operators build a short brief for stage one, then let the right person handle stage two. That keeps admin light while preserving professional judgement where it belongs.",
+          "For example, a landlord certificate inquiry may need different routing from a no-hot-water report. A gutter repair request may need photos later, but not necessarily during the first missed-call callback. A suspected electrical fault may need an immediate human escalation rather than a longer script.",
+          "The strongest operators build a short brief for stage one, then let the right person handle stage two. That keeps admin light while preserving professional judgment where it belongs.",
         ],
         lede:
           "Long qualification calls feel thorough. They often block the next useful action.",
@@ -25573,7 +25573,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Is this routine, urgent or potentially safety-critical?",
           "- Does it need photos, a site visit or a specialist callback?",
           "- Who owns the next step?",
-          "This is where bounded automation can help. For example, a missed-call workflow can prepare a callback-ready brief from known fields, prompt for the missing essentials and then hand the item to a named human owner. Silverstone AI builds these kinds of controlled workflows so teams can standardise intake without pretending that every decision should be automated.",
+          "This is where bounded automation can help. For example, a missed-call workflow can prepare a callback-ready brief from known fields, prompt for the missing essentials and then hand the item to a named human owner. Silverstone AI builds these kinds of controlled workflows so teams can standardize intake without pretending that every decision should be automated.",
           "The human owner matters. Someone should be responsible for the next decision, whether that is the office manager, dispatcher, estimator or trade lead.",
           "The stop condition matters too. If the issue sounds outside scope, outside area, or potentially unsafe, the normal callback flow should stop and escalate rather than continue with a routine script.",
         ],
@@ -25594,8 +25594,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Trade businesses often get caught between two bad options: treating everything as urgent, or dismissing too much as routine. Both create problems.",
           "The fix is to separate the language of routing from the language of diagnosis.",
-          "A callback process can safely classify an enquiry into broad handling bands without claiming what the problem is. For example:",
-          "- Routine: general quote requests, non-urgent maintenance, standard servicing enquiries",
+          "A callback process can safely classify an inquiry into broad handling bands without claiming what the problem is. For example:",
+          "- Routine: general quote requests, non-urgent maintenance, standard servicing inquiries",
           "- Urgent: time-sensitive operational issues that may need quick review or attendance decisions",
           "- Safety-critical: situations that should be escalated immediately to a qualified person with an explicit stop to normal scripting",
           "Notice what is missing there: technical conclusions. The process is not deciding the fault. It is deciding the handling path.",
@@ -25608,7 +25608,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Reality: separate routine, urgent and safety-critical wording safely",
         body: [
-          "Safe wording is simple and specific. It tells the team what to do next and where human judgement must take over.",
+          "Safe wording is simple and specific. It tells the team what to do next and where human judgment must take over.",
           "Useful wording patterns include:",
           "- Routine: 'Customer requests callback regarding quote or planned work.'",
           "- Urgent: 'Customer reports issue affecting use of service; review promptly for next-step decision.'",
@@ -25619,7 +25619,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- The named human owner for each urgency band",
           "- The escalation path for exceptions",
           "- The stop condition where normal handling must end",
-          "For UK operators considering tools such as [AI receptionists](/services/ai-receptionists) or more tailored workflow design, this boundary-setting is more important than the technology itself. The system should support staff judgement, not blur it.",
+          "For UK operators considering tools such as [AI receptionists](/services/ai-receptionists) or more tailored workflow design, this boundary-setting is more important than the technology itself. The system should support staff judgment, not blur it.",
           "If you want a broader view of how this fits into modern trade operations, see [how trades websites and AI automation can work together](/blog/trades-websites-ai-automation).",
         ],
         lede: "The wording should guide the next action, not overstate certainty.",
@@ -25633,7 +25633,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Caller name if known",
           "- Primary contact number",
           "- Postcode or service location",
-          "- Enquiry source",
+          "- Inquiry source",
           "- Known customer status: new, existing or unknown",
           "- Likely job type",
           "- Customer-stated issue summary",
@@ -25662,7 +25662,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Escalation path",
             body:
-              "Define where urgent or safety-critical enquiries go when routine intake is no longer appropriate.",
+              "Define where urgent or safety-critical inquiries go when routine intake is no longer appropriate.",
           },
           {
             label: "Stop condition",
@@ -25677,7 +25677,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "What should a trade business check before calling back a missed caller?",
         answer:
-          "Check the enquiry source, postcode or service area, likely job type, any voicemail or form details, and whether the customer already exists in your system. Those checks help you decide whether to call, who should call and what can be said safely.",
+          "Check the inquiry source, postcode or service area, likely job type, any voicemail or form details, and whether the customer already exists in your system. Those checks help you decide whether to call, who should call and what can be said safely.",
       },
       {
         question: "How many questions should you ask on a missed-call callback?",
@@ -25687,13 +25687,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can AI handle missed-call recovery for trades businesses?",
         answer:
-          "AI can support parts of the process such as capturing context, preparing a brief, routing enquiries and prompting staff. It should not be treated as unsupervised decision-making for safety, pricing or dispatch. Human ownership and escalation rules still matter.",
+          "AI can support parts of the process such as capturing context, preparing a brief, routing inquiries and prompting staff. It should not be treated as unsupervised decision-making for safety, pricing or dispatch. Human ownership and escalation rules still matter.",
       },
       {
         question:
           "What is the difference between urgent and safety-critical in a trade callback process?",
         answer:
-          "Urgent means the issue may need prompt review because it affects use, timing or operations. Safety-critical means the report should immediately move out of routine handling and to a qualified person. The callback process should route the enquiry, not diagnose the fault.",
+          "Urgent means the issue may need prompt review because it affects use, timing or operations. Safety-critical means the report should immediately move out of routine handling and to a qualified person. The callback process should route the inquiry, not diagnose the fault.",
       },
     ],
     internalLinks: [
@@ -25822,7 +25822,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What an AI agent is in a business workflow",
         body: [
           "In practical terms, an agent combines a model, tools, data sources and an orchestration layer to interpret context, choose or recommend a next action, and record what happened. [GOV.UK](https://www.gov.uk/government/publications/agentic-ai-and-consumers/agentic-ai-and-consumers) notes that current business deployment is primarily **bounded and controlled**.",
-          "Use an agent where inputs are messy, context sits across systems and a judgement is needed. Use conventional automation where inputs are structured and the same rule should always produce the same outcome. [Appian](https://appian.com/learn/topics/enterprise-ai/ai-agent-use-cases) makes this distinction explicit.",
+          "Use an agent where inputs are messy, context sits across systems and a judgment is needed. Use conventional automation where inputs are structured and the same rule should always produce the same outcome. [Appian](https://appian.com/learn/topics/enterprise-ai/ai-agent-use-cases) makes this distinction explicit.",
         ],
         sectionNumber: "01",
         lede:
@@ -25840,7 +25840,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               term: "Trigger",
               definition:
-                "The event that starts the workflow, such as a submitted enquiry or an exception queue.",
+                "The event that starts the workflow, such as a submitted inquiry or an exception queue.",
             },
             {
               term: "Tool",
@@ -25859,8 +25859,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Choose one bounded use case before selecting tools",
         body: [
-          "Prioritise a workflow with a known owner, a repeatable trigger and an existing baseline. An agent can recommend an outcome before it executes one; that is often the right first production boundary.",
-          "A useful first-use-case test is deliberately demanding:\n\n- **Known trigger:** the task begins from a recognisable event, document, request or queue.\n- Meaningful judgement: the work needs context or reasoning rather than a fixed rule lookup.\n- Approved action: the next action occurs only through known tools, permissions and thresholds.\n- Safe exception path: a person can review uncertainty, high-impact cases or missing information.\n- Measurable baseline: compare time, quality, rework or conversion with the current process.\n\nThese characteristics reflect the workflow conditions described by [Appian](https://appian.com/learn/topics/enterprise-ai/ai-agent-use-cases). For a delivery overview, see [AI automation](/services/ai-automation) and [how we work](/how-we-work).",
+          "Prioritize a workflow with a known owner, a repeatable trigger and an existing baseline. An agent can recommend an outcome before it executes one; that is often the right first production boundary.",
+          "A useful first-use-case test is deliberately demanding:\n\n- **Known trigger:** the task begins from a recognizable event, document, request or queue.\n- Meaningful judgment: the work needs context or reasoning rather than a fixed rule lookup.\n- Approved action: the next action occurs only through known tools, permissions and thresholds.\n- Safe exception path: a person can review uncertainty, high-impact cases or missing information.\n- Measurable baseline: compare time, quality, rework or conversion with the current process.\n\nThese characteristics reflect the workflow conditions described by [Appian](https://appian.com/learn/topics/enterprise-ai/ai-agent-use-cases). For a delivery overview, see [AI automation](/services/ai-automation) and [how we work](/how-we-work).",
         ],
         sectionNumber: "02",
         lede: "The first win should be narrow enough to observe, reverse and improve.",
@@ -25869,13 +25869,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             body:
-              "The task begins from a recognisable event, document, request or queue.",
+              "The task begins from a recognizable event, document, request or queue.",
             label: "Clear input",
           },
           {
             body:
               "The work needs context or reasoning rather than a fixed rule lookup.",
-            label: "Meaningful judgement",
+            label: "Meaningful judgment",
           },
           {
             body:
@@ -25896,7 +25896,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             body:
-              "**Enquiry triage** that gathers approved information, suggests routing and leaves final acceptance with a team member.",
+              "**Inquiry triage** that gathers approved information, suggests routing and leaves final acceptance with a team member.",
             title: "Good first candidate",
           },
           {
@@ -25987,7 +25987,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Set data, system and approval boundaries early",
         body: [
           "Give the agent the minimum access needed for its stated job. Critical information should come from approved, authoritative sources rather than generated text. The [FINOS AI Governance Framework](https://air-governance-framework.finos.org/single-page.html) highlights cross-reference checks, timestamps, stale-data detection and source distinction.",
-          "For UK organisations, this is general operational guidance rather than legal advice. The UK approach is principles-based and context-specific; organisations operating internationally should also assess applicable local and EU requirements. [The Law Society](https://www.lawsociety.org.uk/topics/ai-and-lawtech/generative-ai-the-essentials) notes that EU business activity can matter.",
+          "For UK organizations, this is general operational guidance rather than legal advice. The UK approach is principles-based and context-specific; organizations operating internationally should also assess applicable local and EU requirements. [The Law Society](https://www.lawsociety.org.uk/topics/ai-and-lawtech/generative-ai-the-essentials) notes that EU business activity can matter.",
         ],
         sectionNumber: "04",
         variant: "signal",
@@ -26030,7 +26030,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Build, test and monitor the first agent safely",
         body: [
           "1. Test against historical or representative cases before live use.\n2. Review incorrect, uncertain and escalated outputs with the process owner.\n3. Release to a limited queue with human approval where needed.\n4. Monitor actions, failures, source freshness and override reasons.\n5. Pause or narrow the route when controls no longer hold.",
-          "Use a {{chip:proof|Reviewable trail}} for every action path, and a {{chip:warning|Stop condition}} for unexpected behaviour or boundary breaches. ==A limited production route is evidence gathering, not a guarantee of scale.==",
+          "Use a {{chip:proof|Reviewable trail}} for every action path, and a {{chip:warning|Stop condition}} for unexpected behavior or boundary breaches. ==A limited production route is evidence gathering, not a guarantee of scale.==",
         ],
         sectionNumber: "05",
         variant: "system",
@@ -26296,22 +26296,22 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "Better AI prompts are not clever questions; they are **compact operating briefs**. State the job, audience, context, boundaries and required format, then test the result against a defined standard. That approach makes output more useful, reviewable and repeatable across business teams.",
-          "Silverstone AI is the publisher, is UK-based, and serves clients in the UK and internationally. For UK businesses, prompt design should sit alongside internal data, approval and risk practices; the clarity and testing principles in this guide generalise internationally.",
+          "Silverstone AI is the publisher, is UK-based, and serves clients in the UK and internationally. For UK businesses, prompt design should sit alongside internal data, approval and risk practices; the clarity and testing principles in this guide generalize internationally.",
         ],
       },
       {
         heading: "What a better prompt is actually trying to achieve",
         body: [
-          "The direct answer is simple: write prompts as if briefing a capable colleague who cannot see your context. **Specific instructions and relevant context** help steer output towards the intended task, while clear boundaries make it easier for a person to review what comes back.",
+          "The direct answer is simple: write prompts as if briefing a capable colleague who cannot see your context. **Specific instructions and relevant context** help steer output toward the intended task, while clear boundaries make it easier for a person to review what comes back.",
           "A prompt should create a {{accent:repeatable decision path}}, not merely a one-off answer. The useful question is not “Did it sound convincing?” but “Can the right person verify, amend or reuse it?” [Harvard HUIT guidance](https://www.huit.harvard.edu/news/ai-prompts) and [ICAS guidance](https://www.icas.com/news-insights-events/news/ai-technology/writing-effective-ai-prompts) both support being specific about the request and its context.",
-          "For organisations deciding where prompt practice fits into a wider operating model, [AI consulting](/services/ai-consulting) can help connect task design, governance and implementation choices.",
+          "For organizations deciding where prompt practice fits into a wider operating model, [AI consulting](/services/ai-consulting) can help connect task design, governance and implementation choices.",
         ],
         sectionNumber: "01",
         lede: "A good prompt reduces ambiguity before the model starts generating.",
         leadStyle: "lead",
         callout: {
           body: [
-            "A **better prompt** tells the AI what to do, for whom, with what inputs, within which limits, and in what output shape. It does not remove the need for human judgement.",
+            "A **better prompt** tells the AI what to do, for whom, with what inputs, within which limits, and in what output shape. It does not remove the need for human judgment.",
           ],
           tone: "answer",
           title: "The working definition",
@@ -26336,7 +26336,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               definition: "The test used to decide whether an output is usable.",
             },
           ],
-          title: "Prompt terms worth standardising",
+          title: "Prompt terms worth standardizing",
         },
         entityLinks: [
           {
@@ -26359,7 +26359,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             body:
-              "Use an action and an outcome: summarise, compare, draft, classify or plan.",
+              "Use an action and an outcome: summarize, compare, draft, classify or plan.",
             title: "Task",
           },
           {
@@ -26496,7 +26496,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Common prompt failures and how to fix them",
         body: [
-          "When an answer is generic, inconsistent or unusable, first inspect the instruction. **More detail is not automatically better**: relevant detail, a requested format and a clear test are more valuable than a long, unfocused prompt. Salesforce and Harvard HUIT both emphasise specificity and context.",
+          "When an answer is generic, inconsistent or unusable, first inspect the instruction. **More detail is not automatically better**: relevant detail, a requested format and a clear test are more valuable than a long, unfocused prompt. Salesforce and Harvard HUIT both emphasize specificity and context.",
           "Use this quick diagnosis before changing a workflow or tool. {{underline:Fix the missing instruction, then rerun the same test case.}} That isolates whether the improvement came from the prompt rather than from different input material.",
         ],
         sectionNumber: "05",
@@ -26548,7 +26548,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         callout: {
           body: [
-            "{{chip:warning|Review required}} Prompts can carry confidential or personal information. Follow your organisation’s approved data-handling rules and obtain appropriate advice for regulated, legal or high-impact decisions. This guide is general information, not legal advice.",
+            "{{chip:warning|Review required}} Prompts can carry confidential or personal information. Follow your organization’s approved data-handling rules and obtain appropriate advice for regulated, legal or high-impact decisions. This guide is general information, not legal advice.",
           ],
           tone: "caution",
           title: "UK business caution",
@@ -26558,7 +26558,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "How to test and improve prompts over time",
         body: [
           "Treat prompts used in business processes as working assets. **Test against representative cases**, record what changed and retain a human approval point where the output matters. AI.gov.uk recommends experimenting with prompts; that supports a measured cycle of trial, review and refinement rather than assuming a first draft is final.",
-          "A practical test compares outputs against the same brief. ==Consistency across a small set of realistic cases== is more useful than judging a single impressive response. *Model behaviour and product settings can change*, so review important prompt patterns when the workflow, source material or risk level changes.",
+          "A practical test compares outputs against the same brief. ==Consistency across a small set of realistic cases== is more useful than judging a single impressive response. *Model behavior and product settings can change*, so review important prompt patterns when the workflow, source material or risk level changes.",
           "For adjacent implementation reading, see the [AI automation consulting guide](/blog/ai-automation-consulting-guide) and the [workflow automation selection guide](/blog/workflow-automation-selection-guide). If a tested prompt will be connected to systems or processes, compare [AI automation options](/services/ai-automation) and [pricing](/pricing); review [how we work](/how-we-work) where delivery scope needs clarification.",
         ],
         sectionNumber: "06",
@@ -26814,7 +26814,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Why WISMO is rarely the cheapest automation to launch first",
         body: [
-          "WISMO means *where is my order?* It seems like an obvious automation candidate because the question is common. But common is not the same as easy. A useful answer has to pull the latest order state, match it to fulfilment reality and present it in language the customer can trust.",
+          "WISMO means *where is my order?* It seems like an obvious automation candidate because the question is common. But common is not the same as easy. A useful answer has to pull the latest order state, match it to fulfillment reality and present it in language the customer can trust.",
           "That is why **first-workflow cost** usually tracks the number of systems and exceptions, not the number of tickets alone. If the bot or flow cannot determine a safe answer, it needs to stop, route and expose the case to a person quickly.",
           "Before treating WISMO as the lowest-cost starting point, check whether another flow has fewer moving parts, such as a basic self-serve FAQ, order amendment cut-off explanation or helpdesk triage. Silverstone AI usually frames WISMO as a **data-and-governance project** as much as a service automation project.",
           "A sensible buyer should ask three questions first:\n- What system is the **source of truth** for order status?\n- Who owns exceptions when carrier and warehouse states disagree?\n- When must the workflow stop and hand over rather than continue guessing?",
@@ -26870,7 +26870,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "The cost drivers buyers underestimate in a first delivery-status workflow",
         body: [
-          "The underestimated cost drivers are usually hidden in workflow design sessions, not in the initial brief. A brand asks for automated status answers; the build team discovers partial shipments, delayed scans, split fulfilment, pre-orders, manual dispatches and customers contacting support before the carrier feed updates.",
+          "The underestimated cost drivers are usually hidden in workflow design sessions, not in the initial brief. A brand asks for automated status answers; the build team discovers partial shipments, delayed scans, split fulfillment, pre-orders, manual dispatches and customers contacting support before the carrier feed updates.",
           "A practical way to assess cost is to break the workflow into layers.",
           "Typical cost drivers include:\n1. Mapping every order state from checkout to delivery.\n2. Connecting the helpdesk or front end to the authoritative data source.\n3. Writing rules for ambiguous or conflicting states.\n4. Designing fallback language that is clear but does not create a false delivery promise.\n5. Routing unresolved cases to the right human owner with enough context to act.",
         ],
@@ -26880,7 +26880,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             body:
-              "A brand with one fulfilment route and consistent scan data can often scope a tighter first release.",
+              "A brand with one fulfillment route and consistent scan data can often scope a tighter first release.",
             label: "Single carrier is simpler",
             icon: "idea",
           },
@@ -26939,7 +26939,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               value: "First release",
               label: "beats broad rollout",
               detail:
-                "The cheapest safe launch is usually a bounded first workflow, not an all-channel automation programme.",
+                "The cheapest safe launch is usually a bounded first workflow, not an all-channel automation program.",
               tone: "cost",
             },
           ],
@@ -27158,7 +27158,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           items: [
             {
               label: "Source of truth named",
-              detail: "Which system is authoritative for order and fulfilment status?",
+              detail: "Which system is authoritative for order and fulfillment status?",
             },
             {
               label: "Human owner assigned",
@@ -27355,7 +27355,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "Choose **Zapier for rapid, low-code automation across familiar SaaS tools**; choose **n8n when bespoke logic, self-hosting or deeper technical control matter more**. The right answer depends less on feature lists than on who will own, monitor and change the workflow after launch.",
-          "For UK decision-makers, the key distinction is operational: cloud convenience versus configurable control. Silverstone AI is UK-based and serves UK and international clients, using UK commercial and regulatory expectations as the primary lens while recognising that data, governance and delivery questions generalise across markets.",
+          "For UK decision-makers, the key distinction is operational: cloud convenience versus configurable control. Silverstone AI is UK-based and serves UK and international clients, using UK commercial and regulatory expectations as the primary lens while recognizing that data, governance and delivery questions generalize across markets.",
         ],
       },
       {
@@ -27388,7 +27388,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "Where data travels, who can alter flows and what evidence the organisation needs for oversight.",
+              "Where data travels, who can alter flows and what evidence the organization needs for oversight.",
             title: "Governance",
           },
         ],
@@ -27411,11 +27411,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What each platform is designed to do",
         body: [
           "Zapier is commonly positioned for accessible, rapid automations, particularly where teams use established SaaS products and value templates. [n8n](https://n8n.io/vs/zapier) positions itself around flexible workflow building, code where needed and a community-supported ecosystem.",
-          "That makes the practical choice less about whether either tool can connect two systems, and more about whether the process is **repeatable and standardised** or ==requires tailored orchestration==. *A simple workflow can still be business-critical*, so simplicity is not a reason to skip testing.",
+          "That makes the practical choice less about whether either tool can connect two systems, and more about whether the process is **repeatable and standardized** or ==requires tailored orchestration==. *A simple workflow can still be business-critical*, so simplicity is not a reason to skip testing.",
         ],
         sectionNumber: "02",
         lede:
-          "The platforms overlap on automation, but they optimise for different kinds of builder.",
+          "The platforms overlap on automation, but they optimize for different kinds of builder.",
         leadStyle: "drop-cap",
         variant: "system",
         comparisonTable: {
@@ -27429,7 +27429,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Primary fit",
             },
             {
-              cells: ["Flexible logic and customisation", "Templates and approachable setup"],
+              cells: ["Flexible logic and customization", "Templates and approachable setup"],
               label: "Workflow approach",
             },
             {
@@ -27554,7 +27554,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "List the application, data fields, authentication method and failure behaviour that create the most uncertainty.",
+              "List the application, data fields, authentication method and failure behavior that create the most uncertainty.",
             title: "Identify the awkward connection",
             label: "2",
           },
@@ -27582,8 +27582,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Security, governance and operational considerations",
         body: [
-          "Self-hosting can give an organisation more control over where and how a workflow runs; cloud-only delivery can simplify infrastructure management. Neither description answers your complete risk question. **Data categories, access controls, suppliers, retention, audit needs and incident ownership** all need checking in your own context.",
-          "These questions generalise internationally, although applicable privacy, sector and contractual requirements differ by jurisdiction. *Do not infer compliance from hosting style alone.* For a broader selection method, see [our workflow automation selection guide](/blog/workflow-automation-selection-guide) and [AI automation consulting guide](/blog/ai-automation-consulting-guide).",
+          "Self-hosting can give an organization more control over where and how a workflow runs; cloud-only delivery can simplify infrastructure management. Neither description answers your complete risk question. **Data categories, access controls, suppliers, retention, audit needs and incident ownership** all need checking in your own context.",
+          "These questions generalize internationally, although applicable privacy, sector and contractual requirements differ by jurisdiction. *Do not infer compliance from hosting style alone.* For a broader selection method, see [our workflow automation selection guide](/blog/workflow-automation-selection-guide) and [AI automation consulting guide](/blog/ai-automation-consulting-guide).",
         ],
         sectionNumber: "05",
         lede:
@@ -27613,7 +27613,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Supplier review",
               detail:
-                "Check contractual and security information relevant to your organisation.",
+                "Check contractual and security information relevant to your organization.",
             },
           ],
           title: "Governance check before production",
@@ -27623,7 +27623,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               term: "Self-hosting",
               definition:
-                "Running the automation platform within infrastructure controlled by your organisation or its chosen provider.",
+                "Running the automation platform within infrastructure controlled by your organization or its chosen provider.",
             },
             {
               term: "Workflow owner",
@@ -27684,8 +27684,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         keyTakeaways: {
           items: [
-            "**Zapier favours speed and accessible SaaS automation.**",
-            "**n8n favours flexibility and a more technical operating model.**",
+            "**Zapier favors speed and accessible SaaS automation.**",
+            "**n8n favors flexibility and a more technical operating model.**",
             "Hosting is one input to governance, not a compliance conclusion.",
             "Test the workflow that can fail expensively, not the easiest demo.",
             "A named owner is a prerequisite for either platform.",
@@ -27931,15 +27931,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "To connect AI to your CRM safely, start with one bounded workflow, map the minimum data it needs, choose a controlled connection method, and keep a person accountable for consequential actions. **Do not begin with a broad ‘AI assistant’ brief.** Begin with a repeatable operational decision.",
-          "For UK organisations, personal data handling should be designed around data protection responsibilities from the outset. Silverstone AI is UK-based and serves UK and international clients; the control model below generalises internationally, while local legal duties and sector rules still need checking.",
+          "For UK organizations, personal data handling should be designed around data protection responsibilities from the outset. Silverstone AI is UK-based and serves UK and international clients; the control model below generalizes internationally, while local legal duties and sector rules still need checking.",
         ],
       },
       {
         heading: "What to define before connecting AI to your CRM",
         body: [
-          "The direct route is to select a narrow task such as preparing a lead summary, classifying an enquiry, or drafting a follow-up for approval. This creates a {{accent:bounded first workflow}} that can be inspected before it affects customer records.",
+          "The direct route is to select a narrow task such as preparing a lead summary, classifying an inquiry, or drafting a follow-up for approval. This creates a {{accent:bounded first workflow}} that can be inspected before it affects customer records.",
           "Write the operating brief in plain language. It should answer what starts the workflow, which records it may read, what it may produce, who approves changes, and what happens when information is missing. *A useful pilot is deliberately limited, not artificially clever.*",
-          "- Business trigger: Name the event that starts work, such as a new web enquiry or a changed deal stage.\n- Permitted action: State whether the workflow may only draft, may create a task, or may update a defined field.\n- Accountable owner: Assign a person who can review exceptions, change rules and stop the workflow.\n- Customer impact: Identify whether an incorrect output could alter contact, sales, service or marketing treatment.",
+          "- Business trigger: Name the event that starts work, such as a new web inquiry or a changed deal stage.\n- Permitted action: State whether the workflow may only draft, may create a task, or may update a defined field.\n- Accountable owner: Assign a person who can review exceptions, change rules and stop the workflow.\n- Customer impact: Identify whether an incorrect output could alter contact, sales, service or marketing treatment.",
           "UK teams using AI with personal data should treat data protection as a design concern, not a post-launch document. The supplied [UK AI and data protection overview](https://gdprlocal.com/ico-artificial-intelligence-navigating-ai-compliance-and-governance) identifies the ICO as the primary UK regulator in this area. This is **general implementation guidance, not legal advice**.",
         ],
         sectionNumber: "01",
@@ -27987,9 +27987,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Map the workflow, data fields and source of truth",
         body: [
           "Map the journey from trigger to final CRM outcome. [StackAI](https://www.stackai.com/insights/how-to-connect-ai-agents-to-salesforce-hubspot-and-other-crms-on-stackai)’s CRM integration pattern describes connecting an account, selecting an action, mapping fields, then adding guardrails and logging. ==The same pattern applies whether the connection is native, API-led or webhook-led.==",
-          "Use the CRM as the **source of truth for customer records** unless your organisation has formally defined another system for that purpose. The AI workflow may read a record and return a result, but it should not silently create competing versions of customer information.",
-          "1. List the trigger and the record identifier.\n2. Mark every input field as required, optional or prohibited.\n3. Define the AI output schema: for example `summary`, `confidence_reason` and `review_status`.\n4. Specify the CRM field, task or queue that receives each output.\n5. Record the retry, duplicate and failure behaviour.",
-          "Where data is sent outside the CRM, minimise it first. [Aalpha’s integration guidance](https://www.aalpha.net/blog/how-to-integrate-ai-agents-with-crm) recommends anonymising data before it reaches an LLM API and using secure authentication patterns. **Send the least data that can complete the task.**",
+          "Use the CRM as the **source of truth for customer records** unless your organization has formally defined another system for that purpose. The AI workflow may read a record and return a result, but it should not silently create competing versions of customer information.",
+          "1. List the trigger and the record identifier.\n2. Mark every input field as required, optional or prohibited.\n3. Define the AI output schema: for example `summary`, `confidence_reason` and `review_status`.\n4. Specify the CRM field, task or queue that receives each output.\n5. Record the retry, duplicate and failure behavior.",
+          "Where data is sent outside the CRM, minimize it first. [Aalpha’s integration guidance](https://www.aalpha.net/blog/how-to-integrate-ai-agents-with-crm) recommends anonymizing data before it reaches an LLM API and using secure authentication patterns. **Send the least data that can complete the task.**",
         ],
         sectionNumber: "02",
         lede:
@@ -28064,7 +28064,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         variant: "operator",
         callout: {
           body: [
-            "This guide assumes the CRM has an approved integration path and your organisation can assign an owner for credentials, logs and exception queues. If either is unclear, resolve it before production access.",
+            "This guide assumes the CRM has an approved integration path and your organization can assign an owner for credentials, logs and exception queues. If either is unclear, resolve it before production access.",
           ],
           tone: "assumption",
           title: "Assumption to test",
@@ -28146,8 +28146,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Test the workflow safely before go-live",
         body: [
-          "Use a controlled test set with representative but authorised records. Confirm that the workflow respects permissions, maps fields correctly, avoids duplicates and produces a useful audit trail. **Do not treat a successful demo as production evidence.**",
-          "Build test cases around real operational conditions: incomplete enquiries, duplicate contacts, unexpected language, stale records, permission denial and a paused downstream system. [Forcepoint’s accountability discussion](https://www.forcepoint.com/blog/insights/ai-compliance) supports documenting model logic, input/output chain of custody and role-based ownership.",
+          "Use a controlled test set with representative but authorized records. Confirm that the workflow respects permissions, maps fields correctly, avoids duplicates and produces a useful audit trail. **Do not treat a successful demo as production evidence.**",
+          "Build test cases around real operational conditions: incomplete inquiries, duplicate contacts, unexpected language, stale records, permission denial and a paused downstream system. [Forcepoint’s accountability discussion](https://www.forcepoint.com/blog/insights/ai-compliance) supports documenting model logic, input/output chain of custody and role-based ownership.",
           "A staged launch gives teams time to inspect outputs and revise rules. *The aim is not zero exceptions; it is controlled, observable handling of exceptions.*",
         ],
         sectionNumber: "05",
@@ -28224,7 +28224,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         keyTakeaways: {
           items: [
             "**Expand only when the existing workflow is useful, controlled and reviewable.**",
-            "Keep the CRM record authoritative and minimise transferred data.",
+            "Keep the CRM record authoritative and minimize transferred data.",
             "Maintain scoped access, logs, approvals and an exception owner.",
             "Use pilot evidence to decide the next workflow rather than broad ambition.",
           ],
@@ -28417,7 +28417,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "The direct answer: a focused UK workflow build can start at **£2,500**, while a fuller platform implementation may be **£8,500 or more**. That is only the build quote, however; a decision-ready budget also allows for discovery, integrations, adoption, technology and post-launch care.",
           "Use a proposal to understand *what is included*, not simply to compare totals. The right agency cost depends on workflow complexity, systems involved, data handling, launch support and the degree of change your team must absorb.",
-          "Silverstone AI publishes the article and is UK-based, serving clients in the UK and internationally. The UK is the primary commercial lens here; the budgeting method generalises internationally, although local tax, employment, data and supplier costs will differ.",
+          "Silverstone AI publishes the article and is UK-based, serving clients in the UK and internationally. The UK is the primary commercial lens here; the budgeting method generalizes internationally, although local tax, employment, data and supplier costs will differ.",
         ],
       },
       {
@@ -28450,12 +28450,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             body:
               "Monitoring, changes, adoption support and outcome review after go-live.",
-            title: "Optimisation and care",
+            title: "Optimization and care",
           },
         ],
         callout: {
           body: [
-            "Treat the build figure as **one line of a first-year operating budget**. A lower quote may still require substantial internal time, licences or support after launch.",
+            "Treat the build figure as **one line of a first-year operating budget**. A lower quote may still require substantial internal time, licenses or support after launch.",
           ],
           tone: "answer",
           title: "Budget decision",
@@ -28491,9 +28491,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The cost drivers that change agency pricing most",
         body: [
-          "The strongest cost drivers are **integration depth**, bespoke data or logic, compliance-sensitive handling, workflow exceptions and the rollout footprint. International guidance also separates small pilots, department-level engagements and enterprise programmes by scope.",
+          "The strongest cost drivers are **integration depth**, bespoke data or logic, compliance-sensitive handling, workflow exceptions and the rollout footprint. International guidance also separates small pilots, department-level engagements and enterprise programs by scope.",
           "Use this short diagnostic before asking for a fixed price:",
-          "1. Define one outcome, such as qualifying an enquiry or updating a CRM record.\n2. List every system, data source and approval point it touches.\n3. Identify exceptions that must be escalated to a person.\n4. Agree the evidence that would show the workflow is working.",
+          "1. Define one outcome, such as qualifying an inquiry or updating a CRM record.\n2. List every system, data source and approval point it touches.\n3. Identify exceptions that must be escalated to a person.\n4. Agree the evidence that would show the workflow is working.",
           "A workflow with a clear trigger and limited systems is usually easier to estimate than one spanning records, approvals and several teams. {{accent:Price the operating reality}} rather than an attractive demo.",
         ],
         sectionNumber: "02",
@@ -28529,7 +28529,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         callout: {
           body: [
-            "No supplied source provides a comprehensive UK-wide rate card. **Do not use the figures above as a guaranteed budget**, and do not assume a pilot price scales linearly to a multi-team programme.",
+            "No supplied source provides a comprehensive UK-wide rate card. **Do not use the figures above as a guaranteed budget**, and do not assume a pilot price scales linearly to a multi-team program.",
           ],
           tone: "caution",
           title: "Do not turn estimates into facts",
@@ -28563,7 +28563,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "What to include in a first-year budget, not just the build quote",
         body: [
           "Use the framework below as an *assumption-led planning model*, not a market quotation. It prevents the common mistake of funding build work while leaving no allowance for the work needed to launch, maintain and improve it.",
-          "The calculator is deliberately scenario-based. {{underline:Separate verified supplier prices from internal planning assumptions}} and update each line when a proposal, licence schedule or technical review provides firmer evidence.",
+          "The calculator is deliberately scenario-based. {{underline:Separate verified supplier prices from internal planning assumptions}} and update each line when a proposal, license schedule or technical review provides firmer evidence.",
         ],
         sectionNumber: "03",
         lede:
@@ -28603,7 +28603,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "Support window, optimisation cadence and retainer terms",
+                "Support window, optimization cadence and retainer terms",
                 "Model as a separate first-year allowance",
               ],
               label: "Post-launch support",
@@ -28648,7 +28648,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           items: [
             "**Separate one-off and recurring costs** before comparing proposals.",
             "Record every assumption beside its owner and review date.",
-            "Ask whether support and optimisation are included, optional or unavailable.",
+            "Ask whether support and optimization are included, optional or unavailable.",
             "Keep {{accent:commercial confidence}} proportionate to the evidence available.",
           ],
           title: "First-year budget checks",
@@ -28665,7 +28665,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "How a pricing calculator should handle assumptions and uncertainty",
         body: [
           "A calculator should distinguish three states: supplier-verified, internally estimated and unknown. This makes **commercial uncertainty** discussable without pretending that every cost can be known before discovery.",
-          "For UK organisations, the model should also prompt a review of data, security and contractual responsibilities. This is general business information, *not legal advice*; obtain appropriate legal, security and procurement advice for your circumstances.",
+          "For UK organizations, the model should also prompt a review of data, security and contractual responsibilities. This is general business information, *not legal advice*; obtain appropriate legal, security and procurement advice for your circumstances.",
         ],
         sectionNumber: "04",
         variant: "signal",
@@ -28698,7 +28698,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         callout: {
           body: [
-            "Supplied guidance on implementation evaluation highlights a documented process, a dedicated implementation lead, post-launch optimisation, a support window and success measurement. ==Those are proposal questions, not optional extras.==",
+            "Supplied guidance on implementation evaluation highlights a documented process, a dedicated implementation lead, post-launch optimization, a support window and success measurement. ==Those are proposal questions, not optional extras.==",
           ],
           tone: "evidence",
           title: "Why support belongs in the model",
@@ -28713,7 +28713,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           right: {
             title: "Useful estimate",
             body: "A range of scenarios exposes what must be confirmed.",
-            label: "Evidence-labelled",
+            label: "Evidence-labeled",
             points: [
               "Verified and assumed lines separated",
               "Owners assigned",
@@ -28722,7 +28722,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           eyebrow: "Decision-quality calculator",
           verdict:
-            "**Choose the evidence-labelled model** when comparing agencies or seeking internal approval.",
+            "**Choose the evidence-labeled model** when comparing agencies or seeking internal approval.",
         },
       },
       {
@@ -28730,7 +28730,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Compare proposals against the same brief. **The best proposal is not necessarily the cheapest**; it is the one whose scope, responsibilities, assumptions and post-launch route are clearest for the job you need done.",
           "Ask each supplier to answer the same questions in writing. If an item is not publicly stated or not included in the proposal, record it as **Not publicly stated** rather than filling the gap with an assumption.",
-          "- Outcome: What business process and measurable result does this phase address?\n- Delivery scope: Which workflows, integrations, tests and handover materials are included?\n- Dependencies: What access, data, decisions and internal time do you need from us?\n- Support route: What happens after launch, and are optimisation or retainers separately priced?\n- Change control: How are new requirements assessed and priced?",
+          "- Outcome: What business process and measurable result does this phase address?\n- Delivery scope: Which workflows, integrations, tests and handover materials are included?\n- Dependencies: What access, data, decisions and internal time do you need from us?\n- Support route: What happens after launch, and are optimization or retainers separately priced?\n- Change control: How are new requirements assessed and priced?",
           "Silverstone AI is a UK-based AI automation agency serving clients in the UK and internationally; its [AI automation services](/services/ai-automation) turn this framework into a practical delivery plan.",
           "If you need help comparing scope and outcomes before seeking quotes, review [how Silverstone AI works](/how-we-work), explore [costs and ROI](/pricing), or [book a planning conversation](/book#booking-calendar).",
           "Related reading:\n- [AI automation consulting guide](/blog/ai-automation-consulting-guide)\n- [AI receptionist setup guide](/blog/ai-receptionist-setup-guide)\n- [Ecommerce AI systems guide](/blog/ecommerce-ai-systems-guide)",
@@ -28757,7 +28757,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: ["Score 1–5", "Score 1–5", "Score 1–5"],
-              criterion: "Support and optimisation",
+              criterion: "Support and optimization",
               weight: "Medium",
             },
             {
@@ -28789,7 +28789,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         answer:
-          "Compare scope, integration assumptions, internal dependencies, testing, handover, support, optimisation, change control and how success will be measured.",
+          "Compare scope, integration assumptions, internal dependencies, testing, handover, support, optimization, change control and how success will be measured.",
         question: "What should I compare besides price?",
       },
     ],
@@ -28949,7 +28949,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/route-self-pay-vs-insurance-hero.webp",
     heroImageAlt:
-      "Bright editorial illustration of a UK clinic booking workflow routing self-pay, insurance and cash-plan enquiries through controlled automation with human review.",
+      "Bright editorial illustration of a UK clinic booking workflow routing self-pay, insurance and cash-plan inquiries through controlled automation with human review.",
     metaTitle: "Physio Self-Pay vs Insurance Booking UK",
     metaDescription:
       "How UK physio clinics should route self-pay, insurance and cash-plan booking requests with clearer rules, safer handoffs and less guesswork.",
@@ -28965,7 +28965,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "The phone rings while a practitioner is with a patient. A web form lands moments later. One person wants a **self-pay first appointment**, another mentions **Bupa pre-authorisation**, and a third says their employer cash plan might reimburse part of the fee. If all three enter the same booking flow, reception is forced to improvise.",
+          "The phone rings while a practitioner is with a patient. A web form lands moments later. One person wants a **self-pay first appointment**, another mentions **Bupa pre-authorization**, and a third says their employer cash plan might reimburse part of the fee. If all three enter the same booking flow, reception is forced to improvise.",
           "The direct answer is simple: **payer type should change the route before any slot is offered**. UK physio clinics need a clear intake rule set for self-pay, insurance and cash-plan requests, with a named human owner for exceptions, a defined source of truth, and an explicit ==stop condition== where automation hands over.",
           "That is where {{accent:workflow design}} matters more than chatbot novelty. Silverstone AI helps clinics design bounded, non-clinical automation that captures the right details, routes the request to the right queue and keeps the diary aligned with the admin reality of UK private practice.",
         ],
@@ -28974,13 +28974,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "The front-desk moment where payer type changes the whole booking path",
         body: [
-          "A **self-pay enquiry** usually needs price clarity, appointment availability and standard intake information. An **insured enquiry** may also need insurer name, pre-authorisation status and a claim path that matches how your clinic bills.",
+          "A **self-pay inquiry** usually needs price clarity, appointment availability and standard intake information. An **insured inquiry** may also need insurer name, pre-authorization status and a claim path that matches how your clinic bills.",
           "That difference matters before the diary is shown. If your team offers a slot first and checks payment route later, avoidable rework appears fast: callbacks, rescheduling, billing confusion and frustrated staff.",
-          "Use this rule set:\n- If the clinic can confirm the booking with the information already provided, keep the route automated.\n- If missing payer details could create a billing or diary error, pause before slot selection.\n- If the request falls outside the approved rule set, send it to a named human owner.\n- If the enquiry becomes clinical, stop automation and hand over immediately.",
+          "Use this rule set:\n- If the clinic can confirm the booking with the information already provided, keep the route automated.\n- If missing payer details could create a billing or diary error, pause before slot selection.\n- If the request falls outside the approved rule set, send it to a named human owner.\n- If the inquiry becomes clinical, stop automation and hand over immediately.",
           "Core principle: **route first, book second**.",
         ],
         lede:
-          "If payment route affects admin work, authorisation checks or slot eligibility, capture it first.",
+          "If payment route affects admin work, authorization checks or slot eligibility, capture it first.",
         leadStyle: "drop-cap",
         variant: "signal",
         grid: [
@@ -28991,7 +28991,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "Often needs payer-specific checks before confirmation, especially where pre-authorisation or claim handling affects admin.",
+              "Often needs payer-specific checks before confirmation, especially where pre-authorization or claim handling affects admin.",
             title: "Private medical insurance",
           },
           {
@@ -29028,8 +29028,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Before the system offers a slot, it should capture only the details that affect **routing, ownership and bookability**. The aim is not to collect everything. The aim is to collect the minimum needed to decide the next safe administrative step.",
           "Many clinics overbuild at this stage. They ask for too much too early, completion drops, and reception still has to call back because the **source of truth** was never defined.",
-          "A lean intake sequence usually works best:\n1. Confirm whether the enquiry is **self-pay, insurance, cash plan or other**.\n2. Capture contact details and preferred location or practitioner if that affects booking.\n3. For insurance or cash-plan requests, ask for provider name and whether authorisation has already been issued.\n4. Ask whether the person is new or returning if that changes your booking rules.\n5. Stop and route to admin review if a required payer field is missing.",
-          "For clinics using separate pathways for self-referral and insurer-led admin, that early branch should mirror the real workflow. [AI automation](/services/ai-automation) is useful here when it follows the clinic's rules rather than pretending every enquiry is identical.",
+          "A lean intake sequence usually works best:\n1. Confirm whether the inquiry is **self-pay, insurance, cash plan or other**.\n2. Capture contact details and preferred location or practitioner if that affects booking.\n3. For insurance or cash-plan requests, ask for provider name and whether authorization has already been issued.\n4. Ask whether the person is new or returning if that changes your booking rules.\n5. Stop and route to admin review if a required payer field is missing.",
+          "For clinics using separate pathways for self-referral and insurer-led admin, that early branch should mirror the real workflow. [AI automation](/services/ai-automation) is useful here when it follows the clinic's rules rather than pretending every inquiry is identical.",
         ],
         lede:
           "Good routing depends on a small set of high-value fields, not a long form nobody finishes.",
@@ -29072,7 +29072,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               term: "Routing field",
               definition:
-                "A field collected because it changes the path, queue or ownership of the enquiry.",
+                "A field collected because it changes the path, queue or ownership of the inquiry.",
             },
             {
               term: "Bookability",
@@ -29120,8 +29120,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "Insurance route",
             body: [
-              "This path should ask for the payer details your admin team actually needs. Many clinics with meaningful insurer revenue need workflows shaped around pre-authorisation, claim handling and insurer-specific admin.",
-              "Use a review-first rule if booking cannot be honoured without the missing detail.",
+              "This path should ask for the payer details your admin team actually needs. Many clinics with meaningful insurer revenue need workflows shaped around pre-authorization, claim handling and insurer-specific admin.",
+              "Use a review-first rule if booking cannot be honored without the missing detail.",
             ],
             variant: "system",
             checklist: {
@@ -29131,7 +29131,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
                   detail: "The specific provider named by the patient.",
                 },
                 {
-                  label: "Pre-authorisation status",
+                  label: "Pre-authorization status",
                   detail: "Confirm whether it exists, is pending or is unknown.",
                 },
                 {
@@ -29187,7 +29187,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "The exceptions that should go to a human before booking",
         body: [
           "Not every request should complete online, by message or through an AI receptionist. The right design includes a clear escalation path and a named owner who can resolve edge cases without the patient bouncing between channels.",
-          "Send the enquiry to a human before booking when:\n- the payer type is missing or contradictory\n- the insurer is named but pre-authorisation status is unclear\n- the patient requests a booking method your system cannot validate\n- the diary rules depend on admin information the flow has not captured\n- the conversation turns clinical in any way",
+          "Send the inquiry to a human before booking when:\n- the payer type is missing or contradictory\n- the insurer is named but pre-authorization status is unclear\n- the patient requests a booking method your system cannot validate\n- the diary rules depend on admin information the flow has not captured\n- the conversation turns clinical in any way",
           "For this category, the human owner is usually a front-desk lead, practice manager or insurance admin owner. The stop condition should be written into the workflow, not left as tribal knowledge.",
         ],
         lede:
@@ -29286,7 +29286,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               title: "Configure and test",
               body:
-                "Run sample enquiries through each route and check diary, PMS and staff outputs match.",
+                "Run sample inquiries through each route and check diary, PMS and staff outputs match.",
               label: "Week 3",
             },
             {
@@ -29303,8 +29303,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to measure after launch to spot routing errors early",
         body: [
-          "The first month tells you whether the model works. You do not need inflated dashboards. You need a short review pack that shows whether enquiries are reaching the right path, whether humans are intervening for the right reasons and whether the diary stays clean.",
-          "Track measures like:\n- number of enquiries by payer route\n- percentage sent to human review\n- most common exception reasons\n- bookings reversed because payer details were wrong\n- time from enquiry to resolved next step for insurance cases",
+          "The first month tells you whether the model works. You do not need inflated dashboards. You need a short review pack that shows whether inquiries are reaching the right path, whether humans are intervening for the right reasons and whether the diary stays clean.",
+          "Track measures like:\n- number of inquiries by payer route\n- percentage sent to human review\n- most common exception reasons\n- bookings reversed because payer details were wrong\n- time from inquiry to resolved next step for insurance cases",
           "Where external research is helpful, it reinforces the shape of the problem rather than proving your clinic's outcome. UK private-clinic commentary repeatedly points to insurance queries, missed calls and rescheduling friction as common operational load. {{chip:proof|Useful evidence}} The lesson is to watch where your own process creates repeatable admin drag.",
           "See our work with UK [physio and chiropractic](/industry/physios-chiropractors) practices for how these systems are planned, built and run.",
         ],
@@ -29314,7 +29314,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             body:
               "Check whether the route, fields captured and final booking outcome matched the written rules.",
-            title: "Audit five real enquiries each week",
+            title: "Audit five real inquiries each week",
             label: "Step 1",
           },
           {
@@ -29381,7 +29381,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         question:
           "Should UK physio clinics let insured patients book instantly online?",
         answer:
-          "Sometimes, but only when your clinic already has the payer information needed to honour that booking. If insurer details, pre-authorisation or admin checks affect whether the appointment can proceed, route the request to review before offering a slot.",
+          "Sometimes, but only when your clinic already has the payer information needed to honor that booking. If insurer details, pre-authorization or admin checks affect whether the appointment can proceed, route the request to review before offering a slot.",
       },
       {
         question: "Are cash plans the same as self-pay for booking purposes?",
@@ -29518,15 +29518,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "The direct answer is simple: **define the workflow, owner, data and guardrails before selecting software**. A tool can accelerate a sound process, but it can also spread unclear decisions and unreliable data faster. Strategy first creates a testable brief for any automation purchase.",
-          "For UK leaders, the commercial lens should include operational value, accountability and data protection from the start. Silverstone AI is UK-based and serves UK and international clients; the framework below uses UK expectations as its primary lens, while workflow ownership, measurement and human oversight generalise internationally.",
+          "For UK leaders, the commercial lens should include operational value, accountability and data protection from the start. Silverstone AI is UK-based and serves UK and international clients; the framework below uses UK expectations as its primary lens, while workflow ownership, measurement and human oversight generalize internationally.",
         ],
       },
       {
         heading: "Why tool-first AI buying often creates more complexity than progress",
         body: [
-          "Tool-first buying reverses the useful sequence. Teams begin adapting work to a platform before agreeing the outcome, exception rules or accountable owner. ==Evidence from UK-focused workflow guidance== consistently points towards starting with the process and a high-confidence use case rather than novelty. *A demonstration is not a business case.*",
+          "Tool-first buying reverses the useful sequence. Teams begin adapting work to a platform before agreeing the outcome, exception rules or accountable owner. ==Evidence from UK-focused workflow guidance== consistently points toward starting with the process and a high-confidence use case rather than novelty. *A demonstration is not a business case.*",
           "The practical risk is not that automation is inherently unsuitable; it is that **automation can amplify inconsistent records and unclear hand-offs**. Poor data quality and training gaps can turn a promising pilot into a faster route for existing errors.",
-          "- Start with a decision: State what changes, for whom, and how success will be observed.\n- Separate assistance from autonomy: Keep a person responsible where judgement, customer impact or sensitive data demands it.\n- Expose the exception path: Record what happens when confidence is low, data is missing or a case falls outside the rule.",
+          "- Start with a decision: State what changes, for whom, and how success will be observed.\n- Separate assistance from autonomy: Keep a person responsible where judgment, customer impact or sensitive data demands it.\n- Expose the exception path: Record what happens when confidence is low, data is missing or a case falls outside the rule.",
         ],
         sectionNumber: "01",
         lede:
@@ -29569,7 +29569,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "What an AI automation strategy should define before any software shortlist",
         body: [
-          "Use a **one-page workflow brief** for each candidate workflow. It makes assumptions visible before a procurement conversation and prevents a single platform from being treated as a universal answer. *The brief is not legal advice*; regulated organisations should obtain appropriate specialist advice for their circumstances.",
+          "Use a **one-page workflow brief** for each candidate workflow. It makes assumptions visible before a procurement conversation and prevents a single platform from being treated as a universal answer. *The brief is not legal advice*; regulated organizations should obtain appropriate specialist advice for their circumstances.",
         ],
         sectionNumber: "02",
         lede:
@@ -29652,7 +29652,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         sectionNumber: "03",
         lede:
-          "Prioritise a bounded, repeatable workflow where a team can judge quality quickly.",
+          "Prioritize a bounded, repeatable workflow where a team can judge quality quickly.",
         leadStyle: "lead",
         variant: "operator",
         comparisonTable: {
@@ -30094,7 +30094,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "If an AI tool handles customer, employee, prospect or supplier information, **UK GDPR applies to that processing**. The practical question is not whether the tool is clever; it is whether you can explain the data flow, purpose, lawful basis, safeguards and accountable person before launch.",
-          "This guide gives small-business decision-makers a compact risk audit rather than legal advice. Silverstone AI is the publisher and a UK-based AI systems studio serving clients in the UK and internationally. The UK is the primary lens; the underlying data-mapping, transparency and governance disciplines generalise widely.",
+          "This guide gives small-business decision-makers a compact risk audit rather than legal advice. Silverstone AI is the publisher and a UK-based AI systems studio serving clients in the UK and internationally. The UK is the primary lens; the underlying data-mapping, transparency and governance disciplines generalize widely.",
         ],
       },
       {
@@ -30211,11 +30211,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           left: {
             title: "Assistive workflow",
             body:
-              "AI prepares a draft, summary or categorisation for a trained person to check before action.",
+              "AI prepares a draft, summary or categorization for a trained person to check before action.",
             label: "Lower decision impact",
             points: [
-              "Human judgement remains real",
-              "Inputs can be minimised",
+              "Human judgment remains real",
+              "Inputs can be minimized",
               "Errors can be corrected before use",
             ],
           },
@@ -30419,7 +30419,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         keyTakeaways: {
           items: [
             "**Use AI with personal data only for a defined, documented purpose.**",
-            "Minimise inputs and test outputs before they influence people.",
+            "Minimize inputs and test outputs before they influence people.",
             "Use a DPIA where high risk may arise; seek legal advice for uncertain or consequential cases.",
             "Keep an audit trail that makes accountability visible.",
             "{{chip:action|Next step}} Book a governance scoping conversation via [the booking calendar](/book#booking-calendar).",
@@ -30587,7 +30587,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "Your reception team is busy, the phone log is full, and existing patients keep calling back about the same thing. The direct answer is simple: **most dental missed-call callback workflows create extra work** when the practice treats every missed call as a fresh enquiry instead of a record update with a clear owner.",
+          "Your reception team is busy, the phone log is full, and existing patients keep calling back about the same thing. The direct answer is simple: **most dental missed-call callback workflows create extra work** when the practice treats every missed call as a fresh inquiry instead of a record update with a clear owner.",
           "For UK dental practices, the problem is rarely the callback itself. It is the **missing structure behind it**: no agreed source of truth, no stop condition, no split between admin and clinical matters, and no rule for when the diary or patient management system should change.",
           "Silverstone AI helps practices map these operational edges before building automation. If your team feels overloaded after adding call handling, the likely cause is not volume alone. It is a workflow that keeps creating {{accent:new admin tasks}} faster than it closes them.",
         ],
@@ -30730,7 +30730,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "The record fields that should exist before any callback attempt",
         body: [
-          "Before you automate or standardise callbacks, decide which fields must exist. This is where many dental practices skip ahead.",
+          "Before you automate or standardize callbacks, decide which fields must exist. This is where many dental practices skip ahead.",
           "For an existing patient, the callback workflow should not proceed unless the minimum record is present and readable.",
           "A practical minimum dataset looks like this:",
         ],
@@ -30851,7 +30851,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "Outcomes that usually should update the PMS",
             body: [
-              "- Appointment booked, moved or cancelled after contact.",
+              "- Appointment booked, moved or canceled after contact.",
               "- Contact details confirmed or corrected.",
               "- Forms or documents sent with a required follow-up.",
               "- Payment or finance query handed to a named owner.",
@@ -30943,7 +30943,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             "The human owner for clinical, urgent and complaint routes must be named.",
             "A transfer should include summary, timestamp and contact details.",
             "Once escalated, routine follow-up should be suppressed.",
-            "Do not use callback automation as a substitute for clinical judgement or consent.",
+            "Do not use callback automation as a substitute for clinical judgment or consent.",
           ],
           title: "Clinical boundary essentials",
         },
@@ -31171,8 +31171,8 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "The direct answer is simple: **buy when the problem is standard and time-to-value matters; build when the workflow, data or competitive edge is genuinely distinctive**. For many UK businesses, a staged hybrid route is the sensible middle ground, provided ownership and controls are clear.",
-          "This is a commercial decision before it is a technical one. Compare the full operating model—data preparation, integration, training, process redesign and governance—not merely licence fees or development estimates. ==A faster launch is not automatically a lower-risk choice==.",
-          "Silverstone AI is UK-based and serves UK and international clients. The UK is the primary lens here, particularly for procurement, UK GDPR and accountability; the practical tests on data, contracts, integration and human oversight generalise well across markets.",
+          "This is a commercial decision before it is a technical one. Compare the full operating model—data preparation, integration, training, process redesign and governance—not merely license fees or development estimates. ==A faster launch is not automatically a lower-risk choice==.",
+          "Silverstone AI is UK-based and serves UK and international clients. The UK is the primary lens here, particularly for procurement, UK GDPR and accountability; the practical tests on data, contracts, integration and human oversight generalize well across markets.",
         ],
       },
       {
@@ -31243,7 +31243,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "**Highest tailoring potential** when the workflow is strategically differentiated and the organisation can sustain it.",
+              "**Highest tailoring potential** when the workflow is strategically differentiated and the organization can sustain it.",
             title: "Build",
           },
           {
@@ -31282,7 +31282,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "When buying is the stronger choice",
         body: [
-          "Choose a bought route where the requirement is repeatable, implementation urgency is real and changing the internal process is cheaper than recreating a product. This can reduce initial delivery work, but **licence cost is not the whole cost**.",
+          "Choose a bought route where the requirement is repeatable, implementation urgency is real and changing the internal process is cheaper than recreating a product. This can reduce initial delivery work, but **license cost is not the whole cost**.",
           "Test the supplier's practical fit rather than relying on a generic feature list. UK procurement material stresses structured, responsible procurement; legal commentary identifies data privacy, security, intellectual-property ownership and liability as contract considerations. ==Contractual clarity matters as much as functional fit==.",
           "A purchased system is often best for standard tasks such as common productivity, service or workflow needs, *provided the business can accept its boundaries*. If a requirement depends on unusual permissions, exceptions or data flows, configuration may become fragile.",
         ],
@@ -31294,7 +31294,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             body:
-              "The job is common enough that existing product behaviour can meet the core need.",
+              "The job is common enough that existing product behavior can meet the core need.",
             label: "Standard capability",
           },
           {
@@ -31377,7 +31377,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Six-gate decision matrix for UK business decision-makers",
         body: [
-          "This is the article's original decision framework. It does not produce a guaranteed answer; it makes assumptions inspectable. For UK organisations, involve the appropriate privacy, security and operational owners early. The Local Government Association notes that a DPIA can help identify benefits, risks, consultation needs and responsibilities for AI-based technologies.",
+          "This is the article's original decision framework. It does not produce a guaranteed answer; it makes assumptions inspectable. For UK organizations, involve the appropriate privacy, security and operational owners early. The Local Government Association notes that a DPIA can help identify benefits, risks, consultation needs and responsibilities for AI-based technologies.",
           "The matrix treats UK regulatory expectations as a primary lens. International teams can apply the same questions, then substitute their local privacy, procurement and sector requirements. {{chip:warning|Governance first}} {{underline:Escalate uncertainty rather than hiding it}}.",
         ],
         sectionNumber: "05",
@@ -31422,7 +31422,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "Licence, implementation, change and exit costs require review.",
+                "License, implementation, change and exit costs require review.",
                 "Delivery, data, integration, training and maintenance require review.",
                 "Combines product and bespoke delivery costs; avoid double-counting assumptions.",
               ],
@@ -31443,12 +31443,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           options: ["Buy", "Build", "Hybrid"],
           rows: [
             {
-              cells: ["Favour if standard", "Favour if unique", "Favour if mixed"],
+              cells: ["Favor if standard", "Favor if unique", "Favor if mixed"],
               criterion: "Workflow distinctiveness",
               weight: "High",
             },
             {
-              cells: ["Often favourable", "Test timeline carefully", "Stage the scope"],
+              cells: ["Often favorable", "Test timeline carefully", "Stage the scope"],
               criterion: "Delivery urgency",
               weight: "High",
             },
@@ -31474,7 +31474,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         },
         keyTakeaways: {
           items: [
-            "Buy if standardisation is a benefit, not a compromise.",
+            "Buy if standardization is a benefit, not a compromise.",
             "Build if the distinctive workflow can justify continuing ownership.",
             "Hybrid if the value sits in connecting and governing a bought capability around your process.",
             "Do not score in isolation: a route that wins on speed may lose on integration or control.",
@@ -31485,7 +31485,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Make a bounded decision and test it",
         body: [
-          "On balance, choose **buy** for a common capability with a credible supplier fit; choose **build** for a strategically distinctive process that the organisation is prepared to own; choose **hybrid** when tailoring the process boundary is more valuable than recreating the whole product. {{chip:action|Choose a test}}.",
+          "On balance, choose **buy** for a common capability with a credible supplier fit; choose **build** for a strategically distinctive process that the organization is prepared to own; choose **hybrid** when tailoring the process boundary is more valuable than recreating the whole product. {{chip:action|Choose a test}}.",
           "If the economics are unclear, separate verified facts from assumptions. [Review AI automation cost questions](/pricing), then use a discovery route that turns the highest-risk assumption into a testable scope. *No route guarantees return on investment.*",
           "For implementation planning, see [how Silverstone AI works](/how-we-work), [workflow automation selection](/blog/workflow-automation-selection-guide), [bespoke app development](/blog/bespoke-app-development-guide), [integrating AI without replacing software](/blog/integrate-ai-without-replacing-software), and [an AI readiness assessment](/blog/ai-readiness-assessment-small-businesses). When you are ready to pressure-test the decision, [book a focused conversation](/book#booking-calendar).",
           "Silverstone AI is a UK-based AI automation agency serving clients in the UK and internationally; its [AI automation services](/services/ai-automation) turn this framework into a practical delivery plan.",
@@ -31539,7 +31539,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     faqs: [
       {
         answer:
-          "Neither route is inherently cheaper. Compare licence or delivery costs alongside data preparation, integration, training, process redesign, governance, maintenance and exit assumptions.",
+          "Neither route is inherently cheaper. Compare license or delivery costs alongside data preparation, integration, training, process redesign, governance, maintenance and exit assumptions.",
         question: "Is it cheaper to build or buy an AI system?",
       },
       {
@@ -31554,7 +31554,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         answer:
-          "No. Supplier diligence and internal accountability remain important. Organisations should clarify data handling, access, responsibilities, contractual terms and appropriate privacy assessment with relevant specialists.",
+          "No. Supplier diligence and internal accountability remain important. Organizations should clarify data handling, access, responsibilities, contractual terms and appropriate privacy assessment with relevant specialists.",
         question: "Does buying AI remove UK GDPR and governance responsibilities?",
       },
     ],
@@ -31738,7 +31738,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "Treating trial bookings like normal member bookings is usually the wrong rule for a UK gym. **Peak-time trial access** needs its own logic because a trial often consumes more than one seat: staff attention, induction space, access control, and a higher chance of no-show or handholding.",
           "The practical answer is simple: set **separate capacity rules** for each trial type, name one **source of truth**, assign a human owner, and define a clear stop condition when the session can no longer absorb another newcomer safely or smoothly.",
-          "That is where Silverstone AI can help operators turn messy front-desk judgement into a visible system. For gyms and studios, the goal is not blanket automation. It is **bounded booking logic** that protects peak-time access, conversion quality and staff workload across the UK.",
+          "That is where Silverstone AI can help operators turn messy front-desk judgment into a visible system. For gyms and studios, the goal is not blanket automation. It is **bounded booking logic** that protects peak-time access, conversion quality and staff workload across the UK.",
         ],
       },
       {
@@ -31930,7 +31930,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "A one-size ruleset usually breaks because trials are not one product. Open-gym trials, class trials, guided tours and intro sessions create different kinds of load. The system should reflect that difference instead of forcing staff to improvise around it.",
           "For example, an open-gym trial may be possible only while staffed reception is active. A class trial may depend on the instructor's comfort with first-timers in that format. A tour may be available between class peaks but blocked during check-in surges.",
-          "If you are refining this operating model, [gym automation operating model](/blog/gym-automation-operating-model) is a useful adjacent read because it frames where automation helps and where human judgement should remain in control.",
+          "If you are refining this operating model, [gym automation operating model](/blog/gym-automation-operating-model) is a useful adjacent read because it frames where automation helps and where human judgment should remain in control.",
         ],
         lede:
           "Peak-time access rules work best when each trial type has its own booking logic.",
@@ -32183,7 +32183,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Where can automation help without removing human control?",
         answer:
-          "Automation can enforce booking windows, waitlist release rules, confirmations and staff alerts. Human staff should still own exceptions, final approvals where needed, and any safety, access or service-quality judgement.",
+          "Automation can enforce booking windows, waitlist release rules, confirmations and staff alerts. Human staff should still own exceptions, final approvals where needed, and any safety, access or service-quality judgment.",
       },
     ],
     internalLinks: [
@@ -32273,7 +32273,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     slug: "recover-failed-ai-implementation",
     title: "How to Recover a Failed AI Implementation",
     subtitle:
-      "A practical recovery flow for UK SME sponsors: stabilise service, find evidence, reset ownership and restore safely.",
+      "A practical recovery flow for UK SME sponsors: stabilize service, find evidence, reset ownership and restore safely.",
     summary: [
       "Contain the affected route, preserve evidence and keep a safe fallback process running.",
       "Use a failure-mode matrix to distinguish scope, data, integration, ownership and change-control issues.",
@@ -32307,11 +32307,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "A failed AI implementation is recoverable when you stop treating it as a verdict on the team and start treating it as an operational incident. First protect customers, data and core service; then preserve evidence, identify the failure mode and restart only through controlled gates.",
-          "For UK SME sponsors, the immediate priority is **safe service continuity**, not a hurried relaunch. Silverstone AI is UK-based and serves UK and international clients; this guide uses UK accountability and delivery expectations as its main lens, while the containment and recovery practices generalise internationally.",
+          "For UK SME sponsors, the immediate priority is **safe service continuity**, not a hurried relaunch. Silverstone AI is UK-based and serves UK and international clients; this guide uses UK accountability and delivery expectations as its main lens, while the containment and recovery practices generalize internationally.",
         ],
       },
       {
-        heading: "What failure means — and what to stabilise first",
+        heading: "What failure means — and what to stabilize first",
         body: [
           "Failure may mean harmful outputs, unreliable workflow execution, an integration that disrupts normal work, poor adoption or unclear accountability. The first question is not “who caused this?” but **what must stop, continue or be checked now**.",
           "Use an explicit severity decision that considers affected users, business process, data exposure and output harm. ==Containment before investigation== is consistent with AI incident guidance from [Microsoft](https://learn.microsoft.com/en-us/security/zero-trust/sfi/incident-response-ai-systems).",
@@ -32362,7 +32362,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "A rollback is appropriate when a known safe checkpoint exists and the impact of continuing exceeds the value of further diagnosis in production. Preserve the affected state first; [Protiviti](https://www.protiviti.com/us-en/research-guide/guide-ai-governance-frequently-asked-questions) identifies rollback to a last-known-good checkpoint and retention of forensic logs as core recovery actions.",
           "- **Customer route:** Give frontline staff a clear fallback script and a named escalation contact.\n- **Operational route:** Switch to the verified manual process or stable prior workflow.\n- **Technical route:** Freeze relevant releases, credentials and configuration changes until recorded.\n- **Decision route:** Require human approval for customer-facing remediation and rollback decisions.",
-          "Do not let automation make the recovery decision alone. *Human judgement remains necessary* where a change affects customers, service commitments or the root-cause conclusion.",
+          "Do not let automation make the recovery decision alone. *Human judgment remains necessary* where a change affects customers, service commitments or the root-cause conclusion.",
         ],
         sectionNumber: "02",
         lede: "Restore control before attempting to restore capability.",
@@ -32410,7 +32410,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         sectionNumber: "03",
         lede:
-          "Build a timeline of decisions and system behaviour, then test explanations against it.",
+          "Build a timeline of decisions and system behavior, then test explanations against it.",
         leadStyle: "lead",
         pullQuote:
           "A good post-incident review produces **shared learning and clear ownership**, not a scapegoat.",
@@ -32527,7 +32527,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               label: "Test evidence retained",
-              detail: "Known failure cases and expected behaviour are documented.",
+              detail: "Known failure cases and expected behavior are documented.",
             },
             {
               label: "Fallback rehearsed",
@@ -32548,7 +32548,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         timeline: {
           items: [
             {
-              title: "Stabilise",
+              title: "Stabilize",
               body: "Contain the affected route and maintain the fallback process.",
               label: "Phase 0",
             },
@@ -32855,11 +32855,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
   {
     slug: "fitness-couple-consultation",
     title:
-      "How Online Fitness Coaches Should Route Couple Enquiries Into One Consultation Workflow",
+      "How Online Fitness Coaches Should Route Couple Inquiries Into One Consultation Workflow",
     subtitle:
-      "A practical UK workflow for handling two-person fitness coaching enquiries without double booking, missing context or forcing everything into one call.",
+      "A practical UK workflow for handling two-person fitness coaching inquiries without double booking, missing context or forcing everything into one call.",
     summary: [
-      "Couple enquiries need one master record, explicit routing rules and a named human owner.",
+      "Couple inquiries need one master record, explicit routing rules and a named human owner.",
       "Collect only booking and context data for both attendees; keep suitability decisions with the coach.",
       "Review the workflow weekly after launch to catch reminder gaps, wrong-route bookings and unclear handoffs.",
     ],
@@ -32874,10 +32874,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     status: "published",
     heroImage: "/assets/images/blog/fitness-couple-consultation-hero.webp",
     heroImageAlt:
-      "Bright editorial illustration of a two-person fitness coaching enquiry workflow routing into one consultation booking with human approval and reminder steps.",
+      "Bright editorial illustration of a two-person fitness coaching inquiry workflow routing into one consultation booking with human approval and reminder steps.",
     metaTitle: "Couple Consultation Workflows for Fitness Coaches",
     metaDescription:
-      "Design a clean UK workflow for couple fitness coaching enquiries, from intake and routing to reminders, handoff rules and launch checks.",
+      "Design a clean UK workflow for couple fitness coaching inquiries, from intake and routing to reminders, handoff rules and launch checks.",
     primaryKeyword: "couple fitness coaching consultation booking workflow",
     secondaryKeywords: [
       "online fitness coach consultation workflow",
@@ -32890,22 +32890,22 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Introduction",
         body: [
-          "When a couple enquires together, the admin often splits in the wrong place: two names on one form, one person replying by DM, another picking a time later, and a coach trying to reconstruct the context before the call. The fix is **one controlled intake workflow** with clear rules for when to keep the pair together and when to separate them.",
-          "For most UK online fitness coaches, the right setup is simple: capture **minimum booking details** for both people, keep one **source of truth** in your CRM or booking tool, and define a human decision point before any health, suitability or programme discussion. Silverstone AI helps firms design exactly these bounded systems through [AI automation services](/services/ai-automation) and sector-specific workflow work for [fitness coaches](/industry/fitness-coaches).",
+          "When a couple inquires together, the admin often splits in the wrong place: two names on one form, one person replying by DM, another picking a time later, and a coach trying to reconstruct the context before the call. The fix is **one controlled intake workflow** with clear rules for when to keep the pair together and when to separate them.",
+          "For most UK online fitness coaches, the right setup is simple: capture **minimum booking details** for both people, keep one **source of truth** in your CRM or booking tool, and define a human decision point before any health, suitability or program discussion. Silverstone AI helps firms design exactly these bounded systems through [AI automation services](/services/ai-automation) and sector-specific workflow work for [fitness coaches](/industry/fitness-coaches).",
           "The goal is not more forms.",
         ],
       },
       {
-        heading: "Why couple enquiries create double-booking and context gaps",
+        heading: "Why couple inquiries create double-booking and context gaps",
         body: [
-          "A solo consultation flow usually assumes one buyer, one attendee and one set of reminders. Couple enquiries break that assumption immediately.",
-          "For an online fitness coach, the operational risk is not clinical; it is commercial and organisational.",
+          "A solo consultation flow usually assumes one buyer, one attendee and one set of reminders. Couple inquiries break that assumption immediately.",
+          "For an online fitness coach, the operational risk is not clinical; it is commercial and organizational.",
           "Use this as your default logic:",
-          "1. Treat the first inbound message as a **shared enquiry** until proven otherwise.\n2. Create one master consultation case with two participant fields.\n3. Keep the calendar booking attached to that master case.\n4. Escalate to a human if the pair ask for different goals, different times or private discussion before booking.",
+          "1. Treat the first inbound message as a **shared inquiry** until proven otherwise.\n2. Create one master consultation case with two participant fields.\n3. Keep the calendar booking attached to that master case.\n4. Escalate to a human if the pair ask for different goals, different times or private discussion before booking.",
           "That approach gives you one visible thread from first contact to consultation.",
         ],
         lede:
-          "Two-person enquiries look small, but they create **two records, two schedules and one decision problem**.",
+          "Two-person inquiries look small, but they create **two records, two schedules and one decision problem**.",
         leadStyle: "lead",
         variant: "signal",
         bullets: [
@@ -32930,7 +32930,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         callout: {
           body: [
-            "For most UK coaches, the best route is **one enquiry record, one booking path and one coach-owned review point** before the consultation is locked in.",
+            "For most UK coaches, the best route is **one inquiry record, one booking path and one coach-owned review point** before the consultation is locked in.",
             "The workflow should only split when the pair need different call formats, different schedules or separate confidential conversations. {{chip:action|Next step}} Build for that exception from the start rather than improvising it later.",
           ],
           tone: "answer",
@@ -32954,7 +32954,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Your minimum fields should cover identity, attendance and practical context. Anything beyond that should be optional or left for the coach.",
           "- Full name for participant one\n- Full name for participant two\n- Best email for confirmations\n- Mobile number for reminders\n- Preferred consultation format\n- Whether both want to attend the same consultation\n- Main coaching aim in one short sentence each\n- Best general availability window",
           "This creates the information needed to route the case while staying inside a clear boundary. Avoid collecting injury detail, medication information or anything that looks like healthcare triage.",
-          "If you use AI to summarise free-text answers, define the stop condition: the system may tag themes such as *fat loss*, *strength* or *accountability*, but it must not infer safety, readiness or programme fit.",
+          "If you use AI to summarize free-text answers, define the stop condition: the system may tag themes such as *fat loss*, *strength* or *accountability*, but it must not infer safety, readiness or program fit.",
         ],
         lede: "Ask for enough to route the booking well, and no more.",
         variant: "system",
@@ -32976,7 +32976,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             body:
-              "{{underline:Health, injury or programme judgement}}. Those decisions need a human owner and a documented escalation path.",
+              "{{underline:Health, injury or program judgment}}. Those decisions need a human owner and a documented escalation path.",
             title: "Do not automate",
           },
         ],
@@ -33016,9 +33016,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "Decide when to offer one consultation versus separate calls",
         body: [
-          "Not every couple enquiry belongs in one consultation. The decision should be based on **attendance practicality, buying intent and coaching context**, not guesswork.",
-          "A joint call works best when the pair are clearly enquiring together, can attend at the same time and expect a shared buying conversation.",
-          "The easiest way to operationalise this is a rules table your team can follow consistently.",
+          "Not every couple inquiry belongs in one consultation. The decision should be based on **attendance practicality, buying intent and coaching context**, not guesswork.",
+          "A joint call works best when the pair are clearly inquiring together, can attend at the same time and expect a shared buying conversation.",
+          "The easiest way to operationalize this is a rules table your team can follow consistently.",
         ],
         variant: "operator",
         comparisonTable: {
@@ -33057,7 +33057,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
                 "Coach review before booking confirmation",
                 "Avoids hard-coding the wrong route too early.",
               ],
-              label: "Unclear from the enquiry",
+              label: "Unclear from the inquiry",
             },
           ],
         },
@@ -33065,7 +33065,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           items: [
             "Make the **coach** the named owner of any split-or-keep decision.",
             "Do not let the calendar tool decide the route by accident.",
-            "Use the enquiry data to inform a choice, not to automate suitability judgement.",
+            "Use the inquiry data to inform a choice, not to automate suitability judgment.",
             "Record the reason for separate calls inside the source-of-truth record.",
           ],
           title: "Decision rules worth documenting",
@@ -33111,7 +33111,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         steps: [
           {
             body:
-              "Book one consultation event linked to the shared enquiry record, with both attendee names stored against it.",
+              "Book one consultation event linked to the shared inquiry record, with both attendee names stored against it.",
             title: "Create the master booking",
             label: "Step 1",
           },
@@ -33143,7 +33143,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         callout: {
           body: [
             "Some tools support multiple attendees natively; others need a workaround through custom fields, CRM logic or manual approval.",
-            "If you are redesigning the wider process, [AI receptionists](/services/ai-receptionists) and [AI automation](/services/ai-automation) can help connect inbound enquiries, routing rules and booked consultations into one operational layer.",
+            "If you are redesigning the wider process, [AI receptionists](/services/ai-receptionists) and [AI automation](/services/ai-automation) can help connect inbound inquiries, routing rules and booked consultations into one operational layer.",
           ],
           tone: "caution",
           title: "Do not assume every platform behaves the same",
@@ -33164,7 +33164,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               label: "Stop conditions",
               value: "3+",
               note:
-                "For example: split request, availability conflict, private enquiry.",
+                "For example: split request, availability conflict, private inquiry.",
             },
           ],
           title: "Illustrative workflow signals",
@@ -33184,11 +33184,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "The cleanest workflows make handoffs obvious. Someone should be able to see, at a glance, when the system is still collecting and routing information and when a human must step in.",
           "For couple consultation workflows, the coach should take over at three moments:",
-          "- When the pair need a route decision between one consultation and two\n- When goals, expectations or buying roles appear misaligned\n- When the enquiry moves from booking logistics into coaching suitability or personal discussion",
+          "- When the pair need a route decision between one consultation and two\n- When goals, expectations or buying roles appear misaligned\n- When the inquiry moves from booking logistics into coaching suitability or personal discussion",
           "That boundary matters commercially as well as ethically. It stops your process from becoming a clumsy pseudo-assessment and keeps responsibility with the right person.",
         ],
         lede:
-          "Automation should prepare the consultation, not replace the coach’s judgement.",
+          "Automation should prepare the consultation, not replace the coach’s judgment.",
         variant: "operator",
         pullQuote:
           "A good automation layer should make the coach earlier, not later, in the decisions that actually matter.",
@@ -33196,7 +33196,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             label: "Booking clarification prompt",
             prompt:
-              "Thanks for your enquiry. Before we confirm the consultation, can you tell me whether you’d both like to attend the same call, and whether you’re aiming for the same type of coaching support?",
+              "Thanks for your inquiry. Before we confirm the consultation, can you tell me whether you’d both like to attend the same call, and whether you’re aiming for the same type of coaching support?",
             explanation:
               "Clear, short and specific. It gathers routing data without drifting into assessment.",
             tone: "improved",
@@ -33214,7 +33214,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             prompt:
               "Based on your answers, we think you should book separate consultations because your needs are different and one of you may not be suitable for this approach.",
             explanation:
-              "This overreaches, implies judgement and risks making a suitability decision before the coach has spoken to them.",
+              "This overreaches, implies judgment and risks making a suitability decision before the coach has spoken to them.",
             tone: "weak",
           },
         ],
@@ -33227,7 +33227,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               label: "Escalation path",
               detail:
-                "State where unclear or sensitive enquiries go: inbox, CRM queue or direct task.",
+                "State where unclear or sensitive inquiries go: inbox, CRM queue or direct task.",
             },
             {
               label: "Visible stop condition",
@@ -33251,7 +33251,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         heading: "What to measure after launch to spot friction early",
         body: [
-          "Once the workflow is live, monitor for operational friction rather than vanity numbers. You are looking for signs that the route is confusing, incomplete or too rigid for real enquiries.",
+          "Once the workflow is live, monitor for operational friction rather than vanity numbers. You are looking for signs that the route is confusing, incomplete or too rigid for real inquiries.",
           "Silverstone AI typically frames this as a small observation loop: check booking quality, reminder performance and handoff clarity first, then refine forms, rules or templates.",
           "Start with a weekly review for the first month, then move to a lighter rhythm once the exceptions are predictable.",
         ],
@@ -33305,7 +33305,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         callout: {
           body: [
             "Good enough is not zero exceptions. It is a workflow where exceptions are visible, owned and easy to resolve.",
-            "If your couple enquiries are arriving through web forms, DMs and missed calls, consolidating them into one route is often the bigger win than adding more messaging.",
+            "If your couple inquiries are arriving through web forms, DMs and missed calls, consolidating them into one route is often the bigger win than adding more messaging.",
           ],
           tone: "recommendation",
           title: "What good looks like",
@@ -33316,7 +33316,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
               value: "1",
               label: "source of truth",
               detail:
-                "One record should own the consultation from enquiry to attendance.",
+                "One record should own the consultation from inquiry to attendance.",
               tone: "benchmark",
             },
             {
@@ -33329,7 +33329,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               value: "Weekly",
               label: "review cadence at launch",
-              detail: "Use a short review loop until exceptions stabilise.",
+              detail: "Use a short review loop until exceptions stabilize.",
               tone: "time",
             },
           ],
@@ -33346,11 +33346,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               title: "Check booking outcomes",
               body:
-                "How many couple enquiries became one consultation, separate calls or manual exceptions?",
+                "How many couple inquiries became one consultation, separate calls or manual exceptions?",
               label: "Week 2",
             },
             {
-              title: "Check reminder behaviour",
+              title: "Check reminder behavior",
               body:
                 "Did both attendees receive and act on confirmations and reminders as expected?",
               label: "Week 3",
@@ -33381,7 +33381,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Can AI automate the whole couple consultation booking process?",
         answer:
-          "It can automate parts of it, such as capture, summarising, confirmations and reminders. It should not make unsupervised decisions about coaching suitability, health-related matters or complex exceptions. Those need a named human owner.",
+          "It can automate parts of it, such as capture, summarizing, confirmations and reminders. It should not make unsupervised decisions about coaching suitability, health-related matters or complex exceptions. Those need a named human owner.",
       },
       {
         question: "What is the source of truth in this workflow?",
@@ -33403,7 +33403,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         href: "/services/ai-receptionists",
       },
       {
-        label: "how fitness coach enquiry automation works",
+        label: "how fitness coach inquiry automation works",
         href: "/blog/fitness-coach-enquiry-automation",
       },
     ],
@@ -33510,7 +33510,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading: "Introduction",
         body: [
           "You are not really choosing between two website platforms. You are choosing the amount of **marketing rework** your team will carry for the next two to four years. For most UK service businesses, **Webflow creates less routine rework** on design-led marketing sites, while **WordPress offers broader flexibility** if you can handle stronger governance.",
-          "The wrong choice shows up after launch: landing pages take too long, simple edits need a developer, plugins need checking, and approval gets messy. That matters if your site supports enquiries, bookings or sales conversations. Silverstone AI treats this as an operational decision, not just a design preference.",
+          "The wrong choice shows up after launch: landing pages take too long, simple edits need a developer, plugins need checking, and approval gets messy. That matters if your site supports inquiries, bookings or sales conversations. Silverstone AI treats this as an operational decision, not just a design preference.",
           "Use this teardown to diagnose where rework comes from, what each platform genuinely does well, and when a bespoke UK build should connect to [web design and development](/services/web-design-development) rather than force your process around the CMS.",
         ],
       },
@@ -33518,7 +33518,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "What usually breaks after launch: the marketing tasks your CMS makes harder",
         body: [
-          "A UK service website usually exists to support a small set of commercial jobs: explain the offer, publish proof, launch pages, route enquiries and let the team improve the message over time.",
+          "A UK service website usually exists to support a small set of commercial jobs: explain the offer, publish proof, launch pages, route inquiries and let the team improve the message over time.",
           "The diagnostic question is simple: **what does your team need to change without friction every month**? That is a better platform test than a feature list.",
           "Common post-launch pressure points include:",
           "- landing pages for new campaigns or services\n- controlled edits by marketers without breaking layout\n- adding team pages, locations, FAQs and proof blocks\n- keeping forms, CRM routes and booking paths consistent\n- approving content changes without chasing developers\n- maintaining speed, security and plugin health",
@@ -33706,7 +33706,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Narrower extension model",
-                "Much broader plugin and customisation ecosystem",
+                "Much broader plugin and customization ecosystem",
               ],
               label: "Ecosystem breadth",
             },
@@ -33926,7 +33926,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             variant: "signal",
             callout: {
               body: [
-                "If your redesign supports enquiries, bookings or multi-step sales conversations, decide on the basis of editing speed, governance and future change cost.",
+                "If your redesign supports inquiries, bookings or multi-step sales conversations, decide on the basis of editing speed, governance and future change cost.",
                 "If you need help translating those requirements into a build plan, {{accent:review your website operating model with Silverstone AI}} before committing the CMS.",
               ],
               tone: "recommendation",
@@ -33952,7 +33952,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "When should a service business choose WordPress over Webflow?",
         answer:
-          "Choose WordPress when the need for flexibility is real rather than speculative: larger content estates, unusual content types, broader plugin requirements, memberships, portal-style behaviour or deeper bespoke integrations. The trade-off is more governance overhead.",
+          "Choose WordPress when the need for flexibility is real rather than speculative: larger content estates, unusual content types, broader plugin requirements, memberships, portal-style behavior or deeper bespoke integrations. The trade-off is more governance overhead.",
       },
       {
         question: "Can Silverstone AI help if we have not decided on the platform yet?",
@@ -34080,7 +34080,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         body: [
           "An MVP is meant to answer a focused business question. External context from UK MVP agencies repeatedly frames the first release around **one workflow**, **one decision** or **one proof point**, rather than a broad platform. That matters because acceptance criteria must be equally narrow and specific.",
           "When criteria are vague, problems show up early:",
-          "- The quote is based on assumptions rather than agreed behaviour.\n- Design reviews drift into preference debates.\n- Developers choose edge-case handling that the owner expected to approve.\n- QA tests what was built, not what the business intended.\n- Launch readiness becomes subjective and delays sign-off.",
+          "- The quote is based on assumptions rather than agreed behavior.\n- Design reviews drift into preference debates.\n- Developers choose edge-case handling that the owner expected to approve.\n- QA tests what was built, not what the business intended.\n- Launch readiness becomes subjective and delays sign-off.",
           "For a UK owner briefing an agency, the operational risk is simple: {{underline:the brief stops being the source of truth}}. A bespoke agency such as Silverstone AI can guide discovery, but it still needs a reliable definition of what the MVP must prove.",
           "That is especially important where sector rules may apply. ==Health, finance and other regulated use cases can require clearer testing plans and safeguards even at MVP stage==, as external UK market guidance notes.",
         ],
@@ -34139,7 +34139,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "1. Name the **actor**: customer, staff member, manager, admin or support user.\n2. State the **trigger**: submits form, books slot, scans item, accepts quote.\n3. Define the **outcome**: record created, slot reserved, task assigned, payment request sent.\n4. State the **observable proof**: confirmation shown, email sent, status updated, audit log recorded.\n5. Add the **human boundary**: who approves an exception, override or sensitive decision.",
           "This shifts the brief from interface language to **operational language**. For UK businesses, that is usually how owners already think about service delivery: who did what, what changed, and what evidence proves it.",
         ],
-        lede: "Start with behaviour, not screens.",
+        lede: "Start with behavior, not screens.",
         variant: "system",
         grid: [
           {
@@ -34147,7 +34147,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             title: "Outcome",
           },
           {
-            body: "The single main user role whose behaviour the release is testing.",
+            body: "The single main user role whose behavior the release is testing.",
             title: "Actor",
           },
           {
@@ -34208,7 +34208,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Use a short formula: **given** this starting state, **when** this action happens, **then** this result must be visible. You do not need to write every possible branch, but you do need the core path and the exceptions that carry commercial, operational or compliance weight.",
           "For example, a UK service business MVP might include these criteria:",
           "- When a customer submits a booking request for an available slot, the system creates the booking and sends confirmation.\n- When the slot is no longer available, the customer sees an alternative action rather than a silent failure.\n- When required consent is missing, the booking cannot proceed and staff are notified where review is needed.\n- When a duplicate customer record is detected, the system flags it for review instead of merging automatically.",
-          "Notice the pattern: each rule defines a starting condition, an action and a result. That makes the agency build against **verifiable behaviour** instead of inferred intent.",
+          "Notice the pattern: each rule defines a starting condition, an action and a result. That makes the agency build against **verifiable behavior** instead of inferred intent.",
         ],
         variant: "operator",
         comparisonTable: {
@@ -34231,7 +34231,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Admins can manage users",
-                "When an authorised admin deactivates a user, that user cannot sign in and their status updates in the admin list.",
+                "When an authorized admin deactivates a user, that user cannot sign in and their status updates in the admin list.",
               ],
               label: "Admin",
             },
@@ -34283,7 +34283,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           items: [
             "Prefer observable outcomes over opinion-led wording.",
             "Write the happy path first, then only the exceptions that matter.",
-            "Name the human owner where approval, safety or judgement is required.",
+            "Name the human owner where approval, safety or judgment is required.",
             "Keep criteria attached to a workflow, not a feature wish-list.",
           ],
           title: "Rules worth carrying into every MVP brief",
@@ -34323,7 +34323,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           right: {
             title: "Technical implementation",
             body:
-              "Defines how the team chooses to deliver the required behaviour in a maintainable way.",
+              "Defines how the team chooses to deliver the required behavior in a maintainable way.",
             label: "Agency-facing",
             points: [
               "Framework, hosting and deployment setup",
@@ -34499,7 +34499,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         question: "Should I include technical stack choices in acceptance criteria?",
         answer:
-          "Usually no. Keep acceptance criteria focused on business behaviour and user outcomes. Add technical constraints only where they are commercially necessary, such as integration requirements, procurement limits or sector obligations.",
+          "Usually no. Keep acceptance criteria focused on business behavior and user outcomes. Add technical constraints only where they are commercially necessary, such as integration requirements, procurement limits or sector obligations.",
       },
       {
         question:
@@ -34878,7 +34878,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "What call states, records, and approvals should exist before your team launches outbound campaigns?",
         body: [
-          "Before launch, a US outbound AI programme should have documented call states, reviewable records, approval owners, and hard entry checks that stop weak contacts entering campaigns. The real launch standard is not how the agent sounds. It is whether the workflow can be inspected, explained, and paused when needed.",
+          "Before launch, a US outbound AI program should have documented call states, reviewable records, approval owners, and hard entry checks that stop weak contacts entering campaigns. The real launch standard is not how the agent sounds. It is whether the workflow can be inspected, explained, and paused when needed.",
           "A strong launch pack usually combines call-state design, retention choices, exception routing, and sign-off ownership. That is how a small or mid-sized business keeps control while still moving quickly.",
           "The most useful operating question is: if a single call is challenged tomorrow, can your team reconstruct what happened, why it was allowed, and who approved the policy behind it?",
         ],
@@ -34895,7 +34895,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               cells: [
-                "Clear states such as queued, dialling, answered, transferred, opted out, failed, suppressed",
+                "Clear states such as queued, dialing, answered, transferred, opted out, failed, suppressed",
                 "Creates operational clarity and cleaner review",
               ],
               label: "Call states",
@@ -34910,7 +34910,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             {
               cells: [
                 "Logs for call attempt, result, consent basis, opt-out event, and workflow action",
-                "Supports investigation and programme tuning",
+                "Supports investigation and program tuning",
               ],
               label: "Records",
             },
@@ -34954,7 +34954,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             heading: "What should your pre-launch approval route look like?",
             body: [
-              "A practical pre-launch route for a US SMB is sequential: business owner approval, operator validation of systems and suppression logic, then qualified legal review where the risk profile requires it. Informal sign-off by message thread is rarely strong enough for outbound AI programmes with real exposure.",
+              "A practical pre-launch route for a US SMB is sequential: business owner approval, operator validation of systems and suppression logic, then qualified legal review where the risk profile requires it. Informal sign-off by message thread is rarely strong enough for outbound AI programs with real exposure.",
               "The supplied research from [ElevenLabs](https://elevenlabs.io/) and [NiCE](https://www.nice.com/) explicitly says their guidance is informational and that teams should consult qualified counsel on outbound calling compliance. That is a sensible boundary for Silverstone AI projects too.",
             ],
             variant: "signal",
@@ -35089,7 +35089,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             heading:
               "What is the practical next step for a US SMB evaluating outbound AI voice?",
             body: [
-              "The most practical next step is to choose one narrow, auditable use case and map the controls around it before buying or launching anything broader. A consent-backed follow-up path is usually easier to govern than a broad outbound programme built from mixed records and unclear handoffs.",
+              "The most practical next step is to choose one narrow, auditable use case and map the controls around it before buying or launching anything broader. A consent-backed follow-up path is usually easier to govern than a broad outbound program built from mixed records and unclear handoffs.",
               "Then map your workflow in order:",
               "1. Define the exact trigger for contact.",
               "2. Name the system that holds consent truth.",

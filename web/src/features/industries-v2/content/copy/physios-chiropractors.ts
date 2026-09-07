@@ -19,11 +19,12 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     title:
       "Physical Therapy, Physio and Chiropractic Practice Automation | Silverstone AI",
     description:
-      "Improve new-patient inquiries, booking, reminders, intake and rebooking with non-clinical automation designed for physio and chiropractic practices.",
+      "Improve new-patient inquiries, booking, reminders, intake and rebooking with non-clinical automation for physical therapy, physio and chiropractic clinics.",
     h1: "Make the clinic easier to access without automating care",
   },
   eyebrow: "Physio, physical therapy & chiropractic automation",
-  h1: "Easier access. *Care stays entirely yours.*",
+  h1: "AI automation for physios that *keeps care entirely yours*",
+  deck: "Easier access for patients. Physios and physical therapists, UK and US.",
   heroSub:
     "A question mixing symptoms and availability lands after hours. Silverstone AI handles access and booking **instantly**; clinicians get context, never a diagnosis. Built for physio clinics, physical therapy practices and chiropractors in the US and UK.",
   heroPoints: [
@@ -47,7 +48,8 @@ export const physiosChiropractorsCopy: IndustryCopy = {
           "Your patient portal and intake forms",
           "Google Business Profile and referral inbound",
         ],
-        vocabulary: "New-patient evals, plans of care, visits, co-pays, PTs and DCs.",
+        vocabulary:
+          "New-patient evals, plans of care, visits, co-pays, insurance versus self-pay, PTs and DCs.",
         keepsHuman:
           "Evaluation, diagnosis, the plan of care and any advice about symptoms.",
       },
@@ -70,12 +72,12 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     shared: [
       "Access and booking are handled instantly; anything clinical stops and routes to a clinician with a summary.",
       "Only the minimum administrative information is collected, on the clinic's own systems.",
-      "Rebooking and reminders follow the plan the clinician set, never a script that implies need.",
+      "Rebooking and reminders follow the plan the clinician set—consent captured, opt-outs honored, quiet hours respected—never a script that implies need.",
     ],
   },
   problem: {
-    heading: "Access breaks *outside the treatment room*",
-    body: "Forms arrive incomplete. Rebooking depends on memory. Silverstone AI organizes access, booking, forms and rebooking, **and never diagnoses, assesses urgency or replaces professional judgment.**",
+    heading: "Why do physio and PT clinics *lose new patients*?",
+    body: "Most are lost to admin, not to care. An inquiry arrives after hours, forms turn up incomplete, and rebooking depends on someone remembering. Silverstone AI organizes access, booking, intake and rebooking for physio, physical therapy and chiropractic clinics, **and never diagnoses, assesses urgency or replaces professional judgment.**",
     cards: [
       {
         title: "Practical mixed with symptoms",
@@ -83,7 +85,7 @@ export const physiosChiropractorsCopy: IndustryCopy = {
       },
       {
         title: "Booking without context",
-        body: "Location and practitioner preference, identified up front.",
+        body: "Location, practitioner and payment route—insured or self-paying—identified up front.",
       },
       {
         title: "Forms incomplete on arrival",
@@ -96,8 +98,8 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     ],
   },
   journey: {
-    heading: "First inquiry to *prepared appointment*",
-    lead: "Minimum necessary information, never a symptom questionnaire because the system can ask one.",
+    heading: "How does an inquiry become a *prepared first visit*?",
+    lead: "In five steps. The system identifies the clinic and the administrative purpose, explains the right booking route, checks the live schedule, then sends intake before arrival—for a US new-patient evaluation or a UK initial assessment alike. Anything clinical stops there and routes to a clinician. Minimum necessary information, never a symptom questionnaire.",
     stages: [
       {
         title: "Intent identified",
@@ -113,7 +115,7 @@ export const physiosChiropractorsCopy: IndustryCopy = {
       },
       {
         title: "Intake prepared",
-        body: "Forms distributed and tracked, visible before arrival.",
+        body: "Forms and insurance or self-pay details distributed and tracked, visible before arrival.",
       },
       {
         title: "Clinical stop",
@@ -122,20 +124,20 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     ],
   },
   workflows: {
-    heading: "Support, *after* the plan is set",
-    lead: "Never implies treatment is necessary. Never trades on anxiety.",
+    heading: "Can rebooking and reminders run *without pressure*?",
+    lead: "Yes, because nothing starts until a clinician has set the plan of care or treatment plan. Reminders, rebooking and dormant-patient outreach then follow that plan, segmented by consent and status. Messages carry a working opt-out, respect quiet hours in the patient's own time zone, and never imply treatment is necessary.",
     items: [
       {
         title: "Course-of-care rebooking",
-        body: "Approved reminders once the plan exists, with a task if support is needed.",
+        body: "Approved reminders once the plan of care or treatment plan exists, with a task if support is needed.",
       },
       {
         title: "Dormant-patient outreach",
-        body: "Segmented by status and consent, always.",
+        body: "Segmented by status and consent, with opt-outs honored on the spot.",
       },
       {
         title: "Reminders & reschedules",
-        body: "Fewer missed appointments, on your policy.",
+        body: "Fewer missed appointments, on your policy, inside quiet hours for US and UK numbers alike.",
       },
       {
         title: "Escalation with context",
@@ -147,7 +149,7 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     heading: "One system holds the truth",
     lead: "Everything else coordinates around it; nothing else is authoritative.",
     paragraphs: [
-      "An [AI receptionist](/services/ai-receptionists) handles routine contact; [clinic booking and intake automation](/services/ai-automation) connects your schedule, forms and records, in WebPT, Jane, Cliniko or whichever practice-management system holds the truth.",
+      "An [AI receptionist](/services/ai-receptionists) handles routine contact; [clinic booking and intake automation](/services/ai-automation) connects your schedule, forms and records, in WebPT, Prompt, Jane, Cliniko or whichever practice-management system holds the truth.",
       "A [conversion-led clinic website](/services/web-design-development) improves first-inquiry quality; [custom patient-admin applications](/services/app-development) power multi-location portals, with [governance consulting](/services/ai-consulting) setting the rules first.",
     ],
   },
@@ -182,8 +184,8 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     clarification: INDUSTRY_CLARIFICATION,
   },
   boundary: {
-    heading: "Clinicians own *everything clinical*",
-    body: "Health data means less collection, tighter access, defined retention. **The system supports access, booking and reminders. Clinicians own everything else**, no exceptions.",
+    heading: "Where does the system stop and a *clinician start*?",
+    body: "At the first clinical word. These are HIPAA-conscious, non-clinical workflows: scheduling, intake, reminders and rebooking, built to the data-minimization principles of UK GDPR—less collection, tighter access, defined retention—and designed to stop where clinical information begins. **The system supports access, booking and reminders. Clinicians own everything else**, no exceptions.",
     keeps: [
       "Urgency, diagnosis, triage",
       "Treatment & exercise advice",
@@ -198,7 +200,10 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     steps: [
       { title: "Choose the journey", body: "Inquiry, booking, forms or rebooking." },
       { title: "Identify authority", body: "The authoritative schedule and record." },
-      { title: "Define the data", body: "Minimum collection, retention, controls." },
+      {
+        title: "Define the data",
+        body: "Minimum collection, retention, consent and opt-out records.",
+      },
       { title: "Set clinical stops", body: "Written with the clinic, not assumed." },
       {
         title: "Connect and test",
@@ -209,7 +214,7 @@ export const physiosChiropractorsCopy: IndustryCopy = {
   },
   fit: {
     heading: "Is this *your clinic*?",
-    lead: "Clinical needs are individual; the admin around them is repeatable.",
+    lead: "If reception is repeating itself, probably yes. This suits outpatient PT clinics, private physiotherapy practices and chiropractors, single site or multi-location, with a named owner for the schedule and records and clinicians willing to write the boundary down. Clinical needs are individual; the admin around them is repeatable.",
     right: [
       "Repeated admin demand at reception",
       "Booking and escalation rules, or the will to write them",
@@ -228,11 +233,23 @@ export const physiosChiropractorsCopy: IndustryCopy = {
       },
       {
         q: "Can it book appointments directly?",
-        a: "For defined routine types with an authoritative schedule, yes, whether that lives in WebPT, Jane, Cliniko or TM3. Complex bookings are confirmed by staff.",
+        a: "For defined routine types with an authoritative schedule, yes, whether that lives in WebPT, Prompt, Jane, Cliniko or TM3. Complex bookings are confirmed by staff.",
+      },
+      {
+        q: "How does this work with HIPAA in a US clinic?",
+        a: "We build HIPAA-conscious, non-clinical workflows. The system handles scheduling, intake distribution, reminders and rebooking, and stops where clinical information begins: anything symptom-related is routed to a clinician rather than processed. Your practice-management system stays the record of truth, and your own agreements with each vendor govern where patient data is held.",
+      },
+      {
+        q: "Can it text and email patients under TCPA and CAN-SPAM rules?",
+        a: "The workflow is designed around them. Calls and texts to US numbers go out only where consent was captured and recorded, an opt-out reply stops the sequence immediately, and sending windows respect quiet hours in the patient's own time zone. Email carries accurate sender headers, a real physical address and a working unsubscribe link.",
+      },
+      {
+        q: "Does it treat insurance and self-pay patients differently?",
+        a: "Yes, as an administrative route rather than a coverage decision. An inquiry is tagged as insured, self-pay or self-funded and sent down the booking path your clinic defined for it. The system never quotes benefits, estimates a co-pay or confirms eligibility; your staff or your billing service does that.",
       },
       {
         q: "Can it collect intake information?",
-        a: "Approved forms through secure systems, with minimization and retention defined.",
+        a: "Approved forms through secure systems, with minimization and retention defined, including the insurance or self-pay details your own intake already asks for.",
       },
       {
         q: "Can it reactivate dormant patients?",
@@ -241,6 +258,10 @@ export const physiosChiropractorsCopy: IndustryCopy = {
       {
         q: "Will it work across multiple locations?",
         a: "Yes, where location, schedule and ownership rules are explicit.",
+      },
+      {
+        q: "Can a London team support a US clinic?",
+        a: "Yes. Discovery and review calls are booked in your own time zone, and the workflow itself runs around the clock, so the 9pm inquiry to a Phoenix PT clinic is handled exactly as the 9pm inquiry to a Bristol physio clinic. Pricing is published in both USD and GBP, so scope is agreed in your own currency.",
       },
     ],
   },

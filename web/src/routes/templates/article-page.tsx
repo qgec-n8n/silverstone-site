@@ -887,6 +887,29 @@ function ArticleMetricPanel({
 }
 
 /**
+ * The ranked entries an article actually shows, in the order it shows them.
+ * Shared by the renderer below and `buildRankedShortlistSchema`, so the
+ * ItemList in the JSON-LD can never describe a different set of providers, or
+ * a different order, from the page a crawler reads.
+ */
+function selectRankedCards(
+  cards: SilverstoneBlogRankedCard[] | undefined,
+): SilverstoneBlogRankedCard[] {
+  return (
+    cards
+      ?.filter((card) => card.name.trim() && card.summary.trim())
+      // The search-led stream composes shortlists of 8 to 12 named providers and
+      // its quality gates enforce that band, so the ceiling here has to match it.
+      // At 8 the last two entries were dropped on the page while the prose above
+      // still referred to them; the band was widened to 8-12 when ranked
+      // shortlists became the cited reference asset, and this ceiling moved with
+      // it. Changing one without the other silently truncates the list again.
+      .slice(0, 12)
+      .sort((left, right) => left.rank - right.rank) ?? []
+  );
+}
+
+/**
  * Ranked provider cards. Rendered as an <ol> so the ranking is conveyed to
  * assistive technology and not only by the visible badge.
  */
@@ -897,17 +920,7 @@ function ArticleRankedCards({
   cards?: SilverstoneBlogRankedCard[] | undefined;
   headingLevel: 3 | 4;
 }) {
-  const usable =
-    cards
-      ?.filter((card) => card.name.trim() && card.summary.trim())
-      // The search-led stream composes shortlists of 8 to 12 named providers and
-      // its quality gates enforce that band, so the ceiling here has to match it.
-      // At 8 the last two entries were dropped on the page while the prose above
-      // still referred to them; the band was widened to 8-12 when ranked
-      // shortlists became the cited reference asset, and this ceiling moved with
-      // it. Changing one without the other silently truncates the list again.
-      .slice(0, 12)
-      .sort((left, right) => left.rank - right.rank) ?? [];
+  const usable = selectRankedCards(cards);
 
   if (usable.length === 0) {
     return null;
@@ -1536,9 +1549,134 @@ function ArticleSection({
   );
 }
 
+/** Sections and subsections of an article body, in reading order. */
+function flattenArticleSections(
+  sections: readonly SilverstoneBlogSection[],
+): SilverstoneBlogSection[] {
+  return sections.flatMap((section) => [
+    section,
+    ...flattenArticleSections(section.subsections ?? []),
+  ]);
+}
+
+/**
+ * The presentation family the search-led automation stamps on a ranked
+ * listicle. Matched exactly: no other family carries ranked cards, and a
+ * near-match must not be treated as a ranking.
+ */
+const RANKED_SHORTLIST_FAMILY = "Ranked Shortlist";
+
+const BLOG_SCHEMA_ORIGIN = "https://silverstone-ai.com";
+
+type RankedShortlistListItem = {
+  "@type": "ListItem";
+  position: number;
+  name: string;
+  url?: string;
+  item?: { "@type": "Organization"; name: string; url: string };
+};
+
+export type RankedShortlistSchema = {
+  "@type": "ItemList";
+  "@id": string;
+  name: string;
+  url: string;
+  itemListOrder: string;
+  numberOfItems: number;
+  itemListElement: RankedShortlistListItem[];
+};
+
+/**
+ * Provider names are authored with the same lightweight emphasis markup
+ * `RichText` renders, so the marked-up form is stripped here: structured data
+ * has to carry the string a reader sees, not the markers.
+ */
+function plainProviderName(value: string): string {
+  return value
+    .replaceAll(/\[([^\]]+)\]\([^)\s]+\)/g, "$1")
+    .replaceAll(/\*\*([^*]+)\*\*/g, "$1")
+    .replaceAll(/(?<!\*)\*([^*]+)\*(?!\*)/g, "$1")
+    .replaceAll(/==([^=]+)==/g, "$1")
+    .replaceAll(/`([^`]+)`/g, "$1")
+    .trim();
+}
+
+/**
+ * ItemList for a Ranked Shortlist article — the format behind the site's
+ * biggest impression driver. Without it a ranked listicle reaches Google and
+ * the answer engines as undifferentiated prose; with it the ranking itself is
+ * data: which providers, in which order, at which position.
+ *
+ * Emitted only when the article is a ranked shortlist AND actually renders
+ * ranked cards, and built from `selectRankedCards` — the exact selection the
+ * page renders — so the list can never claim entries the reader cannot see.
+ * Returns null otherwise; an empty ItemList is worse than none.
+ */
+export function buildRankedShortlistSchema(
+  post: SilverstoneBlogPost,
+): RankedShortlistSchema | null {
+  if (post.presentation?.family !== RANKED_SHORTLIST_FAMILY) {
+    return null;
+  }
+
+  // Cards live on a section, and in today's data every ranked shortlist keeps
+  // them in one section. Sections and subsections are walked in reading order
+  // anyway, so a post that ever splits its ranking across two sections still
+  // lists every entry the page renders.
+  const cards = flattenArticleSections(post.articleBody).flatMap((section) =>
+    selectRankedCards(section.rankedCards),
+  );
+
+  if (cards.length === 0) {
+    return null;
+  }
+
+  const articleUrl = `${BLOG_SCHEMA_ORIGIN}/blog/${post.slug}`;
+
+  return {
+    "@type": "ItemList",
+    "@id": `${articleUrl}#ranked-shortlist`,
+    name: post.title,
+    url: articleUrl,
+    // Ascending, not descending: the order is defined by `position`, positions
+    // run 1..N down the page, and ItemListOrderAscending is schema.org's term
+    // for "lower values listed first". The intuition that a best-first list is
+    // "descending" has no anchor in the vocabulary.
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    numberOfItems: cards.length,
+    itemListElement: cards.map((card) => {
+      const name = plainProviderName(card.name);
+      // The same gate the visible "Visit …" button uses. An internal result is
+      // a path, which is meaningless in JSON-LD, so it is absolutized.
+      const website = card.website?.trim() ? sanitizeHref(card.website.trim()) : null;
+      const websiteUrl = website
+        ? website.external
+          ? website.href
+          : `${BLOG_SCHEMA_ORIGIN}${website.href}`
+        : null;
+
+      return {
+        "@type": "ListItem" as const,
+        position: card.rank,
+        name,
+        // With a resolvable site the entry is an explicit Organization rather
+        // than a bare string, which is what lets a consumer reconcile it with
+        // the provider it already knows. Without one it stays name-only.
+        ...(websiteUrl
+          ? {
+              url: websiteUrl,
+              item: { "@type": "Organization" as const, name, url: websiteUrl },
+            }
+          : {}),
+      };
+    }),
+  };
+}
+
 function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
-  const baseUrl = "https://silverstone-ai.com";
+  const baseUrl = BLOG_SCHEMA_ORIGIN;
   const articleUrl = `${baseUrl}/blog/${post.slug}`;
+  const rankedShortlist = buildRankedShortlistSchema(post);
   // Social/schema crawlers require absolute image URLs; hero images are
   // normally site-relative but an automation-written post could already
   // carry an absolute URL.
@@ -1562,7 +1700,15 @@ function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
         // served) from the same document.
         author: { "@id": ORGANIZATION_ID },
         publisher: { "@id": ORGANIZATION_ID },
+        // A ranked shortlist *is* its list; saying so makes the article and the
+        // ItemList one statement rather than two nodes that happen to share a
+        // document. Only present when the list is.
+        ...(rankedShortlist ? { mainEntity: { "@id": rankedShortlist["@id"] } } : {}),
       },
+      // Straight into the one graph this document already emits, never a second
+      // <script>: `tests/e2e/route-parity.spec.ts` asserts exactly one JSON-LD
+      // block per page.
+      ...(rankedShortlist ? [rankedShortlist] : []),
       buildOrganizationNode(),
       // Mirrors the visible Home → Blog → article trail in the hero and the
       // BreadcrumbList pattern used by every other page template

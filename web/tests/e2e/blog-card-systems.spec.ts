@@ -311,7 +311,12 @@ test("article hover surface follows hover, keyboard focus and filtering", async 
   expect(Math.abs(highlightBox.x - hoveredCardBox.x)).toBeLessThan(2);
   expect(Math.abs(highlightBox.y - hoveredCardBox.y)).toBeLessThan(2);
 
-  const filters = page.locator(".ss-insight-filters__pill");
+  /* Scoped to the filter group: the category directory beneath the grid uses
+     the same pill styling for its crawlable route links, and this assertion
+     needs the last *filter* pill so the next Tab lands on the first card. */
+  const filters = page.locator(
+    '[aria-label="Filter by category"] .ss-insight-filters__pill',
+  );
   await filters.last().focus();
   await page.keyboard.press("Tab");
   await expect(items.nth(0).locator(".ss-insight-card")).toBeFocused();

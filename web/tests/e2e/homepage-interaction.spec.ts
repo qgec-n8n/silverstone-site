@@ -554,7 +554,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
   await expect(
     page.getByRole("heading", {
-      name: "The operating system for businesses that refuse to miss.",
+      name: "The AI automation agency for businesses that refuse to miss.",
     }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "Explore the system" })).toBeVisible();

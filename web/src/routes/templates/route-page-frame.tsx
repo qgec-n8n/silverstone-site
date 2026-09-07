@@ -95,8 +95,8 @@ export function RoutePageFrame({
                         {current ? (
                           <BreadcrumbPage>{breadcrumb.name}</BreadcrumbPage>
                         ) : (
-                          <BreadcrumbLink href={breadcrumb.path}>
-                            {breadcrumb.name}
+                          <BreadcrumbLink asChild>
+                            <Link to={breadcrumb.path}>{breadcrumb.name}</Link>
                           </BreadcrumbLink>
                         )}
                       </BreadcrumbItem>,

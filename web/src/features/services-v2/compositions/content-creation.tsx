@@ -81,6 +81,7 @@ export function ContentCreationComposition({
         eyebrow={copy.eyebrow}
         icon={FileText}
         title={copy.h1}
+        deck={copy.deck}
         titleId="srv2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
@@ -160,6 +161,28 @@ export function ContentCreationComposition({
                   the human sign-off that keeps every asset distinct instead of generic.
                 </p>
               </Reveal>
+              {copy.comparison ? (
+                <Reveal kind="section" delayMs={90}>
+                  <div className="ss-srv2-compare" style={{ marginTop: "1.5rem" }}>
+                    <div className="ss-srv2-compare__col">
+                      <p className="ss-srv2-compare__label">
+                        {copy.comparison.before.title}
+                      </p>
+                      <p className="ss-srv2-compare__text">
+                        {copy.comparison.before.body}
+                      </p>
+                    </div>
+                    <div className="ss-srv2-compare__col" data-tone="accent">
+                      <p className="ss-srv2-compare__label">
+                        {copy.comparison.after.title}
+                      </p>
+                      <p className="ss-srv2-compare__text">
+                        {copy.comparison.after.body}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              ) : null}
             </div>
             <Reveal kind="image">
               <ServiceFigure image={art.image} />

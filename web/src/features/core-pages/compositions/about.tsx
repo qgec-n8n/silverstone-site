@@ -97,7 +97,8 @@ export function AboutComposition() {
       <SecondaryHero
         eyebrow="The Silverstone standard"
         icon={Sparkles}
-        title="A premium technology partner built around *better judgment*"
+        title="A London AI automation agency *working across the UK and US*"
+        deck="Practical systems, clearly explained."
         titleId="core-about-title"
         lead="Silverstone AI is an AI automation agency in London that builds AI receptionists, voice agents, automation, websites and apps for businesses in the US and the UK. Six disciplines, one line of accountability."
         points={[

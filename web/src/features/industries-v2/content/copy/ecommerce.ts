@@ -22,7 +22,7 @@ export const ecommerceCopy: IndustryCopy = {
     h1: "Scale customer experience without multiplying operational friction",
   },
   eyebrow: "AI automation for ecommerce",
-  h1: "Scale the experience *without scaling the chaos*",
+  h1: "Ecommerce automation that *scales without the chaos*",
   heroSub:
     "Every order creates another question. Silverstone AI answers instantly from live order data, **and hands every money decision to your team.** Built for Shopify and DTC brands in the US and UK.",
   heroPoints: [
@@ -34,7 +34,7 @@ export const ecommerceCopy: IndustryCopy = {
   markets: {
     eyebrow: "Built for your market",
     heading: "Same where-is-my-order ticket. *Your* stack.",
-    lead: "A where-is-my-order ticket in Los Angeles and one in Leeds touch the same four systems. The workflow is identical; the help desk, the returns app and the carrier change.",
+    lead: "A where-is-my-order ticket in Los Angeles and one in Leeds touch the same four systems: the store, the order record, the warehouse and the carrier. The workflow is identical whether you call it a store or a shop, shipping or delivery; the help desk, the returns app and the carrier change.",
     lanes: [
       {
         market: "US",
@@ -47,7 +47,7 @@ export const ecommerceCopy: IndustryCopy = {
           "Klaviyo, Loop Returns, ShipStation and your 3PL",
         ],
         vocabulary:
-          "WISMO tickets, RMAs, chargebacks, 3PLs, carrier scans, subscriptions.",
+          "WISMO tickets, RMAs, chargebacks, shipping, 3PLs, carrier scans, subscriptions.",
         keepsHuman:
           "Discretionary refunds, chargebacks, fraud calls and high-value exceptions.",
       },
@@ -62,7 +62,7 @@ export const ecommerceCopy: IndustryCopy = {
           "Klaviyo, ZigZag, Royal Mail and your fulfillment partner",
         ],
         vocabulary:
-          "Where-is-my-order queries, returns, chargebacks, fulfillment, carrier scans, subscriptions.",
+          "Where-is-my-order queries, returns, chargebacks, delivery, fulfillment, carrier scans, subscriptions.",
         keepsHuman:
           "Discretionary refunds, chargebacks, fraud calls and high-value exceptions.",
       },
@@ -70,12 +70,12 @@ export const ecommerceCopy: IndustryCopy = {
     shared: [
       "Every answer is read live from the storefront, order, warehouse and carrier, never invented from confidence.",
       "Standard returns and address changes act within your policy; discretion becomes an owned case with a name on it.",
-      "Retention journeys read order state first, so a delayed parcel never gets a cross-sell.",
+      "Retention journeys read order state first, so a late shipment or a delayed parcel never gets a cross-sell.",
     ],
   },
   problem: {
-    heading: "Growth is creating *operational debt*",
-    body: "Every fragmented app is a gap your customer feels, even on a beautiful storefront. **The real question isn't “can AI answer this?”** It's which system holds the truth, and when a human must step in.",
+    heading: "Why does support volume *grow faster than orders*?",
+    body: "Because each new app adds a gap the customer feels. In a growing store the order truth sits in Shopify or WooCommerce, the conversation sits in the help desk, and shipping status sits with the carrier, so the same question gets answered by hand three times. **The real question is which system holds the truth, and when a human steps in.**",
     cards: [
       {
         title: "Status they already have to repeat",
@@ -96,8 +96,8 @@ export const ecommerceCopy: IndustryCopy = {
     ],
   },
   journey: {
-    heading: "One question, *instantly resolved*",
-    lead: "“Where's my order?” touches four systems. Silverstone AI reads them all, **in one motion.**",
+    heading: "How does it know *where an order actually is*?",
+    lead: "Silverstone AI reads it live. A where-is-my-order question touches four systems: the store, the order record, the warehouse and the carrier. The workflow consults all four before it replies, so the shipping status a customer receives is the status your systems actually hold. **If it cannot be verified, it is not sent.**",
     stages: [
       {
         title: "Identify",
@@ -122,32 +122,32 @@ export const ecommerceCopy: IndustryCopy = {
     ],
   },
   workflows: {
-    heading: "Support that knows *exactly when to stop*",
-    lead: "The fastest answer only matters if it's right, and discretion always stays with your team.",
+    heading: "What can it resolve *without a human touching it*?",
+    lead: "Product and sizing questions, order and shipping status, standard returns and exchanges, and consent-led retention. Each one answers from your approved catalog and your live order data, and each stops at the same line: a discretionary refund, a chargeback or a high-value exception becomes an owned case with a name on it, never an automated decision.",
     items: [
       {
         title: "Product & pre-purchase",
-        body: "Sizing and product questions answered from your approved catalog, **never guessed.**",
+        body: "Sizing, materials and stock questions answered from your approved catalog in Shopify or WooCommerce, **never guessed.**",
       },
       {
-        title: "Order & delivery",
-        body: "Live status from real carrier data, with proactive updates the moment something changes.",
+        title: "Order, shipping & delivery",
+        body: "Live shipping and delivery status read from real carrier scans, with proactive updates the moment something changes.",
       },
       {
         title: "Returns & exchanges",
-        body: "Facts gathered, the standard route explained, labels issued where permitted, **exceptions owned by name.**",
+        body: "Facts gathered, the standard route explained, return shipping labels issued where permitted, **exceptions owned by name.**",
       },
       {
         title: "Retention & win-back",
-        body: "Status-aware journeys: reviews, replenishment and reactivation, always consent-first.",
+        body: "Status-aware journeys for reviews, replenishment and reactivation. Commercial email is built the way CAN-SPAM asks: accurate sender and subject headers, your real physical address, **an unsubscribe that works first time** and suppresses across every sequence at once.",
       },
     ],
   },
   services: {
-    heading: "Architecture *before* another app",
-    lead: "Tool accumulation is the real ecommerce failure. We start with your operating model, not another login.",
+    heading: "Does this work with Shopify, WooCommerce or BigCommerce?",
+    lead: "Yes, and with Gorgias, Zendesk, Kustomer, Freshdesk, Klaviyo, Loop Returns, ZigZag and ShipStation. Your store platform stays the source of truth for products, orders and shipping while the automation reads and writes through it. Tool accumulation is the real ecommerce failure, so we start with your operating model, not another login.",
     paragraphs: [
-      "[Automation workflows](/services/ai-automation) orchestrate Shopify, Gorgias, Klaviyo and your carrier data; an [AI receptionist](/services/ai-receptionists) manages routine web and messaging inquiries; [custom applications](/services/app-development) power a unified exception console where you need one.",
+      "[Automation workflows](/services/ai-automation) orchestrate Shopify or WooCommerce, Gorgias, Klaviyo and your carrier data; an [AI receptionist](/services/ai-receptionists) manages routine web and messaging inquiries; [custom applications](/services/app-development) power a unified exception console where you need one.",
       "[Governed content systems](/services/content-creation) keep product and policy copy consistent, and [AI consulting](/services/ai-consulting) settles build-versus-buy **before** you commit.",
     ],
   },
@@ -215,7 +215,7 @@ export const ecommerceCopy: IndustryCopy = {
     items: [
       {
         q: "Will it work with our current stack?",
-        a: "Usually. Shopify, BigCommerce, Gorgias, Zendesk, Klaviyo and most returns and shipping apps expose what we need; we confirm your APIs, webhooks and data quality first, then build on the systems that already hold reliable state.",
+        a: "Usually. Shopify, WooCommerce, BigCommerce, Gorgias, Zendesk, Klaviyo and most returns and shipping apps expose what we need; we confirm your APIs, webhooks and data quality first, then build on the systems that already hold reliable state.",
       },
       {
         q: "Does this replace our support team?",
@@ -232,6 +232,22 @@ export const ecommerceCopy: IndustryCopy = {
       {
         q: "Where do we start?",
         a: "The highest-volume journey with clean-enough data, usually order status, returns triage or support classification.",
+      },
+      {
+        q: "How are your email sequences designed around CAN-SPAM?",
+        a: "Order confirmations and shipping notifications are transactional and follow the order itself. Marketing, review and win-back sequences go only to customers who opted in, and they are built around what CAN-SPAM asks of commercial email: accurate sender and subject headers, your brand's real physical address, and an unsubscribe that works first time and suppresses across every sequence at once. **Your own counsel approves the program before launch.**",
+      },
+      {
+        q: "Can it text US customers about their orders?",
+        a: "Only against consent already on the record. Opt-in is captured at checkout or in the help desk and stored on the customer, so every send traces back to a permission. Sends are held to quiet hours in the customer's own time zone, and a STOP or opt-out is honored immediately and written back to Klaviyo and your store. That is how the workflow is built against the consent, opt-out and time-of-day rules the TCPA applies to automated texts to US numbers.",
+      },
+      {
+        q: "Do you work with US brands as well as UK ones?",
+        a: "Yes. Silverstone AI works from London with ecommerce and DTC brands in both markets, and every workflow runs on the customer's clock rather than ours: order updates, quiet hours and follow-up timing are set per market, so a 9pm question to a Denver store is handled exactly like a 9pm question to a Manchester shop. Discovery calls are booked in your own time zone.",
+      },
+      {
+        q: "Can you quote in dollars?",
+        a: "Yes. Proposals are quoted and invoiced in USD or GBP, whichever is agreed at proposal, and the published bands on the pricing page carry both currencies. Scope sets the figure: how many journeys go live, which channels they cover, and how many systems have to be connected and kept in sync, from the store and the help desk to the returns app, the carrier and your marketing platform.",
       },
     ],
   },

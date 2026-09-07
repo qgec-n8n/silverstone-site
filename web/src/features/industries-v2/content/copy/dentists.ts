@@ -22,7 +22,8 @@ export const dentistsCopy: IndustryCopy = {
     h1: "Recover patient demand without automating clinical judgment",
   },
   eyebrow: "Dental practice automation",
-  h1: "Recover every patient. *Automate none of the care.*",
+  h1: "Dental practice automation that *recovers every patient*",
+  deck: "Automate none of the care.",
   heroSub:
     "A missed call could be a new patient or a stalled recall. Silverstone AI handles the admin **instantly**, and always knows when to stop. Built for dental practices and dental offices in the US and UK.",
   heroPoints: [
@@ -40,14 +41,14 @@ export const dentistsCopy: IndustryCopy = {
         market: "US",
         label: "United States",
         operators:
-          "General and specialty dental practices and DSO groups, from a single office to multiple locations.",
+          "General and specialty dental practices, dental offices and DSO groups, from a single location to many.",
         tooling: [
           "Dentrix, Eaglesoft, Open Dental or Curve",
           "Your patient portal and digital intake forms",
-          "Insurance verification and recall lists",
+          "Insurance verification and recall or recare lists",
         ],
         vocabulary:
-          "New-patient exams, hygiene recall, unscheduled treatment, insurance, PPO and fee-for-service.",
+          "New-patient exams, hygiene recall or recare, the hygienist's column, unscheduled treatment, insurance, PPO and fee-for-service.",
         keepsHuman: "Diagnosis, treatment planning, consent and anything clinical.",
       },
       {
@@ -61,7 +62,7 @@ export const dentistsCopy: IndustryCopy = {
           "Recall lists and plan memberships",
         ],
         vocabulary:
-          "Check-ups, hygiene recalls, treatment plans, private and NHS patients, plan members.",
+          "Check-ups, hygienist recalls, treatment plans, private and NHS patients, plan members.",
         keepsHuman: "Diagnosis, treatment planning, consent and anything clinical.",
       },
     ],
@@ -72,8 +73,8 @@ export const dentistsCopy: IndustryCopy = {
     ],
   },
   problem: {
-    heading: "Reception pressure is *lost revenue*",
-    body: "The goal is simple: **make the practice easier to reach, cut repetitive admin, and never touch clinical judgment.** Each one is a non-negotiable design requirement, never a trade-off.",
+    heading: "How can dental practices *recover missed calls faster*?",
+    body: "By answering the calls the desk cannot. Silverstone AI picks up what rings out at lunch, after hours and at peak, captures the caller's name, number and reason, then books, reschedules or raises a task with a named owner before the day ends. **The practice gets easier to reach, the admin gets lighter, and clinical judgment is never touched.**",
     cards: [
       {
         title: "Desk busy, demand still arriving",
@@ -120,8 +121,8 @@ export const dentistsCopy: IndustryCopy = {
     ],
   },
   workflows: {
-    heading: "What the practice can *safely automate*",
-    lead: "Defined administrative work, inside explicit clinical controls.",
+    heading: "What can a dental office *safely automate*?",
+    lead: "Four things, and nothing clinical: new-patient intake, hygiene recall and rebooking — recare, if that is the word on your schedule — forms and consent admin, and post-treatment follow-up. Each one runs inside written stop conditions, so a US dental office and a UK practice both automate the paperwork and keep every judgment call.",
     items: [
       {
         title: "New-patient intake",
@@ -129,7 +130,7 @@ export const dentistsCopy: IndustryCopy = {
       },
       {
         title: "Recall & rebooking",
-        body: "Due cohorts identified from approved data, with tasks for anything unresolved.",
+        body: "Hygienist recall and recare cohorts read from approved data, with tasks for anything unresolved.",
       },
       {
         title: "Forms & consent admin",
@@ -177,8 +178,8 @@ export const dentistsCopy: IndustryCopy = {
     clarification: INDUSTRY_CLARIFICATION,
   },
   boundary: {
-    heading: "Privacy and safety, *built in*",
-    body: "Health data demands more, not less. **Automation captures, confirms and routes. People decide everything else.** Every clinical stop condition is defined before launch, never assumed.",
+    heading: "What happens to patient data under *HIPAA and UK GDPR*?",
+    body: "In the US these are HIPAA-conscious, non-clinical workflows: the system captures, confirms and routes scheduling and administrative detail, and stops where clinical information begins. UK builds are scoped the same way against UK GDPR principles — minimum necessary data, named access, defined retention, a full audit log. **Automation captures, confirms and routes. People decide everything else.** Every clinical stop condition is written down before launch, never assumed.",
     keeps: [
       "Urgency, diagnosis, treatment",
       "Consent, always a human process",
@@ -213,7 +214,7 @@ export const dentistsCopy: IndustryCopy = {
   },
   fit: {
     heading: "Is this *your practice*?",
-    lead: "A strong fit has demand worth recovering and owners ready to define the boundary.",
+    lead: "A strong fit is a dental practice or dental office taking more inbound demand than the desk can answer, with a named owner for the schedule and the practice-management system, and leadership willing to write the clinical stop conditions down. Group and DSO sites qualify on the same terms, one location at a time.",
     right: [
       "Repeated admin demand at reception",
       "A named schedule or PMS owner",
@@ -240,7 +241,23 @@ export const dentistsCopy: IndustryCopy = {
       },
       {
         q: "How is patient data protected?",
-        a: "Minimized, access-restricted, retained on your terms, with logs and named owners throughout.",
+        a: "Minimized, access-restricted, retained on your terms, with logs and named owners throughout. US builds are designed as HIPAA-conscious, non-clinical workflows; UK builds are scoped against UK GDPR principles, with the Information Commissioner's Office guidance as the reference point. Both use the same rule: the least data the workflow needs, and nothing clinical.",
+      },
+      {
+        q: "How does this work for a US practice under HIPAA?",
+        a: "We build **HIPAA-conscious, non-clinical workflows**. The system handles scheduling, recall or recare, forms distribution and follow-up, and stops where clinical information begins — no diagnosis, no triage, no clinical notes. Where a workflow would reach into the clinical record, it is scoped out or routed to your team, and the boundary is written down with the practice before anything goes live.",
+      },
+      {
+        q: "Do reminders and recall texts follow US calling and email rules?",
+        a: "That is a design property, not an afterthought. The workflow is built around what TCPA asks of automated calls and texts — consent captured and stored before contact, an opt-out honored immediately, sending held to local quiet hours in the patient's own time zone — and what CAN-SPAM asks of email: accurate headers, your practice's real physical address and a working unsubscribe.",
+      },
+      {
+        q: "Can a London studio support a US dental office?",
+        a: "Yes. Silverstone AI is based in London and builds for both markets. Call handling, reminders and recall run on your local clock, so a Pacific-time office and a UK surgery each get their own opening hours, quiet hours and same-day recovery window. Replies from us land across US and UK business hours.",
+      },
+      {
+        q: "What does this cost in US dollars?",
+        a: "Every published band on our pricing page carries both currencies at a fixed rate, reviewed quarterly, so a US dental office reads a dollar figure rather than working out a conversion. Scope for a practice is set on one call against the specific workflow you want covered — missed calls, intake, recall or forms — not from a per-seat list.",
       },
       {
         q: "Will it work with our practice-management system?",

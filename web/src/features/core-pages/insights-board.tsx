@@ -12,6 +12,14 @@
  * published post. Slicing the array instead would drop the hub from ~75
  * outbound links to twelve, and this hub is the primary internal link into
  * the article set.
+ *
+ * The category pills filter the grid in place, so they are buttons and emit
+ * no links — which left the seventeen service and industry routes behind the
+ * taxonomy with zero link equity from this hub even though every category
+ * already carries a real `href`. `CategoryDirectory` below closes that: one
+ * visible, always-rendered rail of real links to each of those routes,
+ * rendered outside the filter/paging state so it is in the prerendered HTML
+ * for every visitor and every crawler alike.
  */
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -24,6 +32,7 @@ import {
   INSIGHT_CATEGORIES,
   insightArticleCategoryLabel,
   type InsightArticle,
+  type InsightCategory,
 } from "./insights-data";
 
 type FilterId = "all" | (string & {});
@@ -148,6 +157,57 @@ function ArticleCard({ article }: { article: InsightArticle }) {
     >
       {body}
     </article>
+  );
+}
+
+/**
+ * The systems behind the taxonomy, as real links. Kept separate from the
+ * filter pills on purpose: a pill changes what this page shows, a link here
+ * opens the page that category is about, and collapsing the two would make
+ * one of those two jobs worse. Topic categories are deliberately absent —
+ * their `href` values point back at the same service routes and /pricing, so
+ * listing them again would repeat destinations rather than add any.
+ */
+function CategoryDirectory({
+  industryCategories,
+  serviceCategories,
+}: {
+  industryCategories: InsightCategory[];
+  serviceCategories: InsightCategory[];
+}) {
+  return (
+    <nav
+      className="ss-insight-board__directory ss-hairline-t pt-8"
+      aria-labelledby="insights-directory-title"
+    >
+      <p className="ss-insight-board__count" id="insights-directory-title">
+        Every topic here maps to a system we build — open the page behind it
+      </p>
+      <div className="ss-insight-filters mt-4">
+        <span className="ss-insight-filters__group-label">Services</span>
+        {serviceCategories.map((category) => (
+          <Link
+            key={category.id}
+            className="ss-insight-filters__pill"
+            prefetch="intent"
+            to={category.href}
+          >
+            {category.label}
+          </Link>
+        ))}
+        <span className="ss-insight-filters__group-label">Industries</span>
+        {industryCategories.map((category) => (
+          <Link
+            key={category.id}
+            className="ss-insight-filters__pill"
+            prefetch="intent"
+            to={category.href}
+          >
+            {category.label}
+          </Link>
+        ))}
+      </div>
+    </nav>
   );
 }
 
@@ -308,6 +368,11 @@ export function InsightsBoard() {
           </p>
         </div>
       )}
+
+      <CategoryDirectory
+        industryCategories={industryCategories}
+        serviceCategories={serviceCategories}
+      />
     </div>
   );
 }

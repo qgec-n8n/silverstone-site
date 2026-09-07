@@ -11,6 +11,7 @@ import "~/styles/industries-v2/industries-v2.css";
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import type { CSSProperties } from "react";
+import { Link } from "react-router";
 
 import {
   ArrowUpRight,
@@ -312,7 +313,7 @@ export function ServicesHubExperience() {
       <SecondaryHero
         eyebrow="Silverstone AI service architecture"
         icon={Workflow}
-        title="Services built around *real business workflows*"
+        title="AI automation services built around *real business workflows*"
         titleId="hub2-lead"
         lead="Seven disciplines, one operating standard: every system is scoped around a costly problem, wired into your source of truth and measured after launch. Choose the entry point — the architecture connects behind it."
         points={[
@@ -349,9 +350,10 @@ export function ServicesHubExperience() {
                   delayMs={index * 110}
                   className={index === SERVICE_ORDER.length - 1 ? "ss-hub2-span" : ""}
                 >
-                  <a
+                  <Link
                     className="ss-hub2-card"
-                    href={route}
+                    prefetch="intent"
+                    to={route}
                     style={
                       {
                         "--hub2-accent": art.accentFrom,
@@ -375,10 +377,71 @@ export function ServicesHubExperience() {
                     <span className="ss-hub2-card__meta">
                       <span className="ss-hub2-card__chip">{art.discipline}</span>
                     </span>
-                  </a>
+                  </Link>
                 </Reveal>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/*
+       * Buyer-question band.
+       *
+       * The hub was the thinnest commercial page on the site at ~725 crawlable
+       * words while its seven child pages run past 2,000. Search Console shows
+       * question-shaped queries already ranking at positions 8-11 on this domain
+       * while head terms sit at 50-64, so each heading here is the question a
+       * buyer actually types and each answer is written to stand alone if an AI
+       * answer engine quotes it with no surrounding context.
+       */}
+      <section className="ss-srv2-section" aria-labelledby="hub2-choose">
+        <div className="ss-srv2__container" data-width="narrow">
+          <SectionHead
+            eyebrow="Choosing"
+            icon={Sparkles}
+            heading="Which service do you *actually need*?"
+            headingId="hub2-choose"
+            lead="Most buyers arrive describing a symptom — missed calls, a slow website, an app idea, too much manual admin — rather than a service. These are the questions that decide which of the seven is the right starting point, for US and UK businesses alike."
+          />
+          <div className="ss-srv2-prose">
+            <h3>Do I need an AI receptionist or an AI voice agent?</h3>
+            <p>
+              An AI receptionist answers, qualifies and books across your channels, then
+              hands over cleanly when a human is needed. An AI voice agent is the
+              telephony layer underneath it, built for real conversations with real
+              consequences. Most businesses start with reception and add voice when call
+              volume or after-hours demand justifies it.
+            </p>
+            <h3>Should we build a custom app or automate what we already have?</h3>
+            <p>
+              Automate first in almost every case. Workflow automation connects the
+              tools you already pay for and usually pays back faster than new software.
+              A custom app earns its place when the workflow is genuinely yours, no
+              product on the market fits it, and the process is stable enough to be
+              worth encoding.
+            </p>
+            <h3>What is the difference between a tool and a system?</h3>
+            <p>
+              A tool does one job when someone remembers to open it. A system carries
+              the work between tools without a person in the middle: a defined trigger,
+              a single source of truth, an approved action, an exception path and a
+              record of what happened. Buying more tools rarely fixes a missing system.
+            </p>
+            <h3>Do you work with US businesses as well as UK ones?</h3>
+            <p>
+              Yes. Silverstone AI is a London studio serving small and mid-sized
+              businesses in both markets, with prices published in GBP and USD, delivery
+              checkpoints scheduled in your own time zone, and automations that run on
+              your local business hours rather than London&rsquo;s.
+            </p>
+            <h3>Where should we start if we are not sure?</h3>
+            <p>
+              With consulting, not construction. A short diagnostic decides what to
+              automate before anything is bought or built, and produces a scoped plan
+              you can act on with us or without us. That is deliberately the cheapest
+              way to find out you do not need the expensive thing.
+            </p>
           </div>
         </div>
       </section>

@@ -82,6 +82,7 @@ export function AiAutomationComposition({
         eyebrow={copy.eyebrow}
         icon={GitBranch}
         title={copy.h1}
+        deck={copy.deck}
         titleId="srv2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
@@ -148,6 +149,28 @@ export function AiAutomationComposition({
               headingId="srv2-different"
               lead={copy.differentiator.body}
             />
+            {copy.comparison ? (
+              <Reveal kind="section" delayMs={90}>
+                <div className="ss-srv2-compare" style={{ marginTop: "1.5rem" }}>
+                  <div className="ss-srv2-compare__col">
+                    <p className="ss-srv2-compare__label">
+                      {copy.comparison.before.title}
+                    </p>
+                    <p className="ss-srv2-compare__text">
+                      {copy.comparison.before.body}
+                    </p>
+                  </div>
+                  <div className="ss-srv2-compare__col" data-tone="accent">
+                    <p className="ss-srv2-compare__label">
+                      {copy.comparison.after.title}
+                    </p>
+                    <p className="ss-srv2-compare__text">
+                      {copy.comparison.after.body}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ) : null}
             <Reveal kind="image">
               <ServiceFigure image={art.image} />
             </Reveal>

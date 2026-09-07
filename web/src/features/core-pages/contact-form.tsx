@@ -23,6 +23,7 @@
  * route if that request can't be confirmed.
  */
 import { useState, useSyncExternalStore, type ReactNode } from "react";
+import { Link } from "react-router";
 import { AnimatePresence, useReducedMotion, type Variants } from "motion/react";
 import * as m from "motion/react-m";
 
@@ -755,13 +756,13 @@ export function ContactForm() {
           <span>
             {mobile ? (
               <>
-                I'm happy to be contacted — <a href="/privacy-policy">privacy policy</a>
-                .
+                I'm happy to be contacted —{" "}
+                <Link to="/privacy-policy">privacy policy</Link>.
               </>
             ) : (
               <>
                 I'm happy to be contacted about this inquiry —{" "}
-                <a href="/privacy-policy">privacy policy</a>. Please don't include
+                <Link to="/privacy-policy">privacy policy</Link>. Please don't include
                 passwords or sensitive personal data.
               </>
             )}
@@ -903,7 +904,9 @@ export function ContactForm() {
               <strong>Reviewed personally.</strong> Replies within one working day.
             </p>
             <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a>
-            <a href="/book#booking-calendar">Prefer to talk? Book a 30-minute call</a>
+            <Link to="/book#booking-calendar">
+              Prefer to talk? Book a 30-minute call
+            </Link>
           </div>
         </aside>
       ) : null}

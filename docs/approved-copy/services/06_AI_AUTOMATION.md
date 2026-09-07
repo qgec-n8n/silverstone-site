@@ -28,7 +28,7 @@
 - **Open Graph title:** Engineer the work between your systems
 - **Open Graph description:** Silverstone AI builds governed automation and agent workflows that move data, trigger actions, handle exceptions and keep people in control of consequential decisions.
 - **Canonical route:** `/services/ai-automation`
-- **H1:** Engineer the work between your systems
+- **H1:** AI automation for the work between your systems
 
 ### H2 structure
 
@@ -142,7 +142,7 @@ AI automation agency UK, automate everything, intelligent workflows, agentic, se
 
 ## 5. Complete public page copy
 
-# Engineer the work between your systems
+# AI automation for the work between your systems
 
 Most operational waste does not sit inside one tool. It sits between tools, teams and decisions.
 

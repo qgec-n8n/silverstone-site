@@ -604,7 +604,35 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     font-size: clamp(1.9rem, 4.5cqi + 2.7vh, 4.6rem);
   }
 
-  .ss-srv2-hero__intro .ss-srv2-hero__lead {
+  .ss-srv2-hero__intro /* Short line under the H1, added when an H1 was rewritten to front-load its
+   target term and displaced a creative line worth keeping. Sized between the
+   H1 and the lead, and kept to a single tight line-height because the hero is
+   budgeted to one phone screen — see --srv2-mobile-stage below. */
+.ss-srv2-hero__deck {
+    margin: 0;
+    font-family: var(--ss-font-display);
+    font-weight: 500;
+    font-size: clamp(0.95rem, 0.35rem + 0.55vw + 0.6vh, 1.45rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: color-mix(
+      in srgb,
+      var(--ss-srv2-accent, #9fb4d4) 34%,
+      var(--ss-titanium, #c8d2e0)
+    );
+    max-width: 46ch;
+  }
+
+  .ss-srv2-hero__deck em {
+    font-style: normal;
+    color: color-mix(
+      in srgb,
+      var(--ss-srv2-accent, #9fb4d4) 62%,
+      var(--ss-platinum, #e8eef7)
+    );
+  }
+
+  .ss-srv2-hero__lead {
     font-size: clamp(0.9rem, 1.9cqi + 0.75vh, 1.65rem);
   }
 
@@ -933,6 +961,27 @@ section[data-slot="page-section"]:has(.ss-srv2) {
  * lane between the two corner stacks, styled exactly as before.
  */
 @media (max-width: 40rem) {
+  /*
+   * The deck does not render on phones.
+   *
+   * The phone hero is budgeted to end exactly at the fold, and the CTA row must
+   * finish above the scroll cue — tests/e2e/mobile-hero-fold.spec.ts asserts
+   * `actions.bottom <= cue.top`, because that band reserves clearance for the
+   * floating demo and consent controls. That budget was already fully spent by
+   * eyebrow + H1 + lead + capability points + CTAs, so adding a sixth stacked
+   * element pushed the CTAs into the reserved band by roughly the deck's own
+   * height (measured at 31.9px on /pricing at 390x844).
+   *
+   * The deck is supporting copy, not the page's argument: each deck line's
+   * substance also appears in the route description, the body copy and llms.txt,
+   * and the H1 above it carries the target term by itself. So it renders from
+   * the tablet tier up, where there is room, and the phone keeps the one-screen
+   * contract it was tuned for.
+   */
+  .ss-srv2-hero__deck {
+    display: none;
+  }
+
   .ss-srv2-hero {
     --srv2-mobile-hairline: color-mix(
       in srgb,
@@ -1119,12 +1168,18 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
     width: 100%;
     max-width: 100%;
+    /* 10.6vw -> 10.1vw and 1.03 -> 1.01 line-height. The rewritten H1s carry
+       their target term, so they run longer than the creative lines this tier
+       was originally calibrated against (34-62 chars, now 47-63), which put the
+       longest of them a few pixels into the reserved cue band at 390x844. This
+       recovers that without moving the data-long threshold, which is tuned for
+       a different job. */
     font-size: clamp(
       1.1rem,
-      min(10.6vw, calc(0.0762 * var(--srv2-mobile-stage) - 7.21px)),
-      2.85rem
+      min(10.1vw, calc(0.0726 * var(--srv2-mobile-stage) - 6.87px)),
+      2.7rem
     );
-    line-height: 1.03;
+    line-height: 1.01;
     letter-spacing: -0.035em;
   }
 
@@ -1483,6 +1538,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
     line-height: 1.32;
   }
+
+  /* The deck is the newest hero element, so it gets the tightest mobile budget:
+     it must never be the reason the CTA row crosses the fold. */
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
     padding: 0.06rem 0.65rem;

@@ -8,7 +8,7 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import { createElement, type ReactNode } from "react";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 
 import {
   Database,
@@ -73,7 +73,9 @@ function HeroBreadcrumbs({ trail }: { trail: ReturnType<typeof getBreadcrumbTrai
               {current ? (
                 <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
               ) : (
-                <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link to={crumb.href}>{crumb.label}</Link>
+                </BreadcrumbLink>
               )}
             </BreadcrumbItem>,
           ];
@@ -198,6 +200,7 @@ export function SecondaryHero({
   icon,
   title,
   titleId,
+  deck,
   lead,
   points,
   primaryCtaLabel,
@@ -210,6 +213,17 @@ export function SecondaryHero({
   icon?: LucideIcon | undefined;
   title: string;
   titleId?: string | undefined;
+  /**
+   * Optional short line directly beneath the H1.
+   *
+   * Exists because several H1s were rewritten to front-load their exact target
+   * term, which displaced a creative line worth keeping (e.g. "Automate none of
+   * the care."). The deck holds that line, or the second market term where the
+   * H1 could only carry one. It sits between the H1 and the lead, and is
+   * deliberately compact: the hero is budgeted to one phone screen, so this is
+   * the smallest element that can carry a sentence.
+   */
+  deck?: string | undefined;
   lead: string;
   points: SecondaryHeroPoint[];
   primaryCtaLabel: string;
@@ -261,6 +275,17 @@ export function SecondaryHero({
                   <RichText text={title} />
                 </h1>
               </Reveal>
+              {deck ? (
+                <Reveal
+                  kind="section"
+                  delayMs={HERO_REVEAL_BASE_DELAY + 210}
+                  trigger="mount"
+                >
+                  <p className="ss-srv2-hero__deck">
+                    <RichText text={deck} />
+                  </p>
+                </Reveal>
+              ) : null}
               <Reveal
                 kind="section"
                 delayMs={HERO_REVEAL_BASE_DELAY + 280}

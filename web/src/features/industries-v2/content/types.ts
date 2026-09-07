@@ -162,6 +162,8 @@ export type IndustryCopy = {
   seo: IndustrySeo;
   eyebrow: string;
   h1: string;
+  /** Optional short line under the H1; see SecondaryHero's `deck` prop. */
+  deck?: string;
   heroSub: string;
   heroPoints: string[];
   /** Short trust tokens rendered under the secondary hero. */

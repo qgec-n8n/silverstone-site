@@ -23,7 +23,8 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     h1: "Connect the journey from first inquiry to active membership",
   },
   eyebrow: "Gym & studio automation",
-  h1: "Every inquiry, *tracked to membership*",
+  h1: "Gym automation that tracks *every inquiry to membership*",
+  deck: "For gyms and fitness studios that want to see where every lead went.",
   heroSub:
     "A trial inquiry lands on Instagram, a call hits a second site: plenty of activity, zero visibility. Silverstone AI gives your front desk **one reliable view**, end to end, for gyms and studios in the US and UK.",
   heroPoints: [
@@ -41,7 +42,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
         market: "US",
         label: "United States",
         operators:
-          "Gyms, boutique fitness studios and CrossFit boxes, from a single location to a franchise group.",
+          "Gyms, boutique fitness studios, health clubs and CrossFit boxes, from a single location to a franchise group.",
         tooling: [
           "Mindbody, ClubReady, ABC Fitness or Zen Planner",
           "Google Business Profile, Instagram and ClassPass leads",
@@ -69,12 +70,12 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     shared: [
       "Every inquiry from any channel lands with a visible owner and a real trial or tour slot.",
       "Class capacity and waitlists read your live system, never a stale timetable.",
-      "Follow-up reflects attendance and consent; health questions always reach qualified staff.",
+      "Follow-up reflects attendance and recorded consent, honors opt-outs and quiet hours; health questions always reach qualified staff.",
     ],
   },
   problem: {
-    heading: "Demand is leaking *between systems*",
-    body: "Plenty of activity, no coherent view of intent or ownership. **The goal is fewer lost inquiries, clearer handoffs and communication that actually reflects reality**, across every location and channel.",
+    heading: "Why do gym and studio inquiries *go missing between systems*?",
+    body: "Because no single system owns them. A trial request arrives on Instagram, a call reaches a second site, a form sits in an inbox, and none of it lands at the front desk or reception as one record. **The goal is fewer lost inquiries, clearer handoffs and communication that actually reflects reality**, across every location and channel.",
     cards: [
       {
         title: "Interest arrives everywhere",
@@ -95,8 +96,8 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     ],
   },
   journey: {
-    heading: "The trial is a *journey*, not an event",
-    lead: "A trial has commercial value only when the steps around it work; health suitability is never assessed by the system.",
+    heading: "How does a free trial *become a paid membership*?",
+    lead: "In five steps, each with an owner. The inquiry is identified from whichever channel it arrived on, a real trial or tour slot is booked, a named member of staff is notified, attendance is written back from your club system, and onboarding starts only once the member says yes. Health suitability is never assessed by the system.",
     stages: [
       {
         title: "Inquiry identified",
@@ -122,7 +123,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   },
   workflows: {
     heading: "Classes, onboarding, retention, *connected*",
-    lead: "Retention isn't a stream of discounts. It's recognizing a change and picking the right response.",
+    lead: "Retention isn't a stream of discounts. It's recognizing a change and picking the right response. Messages to members and lapsed members run on recorded consent, honor an opt-out the moment it arrives, and are held to sensible hours in the member's own time zone rather than head office time.",
     items: [
       {
         title: "Class answers",
@@ -146,7 +147,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     heading: "A system your *front desk can run*",
     lead: "What already works gets connected, never ripped out.",
     paragraphs: [
-      "An [AI receptionist](/services/ai-receptionists) handles routine questions; [lead follow-up workflows](/services/ai-automation) connect forms, calendars and staff tasks in Mindbody, Glofox, ClubReady or whichever platform runs the club.",
+      "An [AI receptionist](/services/ai-receptionists) handles the routine questions that reach the front desk or reception; [lead follow-up workflows](/services/ai-automation) connect forms, calendars and staff tasks in Mindbody, Glofox, ClubReady or whichever platform runs the club.",
       "A [governed content system](/services/content-creation) maintains class and community info; [custom member applications](/services/app-development) power a member portal, with a [conversion-led gym website](/services/web-design-development) sharpening the offer before the inquiry.",
     ],
   },
@@ -183,8 +184,8 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     clarification: INDUSTRY_CLARIFICATION,
   },
   boundary: {
-    heading: "Duty of care stays *human*",
-    body: "Automation coordinates inquiries, schedules and reminders. **People decide injury, safeguarding, disputes and retention discretion.** A cancellation always gets a clear, fair route, never obstruction.",
+    heading: "What does automated follow-up *never decide*?",
+    body: "Anything clinical or discretionary. Automation coordinates inquiries, schedules and reminders. **People decide injury, safeguarding, disputes and retention discretion.** These are non-clinical workflows: the system handles scheduling and admin for US health clubs and UK gyms alike, and stops where clinical information begins. A cancellation always gets a clear, fair route, never obstruction.",
     keeps: [
       "Injury advice & exercise suitability",
       "Health disclosures & safeguarding",
@@ -213,7 +214,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   },
   fit: {
     heading: "Is this *your operation*?",
-    lead: "Attention becomes value only when you can recognize intent and own the next step.",
+    lead: "It fits clubs already taking more inquiries than anyone can chase by hand, running trials and memberships through one authoritative system, with a named person who owns follow-up. Attention becomes value only when you can recognize intent and own the next step, in a single US studio or a UK multi-site group.",
     right: [
       "Repeated inquiry volume across channels",
       "Defined trial and membership routes",
@@ -239,12 +240,28 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
         a: "Segmented, consent-led communication; **health and disputes always need careful human handling.**",
       },
       {
-        q: "Will it replace the front desk?",
+        q: "Will it replace the front desk or reception?",
         a: "No. It removes repeated questions so staff can focus on tours, members and exceptions.",
       },
       {
         q: "Can it advise on injuries?",
         a: "No. Health and exercise-suitability questions always reach qualified staff.",
+      },
+      {
+        q: "Does the system handle member health information?",
+        a: "It handles scheduling and admin, not clinical detail. These are non-clinical workflows: trials, tours, class bookings, membership admin and reminders. Injury questions, health disclosures and exercise suitability route to qualified staff, in a US health club or a UK gym alike, and are never answered by the system.",
+      },
+      {
+        q: "How does SMS and email follow-up handle consent, quiet hours and opt-outs?",
+        a: "Consent is captured where the inquiry starts and stored on the record, so every message traces back to a permission. Outbound SMS to US numbers is designed around TCPA expectations: recorded consent, an immediate stop on opt-out, and sending only inside local daytime hours. Automated email is built the same way, with accurate sender details, a real postal address and a working unsubscribe. **Your own legal review signs off the final message set.**",
+      },
+      {
+        q: "Can it run across several locations and US time zones?",
+        a: "Yes. Each site keeps its own schedule, capacity and staff owners, and messages are timed against the member's local zone rather than head office. A group running studios in New York and Denver, or clubs in London and Leeds, gets one view of inquiries with routing rules per location.",
+      },
+      {
+        q: "How is this priced in US dollars?",
+        a: "Scope sets the price. Every implementation and support band on our pricing page is published in both US dollars and pounds sterling, so a US club and a UK club are quoted from the same table. A discovery call scopes one journey first, and the quote follows from that rather than an hourly guess.",
       },
     ],
   },

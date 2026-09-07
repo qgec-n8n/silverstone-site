@@ -28,7 +28,7 @@
 - **Open Graph title:** Websites engineered around the decision to buy
 - **Open Graph description:** Silverstone AI combines strategy, copy, premium design, responsive development, technical SEO and operational integrations into one website system.
 - **Canonical route:** `/services/web-design-development`
-- **H1:** A website engineered to move buyers forward
+- **H1:** Web design and development engineered to move buyers forward
 
 ### H2 structure
 
@@ -135,7 +135,7 @@ web design agency UK, custom, premium, conversion-focused, London, stunning webs
 
 ## 5. Complete public page copy
 
-# A website engineered to move buyers forward
+# Web design and development engineered to move buyers forward
 
 A premium website should do more than look expensive. It should make a complex offer easier to understand, give the right buyer confidence, remove avoidable doubt and route the next action into a working commercial process.
 

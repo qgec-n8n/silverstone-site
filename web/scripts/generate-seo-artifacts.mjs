@@ -33,6 +33,7 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 import { BLOG_POSTS, PUBLISHED_BLOG_POSTS } from "../src/data/blog-posts.ts";
+import { buildRobotsTxt } from "../src/seo/robots.ts";
 import {
   approvedAdditionalRoutes,
   approvedRouteOverrides,
@@ -326,6 +327,39 @@ function decodeEntities(value) {
 }
 
 /**
+ * Who each industry page is written for, in the site's both-terms house style
+ * (UK term alongside the US one), keyed by canonical pathname. An assistant
+ * reading only this file otherwise has to infer from "estate agents" that the
+ * page also answers a US "real estate brokerage" question.
+ *
+ * Advisory only, and never a source of pages: a label is emitted solely when
+ * that route is already present in the section being rendered, and a route
+ * with no entry here contributes nothing — its own prerendered title and
+ * description still follow on the entry line below.
+ */
+const INDUSTRY_AUDIENCE_LABELS = new Map([
+  ["/industry/aesthetic-clinics", "aesthetic clinics and med spas"],
+  ["/industry/dentists", "dental practices"],
+  ["/industry/ecommerce", "ecommerce and DTC brands"],
+  ["/industry/estate-agents", "UK estate agents and US real estate brokerages"],
+  ["/industry/fitness-coaches", "online fitness coaches"],
+  ["/industry/gyms-fitness-studios", "gyms and fitness studios"],
+  ["/industry/hospitality", "hospitality venues"],
+  [
+    "/industry/physios-chiropractors",
+    "physios and physical therapists, and chiropractic practices",
+  ],
+  ["/industry/salons-barbers", "salons and barbershops"],
+  ["/industry/trades", "UK trades and US home services contractors"],
+]);
+
+/** Canonical pathname of a sitemap entry, without the trailing slash. */
+function entryPathname(loc) {
+  const { pathname } = new URL(loc);
+  return pathname === "/" ? "/" : pathname.replace(/\/$/, "");
+}
+
+/**
  * /llms.txt — the llmstxt.org curated index, for assistants that fetch a
  * site-level summary before crawling. It is an addition to, never a
  * replacement for, robots.txt + sitemap.xml: Google Search ignores it, so
@@ -340,27 +374,36 @@ export function renderLlmsTxt(sections, docs) {
   const lines = [
     "# Silverstone AI",
     "",
-    "> Silverstone AI is a London-based AI automation agency building AI" +
-      " receptionists, AI voice agents, workflow automation, websites and apps" +
-      " for small and mid-sized businesses in the United States and the United" +
-      " Kingdom, with US-based team members providing 24-hour coverage.",
+    "> Silverstone AI is an AI automation agency — a London studio with" +
+      " US-based team members — serving small and mid-sized businesses in the" +
+      " United States and the United Kingdom. It builds AI receptionists, AI" +
+      " voice agents, workflow automation, websites and apps, and runs both" +
+      " markets from one system.",
     "",
-    "US English. Prices are published in GBP and USD (fixed pairs, reviewed" +
-      " quarterly); scopes and safeguards are stated on the pages below; figures" +
-      " shown as results are verified Silverstone AI performance recorded in the" +
-      " client's currency and vary by scope and operating environment.",
+    "Entity: Silverstone AI. Type: AI automation agency. Based in London," +
+      " United Kingdom. Serves: small and mid-sized businesses in the United" +
+      " States and the United Kingdom, in each market's own conventions —" +
+      " US or UK spelling, currency, time zones and address formats.",
+    "",
+    "This site is written in US English. Prices are published in GBP and USD" +
+      " (fixed pairs, reviewed quarterly); scopes and safeguards are stated on" +
+      " the pages below; figures shown as results are verified Silverstone AI" +
+      " performance recorded in the client's currency and vary by scope and" +
+      " operating environment.",
     "",
   ];
 
   for (const { heading, entries } of sections) {
     if (entries.length === 0) continue;
     lines.push(`## ${heading}`, "");
+    const audiences = entries
+      .map((entry) => INDUSTRY_AUDIENCE_LABELS.get(entryPathname(entry.loc)))
+      .filter(Boolean);
+    if (audiences.length > 0) {
+      lines.push(`Written for both markets — ${audiences.join("; ")}.`, "");
+    }
     for (const entry of entries) {
-      const doc = docs.get(
-        new URL(entry.loc).pathname === "/"
-          ? "/"
-          : new URL(entry.loc).pathname.replace(/\/$/, ""),
-      );
+      const doc = docs.get(entryPathname(entry.loc));
       const title = decodeEntities(doc?.title ?? "").replace(
         /\s*\|\s*Silverstone AI\s*$/,
         "",
@@ -493,7 +536,7 @@ async function main() {
     await fs.rm(path.join(clientDir, "__spa-fallback.html"), { force: true });
     await fs.writeFile(
       path.join(clientDir, "robots.txt"),
-      "User-agent: *\nDisallow: /\n",
+      buildRobotsTxt({ environment: "staging" }),
     );
     console.log(
       "Staging build detected (noindex homepage) — wrote Disallow robots.txt, no sitemap.",
@@ -649,9 +692,19 @@ async function main() {
       { loc: `${PRODUCTION_ORIGIN}/sitemap-posts.xml`, lastmod: newestPost },
     ]),
   );
+  /*
+   * Single-sourced from src/seo/robots.ts rather than written inline.
+   *
+   * That module used to be spec-only — nothing imported it — while this script
+   * hardcoded the real robots.txt, so the two could drift silently and an edit
+   * to robots.ts shipped nothing. Routing both branches through buildRobotsTxt
+   * also guarantees the staging/production split cannot diverge: the staging
+   * branch returns a bare Disallow with no Allow or Sitemap line, which is what
+   * assert-staging-safety.mjs enforces.
+   */
   await fs.writeFile(
     path.join(clientDir, "robots.txt"),
-    `User-agent: *\nAllow: /\nSitemap: ${PRODUCTION_ORIGIN}/sitemap.xml\n`,
+    buildRobotsTxt({ environment: "production" }),
   );
   await fs.writeFile(path.join(clientDir, "_redirects"), renderRedirectsFile());
 

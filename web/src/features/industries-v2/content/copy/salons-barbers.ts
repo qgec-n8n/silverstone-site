@@ -22,7 +22,8 @@ export const salonsBarbersCopy: IndustryCopy = {
     h1: "Protect sellable chair time without adding front-desk pressure",
   },
   eyebrow: "Salon & barbershop automation",
-  h1: "Protect *sellable chair time* without adding front-desk pressure",
+  h1: "Salon and barbershop automation that *protects chair time*",
+  deck: "Without adding front-desk pressure.",
   heroSub:
     "An empty chair earns nothing. Silverstone AI answers every call, refills cancellations **while the slot still has value**, and rebooks before clients drift, for salons and barbershops in the US and UK.",
   heroPoints: [
@@ -52,8 +53,9 @@ export const salonsBarbersCopy: IndustryCopy = {
           "Your waitlist and deposit rules",
         ],
         vocabulary:
-          "Appointments, no-show fees, stylists and barbers, walk-ins, rebooking.",
-        keepsHuman: "Consultations, patch tests, contraindications and refunds.",
+          "Appointments, no-show fees, stylists and barbers, walk-ins, text reminders, rebooking.",
+        keepsHuman:
+          "Consultations, patch tests, contraindications, refunds, and who may be texted, and when.",
       },
       {
         market: "UK",
@@ -66,8 +68,9 @@ export const salonsBarbersCopy: IndustryCopy = {
           "Your waitlist and deposit rules",
         ],
         vocabulary:
-          "The diary, cancellations, patch tests, stylists and barbers, rebooking.",
-        keepsHuman: "Consultations, patch tests, contraindications and refunds.",
+          "The diary, cancellations, patch tests, stylists and barbers, walk-ins, rebooking.",
+        keepsHuman:
+          "Consultations, patch tests, contraindications, refunds, and who may be messaged, and when.",
       },
     ],
     shared: [
@@ -77,12 +80,12 @@ export const salonsBarbersCopy: IndustryCopy = {
     ],
   },
   problem: {
-    heading: "A full calendar can *still leak revenue*",
-    body: "Calls ring out mid-service. DMs sit unread. A 3pm cancellation dies in the group chat. **Every gap is money the chair never earns back**, and none of it is a demand problem.",
+    heading: "Why does a *full calendar* still lose money?",
+    body: "Because the leak is in the gaps, not the demand. In salons and barbershops, calls ring out mid-service, DMs sit unread, and a 3pm cancellation dies in the group chat. **Every gap is chair time that can never be sold again**: a stylist paid, a walk-in turned away, and revenue your calendar or diary never records.",
     cards: [
       {
         title: "The phone rings mid-service",
-        body: "Captured, qualified and booked, without pulling anyone off a client.",
+        body: "Captured, qualified and booked, without pulling a stylist or barber off a client.",
       },
       {
         title: "Cancellation becomes dead time",
@@ -99,12 +102,12 @@ export const salonsBarbersCopy: IndustryCopy = {
     ],
   },
   journey: {
-    heading: "The rules behind a booking that *actually works*",
-    lead: "A color appointment and a skin fade never share one script. We encode your real rules first, then automate.",
+    heading: "What rules does a booking system *need first*?",
+    lead: "Yours, written down. A color correction and a skin fade never share one script, so before anything is automated we encode your real rules: service durations, which stylist or barber may take which service, deposit and notice terms, waitlist order, and the point where a person takes over. Automation only executes rules you approved.",
     stages: [
       {
         title: "Service fit",
-        body: "Duration, practitioner skill and required resource matched instantly.",
+        body: "Duration, stylist or barber skill and the resource it needs, matched instantly.",
       },
       {
         title: "Commercial terms",
@@ -119,14 +122,18 @@ export const salonsBarbersCopy: IndustryCopy = {
         body: "The right slot from your authoritative calendar. Double-booking is engineered out.",
       },
       {
+        title: "Contact rules",
+        body: "Consent, quiet hours and opt-out are checked before any text or email leaves, in the client's own time zone.",
+      },
+      {
         title: "Human gate",
         body: "Patch tests, disclosures and complaints pause automation and reach your practitioner with context.",
       },
     ],
   },
   workflows: {
-    heading: "Recover revenue *while it's recoverable*",
-    lead: "A slot released at 10:00 for 15:00 loses value by the minute. The system moves faster.",
+    heading: "How quickly can a cancellation *be refilled*?",
+    lead: "Within minutes, while the slot still has value. A 3pm chair released at 10am is offered straight to eligible waitlist clients in the order you set, on the channel each of them agreed to; the first valid acceptance takes the slot and everyone else is told at once. Nobody has to notice the gap first.",
     items: [
       {
         title: "Cancellation refill",
@@ -142,16 +149,16 @@ export const salonsBarbersCopy: IndustryCopy = {
       },
       {
         title: "Consent-led reactivation",
-        body: "Lapsed clients re-engaged by service history and consent, with suppression and easy opt-out built in.",
+        body: "Lapsed clients re-engaged by service history and recorded consent, with suppression, **quiet hours and one-tap opt-out** built in on both text and email.",
       },
     ],
   },
   services: {
-    heading: "Built around the booking platform you already use",
-    lead: "We don't start by replacing your booking platform; we start by testing it.",
+    heading: "Does this work with Vagaro, Fresha or Booksy?",
+    lead: "Yes, and with GlossGenius, Square Appointments, Phorest and Timely. We don't start by replacing the booking platform your salon or barbershop already runs; we start by testing it. It stays the only source of truth for the chair, while the automation reads and writes availability, deposits and client records through it.",
     paragraphs: [
-      "An [AI receptionist for salon inquiries](/services/ai-receptionists) answers routine questions while [voice handling](/services/ai-voice-agents) captures the calls that ring out mid-service.",
-      "[Cancellation and rebooking workflows](/services/ai-automation) coordinate the calendar, payments and client records in Vagaro, Fresha, Booksy or Phorest; a governed [content system](/services/content-creation) keeps aftercare and seasonal messaging on-brand.",
+      "An [AI receptionist for salon and barbershop inquiries](/services/ai-receptionists) answers routine questions, including hours, pricing and walk-in availability, while [voice handling](/services/ai-voice-agents) captures the calls that ring out mid-service.",
+      "[Cancellation and rebooking workflows](/services/ai-automation) coordinate the calendar or diary, payments and client records in Vagaro, Fresha, Booksy, GlossGenius or Phorest; a governed [content system](/services/content-creation) keeps aftercare and seasonal messaging on-brand.",
     ],
   },
   proof: {
@@ -178,7 +185,7 @@ export const salonsBarbersCopy: IndustryCopy = {
       "Health disclosures",
       "Complaints and refunds",
       "All treatment advice",
-      "Marketing consent decisions",
+      "Marketing consent and contact hours",
     ],
   },
   process: {
@@ -187,11 +194,11 @@ export const salonsBarbersCopy: IndustryCopy = {
     steps: [
       {
         title: "Calendar review",
-        body: "Services, durations, practitioners, locations.",
+        body: "Services, durations, stylists and barbers, locations.",
       },
       {
         title: "Rule definition",
-        body: "Deposits, cancellations, waitlists, escalation.",
+        body: "Deposits, cancellations, waitlists, consent, escalation.",
       },
       {
         title: "One journey first",
@@ -209,7 +216,7 @@ export const salonsBarbersCopy: IndustryCopy = {
     ],
   },
   fit: {
-    heading: "Is this *your salon*?",
+    heading: "Is this *your salon or barbershop*?",
     lead: "The best results come from owners ready to write the rules down.",
     right: [
       "Steady inquiry volume",
@@ -218,10 +225,10 @@ export const salonsBarbersCopy: IndustryCopy = {
       "Rules currently held in heads",
     ],
     caution:
-      "Not a fit where the calendar is routinely overridden, suitability is expected to be automated, or lapsed clients would be messaged without consent.",
+      "Not a fit where the calendar is routinely overridden, suitability is expected to be automated, or lapsed clients would be texted or emailed without recorded consent.",
   },
   faqs: {
-    heading: "Common questions",
+    heading: "Questions salon and barbershop owners ask",
     items: [
       {
         q: "Will it double-book our calendar?",
@@ -243,11 +250,27 @@ export const salonsBarbersCopy: IndustryCopy = {
         q: "Can it win back lapsed clients?",
         a: "Yes, segmented by service and consent, with suppression and one-tap opt-out.",
       },
+      {
+        q: "Do the text reminders follow US texting rules?",
+        a: "They are built around them. TCPA governs automated texts to US numbers, so consent is captured at the point of booking and stored against the client record, sends are held inside quiet hours in the client's own time zone, and a STOP or opt-out is honored immediately and written back to your booking platform. **Your policy sets the final wording.**",
+      },
+      {
+        q: "How are marketing emails and unsubscribes handled?",
+        a: "As design constraints, not afterthoughts. CAN-SPAM governs commercial email in the US, so campaigns send with an accurate sender and subject line, carry your real business address, and unsubscribe in one click. Opt-outs suppress across every list and sequence at once, so a client who leaves a campaign is never re-added by a rebooking workflow.",
+      },
+      {
+        q: "Can it run across several locations and time zones?",
+        a: "Yes. Each salon or barbershop keeps its own opening hours, services, stylists, deposit rules and waitlist order, so a multi-site group is never forced onto one blunt rule. Reminders, refill offers and rebooking prompts are timed in the client's local time zone, and escalations reach the shop that owns the chair rather than a central inbox.",
+      },
+      {
+        q: "Do you quote in dollars or pounds?",
+        a: "Both. Scope sets the price: how many journeys, how many locations, and how deep the booking-platform integration goes. Work is quoted and invoiced in the currency agreed at proposal, dollars for US salons and barbershops, sterling for UK ones, and our pricing page publishes every band in both currencies.",
+      },
     ],
   },
   midCta: {
     heading: "Map *your* cancellation recovery",
-    body: "Bring one week of calendar friction. We'll show you which gaps were recoverable, and what that's worth per chair.",
+    body: "Bring one week of calendar or diary friction. We'll show you which gaps were recoverable, and what that's worth per chair.",
     buttonLabel: "Book a discovery call",
   },
   finalCta: {

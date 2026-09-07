@@ -28,7 +28,7 @@
 - **Open Graph title:** A front desk that answers, qualifies and knows when to hand over
 - **Open Graph description:** Silverstone AI builds integrated AI reception systems for calls, chat, intake, booking, routing and CRM updates—within approved rules and human escalation paths.
 - **Canonical route:** `/services/ai-receptionists`
-- **H1:** A front desk that answers, qualifies, and knows when to hand over
+- **H1:** An AI receptionist that knows when to hand over
 
 ### H2 structure
 
@@ -141,7 +141,7 @@ AI receptionist UK, 24/7, never miss a call, virtual receptionist, human-like, s
 
 ## 5. Complete public page copy
 
-# A front desk that answers, qualifies, and knows when to hand over
+# An AI receptionist that knows when to hand over
 
 An AI receptionist should not try to answer everything. It should make the first stage of customer contact more reliable.
 

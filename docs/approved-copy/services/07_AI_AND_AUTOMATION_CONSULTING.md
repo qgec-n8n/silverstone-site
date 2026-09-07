@@ -28,7 +28,7 @@
 - **Open Graph title:** Decide what to automate before you buy the tools
 - **Open Graph description:** Silverstone AI helps leaders assess opportunity, readiness, data, build-versus-buy, governance and implementation priorities before capital and attention are committed.
 - **Canonical route:** `/services/ai-consulting`
-- **H1:** Decide what to automate before you buy the tools
+- **H1:** AI consulting that settles what to automate before you buy
 
 ### H2 structure
 
@@ -138,7 +138,7 @@ AI consulting UK, AI strategy, transformation, roadmap, leading consultancy, inn
 
 ## 5. Complete public page copy
 
-# Decide what to automate before you buy the tools
+# AI consulting that settles what to automate before you buy
 
 AI creates pressure to act quickly. It also creates an unusually large number of plausible wrong turns.
 

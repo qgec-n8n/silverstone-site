@@ -11,6 +11,7 @@ import "~/styles/industries-v2/industries-v2.css";
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import type { CSSProperties } from "react";
+import { Link } from "react-router";
 
 import { ArrowUpRight, Layers, TrendingUp } from "~/components/icons/lucide";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
@@ -212,7 +213,7 @@ export function IndustriesHubExperience() {
       <SecondaryHero
         eyebrow="Industry operating systems"
         icon={Layers}
-        title="Technology shaped around your *operating reality*"
+        title="AI automation built for *how your industry actually works*"
         titleId="hub2-lead"
         lead="Generic automation fails at the edges of a real trade. Silverstone AI builds sector-specific systems around your calendar, CRM, reservation book or patient records, for the way each sector runs in the US and the UK, with the judgment calls your industry demands kept firmly human."
         points={[
@@ -243,9 +244,10 @@ export function IndustriesHubExperience() {
               const Icon = art.icon;
               return (
                 <Reveal key={route} kind="card" delayMs={index * 100}>
-                  <a
+                  <Link
                     className="ss-hub2-card"
-                    href={route}
+                    prefetch="intent"
+                    to={route}
                     style={
                       {
                         "--hub2-accent": art.accentFrom,
@@ -270,7 +272,7 @@ export function IndustriesHubExperience() {
                         </span>
                       ))}
                     </span>
-                  </a>
+                  </Link>
                 </Reveal>
               );
             })}

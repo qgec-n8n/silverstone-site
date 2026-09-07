@@ -90,6 +90,7 @@ export function WebDesignComposition({
         eyebrow={copy.eyebrow}
         icon={PencilRuler}
         title={copy.h1}
+        deck={copy.deck}
         titleId="srv2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}

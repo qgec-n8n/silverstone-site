@@ -9,7 +9,7 @@ const serviceRoutes = [
     // by design (intro teases, body delivers); it is not repeated in <main>.
     title: "Make the website earn its place",
     // The real public H1 rendered once the body opens.
-    bodyHeading: "A website engineered to move buyers forward",
+    bodyHeading: "Web design and development engineered to move buyers forward",
     button: "Explore the commercial website system",
   },
   {
@@ -17,7 +17,7 @@ const serviceRoutes = [
     loader: "Reducing the idea to its most valuable working state",
     pill: /Product intelligence \/ First release/i,
     title: "Prove the workflow before expanding the product",
-    bodyHeading: "Build the smallest app that proves the value",
+    bodyHeading: "Custom app development that starts small and proves value",
     button: "Map the first release",
   },
   {
@@ -25,7 +25,7 @@ const serviceRoutes = [
     loader: "Synchronising speech, action and human fallback",
     pill: /Conversational systems \/ Voice/i,
     title: "Give every call a controlled next state",
-    bodyHeading: "Voice agents built for real conversations",
+    bodyHeading: "AI voice agents for real conversations",
     button: "Explore the call architecture",
   },
 ] as const;
@@ -103,7 +103,7 @@ for (const route of serviceRoutes) {
   });
 }
 
-test("client navigation replays CoreSpin and the destination intro", async ({
+test("client navigation from a hub card does not reload the document", async ({
   page,
 }) => {
   test.setTimeout(45_000);
@@ -111,18 +111,37 @@ test("client navigation replays CoreSpin and the destination intro", async ({
   await waitForRouteIntro(page);
   await openBody(page, "Explore our services");
 
+  /*
+   * This test used to assert that the click replayed the CoreSpin loader and
+   * the destination intro. It only ever saw that because the /services hub
+   * cards were bare `<a>` elements, so the click was a full document load —
+   * not the client navigation the test was named for. The cards are now real
+   * React Router `Link`s, which is the point: internal navigation is gate-free
+   * (roughly 5.7s down to ~100ms) and deliberately does NOT replay the loader.
+   *
+   * So the contract asserted here is the one that now matters: the document is
+   * never reloaded, and the destination renders its own content.
+   */
+  await page.evaluate(() => {
+    (window as unknown as { __ssNoReload?: true }).__ssNoReload = true;
+  });
+
   await page
     .getByRole("link", { name: /Web Design & Development/i })
     .first()
     .click();
-  await expect(loaderStatus(page)).toContainText(
-    "Aligning message, movement and measurement",
-    { timeout: 6_000 },
+
+  await expect(page).toHaveURL(/\/services\/web-design-development$/);
+  await expect(page.locator("h1")).toHaveText(
+    "Web design and development engineered to move buyers forward",
   );
-  await waitForRouteIntro(page);
-  await expect(
-    page.getByRole("button", { name: "Explore the commercial website system" }),
-  ).toBeVisible();
+
+  // Survives only if the SPA never tore the document down.
+  expect(
+    await page.evaluate(
+      () => (window as unknown as { __ssNoReload?: true }).__ssNoReload === true,
+    ),
+  ).toBe(true);
 });
 
 test("noncanonical service aliases return 404", async ({ request }) => {
@@ -144,7 +163,7 @@ test("route-entry sequence remains usable with reduced motion", async ({ page })
   await waitForRouteIntro(page);
   await openBody(page, "Open the front-desk system");
   await expect(page.getByRole("main")).toContainText(
-    "A front desk that answers, qualifies, and knows when to hand over",
+    "An AI receptionist that knows when to hand over",
   );
 
   await page.getByRole("button", { name: /return to route intro/i }).click();

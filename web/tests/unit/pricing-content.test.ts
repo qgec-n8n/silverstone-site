@@ -249,7 +249,7 @@ describe("pricing route metadata", () => {
     expect(route?.title).toBe(
       "AI Automation & Website Pricing (GBP and USD) | Silverstone AI",
     );
-    expect(route?.h1).toBe("AI automation pricing for small and mid-sized businesses");
+    expect(route?.h1).toBe("AI automation pricing for US and UK small businesses");
     expect(route?.headingPlan.h1).toBe(route?.h1);
     expect(route?.canonical).toBe("https://silverstone-ai.com/pricing");
     expect(route?.productionIndexable).toBe(true);

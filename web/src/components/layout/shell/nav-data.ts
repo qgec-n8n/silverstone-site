@@ -192,13 +192,19 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
     title: "Industries",
     links: [
       /* The footer keeps plain industry names; the "For …" framing belongs
-         to the header's Solutions menu. Seven rather than six since the
-         aesthetic-clinics page joined the menu at position four — widening
-         the slice adds it without displacing a sector that already held a
-         site-wide footer link. */
-      ...INDUSTRIES_MENU.items
-        .slice(0, 7)
-        .map(({ href, label }) => ({ href, label: label.replace(/^For /u, "") })),
+         to the header's Solutions menu.
+
+         All ten, no slice. The previous slice(0, 7) left /industry/dentists,
+         /industry/gyms-fitness-studios and /industry/fitness-coaches with no
+         site-wide footer link at all, so those three pages depended on the
+         /industry hub card for internal link equity while their seven peers
+         had a link from every page on the site. Each sector added to
+         INDUSTRIES_MENU now reaches the footer automatically rather than
+         needing the slice widened again. */
+      ...INDUSTRIES_MENU.items.map(({ href, label }) => ({
+        href,
+        label: label.replace(/^For /u, ""),
+      })),
       { href: "/industry", label: "All industries" },
     ],
   },

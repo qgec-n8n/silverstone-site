@@ -28,7 +28,7 @@
 - **Open Graph title:** Turn expertise into a governed content engine
 - **Open Graph description:** Silverstone AI designs source-led content operations that turn approved knowledge into useful website, email and social assets without sacrificing brand control or human review.
 - **Canonical route:** `/services/content-creation`
-- **H1:** Turn expertise into a governed content engine
+- **H1:** AI content creation that turns your expertise into a system
 
 ### H2 structure
 
@@ -139,7 +139,7 @@ AI content generation, content automation agency UK, content at scale, thought l
 
 ## 5. Complete public page copy
 
-# Turn expertise into a governed content engine
+# AI content creation that turns your expertise into a system
 
 The easiest content problem to solve is volume. The harder problem is creating material that remains useful, credible, distinct and recognizably yours.
 

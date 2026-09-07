@@ -22,6 +22,15 @@ import {
  *     patient. Automation may arrange the appointment; it may never screen,
  *     advise, recommend or approve a treatment.
  *
+ * The US parallel is NOT advertising law — prescription-drug marketing is a
+ * different regime there, so nothing on this page may imply the UK POM rule
+ * applies to a med spa. What carries across is the clinical boundary
+ * (provider/medical director assesses; the workflow stays non-clinical) and
+ * the outreach design: consent, opt-out and local calling hours on SMS and
+ * calls, accurate headers, a real address and a working unsubscribe on email.
+ * Those are described as workflow design throughout. No sentence here may
+ * assert a compliance status, certification or accreditation in either market.
+ *
  * The page is also deliberately more conversion-led than its siblings: the
  * live-client proof block (`caseStudy`) sits high, and there are three CTA
  * moments before the FAQ rather than two.
@@ -44,7 +53,8 @@ export const aestheticClinicsCopy: IndustryCopy = {
     h1: "Turn interest into booked, deposit-backed consultations",
   },
   eyebrow: "Skin & aesthetic clinic automation",
-  h1: "Turn interest into *booked, deposit-backed consultations*",
+  h1: "Aesthetic clinic automation that books *deposit-backed consults*",
+  deck: "For aesthetic clinics and med spas.",
   heroSub:
     "Aesthetic inquiries do not wait. They arrive by DM, form and phone while your hands are gloved, and **the clinic that answers first usually takes the booking.** Silverstone AI answers, qualifies and books, inside your rules.",
   heroPoints: [
@@ -60,8 +70,8 @@ export const aestheticClinicsCopy: IndustryCopy = {
   ],
   markets: {
     eyebrow: "Built for your market",
-    heading: "Same DM. *Your* consultation pathway.",
-    lead: "A DM to a med spa in Scottsdale and one to a clinic in Manchester are answered by the same system. The consultation workflow is identical; the booking platform, the deposit rules and who signs off change.",
+    heading: "Do you work with *US med spas* as well as UK clinics?",
+    lead: "Yes. A DM to a med spa in Scottsdale and one to an aesthetic clinic in Manchester are answered by the same system, in seconds, and turned into a deposit-backed consultation. What changes is the booking platform, the deposit rules, the words your market uses, and whether a medical director or a prescriber signs off.",
     lanes: [
       {
         market: "US",
@@ -74,7 +84,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
           "Your deposit rules and consultation calendar",
         ],
         vocabulary:
-          "Consults, injectors, treatment series, memberships, your medical director.",
+          "Consults, injectors, med spa or medspa, treatment series, memberships, your medical director.",
         keepsHuman:
           "Consultations, suitability, treatment decisions and anything your provider must assess.",
       },
@@ -139,7 +149,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
       },
       {
         title: "Immediate inquiry response",
-        body: "Every new website inquiry gets an answer in seconds rather than the next morning — written to UK advertising rules, naming no prescription-only medicine.",
+        body: "Every new website inquiry gets an answer in seconds rather than the next morning — written to your approved treatment language and, in the UK, to advertising rules that permit no prescription-only medicine to be named.",
       },
       {
         title: "Three-message follow-up",
@@ -224,8 +234,8 @@ export const aestheticClinicsCopy: IndustryCopy = {
     ],
   },
   workflows: {
-    heading: "Speed, deposits and follow-through — *the three that decide it*",
-    lead: "Aesthetic inquiries are comparison-shopped within the hour. These are the journeys that decide who gets the consultation.",
+    heading: "How do med spas and clinics turn a DM into a *booked consultation*?",
+    lead: "Aesthetic inquiries are comparison-shopped within the hour, so three journeys decide it. The first reply lands in seconds on whichever channel it arrived — Instagram DM, WhatsApp, web form or missed call. The consultation is confirmed only once your deposit is taken. Follow-up then runs on the consent captured at the inquiry, until the person books or opts out.",
     items: [
       {
         title: "Seconds-fast first reply",
@@ -237,17 +247,17 @@ export const aestheticClinicsCopy: IndustryCopy = {
       },
       {
         title: "Follow-up that keeps going",
-        body: "Most inquiries do not convert on the first exchange. A sequenced, value-adding follow-up runs to your cadence and stops the moment someone books or opts out.",
+        body: "Most inquiries do not convert on the first exchange. A sequenced, value-adding follow-up runs to your cadence on the consent captured at the inquiry — held inside the recipient's local calling hours, carrying a plain opt-out, and stopping the moment someone books or says stop.",
       },
       {
         title: "Treatment-cycle recall",
-        body: "Anti-wrinkle intervals, filler review points and skin-course sessions each carry their own timing — prompted from real treatment history, with consent, never as a blast.",
+        body: "Anti-wrinkle intervals, filler review points and skin-course or treatment-series sessions each carry their own timing — prompted from real treatment history, with consent, never as a blast.",
       },
     ],
   },
   journey: {
-    heading: "The rules that make an aesthetic booking *safe to automate*",
-    lead: "A skin consultation and an injectable review are not the same appointment and must never share one script. We write your real rules down first.",
+    heading: "What makes an aesthetic booking *safe to automate*?",
+    lead: "Written rules, applied before anything is sent. The system books by treatment category rather than by naming a product, applies your deposit and notice terms exactly as published, collects history for a clinician to read, and pauses the moment a decision belongs to your prescriber or medical director. A skin consultation and an injectable review never share one script.",
     stages: [
       {
         title: "Treatment category",
@@ -255,7 +265,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
       },
       {
         title: "Consultation type",
-        body: "Free consultation, paid assessment or review — each with its own duration, room and clinician.",
+        body: "Free consult, paid assessment or review — each with its own duration, room and treating clinician or injector.",
       },
       {
         title: "Commercial terms",
@@ -263,20 +273,20 @@ export const aestheticClinicsCopy: IndustryCopy = {
       },
       {
         title: "Screening handoff",
-        body: "Medical history, contraindications and suitability are collected for a clinician — and decided by one.",
+        body: "Medical history, contraindications and suitability are collected for a clinician — and decided by one. Clinical detail is handed to your records, not held in a marketing tool.",
       },
       {
         title: "Prescriber gate",
-        body: "Anything requiring a prescriber's assessment pauses automation and reaches your clinician with full context.",
+        body: "Anything requiring a prescriber's or medical director's own assessment pauses automation and reaches your clinician with full context.",
       },
     ],
   },
   services: {
-    heading: "Built around the clinic software you already run",
-    lead: "We do not open by replacing your diary, records or payment provider — we open by testing them.",
+    heading: "Will this work with the *clinic software we already run*?",
+    lead: "Yes — we open by testing your stack, not replacing it. Pabau, Aesthetic Nurse Software or Fresha in the UK; Aesthetic Record, Boulevard or Zenoti for a US med spa; whatever takes your deposits; whichever inbox and DM account the inquiries land in. Replacing your diary, records or payment provider is a last resort, never an opening move.",
     paragraphs: [
       "An [AI receptionist for clinic inquiries](/services/ai-receptionists) answers routine questions and books consultations, while [voice handling](/services/ai-voice-agents) captures the calls that ring out during treatment.",
-      "[Deposit, follow-up and recall workflows](/services/ai-automation) coordinate your diary, payments and patient records; a [clinic website](/services/web-design-development) and a governed [content system](/services/content-creation) keep treatment pages and campaigns inside UK advertising rules.",
+      "[Deposit, follow-up and recall workflows](/services/ai-automation) coordinate your diary, payments and patient records; a [clinic website](/services/web-design-development) and a governed [content system](/services/content-creation) keep treatment pages and campaigns inside UK advertising rules and, in every other market, inside the treatment language your clinic has approved.",
     ],
   },
   proof: {
@@ -302,7 +312,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
   },
   boundary: {
     heading: "Your prescriber decides. *The system never does.*",
-    body: "Botulinum toxin and many dermal fillers are prescription-only medicines: UK rules do not permit advertising them to the public, and a prescriber must assess the patient themselves. **So the system arranges appointments — it does not assess, advise, recommend or name a POM.** Public-facing replies, captions and pages are written to that boundary by default, not policed afterwards.",
+    body: "Botulinum toxin and many dermal fillers are prescription-only medicines: UK rules do not permit advertising them to the public, and a prescriber must assess the patient themselves. **So the system arranges appointments — it does not assess, advise, recommend or name a POM.** Public-facing replies, captions and pages are written to that boundary by default, not policed afterwards. **US med spas get the same boundary drawn around their provider or medical director**, in HIPAA-conscious, non-clinical workflows: the system handles scheduling, deposits, reminders and admin, and stops where clinical information begins — anything clinical goes to your own records and your own people to decide.",
     keeps: [
       "All treatment suitability and clinical judgment",
       "Prescriber assessment before any prescription-only medicine",
@@ -343,13 +353,13 @@ export const aestheticClinicsCopy: IndustryCopy = {
     ],
   },
   fit: {
-    heading: "Is this *your clinic*?",
-    lead: "The strongest results come from clinics with real inquiry volume and a willingness to write their rules down.",
+    heading: "Is this *your clinic or med spa*?",
+    lead: "The strongest results come from clinics and med spas with real inquiry volume and a willingness to write their rules down.",
     right: [
       "Inquiries arriving faster than you can answer them",
       "Consultations you would like secured by deposit",
       "Defined treatment menu and consultation types",
-      "A named clinician or prescriber owning clinical decisions",
+      "A named prescriber, provider or medical director owning clinical decisions",
     ],
     caution:
       "Not a fit where clinical screening is expected to be automated, where prescription-only medicines would be named in public marketing, or where past clients would be messaged without consent.",
@@ -359,11 +369,11 @@ export const aestheticClinicsCopy: IndustryCopy = {
     items: [
       {
         q: "Can the system mention Botox or filler brands to inquirers?",
-        a: "No, and that is deliberate. Botulinum toxin and many dermal fillers are prescription-only medicines, which UK rules do not permit advertising to the public. Public-facing replies use approved treatment-category language, and **brand naming is blocked at source** rather than corrected later.",
+        a: "No, and that is deliberate. Botulinum toxin and many dermal fillers are prescription-only medicines, which UK rules do not permit advertising to the public. Public-facing replies use approved treatment-category language, and **brand naming is blocked at source** rather than corrected later. The same default is applied for US med spas: replies name the treatment category your clinic has approved, not a product.",
       },
       {
         q: "Will it give clinical or suitability advice?",
-        a: "Never. It collects what a clinician needs and arranges the appointment. Screening, contraindications, suitability and any prescribing decision stay with your prescriber, who assesses the patient themselves.",
+        a: "Never. It collects what a clinician needs and arranges the appointment. Screening, contraindications, suitability and any prescribing decision stay with your prescriber, provider or medical director, who assesses the patient themselves.",
       },
       {
         q: "How are consultation deposits handled?",
@@ -388,6 +398,22 @@ export const aestheticClinicsCopy: IndustryCopy = {
       {
         q: "What happens if it is not live in seven days?",
         a: "The agreed system will be live within seven business days of receiving the required content and access, or the final payment will not be due until it is live. The clock starts when your content and logins are with us, not when the call ends — and we list exactly what is needed before anything is paid.",
+      },
+      {
+        q: "Do you work with US med spas as well as UK clinics?",
+        a: "Yes. Med spas and aesthetic practices across the US run the same system as our UK clinics — what changes is the booking platform, the deposit rules and who signs off. US builds are designed as **HIPAA-conscious, non-clinical workflows**: scheduling, deposits, reminders and admin, stopping where clinical information begins, with assessment left to your provider or medical director.",
+      },
+      {
+        q: "How is texting and calling US clients handled?",
+        a: "As a design property, not an afterthought. Texts and calls to US numbers go only to people who gave consent at the point of inquiry; every message carries a plain opt-out; a stop request is honored immediately and across every channel; and sending is held inside the recipient's local calling hours. Those TCPA-shaped rules are written into the workflow, and your clinic sets the cadence on top of them.",
+      },
+      {
+        q: "How is marketing email to US clients set up?",
+        a: "Commercial email is built to CAN-SPAM-shaped rules: a sender name and subject line that describe the message accurately, your clinic's real physical address in the footer, and an unsubscribe link that works on the first click and stops the sequence immediately rather than at the next send. Transactional confirmations and reminders stay separate from marketing, so opting out of one never breaks the other.",
+      },
+      {
+        q: "Can a US med spa pay in dollars, and how do time zones work?",
+        a: "Prices are published in both currencies — the sprint is [[£1,500|$1,950]], [[£750|$975]] to begin and [[£750|$975]] on launch — and the invoicing currency is agreed at proposal. Coverage does not depend on office hours: the first reply is automated, so an inquiry at 11pm in Phoenix is answered in seconds, and calls are offered in your own local time.",
       },
       {
         q: "Why only one clinic a week?",

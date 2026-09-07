@@ -22,9 +22,9 @@ export const fitnessCoachesCopy: IndustryCopy = {
     h1: "Move more of the right leads from message to consultation",
   },
   eyebrow: "Automation for online coaches",
-  h1: "More consultations. *Zero lost DMs.*",
+  h1: "Automation for online fitness coaches with *zero lost DMs*",
   heroSub:
-    "A story reply dies between sessions. Silverstone AI qualifies every inquiry **instantly**, so you walk into consultations with context, not a cold open. For online coaches in the US and UK.",
+    "A story reply dies between sessions. Silverstone AI qualifies every inquiry **instantly**, so you walk into consultations with context, not a cold open. For online coaches and personal trainers, US and UK.",
   heroPoints: [
     "Every DM qualified, transparently, in seconds",
     "Consultations booked from real calendar capacity",
@@ -74,12 +74,12 @@ export const fitnessCoachesCopy: IndustryCopy = {
     shared: [
       "Every DM is qualified transparently in seconds, with the minimum context and no hidden score.",
       "Consultations are offered from real calendar capacity and your booking rules, never phantom slots.",
-      "Onboarding and check-ins fire themselves; the coach interprets progress and decides every change.",
+      "Onboarding, check-ins and nurture fire on recorded consent, honor an opt-out at once and hold to sensible hours in the client's own time zone; the coach interprets progress and decides every change.",
     ],
   },
   problem: {
-    heading: "The business breaks *between conversations*",
-    body: "Three questions in, the thread goes cold, and the client books with someone else. Silverstone AI handles the repeatable commercial work. **It never touches health, injuries or program fit.**",
+    heading: "Why do coaching leads *go cold in the DMs*?",
+    body: "Because the reply arrives while you are coaching. A prospect asks three questions, waits, and books with someone else. Silverstone AI answers the repeatable commercial part — price framing, fit questions, consultation and discovery-call slots — the moment it lands, for online fitness coaches and personal trainers. **It never touches health, injuries or program fit.**",
     cards: [
       {
         title: "“How much?” with zero context",
@@ -100,8 +100,8 @@ export const fitnessCoachesCopy: IndustryCopy = {
     ],
   },
   journey: {
-    heading: "From DM to *booked consultation*",
-    lead: "Never reconstruct a conversation again; the full context is waiting when you sit down.",
+    heading: "How does an Instagram DM become a *booked discovery call*?",
+    lead: "In five steps. The DM or story reply is captured with its channel and a few transparent fit questions, the offer and its limits are stated plainly, a real slot is offered from your own calendar, both sides arrive prepared, and the outcome is recorded — a discovery call in the US, a consultation in the UK.",
     stages: [
       {
         title: "Context captured",
@@ -126,8 +126,8 @@ export const fitnessCoachesCopy: IndustryCopy = {
     ],
   },
   workflows: {
-    heading: "Automation *behind* the personal service",
-    lead: "Every client-facing step protects the relationship, never dilutes it.",
+    heading: "Can follow-up run itself *without spamming clients*?",
+    lead: "Yes — if consent decides every send. Silverstone AI records where a client opted in, honors an opt-out the moment it arrives, and keeps automated SMS to US numbers inside local daytime hours, the design TCPA asks for. Automated email is shaped the same way against CAN-SPAM: accurate sender details, a real postal address, a working unsubscribe.",
     items: [
       {
         title: "Onboarding sequences",
@@ -173,8 +173,8 @@ export const fitnessCoachesCopy: IndustryCopy = {
     clarification: INDUSTRY_CLARIFICATION,
   },
   boundary: {
-    heading: "Health decisions stay *entirely yours*",
-    body: "The system handles calendar, forms and content. **You decide health, suitability and program fit, every time.** Sensitive disclosures never touch an automated sales decision.",
+    heading: "Which decisions stay *with the coach*?",
+    body: "Every clinical and coaching one. The system handles calendar, forms, payments and content, and stops where clinical information begins. **You decide health, suitability and program fit, every time.** A PAR-Q or health disclosure never feeds an automated sales decision, in the US or the UK.",
     keeps: [
       "Health assessment & injury advice",
       "Program fit & coaching judgment",
@@ -203,7 +203,7 @@ export const fitnessCoachesCopy: IndustryCopy = {
   },
   fit: {
     heading: "Is this *your business*?",
-    lead: "Best suited to coaches with a clear offer and the will to define who it's for.",
+    lead: "It fits online fitness coaches and personal trainers who already take more inquiries than they can answer between sessions, sell a defined program rather than bespoke one-offs, and are willing to write down who it is not for. A US coach on Trainerize and a UK PT on PT Distinction qualify the same way.",
     right: [
       "A defined offer, repeated lead volume",
       "Real consultation capacity worth protecting",
@@ -235,6 +235,22 @@ export const fitnessCoachesCopy: IndustryCopy = {
       {
         q: "Can it reactivate old leads?",
         a: "Yes: consent-aware, with suppression and easy opt-out.",
+      },
+      {
+        q: "How do you handle consent, quiet hours and opt-outs for US clients?",
+        a: "Consent is captured where the conversation starts — the DM, the form, the checkout — and travels with the record, so no message goes out without a permission behind it. Automated SMS to US numbers is designed around TCPA: recorded consent, an instant stop the moment someone opts out, and sending only inside daytime hours in the recipient's own zone. Commercial email is built the same way against CAN-SPAM, with a truthful sender and subject line, a real postal address in the footer and an unsubscribe that actually works. **We design to that shape; your own legal advisor approves the live message set.**",
+      },
+      {
+        q: "Does the system handle client health information?",
+        a: "Not clinical detail. These are non-clinical workflows: inquiries, fit questions, consultation and discovery-call booking, payment admin and check-in prompts. A PAR-Q or intake form is stored for you to read, never interpreted. Injuries, medications, pregnancy, disordered-eating concerns and program suitability route to you, and the system answers none of them.",
+      },
+      {
+        q: "Can it work with US clients while I coach from another time zone?",
+        a: "Yes. Slots are offered in the prospect's local time from your real calendar, so nobody books a 3am call by accident, and your own working hours stay the limit on what can ever be offered. Follow-up is timed against the client's zone, not yours. A coach in London selling into Chicago and Austin runs one funnel rather than three.",
+      },
+      {
+        q: "What does this cost in US dollars?",
+        a: "Scope decides it. Every band on our pricing page is published in US dollars as well as pounds, so a US coach and a UK coach are quoted from the same table rather than a converted guess. Most coaching builds start as one journey — DM to booked consultation — and the discovery call scopes that journey before any number is put to it.",
       },
     ],
   },

@@ -78,6 +78,7 @@ export function TradesComposition({
         eyebrow={copy.eyebrow}
         icon={Wrench}
         title={copy.h1}
+        deck={copy.deck}
         titleId="ind2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}

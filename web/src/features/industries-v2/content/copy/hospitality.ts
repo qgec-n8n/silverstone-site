@@ -22,7 +22,8 @@ export const hospitalityCopy: IndustryCopy = {
     h1: "Coordinate guest demand without flattening the service",
   },
   eyebrow: "Hospitality automation",
-  h1: "Never miss a guest. *Never feel automated.*",
+  h1: "Hospitality automation that *never feels automated*",
+  deck: "Hotels, restaurants and venues. Never miss a guest.",
   heroSub:
     "The phone rings mid-service. Silverstone AI answers **instantly** from real availability, and brings your team in exactly where service becomes judgment. For restaurants, hotels and venues in the US and UK.",
   heroPoints: [
@@ -34,7 +35,7 @@ export const hospitalityCopy: IndustryCopy = {
   markets: {
     eyebrow: "Built for your market",
     heading: "Same full service. *Your* reservation system.",
-    lead: "A full Friday service in Chicago and one in Edinburgh miss the same call. The reservation-truth workflow is identical; the booking platform and what you call the front desk change.",
+    lead: "A full Friday service in Chicago and one in Edinburgh miss the same call. Silverstone AI reads live availability from US reservation platforms such as OpenTable, Resy, Tock or SevenRooms and UK systems such as ResDiary or Collins, plus hotel property systems including Mews, Cloudbeds and Guestline. The reservation-truth workflow is identical; the platform and the vocabulary change.",
     lanes: [
       {
         market: "US",
@@ -47,7 +48,7 @@ export const hospitalityCopy: IndustryCopy = {
           "Tripleseat and your private-events inbox",
         ],
         vocabulary:
-          "Covers, reservations, the waitlist, private dining, walk-ins, the host stand.",
+          "Covers, reservations, the waitlist, private dining, walk-ins, the host stand, the check.",
         keepsHuman:
           "Allergen decisions, accessibility, complaints, contracts and pricing.",
       },
@@ -62,20 +63,20 @@ export const hospitalityCopy: IndustryCopy = {
           "Your events inbox and function-room diary",
         ],
         vocabulary:
-          "Covers, bookings, the waiting list, private hire, walk-ins, the front desk.",
+          "Covers, bookings, the waiting list, private hire, walk-ins, the front desk, the bill.",
         keepsHuman:
           "Allergen decisions, accessibility, complaints, contracts and pricing.",
       },
     ],
     shared: [
       "Every answer comes from your reservation system or approved information, and says so when it cannot verify.",
-      "Group and event inquiries arrive with the guest count, date, budget and timing already collected.",
+      "Group, private-dining and private-hire inquiries arrive with the guest count, date, budget and timing already collected.",
       "Allergens, emergencies and complaints bypass automation and reach the duty manager with context.",
     ],
   },
   problem: {
-    heading: "Peak demand hits *while you're at capacity*",
-    body: "A guest asks about allergens, parking and check-in across three channels while the venue is full. **This is not a digital concierge that improvises.** It's a layer that only answers from your authoritative systems.",
+    heading: "Where does a full service *lose reservations*?",
+    body: "A guest asks about allergens, parking and check-in across three channels while the venue is full. The phone goes to voicemail, the message waits, and the group inquiry cools. **This is not a digital concierge that improvises.** It answers only from your live reservation system and approved venue information, and hands anything it cannot verify to the team on duty.",
     cards: [
       {
         title: "Phone rings mid-service",
@@ -96,8 +97,8 @@ export const hospitalityCopy: IndustryCopy = {
     ],
   },
   journey: {
-    heading: "Reservation truth *before* fluency",
-    lead: "A polished reply is worthless if the availability is wrong. Every journey reads your real system first.",
+    heading: "How does it know *a table or room is really free*?",
+    lead: "Every journey reads your live reservation system before it says a word. If availability can be checked, it is checked; if it cannot, the guest is routed to your booking path or to a person. A polished reply built on a guessed table or a guessed room is worse than no reply at all.",
     stages: [
       {
         title: "Inquiry received",
@@ -122,8 +123,8 @@ export const hospitalityCopy: IndustryCopy = {
     ],
   },
   workflows: {
-    heading: "Routine to *complete event briefs*",
-    lead: "Every answer comes from approved, current information, and says so when it can't be verified.",
+    heading: "Which guest messages *can it handle end to end*?",
+    lead: "Routine questions, group and private-event inquiries, pre-arrival messages and review requests. Each one answers from approved, current information and says so when something cannot be verified. Reservations, deposits and policies come from your system; pricing, contracts and anything touching safety stop and go to the named person who owns them.",
     items: [
       {
         title: "Routine questions",
@@ -131,23 +132,23 @@ export const hospitalityCopy: IndustryCopy = {
       },
       {
         title: "Groups & events",
-        body: "Guest count, budget and timing collected into one owned brief.",
+        body: "Private dining or private hire: guest count, budget and timing in one owned brief.",
       },
       {
         title: "Pre-arrival & upsell",
-        body: "Only from a real reservation; a delayed guest never gets a promotion.",
+        body: "Only from a real reservation, with consent on file and quiet hours kept; a delayed guest never gets a promotion.",
       },
       {
         title: "Reviews & recovery",
-        body: "Requested after completed service; complaints divert to staff first.",
+        body: "Requested after completed service, with real sender details and a working unsubscribe; complaints divert to staff first.",
       },
     ],
   },
   services: {
-    heading: "The system behind the front desk",
-    lead: "Shaped for your live service pattern: hotels, restaurants, venues, multi-site groups.",
+    heading: "The system behind the host stand and the front desk",
+    lead: "Shaped for your live service pattern: hotels, restaurants, bars, venues, multi-site groups.",
     paragraphs: [
-      "[AI reception](/services/ai-receptionists) supports web and messaging; [voice handling](/services/ai-voice-agents) manages calls and captures group details; [connected workflows](/services/ai-automation) tie OpenTable, Resy, SevenRooms or ResDiary reservations, messaging and staff tasks together.",
+      "[AI reception](/services/ai-receptionists) supports web and messaging; [voice handling](/services/ai-voice-agents) manages calls on US and UK numbers and captures group details; [connected workflows](/services/ai-automation) tie OpenTable, Resy, Tock, SevenRooms or ResDiary reservations, messaging and staff tasks together.",
       "A [conversion-led venue website](/services/web-design-development) clarifies the booking journey, [governed content](/services/content-creation) keeps information consistent, and [consulting](/services/ai-consulting) plans complex estates.",
     ],
   },
@@ -168,8 +169,8 @@ export const hospitalityCopy: IndustryCopy = {
     clarification: INDUSTRY_CLARIFICATION,
   },
   boundary: {
-    heading: "Safety, *never automated*",
-    body: "This isn't a limitation; **it's what lets automation operate with total confidence.** The system detects these conditions and alerts the duty manager instantly.",
+    heading: "What will it *never do on its own*?",
+    body: "It never decides anything touching guest safety, money or a signed agreement. Allergens, accessibility needs, complaints, emergencies, contracts and pricing are detected, stopped and passed to the duty manager with the full conversation attached. **This isn't a limitation; it's what lets everything else run with total confidence.**",
     keeps: [
       "Allergen decisions, approved info only",
       "Accessibility, where judgment matters",
@@ -189,13 +190,16 @@ export const hospitalityCopy: IndustryCopy = {
         title: "Design one journey",
         body: "After-hours inquiries or group qualification first.",
       },
-      { title: "Test the edges", body: "Latency, language, allergens, escalation." },
+      {
+        title: "Test the edges",
+        body: "Latency, language, allergens, quiet hours, escalation.",
+      },
       { title: "Launch with override", body: "Staff visibility from day one." },
     ],
   },
   fit: {
     heading: "Is this *your venue*?",
-    lead: "A strong fit can name its reservation truth and its exception owners.",
+    lead: "Yes, if your hotel, restaurant or venue can point to one authoritative reservation system, keep its published venue and allergen information current, and name who owns groups, complaints and safety. The trigger is demand that already outruns the team at peak: the system absorbs the overflow, it does not replace the service.",
     right: [
       "An authoritative reservation system",
       "Documented venue information",
@@ -227,6 +231,22 @@ export const hospitalityCopy: IndustryCopy = {
       {
         q: "Does it support multiple languages?",
         a: "With tested coverage and controlled content, escalating anything critical or ambiguous.",
+      },
+      {
+        q: "How does it handle SMS consent for US guests?",
+        a: "Consent first. A number is texted only where opt-in was captured and recorded, every message carries a plain opt-out that suppresses the number immediately, and sending is held to quiet hours in the guest's local time zone. Those are the consent, opt-out and timing questions the TCPA raises for automated SMS to US numbers. **Your own counsel approves the program before launch.**",
+      },
+      {
+        q: "What about pre-arrival and review emails under CAN-SPAM?",
+        a: "Confirmations and pre-arrival details are transactional and follow the reservation. Marketing and review requests go only to guests who opted in, and commercial email is built with accurate sender and subject headers, a real postal address for the venue, and an unsubscribe that works first time and is honored in the workflow.",
+      },
+      {
+        q: "Can one system cover US and UK venues in different time zones?",
+        a: "Yes. Each site runs on its own clock: availability, service hours, quiet hours and follow-up timing are set per venue, so a Chicago restaurant and an Edinburgh hotel in the same group each answer in local time. Silverstone AI works from London, with US-based team members covering US business hours.",
+      },
+      {
+        q: "Do you work with US venues, and can you quote in dollars?",
+        a: "Yes. We work with hospitality operators in the United States and the United Kingdom from the London studio, and proposals are quoted and invoiced in GBP or USD, whichever is agreed at proposal. Published bands on the pricing page carry both currencies; scope, channels and connected systems set the figure.",
       },
     ],
   },

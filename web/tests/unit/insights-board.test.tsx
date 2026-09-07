@@ -269,6 +269,40 @@ describe("InsightsBoard", () => {
     expect(shown()).toBe(12);
   });
 
+  it("links every service and industry category, filter state aside", () => {
+    // The pills filter this page and emit no links, so the 17 routes behind the
+    // taxonomy got nothing from /blog. The directory is the crawlable half of
+    // that pair, and it is rendered outside the filter and paging state so it
+    // survives an empty search.
+    const { container } = renderBoard();
+    const directory = required(
+      container.querySelector<HTMLElement>(".ss-insight-board__directory"),
+      "Expected the category directory",
+    );
+    const routed = INSIGHT_CATEGORIES.filter(
+      (category) => category.group === "service" || category.group === "industry",
+    );
+
+    expect(routed).toHaveLength(17);
+    const links = Array.from(directory.querySelectorAll<HTMLAnchorElement>("a[href]"));
+    expect(links.map((link) => link.getAttribute("href"))).toEqual(
+      routed.map((category) => category.href),
+    );
+    expect(links.map((link) => link.textContent)).toEqual(
+      routed.map((category) => category.label),
+    );
+
+    fireEvent.change(
+      screen.getByRole("searchbox", {
+        name: /search insights by title or topic/i,
+      }),
+      { target: { value: "no-such-silverstone-topic-9x8y7z" } },
+    );
+    expect(
+      container.querySelectorAll(".ss-insight-board__directory a[href]"),
+    ).toHaveLength(17);
+  });
+
   it("keeps the no-results state functional", () => {
     renderBoard();
 

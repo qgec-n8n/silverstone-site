@@ -81,6 +81,7 @@ export function PhysiosChiropractorsComposition({
         eyebrow={copy.eyebrow}
         icon={HeartPulse}
         title={copy.h1}
+        deck={copy.deck}
         titleId="ind2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}

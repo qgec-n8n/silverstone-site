@@ -74,7 +74,7 @@ export function InsightsComposition() {
       <SecondaryHero
         eyebrow="Silverstone Intelligence"
         icon={FileText}
-        title="Intelligence for *better* technology decisions"
+        title="AI automation guides for *better digital decisions*"
         titleId="core-insights-title"
         lead="A searchable library of practical guides, organized by the services and industries we build for — find the topic behind your next decision."
         points={[

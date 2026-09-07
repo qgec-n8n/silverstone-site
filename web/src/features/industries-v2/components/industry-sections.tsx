@@ -7,6 +7,7 @@
 import { useInView, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import { useRef, type ReactNode } from "react";
+import { Link } from "react-router";
 
 import {
   Check,
@@ -37,6 +38,13 @@ const entranceEase = [0.22, 1, 0.36, 1] as const;
 /**
  * Inline rich text with crawlable internal links: supports `[label](/path)`
  * markdown links plus the `**bold**`/`*italic*` subset handled by RichText.
+ *
+ * Internal targets render as a router `Link` so an inline cross-link is a
+ * client transition (~100ms) rather than a full document reload that replays
+ * the loader and route intro on the destination. `Link` still emits a real
+ * `href`, so these ~30 service/industry cross-links stay crawlable. Anything
+ * that is not a site-absolute path (external URLs, `mailto:`, bare `#hash`)
+ * keeps a plain anchor, since the router cannot own those destinations.
  */
 export function LinkedText({ text }: { text: string }): ReactNode {
   const nodes: ReactNode[] = [];
@@ -49,10 +57,23 @@ export function LinkedText({ text }: { text: string }): ReactNode {
     if (match.index > lastIndex) {
       nodes.push(<RichText key={key++} text={text.slice(lastIndex, match.index)} />);
     }
+    const href = match[2] ?? "";
+    const label = match[1];
     nodes.push(
-      <a key={key++} className="ss-srv2-textlink" href={match[2]}>
-        {match[1]}
-      </a>,
+      href.startsWith("/") ? (
+        <Link key={key++} className="ss-srv2-textlink" prefetch="intent" to={href}>
+          {label}
+        </Link>
+      ) : (
+        <a
+          key={key++}
+          className="ss-srv2-textlink"
+          href={href}
+          rel="noopener noreferrer"
+        >
+          {label}
+        </a>
+      ),
     );
     lastIndex = pattern.lastIndex;
   }

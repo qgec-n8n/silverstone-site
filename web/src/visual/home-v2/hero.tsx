@@ -98,7 +98,7 @@ export function Hero({
             custom={1}
             className="ss-hv2-aether-reveal ss-hv2-display ss-hv2-hero__title"
           >
-            The operating system for businesses that{" "}
+            The AI automation agency for businesses that{" "}
             <span className="ss-chrome-text">refuse to miss</span>.
           </m.h1>
 

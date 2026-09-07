@@ -28,7 +28,7 @@
 - **Open Graph title:** Build the smallest app that proves the value
 - **Open Graph description:** Silverstone AI turns a valuable workflow into a focused first release, with product discovery, UX, data, permissions, integrations and operational readiness designed together.
 - **Canonical route:** `/services/app-development`
-- **H1:** Build the smallest app that proves the value
+- **H1:** Custom app development that starts small and proves value
 
 ### H2 structure
 
@@ -136,7 +136,7 @@ app development agency UK, custom app, MVP, innovative app, scalable solution, L
 
 ## 5. Complete public page copy
 
-# Build the smallest app that proves the value
+# Custom app development that starts small and proves value
 
 A useful application is not defined by the number of screens it contains. It is defined by whether a specific user can complete a valuable task more clearly, reliably or efficiently than they can today.
 

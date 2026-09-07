@@ -16,7 +16,7 @@ const representativeRoutes = [
 const representativeSourceCopy = [
   {
     path: "/about",
-    text: "A premium technology partner built around better judgment",
+    text: "A London AI automation agency working across the UK and US",
   },
   {
     path: "/industry/dentists",
