@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router";
 import { describe, expect, it } from "vitest";
 
 import { MarketLanes } from "~/features/industries-v2/components/industry-sections";
+import { US_METROS } from "~/features/industries-v2/content/atlas";
 import { industryCopyByRoute, industryRoutes } from "~/features/industries-v2/content";
 import { MotionProvider } from "~/motion";
 
@@ -21,12 +22,12 @@ function renderLanes(route: (typeof industryRoutes)[number]) {
 }
 
 /*
- * The Atlantic Bridge's whole contract is that nothing hides: both markets and
+ * The two-market section's whole contract is that nothing hides: both markets and
  * the shared mechanism must be in the rendered DOM on every industry route, in
  * DOM order US → UK, whatever the reader's currency. These assertions are the
  * guard against a future "just tab it" refactor.
  */
-describe("MarketLanes (Atlantic Bridge)", () => {
+describe("MarketLanes (Atlantic atlas + ledger)", () => {
   it.each(industryRoutes)("renders both market lanes in full for %s", (route) => {
     const { container, copy } = renderLanes(route);
     const lanes = container.querySelectorAll("dl.ss-ind2-market__rows");
@@ -106,21 +107,67 @@ describe("MarketLanes (Atlantic Bridge)", () => {
     expect(container.textContent).toContain("Equality Act");
   });
 
-  it("draws the chart with named nodes and a described, decorative plate", () => {
+  it("draws the atlas with every metro named and a described, decorative plate", () => {
     const { container } = renderLanes("/industry/dentists");
-    const names = [...container.querySelectorAll(".ss-ind2-bridge__node-name")].map(
-      (node) => node.textContent,
-    );
-    expect(names).toEqual(["London", "New York"]);
-    expect(container.querySelector(".ss-ind2-bridge__node-coord")?.textContent).toBe(
-      "51.5°N",
+    const metros = US_METROS.map((city) => city.name);
+
+    // One real-text label per city over the plate, London first, each a
+    // <label for> on the market switch: tapping a metro moves the ledger to
+    // the US, tapping London to the UK.
+    const labels = [
+      ...container.querySelectorAll<HTMLLabelElement>(".ss-ind2-atlas__label"),
+    ];
+    expect(labels.map((label) => label.textContent)).toEqual(["London", ...metros]);
+    for (const label of labels) {
+      const radio = container.querySelector<HTMLInputElement>(`#${label.htmlFor}`);
+      expect(radio?.type).toBe("radio");
+      expect(radio?.value).toBe(label.textContent === "London" ? "gbp" : "usd");
+    }
+
+    // The strip under the plate names every metro at every width.
+    expect(
+      [...container.querySelectorAll(".ss-ind2-atlas__strip-city")].map(
+        (city) => city.textContent,
+      ),
+    ).toEqual(metros);
+    expect(container.querySelector(".ss-ind2-atlas__readout")?.textContent).toContain(
+      `${String(US_METROS.length)} US metros`,
     );
 
-    const chart = container.querySelector(".ss-ind2-bridge__chart");
+    const chart = container.querySelector(".ss-ind2-atlas__chart");
     expect(chart).toHaveAttribute("role", "img");
-    expect(chart?.getAttribute("aria-label")).toMatch(/London and New York/i);
-    for (const svg of container.querySelectorAll(".ss-ind2-bridge__svg")) {
+    expect(chart?.getAttribute("aria-label")).toMatch(
+      /London linked to twelve US metros/,
+    );
+    for (const name of metros) {
+      expect(chart?.getAttribute("aria-label")).toContain(name);
+    }
+
+    // Two plates (wide, compact), each decorative, each drawing three static
+    // dot layers, twelve links and thirteen nodes.
+    const svgs = container.querySelectorAll(".ss-ind2-atlas__svg");
+    expect(svgs).toHaveLength(2);
+    for (const svg of svgs) {
       expect(svg).toHaveAttribute("aria-hidden", "true");
+      const layers = [...svg.querySelectorAll("image")].map((image) =>
+        image.getAttribute("href"),
+      );
+      expect(layers).toHaveLength(3);
+      for (const href of layers) {
+        expect(href).toMatch(/^\/maps\/atlas-(wide|compact)-(world|us|uk)\.svg$/);
+      }
+      expect(svg.querySelectorAll(".ss-ind2-atlas__link")).toHaveLength(
+        US_METROS.length,
+      );
+      expect(svg.querySelectorAll(".ss-ind2-atlas__node")).toHaveLength(
+        US_METROS.length + 1,
+      );
+      // Every pulse flies the arc its own link draws.
+      for (const link of svg.querySelectorAll(".ss-ind2-atlas__link")) {
+        const d = link.querySelector(".ss-ind2-atlas__arc")?.getAttribute("d");
+        const pulse = link.querySelector<SVGCircleElement>(".ss-ind2-atlas__pulse");
+        expect(pulse?.style.offsetPath).toBe(`path("${d ?? ""}")`);
+      }
     }
   });
 

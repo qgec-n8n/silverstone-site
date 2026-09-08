@@ -6,11 +6,14 @@
  */
 import { useInView, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import { Fragment, useId, useRef, type CSSProperties, type ReactNode } from "react";
+import { useId, useRef, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router";
 
 import {
   Check,
+  Landmark,
+  Layers,
+  Scale,
   ShieldCheck,
   Sparkles,
   UserCheck,
@@ -26,8 +29,19 @@ import {
   Reveal,
   RichText,
 } from "~/features/services-v2/components/primitives";
+import {
+  ATLAS_COMPACT,
+  ATLAS_WIDE,
+  LONDON,
+  US_METROS,
+  US_TIME_ZONES,
+  type AtlasNode,
+  type AtlasPlate,
+} from "../content/atlas";
 import type {
   IndustryCompliance,
+  IndustryComplianceIcon,
+  IndustryMarketLane,
   IndustryMarkets,
   IndustryCard,
   IndustryCaseStudy,
@@ -328,506 +342,345 @@ export function FitPanel({ right, caution }: { right: string[]; caution: string 
 }
 
 /*
- * ---- Atlantic Bridge -------------------------------------------------------
+ * ---- Atlantic atlas ---------------------------------------------------------
  *
- * The plate is a real graticule, not texture: latitude and longitude map to
- * viewBox units by a straight line, so London (51.5°N, 0.1°W) and New York
- * (40.7°N, 74.0°W) land exactly where the printed ticks say they should, and a
- * reader who checks the chart against the ticks finds it honest.
+ * London linked to twelve US metros on a dotted world plate: the instrument
+ * that opens the two-market section. All geometry comes from
+ * `../content/atlas` — the plates, the node positions, every arc — so the
+ * static dot layers, the SVG, the HTML labels and the pulses' `offset-path`
+ * agree by construction rather than by hand-copying numbers between them.
  *
- * Every coordinate below is DERIVED from those two scales — the arc, the
- * parked pulse and the labels' percentage positions all come out of the same
- * two city points — because four things have to agree on this geometry: the
- * SVG paths, the CSS `offset-path` that carries the pulse along the arc, the
- * HTML labels' positions, and the unit test that pins the stylesheet's two
- * path strings back to these constants. Hand-copying a path into the
- * stylesheet is exactly how the compact pulse ended up travelling a line that
- * was not the arc drawn beside it.
+ * The plate is decorative (aria-hidden SVGs under a described wrapper); the
+ * city names, the time-zone count and the market switch are real HTML text,
+ * in the prerendered document, legible at every width.
  */
-type BridgePoint = { x: number; y: number };
 
-type BridgeScale = {
-  w: number;
-  /**
-   * The viewBox WINDOW, not the graticule's extent: the scales below run wider
-   * than the plate shows, and cropping to the band the two cities actually
-   * occupy is what pays for the readout strip above without the chart band
-   * growing. Percentage label positions are resolved against this window.
-   */
-  viewY: number;
-  h: number;
-  /** Degrees north → viewBox y. */
-  latToY: (deg: number) => number;
-  /** Degrees east, negative west → viewBox x. */
-  lonToX: (deg: number) => number;
-  latLines: number[];
-  lonLines: number[];
-  /** The gridlines that carry a printed tick label; the rest stay hairlines. */
-  latTicks: number[];
-  lonTicks: number[];
-  /**
-   * Control point of the quadratic, lifted north of the chord so a
-   * flat-projection line still reads as a great circle.
-   */
-  ctrl: BridgePoint;
-  nodeR: number;
-  /** Inset of the graticule from the plate edge, in viewBox units. */
-  inset: number;
+/** Node and stroke sizes in viewBox units, per plate: the wide plate shows
+ * ~0.46px per unit at 1100 wide, the compact one ~0.32px at 340. */
+const ATLAS_SIZE: Record<
+  AtlasPlate["name"],
+  { city: number; hub: number; pulse: number }
+> = {
+  wide: { city: 7, hub: 11, pulse: 6 },
+  compact: { city: 9, hub: 14, pulse: 8 },
 };
 
-const CITY = {
-  ldn: { name: "London", lat: 51.51, lon: -0.13, coord: "51.5°N" },
-  nyc: { name: "New York", lat: 40.71, lon: -74.01, coord: "40.7°N" },
-} as const;
+const ATLAS_ARIA = `Map: London linked to ${US_METROS.length === 12 ? "twelve" : String(US_METROS.length)} US metros — ${US_METROS.map(
+  (city) => city.name,
+).join(", ")}. The market you are reading in is the lit side.`;
 
-/**
- * London ⇄ New York on the great circle. Checked against the haversine of the
- * two coordinates above (R = 6371.0088 km): 5570.2 km / 3461.2 mi.
- */
-const BRIDGE_DISTANCE = { km: "5,570 km", mi: "3,461 mi" } as const;
-
-/** One decimal — the resolution the plate is drawn at. More is noise in a path. */
-const round1 = (n: number) => Math.round(n * 10) / 10;
-const asPct = (value: number, span: number) =>
-  `${String(round1((value / span) * 100))}%`;
-
-/** The quadratic at t, used for the parked pulse. */
-function quadAt(from: BridgePoint, ctrl: BridgePoint, to: BridgePoint, t: number) {
-  const u = 1 - t;
-  return {
-    x: round1(u * u * from.x + 2 * u * t * ctrl.x + t * t * to.x),
-    y: round1(u * u * from.y + 2 * u * t * ctrl.y + t * t * to.y),
-  };
-}
-
-function buildBridge(scale: BridgeScale) {
-  const place = (city: keyof typeof CITY): BridgePoint => ({
-    x: round1(scale.lonToX(CITY[city].lon)),
-    y: round1(scale.latToY(CITY[city].lat)),
-  });
-  const nyc = place("nyc");
-  const ldn = place("ldn");
-  const top = scale.viewY;
-
-  return {
-    ...scale,
-    viewBox: `0 ${String(top)} ${String(scale.w)} ${String(scale.h)}`,
-    nyc,
-    ldn,
-    arc: `M ${String(nyc.x)} ${String(nyc.y)} Q ${String(scale.ctrl.x)} ${String(scale.ctrl.y)} ${String(ldn.x)} ${String(ldn.y)}`,
-    /**
-     * The arc at t = 0.62: where the parked circle sits for a reader on
-     * reduced motion or a browser without `offset-path` — mid-flight, so the
-     * chart still reads as in transit rather than as a dead line.
-     */
-    park: quadAt(nyc, scale.ctrl, ldn, 0.62),
-    at: {
-      nyc: { x: asPct(nyc.x, scale.w), y: asPct(nyc.y - top, scale.h) },
-      ldn: { x: asPct(ldn.x, scale.w), y: asPct(ldn.y - top, scale.h) },
-    },
-    latRules: scale.latLines.map((deg) => ({ deg, y: round1(scale.latToY(deg)) })),
-    lonRules: scale.lonLines.map((deg) => ({ deg, x: round1(scale.lonToX(deg)) })),
-    latLabels: scale.latTicks.map((deg) => ({
-      deg,
-      top: asPct(scale.latToY(deg) - top, scale.h),
-    })),
-    lonLabels: scale.lonTicks.map((deg) => ({
-      deg,
-      left: asPct(scale.lonToX(deg), scale.w),
-    })),
-  };
-}
-
-/** Wide plate (≥52rem): 90°W–0° across, 70°N–30°N down. */
-export const BRIDGE_WIDE = buildBridge({
-  w: 1200,
-  viewY: 16,
-  h: 184,
-  latToY: (deg) => 310 - 4 * deg,
-  lonToX: (deg) => 1092 + 12 * deg,
-  latLines: [70, 60, 50, 40, 30],
-  lonLines: [-90, -80, -70, -60, -50, -40, -30, -20, -10, 0],
-  latTicks: [60, 50, 40, 30],
-  lonTicks: [-80, -60, -40, -20, 0],
-  ctrl: { x: 647, y: 4 },
-  nodeR: 5.5,
-  inset: 24,
-});
-
-/**
- * Compact ladder (<52rem): the same two cities on a zoomed 40°N–55°N scale,
- * which is what turns a 5.5:1 letterboxed smear into a diagonal a phone can
- * read. New York stays lower-left and London upper-right, so the ladder, the
- * wide plate and the ledger's fixed US → UK column order all agree.
- */
-export const BRIDGE_COMPACT = buildBridge({
-  w: 320,
-  viewY: 6,
-  h: 128,
-  latToY: (deg) => 350 - 6 * deg,
-  lonToX: (deg) => 284 + 3 * deg,
-  latLines: [55, 50, 45, 40],
-  lonLines: [-90, -75, -60, -45, -30, -15, 0],
-  latTicks: [50, 45],
-  lonTicks: [],
-  ctrl: { x: 170, y: 44 },
-  nodeR: 4.5,
-  inset: 10,
-});
-
-type Bridge = ReturnType<typeof buildBridge>;
-
-const latLabel = (deg: number) => `${String(deg)}°N`;
-const lonLabel = (deg: number) => (deg === 0 ? "0°" : `${String(Math.abs(deg))}°W`);
-
-/** Hairlines fade toward the edges of the chart, so the plate reads as depth. */
-function meridianOpacity(x: number, width: number) {
-  return Number((0.62 - (Math.abs(x - width / 2) / width) * 0.9).toFixed(3));
-}
-
-function BridgeNode({
-  node,
-  point,
-  r,
+function AtlasNodeMark({
   bloomId,
+  node,
+  r,
+  side,
 }: {
-  node: "nyc" | "ldn";
-  point: BridgePoint;
-  r: number;
   bloomId: string;
+  node: AtlasNode;
+  r: number;
+  side: "us" | "uk";
 }) {
+  const { x, y } = node.point;
   return (
-    <g className="ss-ind2-bridge__node" data-node={node}>
-      {/* The bloom is what makes the lit node read as a light source rather
+    <g className="ss-ind2-atlas__node" data-city={node.id} data-side={side}>
+      {/* The bloom is what makes a lit node read as a light source rather
           than as a filled dot; it is a gradient, so it costs no filter. */}
       <circle
-        className="ss-ind2-bridge__bloom"
-        cx={point.x}
-        cy={point.y}
+        className="ss-ind2-atlas__bloom"
+        cx={x}
+        cy={y}
         fill={`url(#${bloomId})`}
-        r={r * 7.4}
+        r={r * 6}
       />
-      <circle className="ss-ind2-bridge__halo" cx={point.x} cy={point.y} r={r * 3.4} />
-      <circle className="ss-ind2-bridge__ring" cx={point.x} cy={point.y} r={r * 2.2} />
-      <circle className="ss-ind2-bridge__dot" cx={point.x} cy={point.y} r={r} />
+      <circle className="ss-ind2-atlas__halo" cx={x} cy={y} r={r * 2.6} />
+      <circle className="ss-ind2-atlas__ring" cx={x} cy={y} r={r * 1.7} />
+      <circle className="ss-ind2-atlas__dot" cx={x} cy={y} r={r} />
     </g>
   );
 }
 
 /**
- * One plate. Two are rendered — a wide chart and a compact ladder — and only
- * ever one is displayed; a `display: none` element runs no animation, so the
- * looping budget stays at one pulse plus one node breathe.
+ * One plate. Two are rendered — wide and compact — and only ever one is
+ * displayed; a `display: none` element runs no animation, so the looping
+ * budget is one plate's pulses and halos, never both.
  *
- * The arc carries TWO gradients and CSS picks between them, because SVG paint
- * servers cannot be flipped from a stylesheet: the bright end of the arc is
+ * Each arc carries TWO strokes and CSS crossfades them, because an SVG paint
+ * server cannot be flipped from a stylesheet: the bright end of every arc is
  * always the reader's own market.
  */
-function BridgePlate({
-  bridge,
-  variant,
-}: {
-  bridge: Bridge;
-  variant: "wide" | "compact";
-}) {
-  const toLdn = `ind2-bridge-arc-ldn-${variant}`;
-  const toNyc = `ind2-bridge-arc-nyc-${variant}`;
-  const bloom = `ind2-bridge-bloom-${variant}`;
+function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
+  const id = `ind2-atlas-${plate.name}`;
+  const size = ATLAS_SIZE[plate.name];
+  const west = Math.min(...plate.cities.map((city) => city.point.x));
+  const east = plate.hub.point.x;
 
   return (
     <svg
       aria-hidden="true"
-      className={`ss-ind2-bridge__svg ss-ind2-bridge__svg--${variant}`}
+      className={`ss-ind2-atlas__svg ss-ind2-atlas__svg--${plate.name}`}
       focusable="false"
-      viewBox={bridge.viewBox}
+      viewBox={plate.viewBox}
     >
       <defs>
-        {/* The middle stop is lifted toward platinum so the arc still reads as
-            a gradient on the routes whose accent pair is two shades of one
-            hue — trades is blue → blue, and a flat monochrome line there would
-            make the chart quietly less interesting than it is elsewhere. */}
-        <linearGradient id={toLdn} x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--srv2-accent-2)" />
-          <stop offset="52%" stopColor="var(--ss-ind2-arc-mid)" />
+        <linearGradient
+          gradientUnits="userSpaceOnUse"
+          id={`${id}-uk`}
+          x1={west}
+          x2={east}
+          y1="0"
+          y2="0"
+        >
+          <stop offset="0%" stopColor="var(--srv2-accent-2)" stopOpacity="0.22" />
+          <stop offset="58%" stopColor="var(--ss-ind2-arc-mid)" stopOpacity="0.75" />
           <stop offset="100%" stopColor="var(--srv2-accent)" />
         </linearGradient>
-        <linearGradient id={toNyc} x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--srv2-accent)" />
-          <stop offset="52%" stopColor="var(--ss-ind2-arc-mid)" />
-          <stop offset="100%" stopColor="var(--srv2-accent-2)" />
+        <linearGradient
+          gradientUnits="userSpaceOnUse"
+          id={`${id}-us`}
+          x1={west}
+          x2={east}
+          y1="0"
+          y2="0"
+        >
+          <stop offset="0%" stopColor="var(--srv2-accent-2)" />
+          <stop offset="42%" stopColor="var(--ss-ind2-arc-mid)" stopOpacity="0.75" />
+          <stop offset="100%" stopColor="var(--srv2-accent)" stopOpacity="0.22" />
         </linearGradient>
-        <radialGradient id={bloom}>
-          <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.9" />
-          <stop offset="55%" stopColor="var(--srv2-accent)" stopOpacity="0.28" />
+        <radialGradient id={`${id}-bloom-uk`}>
+          <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.85" />
+          <stop offset="45%" stopColor="var(--srv2-accent)" stopOpacity="0.22" />
           <stop offset="100%" stopColor="var(--srv2-accent)" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={`${id}-bloom-us`}>
+          <stop offset="0%" stopColor="var(--srv2-accent-2)" stopOpacity="0.85" />
+          <stop offset="45%" stopColor="var(--srv2-accent-2)" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="var(--srv2-accent-2)" stopOpacity="0" />
+        </radialGradient>
+        {/* The plate's edges fade into the panel ground, so the dots read as a
+            field of light seen through the frame, not as a pasted image. */}
+        <radialGradient cx="50%" cy="46%" id={`${id}-fade`} r="64%">
+          <stop offset="0%" stopColor="var(--ss-ind2-atlas-ground)" stopOpacity="0" />
+          <stop offset="70%" stopColor="var(--ss-ind2-atlas-ground)" stopOpacity="0" />
+          <stop
+            offset="100%"
+            stopColor="var(--ss-ind2-atlas-ground)"
+            stopOpacity="0.92"
+          />
         </radialGradient>
       </defs>
 
-      {bridge.latRules.map((rule) => (
-        <line
-          className="ss-ind2-bridge__lat"
-          key={rule.deg}
-          x1={bridge.inset}
-          x2={bridge.w - bridge.inset}
-          y1={rule.y}
-          y2={rule.y}
+      <image
+        className="ss-ind2-atlas__land ss-ind2-atlas__land--world"
+        height={plate.h}
+        href={plate.layers.world}
+        width={plate.w}
+      />
+      <image
+        className="ss-ind2-atlas__land ss-ind2-atlas__land--us"
+        height={plate.h}
+        href={plate.layers.us}
+        width={plate.w}
+      />
+      <image
+        className="ss-ind2-atlas__land ss-ind2-atlas__land--uk"
+        height={plate.h}
+        href={plate.layers.uk}
+        width={plate.w}
+      />
+      <rect
+        className="ss-ind2-atlas__fade"
+        fill={`url(#${id}-fade)`}
+        height={plate.h}
+        width={plate.w}
+      />
+
+      {plate.links.map((link, index) => (
+        <g
+          className="ss-ind2-atlas__link"
+          data-city={link.city.id}
+          key={link.city.id}
+          style={{ "--atlas-i": index } as CSSProperties}
+        >
+          <path className="ss-ind2-atlas__arc-glow" d={link.path} pathLength={1} />
+          <path
+            className="ss-ind2-atlas__arc ss-ind2-atlas__arc--uk"
+            d={link.path}
+            pathLength={1}
+            stroke={`url(#${id}-uk)`}
+          />
+          <path
+            className="ss-ind2-atlas__arc ss-ind2-atlas__arc--us"
+            d={link.path}
+            pathLength={1}
+            stroke={`url(#${id}-us)`}
+          />
+          {/* cx/cy stay at the origin: `offset-path` carries the pulse. */}
+          <circle
+            className="ss-ind2-atlas__pulse"
+            cx="0"
+            cy="0"
+            r={size.pulse}
+            style={{ offsetPath: `path("${link.path}")` }}
+          />
+          <circle
+            className="ss-ind2-atlas__pulse-park"
+            cx={link.park.x}
+            cy={link.park.y}
+            r={size.pulse}
+          />
+        </g>
+      ))}
+
+      {plate.cities.map((city) => (
+        <AtlasNodeMark
+          bloomId={`${id}-bloom-us`}
+          key={city.id}
+          node={city}
+          r={size.city}
+          side="us"
         />
       ))}
-      {bridge.lonRules.map((rule) => (
-        <line
-          className="ss-ind2-bridge__meridian"
-          key={rule.deg}
-          opacity={meridianOpacity(rule.x, bridge.w)}
-          x1={rule.x}
-          x2={rule.x}
-          y1={bridge.viewY + 4}
-          y2={bridge.viewY + bridge.h - 4}
-        />
-      ))}
-
-      {/* The straight chord under the bowed arc: what makes a flat-projection
-          line read as a great circle rather than as decoration. */}
-      <line
-        className="ss-ind2-bridge__chord"
-        x1={bridge.nyc.x}
-        x2={bridge.ldn.x}
-        y1={bridge.nyc.y}
-        y2={bridge.ldn.y}
-      />
-      {/* Two stacked wide strokes instead of a blur filter: the same bloom, at
-          no filter cost, and predictable in user units at every plate size. */}
-      <path className="ss-ind2-bridge__arc-bloom" d={bridge.arc} />
-      <path className="ss-ind2-bridge__arc-glow" d={bridge.arc} />
-      <path className="ss-ind2-bridge__arc" d={bridge.arc} stroke={`url(#${toLdn})`} />
-      <path
-        className="ss-ind2-bridge__arc ss-ind2-bridge__arc--usd"
-        d={bridge.arc}
-        stroke={`url(#${toNyc})`}
-      />
-
-      <BridgeNode bloomId={bloom} node="nyc" point={bridge.nyc} r={bridge.nodeR} />
-      <BridgeNode bloomId={bloom} node="ldn" point={bridge.ldn} r={bridge.nodeR} />
-
-      {/* cx/cy stay at the origin: `offset-path` translates the pulse. */}
-      <circle
-        className={`ss-ind2-bridge__pulse ss-ind2-bridge__pulse--${variant}`}
-        cx="0"
-        cy="0"
-        r={bridge.nodeR * 0.9}
-      />
-      <circle
-        className="ss-ind2-bridge__pulse-park"
-        cx={bridge.park.x}
-        cy={bridge.park.y}
-        r={bridge.nodeR * 0.9}
+      <AtlasNodeMark
+        bloomId={`${id}-bloom-uk`}
+        node={plate.hub}
+        r={size.hub}
+        side="uk"
       />
     </svg>
   );
 }
 
 /**
- * The chart band: an instrument readout, a graticule plate with two city nodes
- * and one great-circle arc, and the market focus control.
- *
- * Both SVGs are decorative — the wrapper carries the description, the SVGs are
- * aria-hidden — but the readout, the node names and their coordinates are real
- * HTML text, so they are in the prerendered document and legible at every
- * width instead of scaling with a viewBox the way SVG <text> would.
+ * The HTML labels over the plate: one per city, carrying BOTH plates'
+ * positions and anchors as custom properties, so the same real text is placed
+ * by whichever plate the stylesheet is showing. They are `<label for>`s on the
+ * market switch's radios — tapping Chicago moves the ledger to the US, tapping
+ * London to the UK — with no second source of truth.
  */
-function AtlanticBridge() {
-  const ref = useRef<HTMLDivElement>(null);
-  /*
-   * `once: false`: the two loops stop again when the instrument leaves the
-   * viewport. This panel sits ~1600px below the fold on a phone, and a pulse
-   * nobody can see still costs a frame — `offset-distance` and an SVG
-   * transform are the page's only continuous layout source. The gate is
-   * `html[data-js="on"] .ss-ind2-bridge:not([data-chart-live])` in CSS, so with
-   * JavaScript off (and in the prerendered document) nothing is ever paused.
-   */
-  /*
-   * The chart owns the radio ids so its two city nodes can be real
-   * `<label for>` elements for the market switch. Tapping NEW YORK moves the
-   * ledger to the US: no JavaScript, no second source of truth, and the only
-   * gesture the instrument used to answer was a 128px pill in its corner.
-   */
-  const controlId = useId();
-  const viewport = { amount: 0.2, margin: "0px 0px -8% 0px" } as const;
-  const inView = useInView(ref, viewport);
-  // A second observer rather than a latch in an effect: `once` keeps the
-  // power-on sweep to one play without a setState cascade on every scroll.
-  const seen = useInView(ref, { ...viewport, once: true });
-
-  return (
-    <div
-      className="ss-ind2-bridge"
-      data-chart-live={inView ? "true" : undefined}
-      data-chart-shown={seen ? "true" : undefined}
-      ref={ref}
+function AtlasLabels({ controlId }: { controlId: string }) {
+  const pairs = [
+    { wide: ATLAS_WIDE.hub, compact: ATLAS_COMPACT.hub, side: "uk" as const },
+    ...ATLAS_WIDE.cities.map((wide, index) => ({
+      wide,
+      compact: ATLAS_COMPACT.cities[index] ?? wide,
+      side: "us" as const,
+    })),
+  ];
+  return pairs.map(({ wide, compact, side }) => (
+    <label
+      className="ss-ind2-atlas__label"
+      data-anchor-compact={compact.side}
+      data-anchor-wide={wide.side}
+      data-side={side}
+      data-tier={wide.tier}
+      htmlFor={`${controlId}-${side === "uk" ? "gbp" : "usd"}`}
+      key={wide.id}
+      style={
+        {
+          "--at-wx": wide.at.x,
+          "--at-wy": wide.at.y,
+          "--at-cx": compact.at.x,
+          "--at-cy": compact.at.y,
+        } as CSSProperties
+      }
     >
-      <p className="ss-ind2-bridge__readout">
-        <span className="ss-ind2-bridge__readout-leg">
-          {CITY.ldn.name}
-          <span aria-hidden="true"> &#8646; </span>
-          {CITY.nyc.name}
-        </span>
-        <span className="ss-ind2-bridge__readout-fig">{BRIDGE_DISTANCE.km}</span>
-        <span className="ss-ind2-bridge__readout-fig">{BRIDGE_DISTANCE.mi}</span>
-        <span className="ss-ind2-bridge__readout-tag">One system, two markets</span>
-      </p>
-
-      <div
-        className="ss-ind2-bridge__chart"
-        role="img"
-        aria-label="Chart: one working link between London and New York. The market you are reading in is the lit node."
-      >
-        {/* The plate box is exactly the SVG's box, so a label's percentage
-            position IS its viewBox coordinate. */}
-        <div className="ss-ind2-bridge__plate">
-          <BridgePlate bridge={BRIDGE_WIDE} variant="wide" />
-          <BridgePlate bridge={BRIDGE_COMPACT} variant="compact" />
-
-          {/* Graticule tick labels — decorative, and the two sets are swapped
-              by the same media query that swaps the plates. */}
-          {BRIDGE_WIDE.latLabels.map((tick) => (
-            <span
-              aria-hidden="true"
-              className="ss-ind2-bridge__tick"
-              data-axis="lat"
-              data-plate="wide"
-              key={`w-lat-${String(tick.deg)}`}
-              style={{ top: tick.top }}
-            >
-              {latLabel(tick.deg)}
-            </span>
-          ))}
-          {BRIDGE_WIDE.lonLabels.map((tick) => (
-            <span
-              aria-hidden="true"
-              className="ss-ind2-bridge__tick"
-              data-axis="lon"
-              data-plate="wide"
-              key={`w-lon-${String(tick.deg)}`}
-              style={{ left: tick.left }}
-            >
-              {lonLabel(tick.deg)}
-            </span>
-          ))}
-          {BRIDGE_COMPACT.latLabels.map((tick) => (
-            <span
-              aria-hidden="true"
-              className="ss-ind2-bridge__tick"
-              data-axis="lat"
-              data-plate="compact"
-              key={`c-lat-${String(tick.deg)}`}
-              style={{ top: tick.top }}
-            >
-              {latLabel(tick.deg)}
-            </span>
-          ))}
-
-          {/* Real HTML labels over the plate at the node coordinates. On the
-              compact ladder they move to the two free corners instead, which
-              is the only way a callout clears both the node halo and the
-              chord — see the stylesheet. */}
-          <label
-            className="ss-ind2-bridge__node-label"
-            data-node="ldn"
-            htmlFor={`${controlId}-gbp`}
-            style={
-              {
-                "--mk-node-x": BRIDGE_WIDE.at.ldn.x,
-                "--mk-node-y": BRIDGE_WIDE.at.ldn.y,
-              } as CSSProperties
-            }
-          >
-            <span className="ss-ind2-bridge__node-name">{CITY.ldn.name}</span>
-            <span className="ss-ind2-bridge__node-coord">{CITY.ldn.coord}</span>
-          </label>
-          <label
-            className="ss-ind2-bridge__node-label"
-            data-node="nyc"
-            htmlFor={`${controlId}-usd`}
-            style={
-              {
-                "--mk-node-x": BRIDGE_WIDE.at.nyc.x,
-                "--mk-node-y": BRIDGE_WIDE.at.nyc.y,
-              } as CSSProperties
-            }
-          >
-            <span className="ss-ind2-bridge__node-name">{CITY.nyc.name}</span>
-            <span className="ss-ind2-bridge__node-coord">{CITY.nyc.coord}</span>
-          </label>
-        </div>
-      </div>
-
-      {/*
-        The market focus control IS the display-currency control: one reader
-        choice, persisted, driving both the ledger's emphasis and every price
-        on the site. A separate switch would be a second source of truth.
-
-        It sits after the chart in the DOM — where a phone reader meets it — and
-        CSS lifts it into the readout band beside the distance figures at
-        ≥52rem, so on a desktop it is seated in the instrument's own header
-        strip rather than dropped onto the plate.
-      */}
-      <div className="ss-ind2-bridge__control">
-        <span aria-hidden="true" className="ss-ind2-bridge__control-label">
-          Market focus
-        </span>
-        <CurrencyToggle context="markets" idPrefix={controlId} tone="dark" />
-      </div>
-    </div>
-  );
+      <span className="ss-ind2-atlas__label-name">{wide.name}</span>
+    </label>
+  ));
 }
 
 /**
- * A group entrance that never makes text transparent.
+ * The atlas panel: readout strip, the plate with its labels, the metro strip
+ * and the market focus control, in its own frame above the ledger.
  *
- * The shared `Reveal` primitive animates opacity from 0, and Motion emits that
- * `initial` as an inline `opacity: 0` into the PRERENDERED document. For most
- * of the site that is an accepted trade, but these two panels carry the
- * page's highest-value differentiating copy — ~3,600 characters of
- * fair-housing, MLS and Equality Act detail that exists precisely to be read
- * and indexed — and starting it invisible makes it depend on an
- * IntersectionObserver firing and excludes it from Chrome's LCP candidacy.
- *
- * So the entrance is `translate` only: this component renders AS the container
- * (no extra wrapper, which matters because the ledger's subgrid chain runs
- * straight through it) and stamps `data-lift` through the same global reveal
- * scheduler every other entrance on the site uses. CSS staggers the children.
- * Nothing here is ever at opacity 0, at any point, in any document.
+ * `data-chart-live` (`once: false`) stops the pulses and halos when the plate
+ * leaves the viewport — twelve looping animations nobody can see still cost
+ * frames on a phone — and `data-chart-shown` fires the one-time arc draw
+ * through the global reveal scheduler, so the links power on just after the
+ * frame itself has materialised.
  */
-function LiftGroup({
-  children,
-  className,
-  delayMs = 0,
-  ...rest
-}: {
-  children: ReactNode;
-  className: string;
-  delayMs?: number;
-} & Record<`data-${string}`, string | undefined>) {
+function AtlanticAtlas({ controlId }: { controlId: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, {
-    amount: 0.2,
-    margin: "0px 0px -12% 0px",
-    once: true,
-  });
-  const start = useRevealStart(ref, inView, delayMs);
+  const viewport = { amount: 0.2, margin: "0px 0px -8% 0px" } as const;
+  const inView = useInView(ref, viewport);
+  const seen = useInView(ref, { ...viewport, once: true });
+  const start = useRevealStart(ref, seen, 380);
+  const shown = start !== null;
   const delay = start === null || start.instant ? 0 : start.delayMs;
 
   return (
-    <div
-      className={`${className} ss-ind2-lift`}
-      data-lift={start === null ? undefined : "shown"}
-      ref={ref}
-      style={{ "--lift-delay": `${String(delay)}ms` } as CSSProperties}
-      {...rest}
-    >
-      {children}
-    </div>
+    <PanelReveal className="ss-ind2-atlas ss-srv2-beam-border">
+      <Reveal className="ss-ind2-atlas__readout" kind="section">
+        <p className="ss-ind2-atlas__readout-line">
+          <span className="ss-ind2-atlas__readout-leg">
+            {LONDON.name}
+            <span aria-hidden="true"> &#8646; </span>
+            {US_METROS.length} US metros
+          </span>
+          <span className="ss-ind2-atlas__readout-fig">{US_TIME_ZONES} time zones</span>
+          <span className="ss-ind2-atlas__readout-tag">One system, two markets</span>
+        </p>
+      </Reveal>
+
+      <Reveal className="ss-ind2-atlas__chart-reveal" delayMs={100} kind="card">
+        <div
+          aria-label={ATLAS_ARIA}
+          className="ss-ind2-atlas__chart"
+          data-chart-live={inView ? "true" : undefined}
+          data-chart-shown={shown ? "true" : undefined}
+          ref={ref}
+          role="img"
+          style={{ "--atlas-delay": `${String(delay)}ms` } as CSSProperties}
+        >
+          {/* The plate box is exactly the SVG's box, so a label's percentage
+              position IS its viewBox coordinate. */}
+          <div className="ss-ind2-atlas__plate">
+            <AtlasPlateSvg plate={ATLAS_WIDE} />
+            <AtlasPlateSvg plate={ATLAS_COMPACT} />
+            <AtlasLabels controlId={controlId} />
+          </div>
+        </div>
+      </Reveal>
+
+      {/*
+        The market focus control IS the display-currency control: one reader
+        choice, persisted, driving the plate, the ledger's emphasis and every
+        price on the site. It sits after the chart in the DOM — where a phone
+        reader meets it — and CSS seats it in the readout band at ≥52rem.
+      */}
+      <Reveal className="ss-ind2-atlas__control" delayMs={200} kind="pill">
+        <span aria-hidden="true" className="ss-ind2-atlas__control-label">
+          Market focus
+        </span>
+        <CurrencyToggle context="markets" idPrefix={controlId} tone="dark" />
+      </Reveal>
+
+      {/* Every metro by name at every width: the compact plate labels only a
+          handful, and a city name is something a reader may search for. */}
+      <Reveal className="ss-ind2-atlas__strip" delayMs={280} kind="section">
+        <p className="ss-ind2-atlas__strip-line">
+          <span className="ss-ind2-atlas__strip-label">
+            {US_METROS.length} US metros
+          </span>
+          {US_METROS.map((city) => (
+            <span
+              className="ss-ind2-atlas__strip-city"
+              data-zone={city.zone}
+              key={city.id}
+            >
+              {city.name}
+            </span>
+          ))}
+        </p>
+      </Reveal>
+      <BorderBeam />
+    </PanelReveal>
   );
 }
+
+/*
+ * ---- Two-market ledger ---------------------------------------------------
+ */
 
 const MARKET_ROWS = [
   { fact: "operators", label: "Who runs it" },
@@ -848,85 +701,164 @@ const MARKET_ROWS = [
  */
 const MARKET_RULEBOOK_ROW = { fact: "rulebook", label: "Plays by" } as const;
 
+type MarketRow = (typeof MARKET_ROWS)[number] | typeof MARKET_RULEBOOK_ROW;
+
+function ledgerValue(lane: IndustryMarketLane, fact: MarketRow["fact"]): ReactNode {
+  switch (fact) {
+    case "operators":
+      return lane.operators;
+    case "vocabulary":
+      return lane.vocabulary;
+    case "keeps":
+      return lane.keepsHuman;
+    case "rulebook":
+      return lane.rulebook;
+    case "tooling":
+      return (
+        <ul className="ss-ind2-market__tools">
+          {lane.tooling.map((tool) => (
+            <li key={tool}>{tool}</li>
+          ))}
+        </ul>
+      );
+  }
+}
+
 /**
- * The two-market manifest — the "Atlantic Bridge".
+ * One ledger row, with its own scheduled entrance. A local `m.div` rather
+ * than the shared `Reveal`, because the row's stylesheet keys on `data-fact`,
+ * `data-keeps` and `data-market`, which the primitive cannot carry — the same
+ * pattern as `JourneyRailStage` and `BoundaryKeepItem`.
+ */
+function LedgerRow({
+  delayMs,
+  lane,
+  row,
+}: {
+  delayMs: number;
+  lane: IndustryMarketLane;
+  row: MarketRow;
+}) {
+  const reducedMotion = useReducedMotion() ?? false;
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, {
+    amount: 0.5,
+    margin: "0px 0px -10% 0px",
+    once: true,
+  });
+  const start = useRevealStart(ref, inView, delayMs);
+  const attrs = {
+    className: "ss-ind2-market__row",
+    "data-fact": row.fact,
+    "data-keeps": row.fact === "keeps" ? "true" : undefined,
+    "data-market": lane.market,
+  };
+  const content = (
+    <>
+      <dt>{row.label}</dt>
+      <dd>{ledgerValue(lane, row.fact)}</dd>
+    </>
+  );
+
+  if (reducedMotion) {
+    return <div {...attrs}>{content}</div>;
+  }
+  const hidden = { opacity: 0, y: 18 };
+  return (
+    <m.div
+      {...attrs}
+      animate={start !== null ? { opacity: 1, y: 0 } : hidden}
+      data-motion-reveal="true"
+      data-motion-reveal-kind="section"
+      initial={hidden}
+      ref={ref}
+      transition={{
+        delay: (start?.delayMs ?? 0) / 1000,
+        duration: start?.instant ? 0 : 0.75 * (start?.durationScale ?? 1),
+        ease: entranceEase,
+      }}
+    >
+      {content}
+    </m.div>
+  );
+}
+
+/**
+ * The two-market section: the atlas in its own frame, a lit stem, then the
+ * ledger.
  *
  * Deliberately not a glossary and not a tabbed toggle. Both lanes are always
  * in the DOM and always readable, so a US reader sees their tooling named
  * beside the UK equivalent (and vice versa) and a crawler reads both
  * vocabularies on one canonical page. What the market switch changes is
  * *emphasis*, never presence: the reader's market becomes the near lane
- * (raised surface, filled tool chips) and the far lane quietens by surface,
- * never by dropping its text contrast.
+ * (raised surface, filled tool chips, lit landmass and nodes on the plate)
+ * and the far lane quietens by surface, never by dropping its text contrast.
  *
  * Emphasis is CSS keyed off `<html data-currency>`, which the boot script in
  * root.tsx sets before first paint — so there is no flash, no hydration
  * dependency, and the whole instrument is correct in prerendered HTML.
  *
  * The lanes are a ledger: `grid-template-rows: subgrid` chained down
- * lanes → lane → inner → `<dl>` aligns "Who runs it" in one market with "Who
- * runs it" in the other, so the comparison is read across rather than by
- * scrolling between two cards. DOM order stays US, UK; only `order` moves.
+ * lanes → lane (a `Reveal`, which renders AS the lane) → inner → `<dl>`
+ * aligns "Who runs it" in one market with "Who runs it" in the other, so the
+ * comparison is read across rather than by scrolling between two cards. DOM
+ * order stays US, UK, and the columns never swap.
  */
 export function MarketLanes({ markets }: { markets: IndustryMarkets }) {
   // Both lanes or neither — see MARKET_RULEBOOK_ROW. The count is stamped on
   // the container because `repeat()` takes an integer literal, not a calc(),
   // so the subgrid track count has to be selected in CSS rather than computed.
-  const rows = markets.lanes.every((lane) => lane.rulebook)
+  const rows: readonly MarketRow[] = markets.lanes.every((lane) => lane.rulebook)
     ? [...MARKET_ROWS, MARKET_RULEBOOK_ROW]
     : MARKET_ROWS;
+  // The atlas owns the radio ids so its city labels can be real `<label for>`
+  // elements for the switch that lives beside the plate.
+  const controlId = useId();
 
   return (
-    <div className="ss-ind2-markets ss-srv2-beam-border">
-      <AtlanticBridge />
-      <LiftGroup className="ss-ind2-markets__lanes" data-rows={String(rows.length)}>
-        {markets.lanes.map((lane) => (
-          <div
-            key={lane.market}
-            className={`ss-ind2-market ss-ind2-market--${lane.market.toLowerCase()}`}
-          >
-            <div className="ss-ind2-market__inner" data-market={lane.market}>
-              <p className="ss-ind2-market__head">
-                <span className="ss-ind2-market__code" aria-hidden="true">
-                  {lane.market}
-                </span>
-                <span className="ss-ind2-market__label">{lane.label}</span>
-              </p>
-              <dl className="ss-ind2-market__rows">
-                {rows.map((row) => (
-                  <div
-                    className="ss-ind2-market__row"
-                    data-fact={row.fact}
-                    data-keeps={row.fact === "keeps" ? "true" : undefined}
-                    data-market={lane.market}
-                    key={row.fact}
-                  >
-                    <dt>{row.label}</dt>
-                    <dd>
-                      {row.fact === "operators" ? lane.operators : null}
-                      {row.fact === "vocabulary" ? lane.vocabulary : null}
-                      {row.fact === "keeps" ? lane.keepsHuman : null}
-                      {row.fact === "rulebook" ? lane.rulebook : null}
-                      {row.fact === "tooling" ? (
-                        <ul className="ss-ind2-market__tools">
-                          {lane.tooling.map((tool) => (
-                            <li key={tool}>{tool}</li>
-                          ))}
-                        </ul>
-                      ) : null}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-        ))}
-      </LiftGroup>
-      {/* No wrapper reveal: SharedSpine runs its own translate-only entrance
-          off the same scheduler, and a Reveal around it would have put the
-          rail back behind an inline opacity: 0. */}
-      <SharedSpine items={markets.shared} />
-      <BorderBeam />
+    <div className="ss-ind2-twin">
+      <AtlanticAtlas controlId={controlId} />
+      <span aria-hidden="true" className="ss-ind2-twin__stem" />
+      {/* "some": the phone ledger runs to ~1,700px, taller than any phone
+          viewport, so a fractional threshold could never fire. */}
+      <PanelReveal
+        amount="some"
+        className="ss-ind2-markets ss-srv2-beam-border"
+        delayMs={120}
+      >
+        <div className="ss-ind2-markets__lanes" data-rows={String(rows.length)}>
+          {markets.lanes.map((lane, laneIndex) => (
+            <Reveal
+              className={`ss-ind2-market ss-ind2-market--${lane.market.toLowerCase()}`}
+              delayMs={laneIndex * 120}
+              key={lane.market}
+              kind="card"
+            >
+              <div className="ss-ind2-market__inner" data-market={lane.market}>
+                <p className="ss-ind2-market__head">
+                  <span className="ss-ind2-market__code" aria-hidden="true">
+                    {lane.market}
+                  </span>
+                  <span className="ss-ind2-market__label">{lane.label}</span>
+                </p>
+                <dl className="ss-ind2-market__rows">
+                  {rows.map((row, rowIndex) => (
+                    <LedgerRow
+                      delayMs={220 + rowIndex * 90 + laneIndex * 70}
+                      key={row.fact}
+                      lane={lane}
+                      row={row}
+                    />
+                  ))}
+                </dl>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <SharedSpine items={markets.shared} />
+        <BorderBeam />
+      </PanelReveal>
     </div>
   );
 }
@@ -938,20 +870,12 @@ export function MarketLanes({ markets }: { markets: IndustryMarkets }) {
  * site takes) rather than at mount — the panel is below the fold, so a
  * mount-timed CSS animation would play unseen.
  *
- * The pre-state is `translate` only, never opacity: nothing here disappears
- * from the prerendered HTML or from a crawler's rendering, and the keyframes
- * fill `backwards` so the settled transform is the stylesheet's, leaving later
- * hover transforms alive.
+ * The pre-state lives under `html[data-js="on"]`, so nothing here is hidden in
+ * the prerendered document or for a reader without JavaScript, and the
+ * keyframes fill `backwards` so the settled state is the stylesheet's.
  */
 function SharedSpine({ items }: { items: string[] }) {
   const ref = useRef<HTMLDivElement>(null);
-  /*
-   * The same viewport options as LiftGroup. They used to be tighter (0.4 with
-   * an -18% margin) to stay behind the opacity fade of the `Reveal` that once
-   * wrapped this block; with that wrapper gone the tight threshold simply
-   * failed to fire on a tall panel — a rail whose whole job is to draw itself
-   * was measured at `scale: 0 1`, i.e. invisible, at 1440 and at 390.
-   */
   const inView = useInView(ref, {
     amount: 0.2,
     margin: "0px 0px -12% 0px",
@@ -980,118 +904,154 @@ function SharedSpine({ items }: { items: string[] }) {
   );
 }
 
-/**
- * A sector's named rulebook — the laws and platform rules the built systems are
- * configured around — rendered as a sibling instrument to the market ledger it
+/*
+ * ---- Compliance panel ------------------------------------------------------
+ *
+ * A sector's named rulebook — the laws and platform rules the built systems
+ * are configured around — rendered as a sibling instrument to the ledger it
  * sits beneath: the same glass panel, the same beam border, the same market
- * code chips, so crossing from "here is your market" to "here are your market's
+ * chips, so crossing from "here is your market" to "here are your market's
  * rules" never feels like leaving the object.
  *
  * Generic by design. Any sector can adopt it by adding a `compliance` block to
- * its copy; the composition guards on that block's presence, so sectors without
- * an established rulebook render nothing rather than a vague panel.
+ * its copy; the composition guards on that block's presence, so sectors
+ * without an established rulebook render nothing rather than a vague panel.
  *
- * The note is deliberately NOT fine print. It carries the division of
- * responsibility that makes every claim above it honest — the client sets the
- * criteria and owns the decisions — so it renders at body weight directly under
- * the cards, at full contrast, rather than as a shrunken footnote.
+ * Each card is one claim and three rules, not a paragraph: a rulebook that is
+ * scanned is a rulebook that is read. The note is deliberately NOT fine print —
+ * it carries the division of responsibility that makes every claim above it
+ * honest, so it renders at body weight under the cards, at full contrast.
  */
-/**
- * The longest citation that may be held on one line.
- *
- * A citation reads as one reference, so breaking it mid-way ("NAR / SoP 10-3")
- * stops it reading as a citation at all — which is why the desktop tier sets
- * `white-space: nowrap` on these spans. An unbreakable span also sets its
- * card's min-content width, so that promise can only be made where the
- * citation actually fits.
- *
- * Measured on the built site, the source line's content box is 160.8px at
- * 320, 227.3px at 390, 246.2px at 768 and 342.6px at 1024 — the width at
- * which the panel goes two-up and the nowrap tier starts. At this size
- * (0.66rem mono, 0.04em tracking) the citations run 6.6-6.8px per character,
- * so 44 characters is ~298px: inside the 342.6px floor of the tier that uses
- * it, with room for a longer word. Every citation on the site today is 36
- * characters or fewer except one — "Estate Agents (Undesirable Practices)
- * (No. 2) Order 1991, Sch. 3" at 64, which needs 433.9px and so wraps at a
- * space inside its own card. Without that exemption it ran 53-91px past the
- * card's border at every desktop width.
- *
- * The attribute marks what MAY stay unbroken rather than what must wrap, so a
- * new long citation wraps by default instead of having to be recognised.
- */
-const COMPLIANCE_CITE_NOWRAP_MAX_CHARS = 44;
+
+const COMPLIANCE_ICONS: Record<IndustryComplianceIcon, LucideIcon> = {
+  scale: Scale,
+  layers: Layers,
+  landmark: Landmark,
+  "user-check": UserCheck,
+};
+
+function GlancePill({ claim, index }: { claim: string; index: number }) {
+  const reducedMotion = useReducedMotion() ?? false;
+  const ref = useRef<HTMLLIElement>(null);
+  const inView = useInView(ref, { amount: 0.8, once: true });
+  const start = useRevealStart(ref, inView, index * 90);
+  const content = (
+    <>
+      <ShieldCheck aria-hidden="true" />
+      <span>{claim}</span>
+    </>
+  );
+
+  if (reducedMotion) {
+    return <li className="ss-ind2-compliance__glance-item">{content}</li>;
+  }
+  const hidden = { opacity: 0, y: 14, scale: 0.88 };
+  return (
+    <m.li
+      animate={start !== null ? { opacity: 1, y: 0, scale: 1 } : hidden}
+      className="ss-ind2-compliance__glance-item"
+      data-motion-reveal="true"
+      data-motion-reveal-kind="pill"
+      initial={hidden}
+      ref={ref}
+      transition={
+        start?.instant
+          ? { delay: 0, duration: 0 }
+          : {
+              delay: (start?.delayMs ?? 0) / 1000,
+              type: "spring",
+              stiffness: 150,
+              damping: 19,
+              mass: 0.85,
+            }
+      }
+    >
+      {content}
+    </m.li>
+  );
+}
 
 export function CompliancePanel({ compliance }: { compliance: IndustryCompliance }) {
+  const cardCount = compliance.points.length;
+
   return (
-    <div className="ss-ind2-compliance ss-srv2-beam-border">
-      {/* The whole boundary in three seconds, above the detail: a phone reader
-          meets ~2,500px of legal prose below this row, and the chips are the
-          only part of it that survives a scan. Each one is a summary of a card
-          underneath — never a claim the cards do not make. */}
+    /* "some": four rule cards stack to ~2,800px on a 390 phone; a quarter of
+       that is never in an 844px viewport at once, and with the default
+       threshold the frame stayed at opacity 0 forever. */
+    <PanelReveal amount="some" className="ss-ind2-compliance ss-srv2-beam-border">
+      {/* The whole boundary in three seconds, above the detail. Each chip is a
+          summary of a card underneath — never a claim the cards do not make. */}
       {compliance.glance ? (
         <ul className="ss-ind2-compliance__glance" aria-label="At a glance">
-          {compliance.glance.map((claim) => (
-            <li className="ss-ind2-compliance__glance-item" key={claim}>
-              <ShieldCheck aria-hidden="true" />
-              <span>{claim}</span>
-            </li>
+          {compliance.glance.map((claim, index) => (
+            <GlancePill claim={claim} index={index} key={claim} />
           ))}
         </ul>
       ) : null}
-      {/* The group ignites on first sight so the reader meets the whole
-          rulebook at once — a rule arriving late reads as an afterthought. */}
-      <LiftGroup className="ss-ind2-compliance__grid">
-        {compliance.points.map((point) => (
-          <div className="ss-ind2-compliance__card" key={point.title}>
-            <div className="ss-ind2-compliance__head" data-market={point.market}>
-              {/* Real text, not aria-hidden: unlike the ledger's lane chips,
-                  nothing else in this card names the market it applies to. */}
-              <span className="ss-ind2-compliance__chip">{point.market}</span>
-              <h3 className="ss-ind2-compliance__title">{point.title}</h3>
-            </div>
-            {point.lede ? (
-              <p className="ss-ind2-compliance__lede">{point.lede}</p>
-            ) : null}
-            <p className="ss-ind2-compliance__body">
-              <RichText text={point.body} />
-            </p>
-            {point.source ? (
-              <p className="ss-ind2-compliance__source">
-                {/* One span per citation, so a statute never breaks across
-                    lines as "NAR / SoP 10-3" — but only where it fits, which is
-                    what `data-fits` says. The separator is a real text node
-                    between them, so the rendered text is character-for-character
-                    the authored `source`. */}
-                {point.source.split(" \u00B7 ").map((citation, cite) => (
-                  <Fragment key={citation}>
-                    {cite > 0 ? " \u00B7 " : null}
-                    <span
-                      className="ss-ind2-compliance__cite"
-                      data-fits={
-                        citation.length <= COMPLIANCE_CITE_NOWRAP_MAX_CHARS
-                          ? "true"
-                          : undefined
-                      }
-                    >
-                      {citation}
+      <div className="ss-ind2-compliance__grid">
+        {compliance.points.map((point, index) => {
+          const Icon = COMPLIANCE_ICONS[point.icon];
+          return (
+            <Reveal
+              className="ss-ind2-compliance__card"
+              delayMs={180 + index * 110}
+              key={point.title}
+              kind="card"
+            >
+              <div className="ss-ind2-compliance__head" data-market={point.market}>
+                <span aria-hidden="true" className="ss-ind2-compliance__icon">
+                  <Icon aria-hidden="true" />
+                </span>
+                <span className="ss-ind2-compliance__titles">
+                  {/* Real text, not aria-hidden: nothing else in this card
+                      names the market its rule applies to. */}
+                  <span className="ss-ind2-compliance__chip">{point.market}</span>
+                  <h3 className="ss-ind2-compliance__title">{point.title}</h3>
+                </span>
+              </div>
+              <p className="ss-ind2-compliance__claim">{point.claim}</p>
+              <ul className="ss-ind2-compliance__rules">
+                {point.rules.map((rule) => (
+                  <li key={rule}>
+                    <Check aria-hidden="true" />
+                    <span>
+                      <RichText text={rule} />
                     </span>
-                  </Fragment>
+                  </li>
                 ))}
-              </p>
-            ) : null}
-          </div>
-        ))}
-      </LiftGroup>
-      <LiftGroup className="ss-ind2-compliance__note-band" delayMs={140}>
+              </ul>
+              {point.source ? (
+                /* One chip per citation, so a statute never breaks across
+                   lines as "NAR / SoP 10-3", and a long reference simply
+                   takes a chip of its own width. Not links: RichText renders
+                   no anchors, and a live link out of a compliance claim
+                   invites the reader to check a source that may move. */
+                <ul aria-label="Sources" className="ss-ind2-compliance__sources">
+                  {point.source.split(" · ").map((citation) => (
+                    <li className="ss-ind2-compliance__cite" key={citation}>
+                      {citation}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </Reveal>
+          );
+        })}
+      </div>
+      <Reveal
+        className="ss-ind2-compliance__note-band"
+        delayMs={180 + cardCount * 110 + 60}
+        kind="section"
+      >
         <p className="ss-ind2-compliance__note">
           <ShieldCheck aria-hidden="true" />
           <span>
             <RichText text={compliance.note} />
           </span>
         </p>
-      </LiftGroup>
+      </Reveal>
       <BorderBeam />
-    </div>
+    </PanelReveal>
   );
 }
 

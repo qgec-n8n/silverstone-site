@@ -337,15 +337,15 @@ test.describe("mobile secondary hero parity", () => {
           "ss-mhero__manifest",
           "ss-mhero__row",
           "ss-mhero__actions",
+          "ss-hv2-mobile-signal",
         ];
         return [...document.querySelectorAll(`.${BEATS.join(", .")}`)].flatMap(
           (element) => {
             const name = BEATS.find((beat) => element.classList.contains(beat));
             if (!name) return [];
-            // A beat that is present but not rendered is not parity.
-            return getComputedStyle(element).display === "none"
-              ? [`${name}:hidden`]
-              : [name];
+            // A beat that is present but not rendered is not parity — and a
+            // beat inside a hidden ancestor has no boxes at all.
+            return element.getClientRects().length === 0 ? [`${name}:hidden`] : [name];
           },
         );
       });
@@ -362,9 +362,19 @@ test.describe("mobile secondary hero parity", () => {
       "ss-mhero__row",
       "ss-mhero__actions",
     ]);
-    expect(home, "the homepage's phone beats differ from the shared hero's").toEqual(
-      shared,
-    );
+    // The homepage stands its three-figure signal board in the manifest's slot
+    // — same beats in the same order, one proof panel swapped for the other,
+    // because one phone screen holds one of them (see MobileSignalBoard). The
+    // manifest stays in the document for the crawler.
+    expect(home, "the homepage's phone beats differ from the shared hero's").toEqual([
+      "ss-mhero__tagline",
+      "ss-mhero__manifest:hidden",
+      "ss-mhero__row:hidden",
+      "ss-mhero__row:hidden",
+      "ss-mhero__row:hidden",
+      "ss-hv2-mobile-signal",
+      "ss-mhero__actions",
+    ]);
   });
 });
 

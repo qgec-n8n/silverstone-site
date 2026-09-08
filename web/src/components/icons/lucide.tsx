@@ -189,6 +189,21 @@ export const Unlock = createIcon("Unlock", [
   ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2" }],
   ["path", { d: "M7 11V7a5 5 0 0 1 9.9-1" }],
 ]);
+export const Landmark = createIcon("Landmark", [
+  ["line", { x1: "3", x2: "21", y1: "22", y2: "22" }],
+  ["line", { x1: "6", x2: "6", y1: "18", y2: "11" }],
+  ["line", { x1: "10", x2: "10", y1: "18", y2: "11" }],
+  ["line", { x1: "14", x2: "14", y1: "18", y2: "11" }],
+  ["line", { x1: "18", x2: "18", y1: "18", y2: "11" }],
+  ["path", { d: "M12 2 20 7 4 7z" }],
+]);
+export const Scale = createIcon("Scale", [
+  ["path", { d: "m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" }],
+  ["path", { d: "m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" }],
+  ["path", { d: "M7 21h10" }],
+  ["path", { d: "M12 3v18" }],
+  ["path", { d: "M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" }],
+]);
 export const UserCheck = createIcon("UserCheck", [
   ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" }],
   ["circle", { cx: "9", cy: "7", r: "4" }],

@@ -64,15 +64,13 @@ function SystemScrollCue({ className }: { className?: string }) {
  * `.ss-hv2-secondary__mobile-signal` is `display:none` at >=64rem, where the
  * full console in the showcase column carries the same figures.
  *
- * It is ALSO `display:none` on phones (<=40rem) as of the phone-hero
- * re-composition: the phone hero is one screen, and a five-cell benchmark board
- * is the single largest beat that could be spent on the H1 and the air around
- * it instead. It stays mounted rather than being conditionally rendered, so the
- * figures and the benchmark disclaimer remain in the prerendered HTML on every
- * viewport, and the homepage still shows them to phone visitors a little
- * further down the page in the dedicated `BenchmarkMetrics` section. Moving the
- * board below the TrustStrip on phones would mean editing the route file, which
- * owns the section order.
+ * On phones (<=40rem) it is the hero's proof beat: it renders in the slot the
+ * shared hero gives its three-row manifest — under the tagline, above the
+ * pills — and the manifest is display:none there, because one phone screen
+ * holds one of them. It sits in the DOM at that slot; the tablet layout
+ * (40–64rem) puts it back under the pills with `order`, so nothing above 40rem
+ * changed. Both beats stay mounted on every viewport, so the figures and the
+ * benchmark disclaimer remain in the prerendered HTML.
  */
 function MobileSignalBoard({ metrics }: { metrics: readonly BenchmarkMetric[] }) {
   return (
@@ -174,6 +172,13 @@ export function SecondaryHero() {
               taglineDelayMs={240}
               manifestDelayMs={300}
             />
+            {/* On a phone the board stands where the shared hero's manifest
+                stands (title → tagline → board → pills → cue): the homepage's
+                three headline figures are its proof, and one screen cannot
+                hold both. The manifest stays mounted for the crawler and is
+                display:none there; on the tablet layout the board is moved
+                back under the pills by `order`. See MobileSignalBoard. */}
+            <MobileSignalBoard metrics={consoleMetrics} />
             <Reveal delayMs={160}>
               <p className="ss-lead ss-hv2-secondary__lead ss-hv2-copy">
                 <span className="ss-hv2-secondary__lead-full">
@@ -208,7 +213,6 @@ export function SecondaryHero() {
                 </Button>
               </Reveal>
             </div>
-            <MobileSignalBoard metrics={consoleMetrics} />
             <SystemScrollCue className="ss-hv2-secondary__cue--intro" />
           </div>
 

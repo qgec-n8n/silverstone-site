@@ -120,35 +120,55 @@ export const estateAgentsCopy: IndustryCopy = {
   compliance: {
     eyebrow: "Fair housing and MLS rules",
     heading: "Built inside *the rules of your market*",
-    lead: "Fair housing and MLS rules are not a disclaimer at the bottom of this page. They are the constraints the intake, the follow-up and the scheduling are designed around, in each market's own terms.",
+    lead: "Not a disclaimer at the foot of the page. The intake, the follow-up and the scheduling are designed around these rules and configured so the system cannot cross them, in each market's own terms.",
     points: [
       {
         market: "US",
+        icon: "scale",
         title: "Fair Housing Act",
-        lede: "Protected classes are never asked, stored or ranked on.",
-        body: "The intake is configured so it never asks about race, color, religion, sex, national origin, familial status or disability, and never stores, routes or ranks on them, or on stand-ins like ZIP code. Qualification runs on budget, timing, location, property type and financing readiness: **criteria you set, see and can change.** Neighborhood-character and school questions are handed to a licensed agent rather than answered, accommodation requests reach a person immediately, and whatever additional classes your state, city or board protects are added to the same list.",
+        claim: "Protected classes are never asked, stored or ranked on.",
+        rules: [
+          "**Never asks** about race, color, religion, sex, national origin, familial status or disability, whatever your state or board adds, or stand-ins like ZIP code.",
+          "**Qualifies on** budget, timing, location, property type and financing readiness: criteria you set, see and can change.",
+          "**Hands to a licensed agent** every neighborhood, school or accommodation question, the moment it arrives.",
+        ],
         source: "42 U.S.C. § 3604 · 24 C.F.R. §§ 100.70, 100.75 · NAR SoP 10-3",
       },
       {
         market: "US",
+        icon: "layers",
         title: "MLS and IDX rules",
-        lede: "Listing data moves only under your own participant agreement.",
-        body: "Listing data is read and displayed only under your brokerage's own MLS participant agreement and IDX rules: listing-broker attribution carried, the feed refreshed on the MLS's cadence, seller opt-out and delayed-marketing flags honored, and nothing repurposed into a separate index, valuation or training set. Listing copy is drafted from the facts in your own feed and approved by a licensed agent before it goes out. **Buyer-broker compensation is never quoted or estimated from MLS data**, and a tour is booked only once the written buyer agreement is in place, or handed to the agent to complete first.",
+        claim: "Listing data moves only under your own participant agreement.",
+        rules: [
+          "**Displays listings** with listing-broker attribution, refreshed on the MLS cadence, opt-out and delayed-marketing flags honored.",
+          "**Never repurposes** feed data into a separate index, valuation or training set. Listing copy is approved by a licensed agent before it goes out.",
+          "**Never quotes** buyer-broker compensation from MLS data. A tour is booked only once the written buyer agreement is in place.",
+        ],
         source: "NAR IDX Policy 7.58 · NAR practice changes, 17 August 2024",
       },
       {
         market: "UK",
-        title: "Equality Act, material information and marketing rules",
-        lede: "The same never-ask rule, plus the disclosures UK law requires.",
-        body: "The same never-ask, never-route rule runs on the nine protected characteristics, and in England on whether an applicant has children or receives benefits, with lettings follow-up configured never to invite or encourage an offer above the advertised rent. The system prompts for the material information the agent has to disclose and records that it was captured. Marketing runs on consent or the soft opt-in, with TPS and CTPS screening, an opt-out in every message, and automated voice calls held to the higher consent bar they require.",
+        icon: "landmark",
+        title: "Equality Act and material information",
+        claim: "The same never-ask rule, plus the disclosures UK law requires.",
+        rules: [
+          "**Never routes on** the nine protected characteristics, nor in England on children or benefits, and never invites an offer above the advertised rent.",
+          "**Prompts for** the material information the agent has to disclose, and records that it was captured.",
+          "**Markets on consent** or the soft opt-in: TPS and CTPS screened, an opt-out in every message, automated calls held to the higher consent bar.",
+        ],
         source:
           "Equality Act 2010, Part 4 · Renters' Rights Act 2025 (England) · DMCC Act 2024 · PECR reg. 19–22",
       },
       {
         market: "Both",
+        icon: "user-check",
         title: "What stays with a licensed person",
-        lede: "The system captures and routes; a licensed person decides.",
-        body: "Valuations, pricing opinions, negotiation, offers and disclosures stay with a licensed agent or negotiator: the system captures and routes, it does not advise. Offers and inquiries are passed on promptly, in writing and in full, **never filtered, ranked or delayed.** Every conversation opens by saying it is an AI assistant, calls and messages stay inside the strictest contact window that applies where the recipient is, and an opt-out is honored the first time it arrives.",
+        claim: "The system captures and routes. A licensed person decides.",
+        rules: [
+          "**Valuations, pricing, negotiation and disclosures** stay with a licensed agent or negotiator. The system does not advise.",
+          "**Passes every offer on** promptly, in writing and in full: never filtered, ranked or delayed.",
+          "**Opens as an AI assistant**, keeps inside the strictest contact window that applies, and honors an opt-out the first time it arrives.",
+        ],
         source:
           "Estate Agents (Undesirable Practices) (No. 2) Order 1991, Sch. 3 · 47 C.F.R. § 64.1200",
       },
@@ -158,7 +178,7 @@ export const estateAgentsCopy: IndustryCopy = {
       "Listing data only under your MLS agreement",
       "Offers and pricing stay with a licensed agent",
     ],
-    note: "These systems are designed and configured to operate inside these rules. That is not legal advice and it does not replace your brokerage's or agency's own compliance obligations: **you set the criteria and stay responsible for the decisions; we build the system so those criteria are the only thing it acts on, and so you can audit what it did.**",
+    note: "Designed and configured to operate inside these rules. That is not legal advice and does not replace your brokerage's or agency's own compliance obligations: **you set the criteria and stay responsible for the decisions; the system acts only on those criteria, and you can audit what it did.**",
   },
   problem: {
     heading: "Why do agencies and brokerages *lose* listings and instructions?",
@@ -177,8 +197,8 @@ export const estateAgentsCopy: IndustryCopy = {
         body: "Only real viewing and showing availability is ever offered. No ghost slots.",
       },
       {
-        title: "Valuation and listing requests buried in noise",
-        body: "High-intent seller leads — valuations in the UK, listing appointments in the US — get their own priority route.",
+        title: "Seller leads buried in noise",
+        body: "Valuations in the UK, listing appointments in the US: high-intent seller leads get their own priority route.",
       },
     ],
   },

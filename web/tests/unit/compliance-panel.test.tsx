@@ -72,7 +72,8 @@ function complianceProse(route: (typeof industryRoutes)[number]): string {
     compliance.note,
     ...compliance.points.flatMap((point) => [
       point.title,
-      point.body,
+      point.claim,
+      ...point.rules,
       point.source ?? "",
     ]),
     ...copy.markets.lanes.map((lane) => lane.rulebook ?? ""),
@@ -105,13 +106,27 @@ describe("CompliancePanel", () => {
       );
       expect(head).not.toBeNull();
       expect(container.textContent).toContain(point.title);
-      // Bodies carry `**bold**` emphasis, so compare on the visible substring
-      // either side of the markup rather than the authored string.
-      for (const fragment of point.body.split("**").filter(Boolean)) {
-        expect(container.textContent).toContain(fragment);
+      expect(container.textContent).toContain(point.claim);
+      // Three rules, never a paragraph; each opens with a bold verb phrase.
+      expect(point.rules).toHaveLength(3);
+      for (const rule of point.rules) {
+        expect(rule).toMatch(/^\*\*[^*]+\*\*/);
+        expect(rule.length).toBeLessThanOrEqual(160);
+        // Rules carry `**bold**` emphasis, so compare on the visible substring
+        // either side of the markup rather than the authored string.
+        for (const fragment of rule.split("**").filter(Boolean)) {
+          expect(container.textContent).toContain(fragment);
+        }
       }
+      expect(point.claim.length).toBeLessThanOrEqual(64);
+      // Citations print as one chip each, so a statute never breaks mid-token.
       if (point.source) {
-        expect(container.textContent).toContain(point.source);
+        for (const citation of point.source.split(" · ")) {
+          const chip = [
+            ...container.querySelectorAll(".ss-ind2-compliance__cite"),
+          ].find((candidate) => candidate.textContent === citation);
+          expect(chip, citation).toBeDefined();
+        }
       }
     }
 
@@ -124,6 +139,11 @@ describe("CompliancePanel", () => {
     for (const chip of chips) {
       expect(chip).not.toHaveAttribute("aria-hidden");
     }
+
+    // One glance chip per summary claim, above the cards.
+    expect(container.querySelectorAll(".ss-ind2-compliance__glance-item")).toHaveLength(
+      compliance.glance?.length ?? 0,
+    );
 
     const note = container.querySelector(".ss-ind2-compliance__note");
     expect(note?.textContent).toContain("not legal advice");

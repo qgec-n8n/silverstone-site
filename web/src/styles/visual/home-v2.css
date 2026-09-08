@@ -1484,6 +1484,19 @@ html[data-js="on"]
   }
 }
 
+/* Tablet: the board sits in the DOM at the phone's slot (under the tagline)
+   but reads under the pills here, as it always has; the cue keeps its place
+   as the column's last beat. */
+@media (min-width: 40.0625rem) and (max-width: 63.9375rem) {
+  .ss-hv2-secondary__mobile-signal {
+    order: 1;
+  }
+
+  .ss-hv2-secondary__cue--intro {
+    order: 2;
+  }
+}
+
 .ss-hv2-mobile-signal {
   position: relative;
   display: flex;
@@ -3841,7 +3854,10 @@ html[data-js="on"]
 @media (max-width: 40rem) {
   .ss-hv2-secondary__lead,
   .ss-hv2-secondary__caps,
-  .ss-hv2-secondary__mobile-signal {
+  /* The board stands in the manifest's slot on the homepage (see
+     MobileSignalBoard in sections/secondary-hero.tsx); the manifest stays in
+     the document for the crawler. */
+  .ss-hv2-secondary .ss-mhero__manifest {
     display: none;
   }
 

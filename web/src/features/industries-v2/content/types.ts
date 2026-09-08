@@ -175,26 +175,33 @@ export type IndustryMarkets = {
  * and MLS rules) carry one. Wording contract: the copy describes how the
  * systems are designed and configured; it never promises legal compliance.
  */
+/** The glyph on a compliance card, resolved to an icon by the component. */
+export type IndustryComplianceIcon = "scale" | "layers" | "landmark" | "user-check";
+
 export type IndustryCompliance = {
   eyebrow: string;
   heading: string;
   lead: string;
   /**
    * One card per rulebook, e.g. "Fair Housing Act", "MLS and IDX rules".
-   * `source` is an unobtrusive citation caption — plain text only, because
-   * `RichText` renders no links and any markdown link syntax would leak
-   * verbatim into the FAQ/schema copy that shares this vocabulary.
+   *
+   * A card is one claim and three rules, never a paragraph: the panel exists
+   * to be scanned by a broker deciding whether to keep reading, and ~80-word
+   * legal paragraphs were three phone screens of unbroken prose. Each rule
+   * opens with a `**bold**` verb phrase (RichText) that carries the point on
+   * its own. `source` is a ` · `-separated list of citations, printed as
+   * chips — plain text only, because `RichText` renders no links and any
+   * markdown link syntax would leak verbatim into the FAQ/schema copy that
+   * shares this vocabulary.
    */
   points: {
     market: "US" | "UK" | "Both";
+    icon: IndustryComplianceIcon;
     title: string;
-    /**
-     * A 6–10 word summary of the card, printed above the body at emphasis
-     * weight. Four ~80-word legal paragraphs are three phone screens of
-     * unbroken prose; the lede is what makes the panel scannable.
-     */
-    lede?: string;
-    body: string;
+    /** One line, ≤ 64 characters: the card's whole point at emphasis weight. */
+    claim: string;
+    /** Three rules, ≤ ~110 characters each, each opening with a bold verb phrase. */
+    rules: string[];
     source?: string;
   }[];
   /**

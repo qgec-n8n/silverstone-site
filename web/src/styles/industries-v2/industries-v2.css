@@ -1213,7 +1213,7 @@
 
 .ss-ind2-problem-panel {
   position: relative;
-  padding: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+  padding: clamp(1.6rem, 1.2rem + 1.6vw, 2.75rem);
   border-radius: var(--ss-radius-2xl);
   border: 1px solid var(--srv2-hairline);
   background:
@@ -1262,6 +1262,32 @@
 
 .ss-ind2-problem-panel .ss-srv2-cards {
   margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+}
+
+/*
+ * The four problem cards sit two-by-two from 40rem up. The shared grid breaks
+ * to four columns at a 60rem viewport, which inside this panel's padding left
+ * each card ~190px wide at 1024 and 1440 alike: a 15px sentence set ~22
+ * characters to the line, with single words stranded on lines of their own
+ * ("An" / "acknowledgment"). The panel is capped by the page measure at about
+ * 940px at every viewport, so four-up never has the room for a sentence per
+ * card, and two-by-two is the desktop layout, not a fallback. `balance` on
+ * the title and `pretty` on the body take the orphans out of whatever
+ * wrapping remains.
+ */
+@media (min-width: 40rem) {
+  .ss-ind2-problem-panel .ss-srv2-cards[data-columns="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-ind2-problem-panel .ss-srv2-card__title {
+  font-size: clamp(1rem, 0.94rem + 0.28vw, 1.12rem);
+  text-wrap: balance;
+}
+
+.ss-ind2-problem-panel .ss-srv2-card__body {
+  text-wrap: pretty;
 }
 
 /* ---- Linked-prose system rail -------------------------------------------- */
@@ -2071,24 +2097,27 @@
   }
 }
 
-/* ---- Atlantic Bridge (market lanes) ---------------------------------------
-   The two-market operating manifest under the trust tokens, and the signature
-   instrument of every industry page: a chart band (London ↔ New York), the
-   market focus control, a two-lane ledger and a shared-mechanism spine.
+/* ---- Two-market section: atlas + ledger ------------------------------------
+   Two framed instruments and a lit stem between them. The atlas (London ⇆
+   twelve US metros on a dotted world plate) sits above in its own frame; the
+   ledger (two market lanes, one shared rail) sits below in its own; the stem
+   is what makes them one object without putting the map inside the cards'
+   box. Both frames answer to the same two custom properties — `--mk-us` and
+   `--mk-uk`, 1 for the reader's market — set here on the wrapper so the
+   plate's lit landmass, the arcs' bright end, the nodes, the labels and the
+   ledger's near lane all flip together off `<html data-currency>`. */
 
-   Both lanes are always in the DOM and always readable — nothing here hides,
-   unmounts or tabs. What the reader's market changes is EMPHASIS: the near
-   lane is raised and its tool chips fill, the far lane quietens by surface
-   only, never by dropping text contrast. Everything derives from two numbers,
-   `--mk-us` / `--mk-uk`, set from `<html data-currency>` (written before first
-   paint by the boot script in root.tsx) with the same no-JS `:has()` fallback
-   styles/currency.css uses — so the whole instrument is correct in the
-   prerendered HTML, with no hydration flash and no JavaScript. */
-
-.ss-ind2-markets {
-  /* 1 = the reader's market. Sterling is the default, so the UK lane leads. */
+.ss-ind2-twin {
+  /* 1 = the reader's market. Sterling is the default, so the UK leads. */
   --mk-us: 0;
   --mk-uk: 1;
+  /* Each market has its own hue from the route's accent pair: the UK the
+     route's lead accent, the US its second. That is what gives the two lanes,
+     the two node families and the two ends of every arc a colour identity of
+     their own, so the switch reads as a change of light and not only of
+     surface. */
+  --mk-hue-uk: var(--srv2-accent);
+  --mk-hue-us: var(--srv2-accent-2);
   /*
     One recipe for "this is the reader's market", used by the desktop lane card
     and by the phone cell. It has to be a real surface — a lit top, an accent
@@ -2108,14 +2137,779 @@
   );
   --mk-dim: color-mix(in srgb, var(--ss-v2-graphite-raised) 26%, transparent);
   /* The arc gradient's middle stop, lifted toward platinum: three routes carry
-     an accent pair that is two shades of one hue, and without this their arc
-     renders as a flat monochrome line while estate-agents gets violet → cyan. */
+     an accent pair that is two shades of one hue, and without this their arcs
+     render as flat monochrome lines while estate-agents gets violet → cyan. */
   --ss-ind2-arc-mid: color-mix(
     in srgb,
     var(--srv2-accent-2) 58%,
     var(--ss-v2-platinum)
   );
+  /* The plate's ground: what the dotted world fades into at its edges. */
+  --ss-ind2-atlas-ground: color-mix(
+    in srgb,
+    var(--ss-v2-void-black) 78%,
+    var(--ss-v2-graphite)
+  );
 
+  position: relative;
+  display: grid;
+  justify-items: stretch;
+}
+
+html[data-currency="usd"] .ss-ind2-twin,
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-twin {
+  --mk-us: 1;
+  --mk-uk: 0;
+}
+
+/* The stem: a short lit link, centred, drawn downward once the atlas frame
+   has materialised. Its foot is a small node on the ledger's top edge. */
+.ss-ind2-twin__stem {
+  position: relative;
+  justify-self: center;
+  width: 2px;
+  height: clamp(1.5rem, 1.1rem + 1.4vw, 2.4rem);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 14px -2px color-mix(in srgb, var(--srv2-accent) 85%, transparent);
+  transform-origin: top;
+}
+
+.ss-ind2-twin__stem::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  translate: -50% 0;
+  background: var(--srv2-accent-2);
+  box-shadow: 0 0 12px 1px color-mix(in srgb, var(--srv2-accent-2) 80%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js="on"] .ss-ind2-twin__stem {
+    scale: 1 0;
+  }
+
+  .ss-ind2-atlas[data-panel-shown] + .ss-ind2-twin__stem {
+    scale: 1 1;
+    animation: ss-ind2-stem-draw 720ms cubic-bezier(0.22, 1, 0.36, 1) 900ms backwards;
+  }
+
+  .ss-ind2-atlas[data-panel-instant] + .ss-ind2-twin__stem {
+    animation: none;
+  }
+}
+
+@keyframes ss-ind2-stem-draw {
+  from {
+    scale: 1 0;
+  }
+
+  to {
+    scale: 1 1;
+  }
+}
+
+[data-reveal-bypass] .ss-ind2-twin__stem {
+  scale: 1 1 !important;
+  animation: none !important;
+}
+
+/* ---- Atlas frame ---------------------------------------------------------- */
+
+.ss-ind2-atlas {
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    "readout"
+    "chart"
+    "control"
+    "strip";
+  gap: clamp(0.75rem, 0.55rem + 0.8vw, 1.15rem);
+  padding: clamp(0.9rem, 0.6rem + 1.3vw, 1.8rem);
+  border-radius: var(--ss-radius-2xl);
+  border: 1px solid var(--srv2-hairline);
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent) 13%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      120% 100% at 0% 100%,
+      color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
+      transparent 55%
+    ),
+    var(--srv2-glass);
+  backdrop-filter: blur(16px);
+}
+
+@media (min-width: 52rem) {
+  .ss-ind2-atlas {
+    grid-template-areas:
+      "readout control"
+      "chart chart"
+      "strip strip";
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+.ss-ind2-atlas__readout {
+  grid-area: readout;
+  min-width: 0;
+}
+
+.ss-ind2-atlas__readout-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0;
+  margin: 0;
+  max-width: none;
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--ss-v2-titanium);
+}
+
+.ss-ind2-atlas__readout-leg {
+  color: var(--ss-v2-platinum);
+  white-space: nowrap;
+}
+
+.ss-ind2-atlas__readout-fig,
+.ss-ind2-atlas__readout-tag {
+  white-space: nowrap;
+}
+
+.ss-ind2-atlas__readout-fig {
+  color: color-mix(in srgb, var(--srv2-accent-2) 62%, var(--ss-v2-platinum));
+}
+
+.ss-ind2-atlas__readout-fig::before,
+.ss-ind2-atlas__readout-tag::before {
+  content: "·";
+  margin-inline: 0.55em;
+  color: color-mix(in srgb, var(--srv2-accent) 45%, var(--ss-v2-titanium));
+}
+
+/* Phone: the readout stacks one fact to a line, so no line opens with a
+   separator. */
+@media (max-width: 33.999rem) {
+  .ss-ind2-atlas__readout-line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .ss-ind2-atlas__readout-fig::before,
+  .ss-ind2-atlas__readout-tag::before {
+    content: none;
+  }
+}
+
+/* ---- The plate ------------------------------------------------------------ */
+
+.ss-ind2-atlas__chart-reveal {
+  grid-area: chart;
+  min-width: 0;
+}
+
+.ss-ind2-atlas__chart {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
+  /* A true 10° graticule under the dots: the plate spans 192° × 68° (wide)
+     and 140° × 56° (compact), so the tile is one tenth of a degree-span. */
+  background:
+    linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--ss-v2-platinum) 5%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / calc(100% / 19.2) 100%,
+    linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--ss-v2-platinum) 5%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / 100% calc(100% / 6.8),
+    radial-gradient(
+      90% 70% at 62% 40%,
+      color-mix(in srgb, var(--srv2-accent) 9%, transparent),
+      transparent 70%
+    ),
+    var(--ss-ind2-atlas-ground);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 6%, transparent);
+}
+
+@media (max-width: 51.999rem) {
+  .ss-ind2-atlas__chart {
+    background-size:
+      calc(100% / 14.8) 100%,
+      100% calc(100% / 5.6),
+      auto,
+      auto;
+  }
+}
+
+/* The plate box is exactly the SVG's box: a label's percentage position IS
+   its viewBox coordinate. */
+.ss-ind2-atlas__plate {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2400 / 850;
+}
+
+@media (max-width: 51.999rem) {
+  .ss-ind2-atlas__plate {
+    aspect-ratio: 1110 / 420;
+  }
+}
+
+.ss-ind2-atlas__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ss-ind2-atlas__svg--compact {
+  display: none;
+}
+
+@media (max-width: 51.999rem) {
+  .ss-ind2-atlas__svg--wide {
+    display: none;
+  }
+
+  .ss-ind2-atlas__svg--compact {
+    display: block;
+  }
+}
+
+/* The three dot layers. The world is a static field; the two country layers
+   sit dot-for-dot on top of it and brighten with the market switch — the
+   reader's own landmass lights up. */
+.ss-ind2-atlas__land--us {
+  opacity: calc(0.12 + var(--mk-us) * 0.5);
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__land--uk {
+  opacity: calc(0.16 + var(--mk-uk) * 0.6);
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__fade {
+  pointer-events: none;
+}
+
+/* ---- Arcs ------------------------------------------------------------------
+   Each link draws two strokes and the market switch crossfades them, because
+   an SVG paint server cannot be flipped from a stylesheet: the bright end of
+   every arc is always the reader's own market. `non-scaling-stroke` keeps the
+   hairline at one pixel width whatever the plate is scaled to. */
+
+/* Widths are in viewBox units, per plate, never `non-scaling-stroke`: with
+   that effect Chrome computes the dash pattern in screen space, so the
+   `pathLength="1"` dash that draws the arc in became a one-pixel dotted
+   hairline on the wide plate. In plate units a dash of 1 is the whole arc. */
+.ss-ind2-atlas__arc,
+.ss-ind2-atlas__arc-glow {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.ss-ind2-atlas__arc {
+  stroke-width: 2.6;
+}
+
+.ss-ind2-atlas__arc-glow {
+  stroke: var(--ss-ind2-arc-mid);
+  stroke-width: 11;
+  opacity: 0.14;
+}
+
+.ss-ind2-atlas__svg--compact .ss-ind2-atlas__arc {
+  stroke-width: 3.6;
+}
+
+.ss-ind2-atlas__svg--compact .ss-ind2-atlas__arc-glow {
+  stroke-width: 14;
+}
+
+.ss-ind2-atlas__arc--uk {
+  opacity: calc(0.35 + var(--mk-uk) * 0.65);
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__arc--us {
+  opacity: calc(var(--mk-us) * 0.95);
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Power-on: the twelve links draw from the US toward London, staggered, once
+   the plate has been seen. The pre-state is gated on `html[data-js="on"]`, so
+   the prerendered document and a reader without JavaScript get every arc
+   drawn; `pathLength="1"` on the paths is what lets one dash rule fit all
+   twelve. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js="on"] .ss-ind2-atlas__chart:not([data-chart-shown]) .ss-ind2-atlas__arc,
+  html[data-js="on"]
+    .ss-ind2-atlas__chart:not([data-chart-shown])
+    .ss-ind2-atlas__arc-glow {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .ss-ind2-atlas__chart[data-chart-shown] .ss-ind2-atlas__arc,
+  .ss-ind2-atlas__chart[data-chart-shown] .ss-ind2-atlas__arc-glow {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    animation: ss-ind2-atlas-draw 1200ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--atlas-delay, 0ms) + var(--atlas-i, 0) * 70ms);
+  }
+}
+
+@keyframes ss-ind2-atlas-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+[data-reveal-bypass] .ss-ind2-atlas__arc,
+[data-reveal-bypass] .ss-ind2-atlas__arc-glow {
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+}
+
+/* ---- Pulses ----------------------------------------------------------------
+   One signal per link, flying the arc on a CSS `offset-path` (set inline by
+   the component from the same path string the arc draws). Twelve loops share
+   one 7.2s cycle, each in flight for a third of it and staggered by a negative
+   delay, so three or four are ever airborne at once. Under the US market the
+   timeline plays in reverse: signals leave London for the metros instead of
+   arriving from them.
+
+   Without `offset-path` support the moving pulse would sit at the plate's
+   origin, so it only exists inside the @supports; everyone else gets the
+   parked pulse, mid-arc. */
+
+.ss-ind2-atlas__pulse {
+  display: none;
+  fill: var(--ss-v2-platinum);
+}
+
+.ss-ind2-atlas__pulse-park {
+  fill: var(--ss-ind2-arc-mid);
+  opacity: 0.85;
+}
+
+@supports (offset-path: path("M0 0h1")) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ss-ind2-atlas__pulse {
+      display: block;
+      opacity: 0;
+      offset-rotate: 0deg;
+      offset-distance: 0%;
+      animation: ss-ind2-atlas-fly 7.2s linear infinite;
+      animation-delay: calc(var(--atlas-i, 0) * -0.55s);
+    }
+
+    .ss-ind2-atlas__pulse-park {
+      display: none;
+    }
+
+    html[data-currency="usd"] .ss-ind2-atlas__pulse,
+    html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+      .ss-ind2-atlas__pulse {
+      animation-direction: reverse;
+    }
+
+    /* Off-screen the loops stop: `data-chart-live` is `once: false`. */
+    html[data-js="on"]
+      .ss-ind2-atlas__chart:not([data-chart-live])
+      .ss-ind2-atlas__pulse {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes ss-ind2-atlas-fly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  30% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+
+  34% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* ---- Nodes ----------------------------------------------------------------
+   London and the twelve metros. A node is a dot, a ring, a soft halo and a
+   bloom; the lit side (the reader's market) keeps all four and its halos
+   breathe, the far side keeps the dot and a quiet ring. */
+
+.ss-ind2-atlas__node {
+  --node-lit: var(--mk-us);
+  --node-hue: var(--mk-hue-us);
+}
+
+.ss-ind2-atlas__node[data-side="uk"] {
+  --node-lit: var(--mk-uk);
+  --node-hue: var(--mk-hue-uk);
+}
+
+.ss-ind2-atlas__bloom {
+  opacity: calc(var(--node-lit) * 0.9);
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__halo {
+  fill: var(--node-hue);
+  opacity: calc(0.06 + var(--node-lit) * 0.18);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__ring {
+  fill: none;
+  stroke: var(--node-hue);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+  opacity: calc(0.3 + var(--node-lit) * 0.6);
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__dot {
+  fill: color-mix(
+    in srgb,
+    var(--node-hue) calc(45% + var(--node-lit) * 45%),
+    var(--ss-v2-platinum)
+  );
+  opacity: calc(0.62 + var(--node-lit) * 0.38);
+  transition:
+    fill 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Sterling (the default) lights London; the US rule below overrides. */
+  .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__node[data-side="uk"]
+    .ss-ind2-atlas__halo {
+    animation: ss-ind2-atlas-breathe 2.8s ease-in-out infinite;
+  }
+
+  html[data-currency="usd"]
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__node[data-side="uk"]
+    .ss-ind2-atlas__halo,
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__node[data-side="uk"]
+    .ss-ind2-atlas__halo {
+    animation: none;
+  }
+
+  html[data-currency="usd"]
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__node[data-side="us"]
+    .ss-ind2-atlas__halo,
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__node[data-side="us"]
+    .ss-ind2-atlas__halo {
+    animation: ss-ind2-atlas-breathe 2.8s ease-in-out infinite;
+    animation-delay: calc(var(--atlas-i, 0) * -0.23s);
+  }
+}
+
+@keyframes ss-ind2-atlas-breathe {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.32;
+  }
+
+  60% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+/* ---- Labels ---------------------------------------------------------------
+   Real HTML text over the plate, one per city, positioned from the plate's own
+   coordinates and anchored per plate so the east-coast cluster never
+   overprints. They are `<label for>`s on the market switch's radios. */
+
+.ss-ind2-atlas__label {
+  --lbl-lit: var(--mk-us);
+  --lbl-hue: var(--mk-hue-us);
+
+  position: absolute;
+  left: var(--at-wx);
+  top: var(--at-wy);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.46rem;
+  border-radius: 999px;
+  border: 1px solid
+    color-mix(in srgb, var(--lbl-hue) calc(10% + var(--lbl-lit) * 26%), transparent);
+  background: color-mix(in srgb, var(--ss-ind2-atlas-ground) 76%, transparent);
+  cursor: pointer;
+  color: color-mix(
+    in srgb,
+    var(--lbl-hue) calc(var(--lbl-lit) * 38%),
+    color-mix(
+      in srgb,
+      var(--ss-v2-platinum) calc(58% + var(--lbl-lit) * 42%),
+      var(--ss-v2-titanium)
+    )
+  );
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 0 6px var(--ss-ind2-atlas-ground),
+    0 0 14px var(--ss-ind2-atlas-ground);
+  transition:
+    color 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    text-shadow 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__label[data-side="uk"] {
+  --lbl-lit: var(--mk-uk);
+  --lbl-hue: var(--mk-hue-uk);
+
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+/* Anchors, wide plate. The offsets clear the node's ring and halo. */
+.ss-ind2-atlas__label[data-anchor-wide="e"] {
+  translate: 0.55rem -50%;
+}
+
+.ss-ind2-atlas__label[data-anchor-wide="w"] {
+  translate: calc(-100% - 0.55rem) -50%;
+}
+
+.ss-ind2-atlas__label[data-anchor-wide="n"] {
+  translate: -50% calc(-100% - 0.5rem);
+}
+
+.ss-ind2-atlas__label[data-anchor-wide="s"] {
+  translate: -50% 0.5rem;
+}
+
+.ss-ind2-atlas__label[data-anchor-wide="ne"] {
+  translate: 0.4rem calc(-100% - 0.3rem);
+}
+
+.ss-ind2-atlas__label[data-anchor-wide="se"] {
+  translate: 0.4rem 0.3rem;
+}
+
+.ss-ind2-atlas__label[data-anchor-wide="sw"] {
+  translate: calc(-100% - 0.4rem) 0.3rem;
+}
+
+.ss-ind2-atlas__label[data-anchor-wide="nw"] {
+  translate: calc(-100% - 0.4rem) calc(-100% - 0.3rem);
+}
+
+@media (max-width: 51.999rem) {
+  .ss-ind2-atlas__label {
+    left: var(--at-cx);
+    top: var(--at-cy);
+    padding: 0.12rem 0.3rem;
+    font-size: 0.54rem;
+    letter-spacing: 0.1em;
+  }
+
+  .ss-ind2-atlas__label[data-side="uk"] {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+  }
+
+  /* A phone plate resolves the US at ~150px across; only the first tier is
+     labelled on it, and the strip under the plate names every metro. */
+  .ss-ind2-atlas__label[data-tier="2"] {
+    display: none;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="e"] {
+    translate: 0.5rem -50%;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="w"] {
+    translate: calc(-100% - 0.5rem) -50%;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="n"] {
+    translate: -50% calc(-100% - 0.45rem);
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="s"] {
+    translate: -50% 0.45rem;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="ne"] {
+    translate: 0.35rem calc(-100% - 0.25rem);
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="se"] {
+    translate: 0.35rem 0.25rem;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="sw"] {
+    translate: calc(-100% - 0.35rem) 0.25rem;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-compact="nw"] {
+    translate: calc(-100% - 0.35rem) calc(-100% - 0.25rem);
+  }
+}
+
+/* Pointing at a city brightens its callout. The arcs are not singled out on
+   hover: the labels carry no per-city key. */
+@media (hover: hover) {
+  .ss-ind2-atlas__label:hover {
+    color: var(--ss-v2-platinum);
+    text-shadow:
+      0 0 6px var(--ss-ind2-atlas-ground),
+      0 0 12px color-mix(in srgb, var(--lbl-hue) 70%, transparent);
+  }
+}
+
+/* ---- Market focus control -------------------------------------------------- */
+
+.ss-ind2-atlas__control {
+  display: flex;
+  grid-area: control;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-self: end;
+  gap: 0.5rem 0.7rem;
+}
+
+.ss-ind2-atlas__control-label {
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--srv2-accent) 45%, var(--ss-v2-titanium));
+  white-space: nowrap;
+}
+
+/* Phone: label above a full-width switch, so the two segments are real thumb
+   targets rather than a pill in a corner. */
+@media (max-width: 33.999rem) {
+  .ss-ind2-atlas__control {
+    flex-direction: column;
+    align-items: stretch;
+    justify-self: stretch;
+    gap: 0.4rem;
+  }
+}
+
+/* ---- Metro strip ---------------------------------------------------------- */
+
+.ss-ind2-atlas__strip {
+  grid-area: strip;
+  min-width: 0;
+}
+
+/* The wide plate labels all thirteen cities itself; the strip is for the
+   compact plate, which labels a handful. */
+@media (min-width: 52rem) {
+  .ss-ind2-atlas__strip {
+    display: none;
+  }
+}
+
+.ss-ind2-atlas__strip-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0;
+  margin: 0;
+  max-width: none;
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.ss-ind2-atlas__strip-label {
+  margin-right: 0.85em;
+  color: color-mix(in srgb, var(--mk-hue-us) 62%, var(--ss-v2-platinum));
+  white-space: nowrap;
+}
+
+.ss-ind2-atlas__strip-city {
+  color: color-mix(
+    in srgb,
+    var(--ss-v2-platinum) calc(40% + var(--mk-us) * 55%),
+    var(--ss-v2-titanium)
+  );
+  white-space: nowrap;
+  transition: color 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__strip-city + .ss-ind2-atlas__strip-city::before {
+  content: "·";
+  margin-inline: 0.5em;
+  color: color-mix(in srgb, var(--srv2-accent) 40%, var(--ss-v2-titanium));
+}
+
+/* ---- Ledger frame ---------------------------------------------------------- */
+
+.ss-ind2-markets {
   position: relative;
   padding: clamp(1.4rem, 1rem + 1.6vw, 2.4rem);
   border-radius: var(--ss-radius-2xl);
@@ -2133,633 +2927,6 @@
     ),
     var(--srv2-glass);
   backdrop-filter: blur(16px);
-}
-
-html[data-currency="usd"] .ss-ind2-markets,
-html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
-  .ss-ind2-markets {
-  --mk-us: 1;
-  --mk-uk: 0;
-}
-
-/* ---- Chart band ----------------------------------------------------------
-   A latitude/longitude plate with no landmasses: an instrument chart, not a
-   map. The graticule is a real linear scale, so the printed ticks and the two
-   city nodes agree — see the geometry block in industry-sections.tsx, which is
-   where every number here comes from.
-
-   Two plates (wide chart, compact diagonal ladder) share these rules; only one
-   is ever displayed, and a display:none element runs no animation, so the
-   looping budget stays at one pulse plus one node breathe. */
-
-.ss-ind2-bridge {
-  display: grid;
-  grid-template-areas:
-    "readout"
-    "chart"
-    "control";
-  gap: 0.55rem;
-  margin-bottom: clamp(1.2rem, 0.9rem + 1vw, 1.9rem);
-  padding-bottom: clamp(1rem, 0.8rem + 0.8vw, 1.45rem);
-  border-bottom: 1px solid var(--ss-v2-hairline);
-}
-
-/* At the ledger breakpoint the control leaves the flow and seats itself in the
-   readout band, so the plate carries no chrome on top of it. */
-@media (min-width: 52rem) {
-  .ss-ind2-bridge {
-    grid-template-areas:
-      "readout control"
-      "chart chart";
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    column-gap: 1.2rem;
-  }
-}
-
-/* ---- Instrument readout --------------------------------------------------
-   The distance is the great circle between the two coordinates the nodes are
-   drawn at (5570.2 km / 3461.2 mi, haversine), rounded — it is a fact about
-   the chart, so it is real text rather than SVG decoration. */
-
-.ss-ind2-bridge__readout {
-  display: flex;
-  flex-wrap: wrap;
-  grid-area: readout;
-  align-items: baseline;
-  gap: 0.15rem 0.5rem;
-  /* The base `p { max-width: 68ch }` in tokens/utilities.css held this to
-     406px and wrapped the tagline onto a second line inside a 600px column.
-     A readout is an instrument line, not a paragraph of prose. */
-  max-width: none;
-  margin: 0;
-  font-family: var(--ss-font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-titanium));
-}
-
-.ss-ind2-bridge__readout > span + span::before {
-  content: "\00B7";
-  margin-right: 0.5rem;
-  opacity: 0.55;
-}
-
-.ss-ind2-bridge__readout-leg {
-  color: color-mix(in srgb, var(--srv2-accent) 34%, var(--ss-v2-platinum));
-}
-
-.ss-ind2-bridge__readout-fig {
-  color: color-mix(in srgb, var(--srv2-accent) 46%, var(--ss-v2-platinum));
-}
-
-/* The tagline is the first thing to go: below 46rem the leg and the two
-   figures are the readout, and the claim is made by the panel underneath. */
-@media (max-width: 45.999rem) {
-  .ss-ind2-bridge__readout-tag {
-    display: none;
-  }
-
-  .ss-ind2-bridge__readout {
-    font-size: 0.56rem;
-    letter-spacing: 0.12em;
-  }
-}
-
-.ss-ind2-bridge__chart {
-  position: relative;
-  overflow: hidden;
-  grid-area: chart;
-  /* Room under the plate for the lower node's label and the longitude rail:
-     both are fixed rem heights over a plate that is only ~120px tall at the
-     narrow end of this breakpoint. */
-  padding-bottom: 1.2rem;
-  /* One step down from the panel's 32px, one step up from the 10px cells:
-     nested corners read as concentric rather than as three unrelated radii. */
-  border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
-  background:
-    radial-gradient(
-      80% 130% at 50% -20%,
-      color-mix(in srgb, var(--srv2-accent) 9%, transparent),
-      transparent 70%
-    ),
-    color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
-}
-
-/* Sized by the SVG alone, so a label at left: 17% sits exactly over the node
-   at x = 203.9 of the 1200-unit viewBox, and top: 47.8% over y = 104 of the
-   16 → 200 window. */
-.ss-ind2-bridge__plate {
-  position: relative;
-}
-
-.ss-ind2-bridge__svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.ss-ind2-bridge__svg--compact {
-  display: none;
-}
-
-/* Below the ledger breakpoint the wide plate is a letterboxed smear — at 768px
-   it is 642 × 118 — so the whole instrument switches to the diagonal ladder on
-   the same breakpoint the ledger uses. One breakpoint, one shape change. */
-@media (max-width: 51.999rem) {
-  .ss-ind2-bridge__svg--wide {
-    display: none;
-  }
-
-  .ss-ind2-bridge__svg--compact {
-    display: block;
-  }
-
-  /* Apron for the caption row under the ladder. */
-  .ss-ind2-bridge__chart {
-    padding-bottom: 1.75rem;
-  }
-}
-
-/* ---- Graticule ----------------------------------------------------------- */
-
-.ss-ind2-bridge__lat {
-  stroke: color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
-  stroke-width: 1;
-}
-
-.ss-ind2-bridge__meridian {
-  stroke: var(--ss-v2-hairline);
-  stroke-width: 1;
-}
-
-/* Tick labels are HTML, not SVG <text>: an SVG glyph scales with the viewBox
-   and would be 7px at 768. Decorative, so aria-hidden — but still printed
-   above the AA floor, because a sighted reader reads them. */
-.ss-ind2-bridge__tick {
-  position: absolute;
-  font-family: var(--ss-font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  color: color-mix(in srgb, var(--ss-v2-titanium) 78%, transparent);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.ss-ind2-bridge__tick[data-axis="lat"] {
-  left: 0.4rem;
-  translate: 0 -50%;
-}
-
-.ss-ind2-bridge__tick[data-axis="lon"] {
-  top: calc(100% + 0.35rem);
-  translate: -50% 0;
-}
-
-/* Both label sets are in the DOM; the media query swaps them with the plates. */
-.ss-ind2-bridge__tick[data-plate="compact"] {
-  display: none;
-}
-
-@media (max-width: 51.999rem) {
-  .ss-ind2-bridge__tick[data-plate="wide"] {
-    display: none;
-  }
-
-  /* Left edge, between the two nodes: 50°N and 45°N are the only two latitudes
-     on the ladder that no node halo and no part of the arc reaches. */
-  .ss-ind2-bridge__tick[data-plate="compact"] {
-    display: block;
-    left: 0.4rem;
-    font-size: 0.54rem;
-    translate: 0 -50%;
-  }
-}
-
-/* The straight chord under the bowed arc: what makes a flat-projection line
-   read as a great circle rather than as decoration. */
-.ss-ind2-bridge__chord {
-  stroke: color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
-  stroke-width: 1;
-  stroke-dasharray: 4 7;
-}
-
-.ss-ind2-bridge__arc {
-  fill: none;
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  transition: opacity 260ms ease;
-}
-
-/* Two stacked wide strokes, not a blur filter: the arc reads as light rather
-   than as a hairline, at no filter cost and predictable in user units. */
-.ss-ind2-bridge__arc-glow {
-  fill: none;
-  stroke: var(--srv2-accent);
-  stroke-width: 11;
-  stroke-linecap: round;
-  opacity: 0.085;
-}
-
-.ss-ind2-bridge__arc-bloom {
-  fill: none;
-  stroke: var(--srv2-accent);
-  stroke-width: 24;
-  stroke-linecap: round;
-  opacity: 0.04;
-}
-
-/* An SVG paint server cannot be swapped from a stylesheet, so both gradients
-   are drawn and CSS crossfades between them: the bright end of the arc is
-   always the reader's own market. */
-.ss-ind2-bridge__arc--usd {
-  opacity: 0;
-}
-
-html[data-currency="usd"] .ss-ind2-bridge__arc,
-html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
-  .ss-ind2-bridge__arc {
-  opacity: 0;
-}
-
-html[data-currency="usd"] .ss-ind2-bridge__arc--usd,
-html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
-  .ss-ind2-bridge__arc--usd {
-  opacity: 1;
-}
-
-.ss-ind2-bridge__svg--compact .ss-ind2-bridge__arc {
-  stroke-width: 2;
-}
-
-.ss-ind2-bridge__svg--compact .ss-ind2-bridge__arc-glow {
-  stroke-width: 8;
-}
-
-.ss-ind2-bridge__svg--compact .ss-ind2-bridge__arc-bloom {
-  stroke-width: 18;
-}
-
-/* ---- Nodes ---------------------------------------------------------------
-   Each node knows whether it is the reader's market, so one number drives the
-   bloom, the dot, the ring, the halo and the label together. */
-
-.ss-ind2-bridge__node[data-node="ldn"],
-.ss-ind2-bridge__node-label[data-node="ldn"] {
-  --mk-node-lit: var(--mk-uk);
-}
-
-.ss-ind2-bridge__node[data-node="nyc"],
-.ss-ind2-bridge__node-label[data-node="nyc"] {
-  --mk-node-lit: var(--mk-us);
-}
-
-.ss-ind2-bridge__bloom {
-  opacity: calc(0.06 + var(--mk-node-lit) * 0.11);
-  transition: opacity 260ms ease;
-}
-
-.ss-ind2-bridge__dot {
-  fill: var(--srv2-accent);
-  opacity: calc(0.4 + 0.6 * var(--mk-node-lit));
-  transition: opacity 260ms ease;
-}
-
-.ss-ind2-bridge__ring {
-  fill: none;
-  stroke: var(--srv2-accent);
-  stroke-width: 1.6;
-  opacity: calc(0.26 + 0.6 * var(--mk-node-lit));
-  transition: opacity 260ms ease;
-}
-
-.ss-ind2-bridge__halo {
-  fill: var(--srv2-accent);
-  opacity: calc(var(--mk-node-lit) * 0.16);
-  transition: opacity 260ms ease;
-}
-
-.ss-ind2-bridge__node-label {
-  position: absolute;
-  left: var(--mk-node-x);
-  top: var(--mk-node-y);
-  z-index: 1;
-  display: grid;
-  gap: 0.05rem;
-  /* max-content, or an absolutely positioned label near the right edge wraps
-     "NEW YORK" onto two lines before the translate has pulled it left. */
-  width: max-content;
-  /* Padding, not spacing: it is what makes the callout a >=44px target, and
-     the translate below takes the extra half-padding back out so the text
-     still sits exactly where the node coordinate puts it. */
-  padding: 0.55rem 0.6rem;
-  border-radius: 999px;
-  translate: -50% 0.3rem;
-  text-align: center;
-  /* A shadow halo rather than a filled callout chip: the label crosses
-     graticule hairlines and the chord, and a chip wide enough to cover them
-     also covered the node's own halo and most of the chord on the ladder. */
-  text-shadow:
-    0 0 5px var(--ss-v2-void-black),
-    0 0 12px var(--ss-v2-void-black);
-  cursor: pointer;
-  transition: background-color 200ms ease;
-}
-
-/* Each callout IS the `<label>` for one of the market radios, so the chart is
-   the control: tap New York and the ledger moves to the US. Plain HTML, so it
-   works with JavaScript off and there is still exactly one radio group. */
-.ss-ind2-bridge__node-label:active {
-  background-color: color-mix(in srgb, var(--srv2-accent) 16%, transparent);
-}
-
-@media (hover: hover) {
-  .ss-ind2-bridge__node-label:hover {
-    background-color: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
-  }
-}
-
-@media (max-width: 51.999rem) {
-  /*
-    A caption row under the ladder rather than callouts on it. On a 109px plate
-    there is no clear space beside either node: the arc arrives at London
-    almost horizontally, so a callout above, below or left of it lands on the
-    line, and one in the corner lands on the node's own halo. Left caption =
-    the western node, right caption = the eastern one, which is how a chart
-    legend reads anyway — and it leaves the plate itself entirely to the
-    instrument.
-  */
-  .ss-ind2-bridge__node-label {
-    /* A real 44px target, not a caption with a cursor. It is pulled back over
-       the plate's empty foot — everything below the 40°N rule is bare grid —
-       so the target costs 6px of apron rather than 24. */
-    top: calc(100% - 1.1rem);
-    display: flex;
-    min-height: 44px;
-    gap: 0.4rem;
-    align-items: center;
-    padding: 0.5rem 0.5rem;
-    translate: none;
-  }
-
-  .ss-ind2-bridge__node-label[data-node="nyc"] {
-    left: 0;
-    text-align: left;
-  }
-
-  .ss-ind2-bridge__node-label[data-node="ldn"] {
-    left: auto;
-    right: 0;
-    text-align: right;
-  }
-
-  /* Under ~360px the two captions meet in the middle of a 216px plate, so each
-     one stacks its coordinate under its name. */
-  @media (max-width: 22.5rem) {
-    .ss-ind2-bridge__node-label {
-      display: grid;
-      gap: 0.02rem;
-      align-content: center;
-      justify-content: start;
-    }
-
-    .ss-ind2-bridge__node-label[data-node="ldn"] {
-      justify-content: end;
-    }
-
-    .ss-ind2-bridge__chart {
-      padding-bottom: 2rem;
-    }
-  }
-
-  /* The plate is clear now, so the captions need no shadow to survive it. */
-  .ss-ind2-bridge__node-label {
-    text-shadow: none;
-  }
-}
-
-.ss-ind2-bridge__node-name {
-  font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(
-    in srgb,
-    var(--ss-v2-platinum) calc(28% + var(--mk-node-lit) * 72%),
-    var(--ss-v2-titanium)
-  );
-  transition: color 260ms ease;
-}
-
-.ss-ind2-bridge__node-coord {
-  font-family: var(--ss-font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  color: color-mix(
-    in srgb,
-    var(--srv2-accent) calc(24% + var(--mk-node-lit) * 34%),
-    var(--ss-v2-titanium)
-  );
-  transition: color 260ms ease;
-}
-
-/* ---- Pulse ---------------------------------------------------------------
-   One pulse, travelling the arc, ARRIVING at the reader's own market — the
-   glow builds where the reader is, so USD simply plays the same keyframes in
-   reverse. Both `offset-path` strings are the arcs the plates actually draw;
-   a unit test pins them to the constants in industry-sections.tsx, because a
-   hand-copied path is how they silently diverged once already.
-
-   The parked circle is the single fallback for both "no offset-path" and
-   "prefers reduced motion": visible, mid-flight, so the chart still reads as
-   in transit. */
-.ss-ind2-bridge__pulse {
-  display: none;
-  fill: var(--srv2-accent);
-  offset-path: path("M 203.9 147.2 Q 647 4 1090.4 104");
-  offset-rotate: 0deg;
-  filter: drop-shadow(0 0 6px var(--srv2-accent));
-}
-
-.ss-ind2-bridge__pulse--compact {
-  offset-path: path("M 62 105.7 Q 170 44 283.6 40.9");
-}
-
-.ss-ind2-bridge__pulse-park {
-  fill: var(--srv2-accent);
-  opacity: 0.85;
-  filter: drop-shadow(0 0 6px var(--srv2-accent));
-}
-
-@supports (offset-path: path("M 0 0 L 1 1")) {
-  @media (prefers-reduced-motion: no-preference) {
-    .ss-ind2-bridge__pulse {
-      display: inline;
-      animation: ss-ind2-bridge-pulse 4.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-    }
-
-    .ss-ind2-bridge__pulse-park {
-      display: none;
-    }
-  }
-}
-
-html[data-currency="usd"] .ss-ind2-bridge__pulse,
-html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
-  .ss-ind2-bridge__pulse {
-  animation-direction: reverse;
-}
-
-/* `offset-distance` forces a layout every frame, so the instrument's two loops
-   only run while it is on screen — this panel is well below the fold, and it
-   was the page's only continuous layout source. Gated on `data-js` so the
-   prerendered document and a no-JS reader, where the in-view attribute is
-   never written, are never left with a frozen chart. */
-html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__pulse,
-html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo {
-  animation-play-state: paused;
-}
-
-@keyframes ss-ind2-bridge-pulse {
-  0% {
-    offset-distance: 0%;
-    opacity: 0;
-  }
-
-  5% {
-    offset-distance: 3%;
-    opacity: 1;
-  }
-
-  72% {
-    offset-distance: 100%;
-    opacity: 1;
-  }
-
-  84% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
-
-  100% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
-}
-
-/* The breathe animates OPACITY, never scale: a scaled SVG circle forced a
-   layout on every frame for the life of the page. The unlit node's own
-   multiplier is zero, so its keyframes resolve to 0 → 0 and it breathes
-   nothing. */
-@media (prefers-reduced-motion: no-preference) {
-  .ss-ind2-bridge__halo {
-    animation: ss-ind2-bridge-breathe 2.4s ease-in-out infinite;
-  }
-}
-
-@keyframes ss-ind2-bridge-breathe {
-  0%,
-  100% {
-    opacity: calc(var(--mk-node-lit) * 0.07);
-  }
-
-  50% {
-    opacity: calc(var(--mk-node-lit) * 0.24);
-  }
-}
-
-/* One hairline sweep across the plate the first time it is seen — the
-   instrument powering on. Once, never a loop, and it settles back to the
-   stylesheet's own state because the base rule is opacity 0. */
-@media (prefers-reduced-motion: no-preference) {
-  .ss-ind2-bridge__plate::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      104deg,
-      transparent 42%,
-      color-mix(in srgb, var(--srv2-accent) 24%, transparent) 50%,
-      transparent 58%
-    );
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .ss-ind2-bridge[data-chart-shown] .ss-ind2-bridge__plate::after {
-    animation: ss-ind2-bridge-sweep 1150ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  }
-}
-
-@keyframes ss-ind2-bridge-sweep {
-  0% {
-    opacity: 0;
-    translate: -55% 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    translate: 55% 0;
-  }
-}
-
-/* Reading a lane — or reaching for a city — lights that city. */
-.ss-ind2-bridge__chart:has(.ss-ind2-bridge__node-label[data-node="ldn"]:hover)
-  .ss-ind2-bridge__node[data-node="ldn"],
-.ss-ind2-bridge__chart:has(.ss-ind2-bridge__node-label[data-node="nyc"]:hover)
-  .ss-ind2-bridge__node[data-node="nyc"],
-.ss-ind2-bridge__node-label:hover,
-.ss-ind2-markets:has(.ss-ind2-market--uk:hover) .ss-ind2-bridge__node[data-node="ldn"],
-.ss-ind2-markets:has(.ss-ind2-market--uk:focus-within)
-  .ss-ind2-bridge__node[data-node="ldn"],
-.ss-ind2-markets:has(.ss-ind2-market--uk:hover)
-  .ss-ind2-bridge__node-label[data-node="ldn"],
-.ss-ind2-markets:has(.ss-ind2-market--uk:focus-within)
-  .ss-ind2-bridge__node-label[data-node="ldn"],
-.ss-ind2-markets:has(.ss-ind2-market--us:hover) .ss-ind2-bridge__node[data-node="nyc"],
-.ss-ind2-markets:has(.ss-ind2-market--us:focus-within)
-  .ss-ind2-bridge__node[data-node="nyc"],
-.ss-ind2-markets:has(.ss-ind2-market--us:hover)
-  .ss-ind2-bridge__node-label[data-node="nyc"],
-.ss-ind2-markets:has(.ss-ind2-market--us:focus-within)
-  .ss-ind2-bridge__node-label[data-node="nyc"] {
-  --mk-node-lit: 1;
-}
-
-/* ---- Market focus control ------------------------------------------------ */
-
-.ss-ind2-bridge__control {
-  display: flex;
-  grid-area: control;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 0.7rem;
-}
-
-.ss-ind2-bridge__control-label {
-  font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--srv2-accent) 45%, var(--ss-v2-titanium));
-  white-space: nowrap;
-}
-
-/* Phone: label above a full-width switch, so the two segments are real thumb
-   targets rather than a pill in a corner. */
-@media (max-width: 33.999rem) {
-  .ss-ind2-bridge__control {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.4rem;
-  }
 }
 
 /* ---- Ledger --------------------------------------------------------------
@@ -2815,12 +2982,14 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
    anything. DOM order, tab order and visual order are now the same sequence. */
 .ss-ind2-market--us {
   --mk-near: var(--mk-us);
+  --mk-hue: var(--mk-hue-us);
 
   grid-column: 1;
 }
 
 .ss-ind2-market--uk {
   --mk-near: var(--mk-uk);
+  --mk-hue: var(--mk-hue-uk);
 
   grid-column: 2;
 }
@@ -2843,7 +3012,7 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
   border-bottom: 1px solid
     color-mix(
       in srgb,
-      var(--srv2-accent) calc(10% + var(--mk-near) * 34%),
+      var(--mk-hue) calc(10% + var(--mk-near) * 34%),
       var(--ss-v2-hairline)
     );
 }
@@ -2858,15 +3027,15 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
   border: 1px solid
     color-mix(
       in srgb,
-      var(--srv2-accent) calc(20% + var(--mk-near) * 26%),
+      var(--mk-hue) calc(20% + var(--mk-near) * 26%),
       var(--ss-v2-hairline)
     );
   background: color-mix(
     in srgb,
-    var(--srv2-accent) calc(3% + var(--mk-near) * 15%),
+    var(--mk-hue) calc(3% + var(--mk-near) * 15%),
     transparent
   );
-  color: color-mix(in srgb, var(--srv2-accent) 55%, var(--ss-v2-platinum));
+  color: color-mix(in srgb, var(--mk-hue) 55%, var(--ss-v2-platinum));
   font-family: var(--ss-font-mono);
   font-size: 0.56rem;
   letter-spacing: 0.16em;
@@ -2941,12 +3110,12 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
   font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--srv2-accent) 42%, var(--mk-label));
+  color: color-mix(in srgb, var(--mk-hue) 42%, var(--mk-label));
 }
 
 .ss-ind2-market__row dd {
   margin: 0;
-  color: color-mix(in srgb, var(--srv2-accent) 8%, var(--mk-ink));
+  color: color-mix(in srgb, var(--mk-hue) 8%, var(--mk-ink));
   /* The ledger's values are the panel's primary content, so they are its
      largest type — 13.8px at 390, where the secondary shared rail underneath
      now sits at 13.1px. It used to be the other way round. */
@@ -2977,7 +3146,11 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
   margin-right: 0.4rem;
   border-radius: 999px;
   vertical-align: middle;
-  background: linear-gradient(135deg, var(--srv2-accent), var(--srv2-accent-2));
+  background: linear-gradient(
+    135deg,
+    var(--mk-hue),
+    color-mix(in srgb, var(--mk-hue) 35%, var(--ss-v2-platinum))
+  );
 }
 
 .ss-ind2-market__tools {
@@ -2995,15 +3168,11 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
   border: 1px solid
     color-mix(
       in srgb,
-      var(--srv2-accent) calc(10% + var(--mk-near) * 22%),
+      var(--mk-hue) calc(10% + var(--mk-near) * 22%),
       var(--ss-v2-hairline)
     );
-  background: color-mix(
-    in srgb,
-    var(--srv2-accent) calc(var(--mk-near) * 13%),
-    transparent
-  );
-  color: color-mix(in srgb, var(--srv2-accent) 20%, var(--ss-v2-platinum));
+  background: color-mix(in srgb, var(--mk-hue) calc(var(--mk-near) * 13%), transparent);
+  color: color-mix(in srgb, var(--mk-hue) 20%, var(--ss-v2-platinum));
   font-size: 0.72rem;
   line-height: 1.3;
   /* break-word, not anywhere: a 95px cell should wrap between words and only
@@ -3081,7 +3250,7 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
     border: 1px solid
       color-mix(
         in srgb,
-        var(--srv2-accent) calc(6% + var(--mk-near) * 28%),
+        var(--mk-hue) calc(6% + var(--mk-near) * 28%),
         var(--ss-v2-hairline)
       );
     /* The lit surface is faded IN THE GRADIENT'S OWN COLOURS rather than by a
@@ -3122,7 +3291,7 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
     letter-spacing: 0.18em;
     color: color-mix(
       in srgb,
-      var(--srv2-accent) calc(34% + var(--mk-near) * 26%),
+      var(--mk-hue) calc(34% + var(--mk-near) * 26%),
       var(--ss-v2-titanium)
     );
   }
@@ -3157,7 +3326,7 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
     border: 1px solid
       color-mix(
         in srgb,
-        var(--srv2-accent) calc(8% + var(--mk-near) * 32%),
+        var(--mk-hue) calc(8% + var(--mk-near) * 32%),
         var(--ss-v2-hairline)
       );
     background: var(--mk-dim);
@@ -3195,7 +3364,7 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
     inset-inline: 14%;
     top: -1px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--srv2-accent), transparent);
+    background: linear-gradient(90deg, transparent, var(--mk-hue), transparent);
     opacity: var(--mk-near);
     transition: opacity 260ms ease;
   }
@@ -3254,7 +3423,7 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
     border-top: 1px solid
       color-mix(
         in srgb,
-        var(--srv2-accent) calc(8% + var(--mk-near) * 24%),
+        var(--mk-hue) calc(8% + var(--mk-near) * 24%),
         var(--ss-v2-hairline)
       );
     border-radius: 0;
@@ -3281,7 +3450,7 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
    device the panel is mostly read on. */
 @media (hover: none) {
   .ss-ind2-market__row > dd:active {
-    border-color: color-mix(in srgb, var(--srv2-accent) 34%, var(--ss-v2-hairline));
+    border-color: color-mix(in srgb, var(--mk-hue) 34%, var(--ss-v2-hairline));
     background-color: color-mix(
       in srgb,
       var(--ss-v2-graphite-raised) calc(34% + var(--mk-near) * 46%),
@@ -3303,62 +3472,9 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
     .ss-ind2-market__row[data-fact="keeps"],
   .ss-ind2-markets__lanes:has(.ss-ind2-market__row[data-fact="rulebook"]:hover)
     .ss-ind2-market__row[data-fact="rulebook"] {
-    background-color: color-mix(in srgb, var(--srv2-accent) 8%, transparent);
+    background-color: color-mix(in srgb, var(--mk-hue) 8%, transparent);
     translate: 0 -1px;
   }
-}
-
-/* ---- Group entrance ------------------------------------------------------
-   The ledger's two lanes, the compliance cards and the responsibility band all
-   arrive by `translate` alone. No opacity: the copy in these two panels is the
-   page's differentiating text and it is never transparent, in the prerendered
-   document or at any moment after it — see LiftGroup in industry-sections.tsx.
-   Every keyframe fills `backwards`, so the settled state is the stylesheet's
-   and later hover transforms stay alive. */
-
-@media (prefers-reduced-motion: no-preference) {
-  /* `html[data-js="on"]`, exactly as motion-reveal.css gates its own
-     pre-states: `data-lift` is only ever written by the client, so without it
-     an ungated pre-state leaves both lane cards and all four compliance cards
-     parked 18px low in the prerendered document, permanently. */
-  html[data-js="on"] .ss-ind2-lift > * {
-    translate: 0 18px;
-  }
-
-  .ss-ind2-lift[data-lift="shown"] > * {
-    translate: 0 0;
-    animation: ss-ind2-lift-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-    animation-delay: var(--lift-delay, 0ms);
-  }
-
-  .ss-ind2-lift[data-lift="shown"] > *:nth-child(2) {
-    animation-delay: calc(var(--lift-delay, 0ms) + 110ms);
-  }
-
-  .ss-ind2-lift[data-lift="shown"] > *:nth-child(3) {
-    animation-delay: calc(var(--lift-delay, 0ms) + 200ms);
-  }
-
-  .ss-ind2-lift[data-lift="shown"] > *:nth-child(4) {
-    animation-delay: calc(var(--lift-delay, 0ms) + 290ms);
-  }
-}
-
-@keyframes ss-ind2-lift-rise {
-  from {
-    translate: 0 18px;
-  }
-
-  to {
-    translate: 0 0;
-  }
-}
-
-/* A button-driven deep link lands the reader mid-page; the shared handler
-   marks the destination and these settle in the same frame. */
-[data-reveal-bypass] .ss-ind2-lift > * {
-  translate: 0 0 !important;
-  animation: none !important;
 }
 
 /* ---- Shared spine -------------------------------------------------------- */
@@ -3566,10 +3682,10 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
    mirrored (accent-2 leads here, accent leads above) so the sibling is not a
    twin.
 
-   Everything here is static at first paint: entrances come from Reveal, so
-   this block adds no keyframes and needs no reduced-motion gate of its own.
-   The only transitions are hover affordances, gated on a hover-capable
-   pointer. */
+   Each card is a claim and three rules. The type hierarchy does the work a
+   paragraph used to: platinum claim, accent-tinted verb phrase opening each
+   rule, ink-soft detail, mono citation chips. Entrances come from the shared
+   PanelReveal/Reveal primitives; this block adds no keyframes of its own. */
 
 .ss-ind2-compliance {
   position: relative;
@@ -3592,9 +3708,9 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
 }
 
 /* ---- Read at a glance ----------------------------------------------------
-   Three structural claims above the detail. Chips, not prose: on a phone the
-   four cards below run to roughly 2,500px, and this row is the only part of
-   the rulebook a scan will catch. */
+   Three structural claims above the detail: the whole boundary in three
+   seconds before any card is read. Each is a summary of a card underneath,
+   never a separate promise. */
 
 .ss-ind2-compliance__glance {
   display: flex;
@@ -3608,12 +3724,12 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
 .ss-ind2-compliance__glance-item {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.38rem 0.65rem;
+  gap: 0.45rem;
+  padding: 0.42rem 0.7rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
-  background: color-mix(in srgb, var(--srv2-accent) 8%, transparent);
-  color: color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-platinum));
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 28%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--srv2-accent) 9%, transparent);
+  color: color-mix(in srgb, var(--srv2-accent) 18%, var(--ss-v2-platinum));
   font-family: var(--ss-font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.04em;
@@ -3622,13 +3738,11 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
 
 .ss-ind2-compliance__glance-item svg {
   flex: none;
-  width: 0.85rem;
-  height: 0.85rem;
-  color: color-mix(in srgb, var(--srv2-accent) 62%, var(--ss-v2-chrome));
+  width: 0.9rem;
+  height: 0.9rem;
+  color: color-mix(in srgb, var(--srv2-accent) 68%, var(--ss-v2-chrome));
 }
 
-/* On a phone the three chips stack, so they read as a checklist rather than as
-   a wrapped row of fragments. */
 @media (max-width: 33.999rem) {
   .ss-ind2-compliance__glance {
     gap: 0.35rem;
@@ -3640,14 +3754,16 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
   }
 }
 
+/* ---- Cards ---------------------------------------------------------------- */
+
 .ss-ind2-compliance__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(0.7rem, 0.5rem + 0.8vw, 1.1rem);
 }
 
-/* Two columns, not four: each card carries ~80 words of legal substance, and a
-   quarter-width column at 1440px would set them ~14 characters to the line. */
+/* Two columns, not four: three rules of a line or two each need ~30
+   characters to the line to stay rules rather than ragged fragments. */
 @media (min-width: 46rem) {
   .ss-ind2-compliance__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3655,13 +3771,19 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
 }
 
 .ss-ind2-compliance__card {
+  /* 1 when this card's market is the reader's own, so the chip and icon light
+     in step with the ledger's near lane above it. "Both" is always lit — it is
+     never the far market. */
+  --cmp-near: 0;
+  --cmp-hue: var(--srv2-accent);
+
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.8rem;
   min-width: 0;
-  padding: clamp(0.95rem, 0.75rem + 0.8vw, 1.5rem);
-  /* Same nesting step as the market ledger's lane cards and the chart frame:
-     one radius ladder across both panels — 32 outer, 18 nested, 10 cell. */
+  padding: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+  /* Same nesting step as the market ledger's lane cards and the plate: one
+     radius ladder across the panels — 32 outer, 18 nested, 10 cell. */
   border-radius: 18px;
   border: 1px solid color-mix(in srgb, var(--srv2-accent) 12%, var(--ss-v2-hairline));
   background: color-mix(in srgb, var(--ss-v2-graphite-raised) 52%, transparent);
@@ -3689,61 +3811,104 @@ html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo 
   }
 }
 
+/* The card's hue and its lit state follow its market: US cards take the second
+   accent (the US lane's hue on the ledger), UK cards the first. */
+.ss-ind2-compliance__card:has(.ss-ind2-compliance__head[data-market="US"]) {
+  --cmp-hue: var(--srv2-accent-2);
+}
+
+.ss-ind2-compliance__card:has(.ss-ind2-compliance__head[data-market="UK"]),
+.ss-ind2-compliance__card:has(.ss-ind2-compliance__head[data-market="Both"]) {
+  --cmp-near: 1;
+}
+
+html[data-currency="usd"]
+  .ss-ind2-compliance__card:has(.ss-ind2-compliance__head[data-market="UK"]),
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-compliance__card:has(.ss-ind2-compliance__head[data-market="UK"]) {
+  --cmp-near: 0;
+}
+
+html[data-currency="usd"]
+  .ss-ind2-compliance__card:has(.ss-ind2-compliance__head[data-market="US"]),
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-compliance__card:has(.ss-ind2-compliance__head[data-market="US"]) {
+  --cmp-near: 1;
+}
+
 .ss-ind2-compliance__head {
-  /* 1 when this card's market is the reader's own, so the chip lights in step
-     with the ledger's near lane above it. "Both" is always lit — it is never
-     the far market. */
-  --cmp-near: 0;
-
-  /* nowrap, so a long title wraps BESIDE its chip instead of dropping under
-     it: the four cards then present one shape, and the chip column stays a
-     scannable rail down the panel. Aligned to the first line, not centred —
-     a chip floating beside line two of three reads as decoration. */
   display: flex;
-  flex-wrap: nowrap;
   align-items: flex-start;
-  gap: 0.55rem;
+  gap: 0.75rem;
 }
 
-.ss-ind2-compliance__head[data-market="UK"],
-.ss-ind2-compliance__head[data-market="Both"] {
-  --cmp-near: 1;
+.ss-ind2-compliance__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 12px;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--cmp-hue) calc(22% + var(--cmp-near) * 30%),
+      var(--ss-v2-hairline)
+    );
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--cmp-hue) calc(14% + var(--cmp-near) * 22%), transparent),
+      transparent 70%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 40%, transparent);
+  color: color-mix(
+    in srgb,
+    var(--cmp-hue) calc(55% + var(--cmp-near) * 35%),
+    var(--ss-v2-platinum)
+  );
+  box-shadow: 0 0 18px -6px
+    color-mix(in srgb, var(--cmp-hue) calc(var(--cmp-near) * 70%), transparent);
+  transition:
+    border-color 260ms ease,
+    color 260ms ease,
+    box-shadow 260ms ease;
 }
 
-html[data-currency="usd"] .ss-ind2-compliance__head[data-market="UK"],
-html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
-  .ss-ind2-compliance__head[data-market="UK"] {
-  --cmp-near: 0;
+.ss-ind2-compliance__icon svg {
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
-html[data-currency="usd"] .ss-ind2-compliance__head[data-market="US"],
-html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
-  .ss-ind2-compliance__head[data-market="US"] {
-  --cmp-near: 1;
+.ss-ind2-compliance__titles {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
 }
 
 .ss-ind2-compliance__chip {
   display: inline-grid;
-  flex: none;
   place-items: center;
-  min-width: 2.4rem;
-  height: 1.5rem;
-  padding-inline: 0.5rem;
+  min-width: 2.2rem;
+  height: 1.3rem;
+  padding-inline: 0.45rem;
   border-radius: 999px;
   border: 1px solid
     color-mix(
       in srgb,
-      var(--srv2-accent) calc(20% + var(--cmp-near) * 26%),
+      var(--cmp-hue) calc(20% + var(--cmp-near) * 30%),
       var(--ss-v2-hairline)
     );
   background: color-mix(
     in srgb,
-    var(--srv2-accent) calc(3% + var(--cmp-near) * 15%),
+    var(--cmp-hue) calc(3% + var(--cmp-near) * 16%),
     transparent
   );
-  color: color-mix(in srgb, var(--srv2-accent) 55%, var(--ss-v2-platinum));
+  color: color-mix(in srgb, var(--cmp-hue) 58%, var(--ss-v2-platinum));
   font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   letter-spacing: 0.16em;
   /* "Both" is authored in sentence case because it is real content read by a
      screen reader; the chip family is US / UK, so it is PRINTED as one of
@@ -3754,98 +3919,109 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     background-color 260ms ease;
 }
 
-/* Two lines' worth of box even when the title takes one: card 3's title wraps
-   and card 4's does not, and without this the two bodies in that row start at
-   different baselines. */
-@media (min-width: 46rem) {
-  .ss-ind2-compliance__title {
-    min-height: 2.6em;
-  }
-}
-
 .ss-ind2-compliance__title {
   margin: 0;
   min-width: 0;
   color: var(--ss-v2-platinum);
   font-family: var(--ss-font-display, inherit);
-  font-size: clamp(0.95rem, 0.88rem + 0.3vw, 1.1rem);
+  font-size: clamp(1rem, 0.92rem + 0.35vw, 1.18rem);
   font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
+  letter-spacing: -0.012em;
+  line-height: 1.25;
+  text-wrap: balance;
 }
 
-.ss-ind2-compliance__lede {
+/* The claim: the card's whole point, in one line at emphasis weight, tinted
+   toward the card's hue so the four claims read as four different lights. */
+.ss-ind2-compliance__claim {
   margin: 0;
-  max-width: var(--srv2-measure);
-  color: var(--ss-v2-platinum);
-  font-size: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  max-width: none;
+  padding-left: 0.85rem;
+  border-left: 2px solid color-mix(in srgb, var(--cmp-hue) 70%, transparent);
+  color: color-mix(in srgb, var(--cmp-hue) 26%, var(--ss-v2-platinum));
+  font-size: clamp(0.94rem, 0.88rem + 0.25vw, 1.04rem);
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.ss-ind2-compliance__rules {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-ind2-compliance__rules li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: start;
+  color: color-mix(in srgb, var(--srv2-accent) 8%, var(--srv2-ink-soft));
+  font-size: clamp(0.86rem, 0.82rem + 0.2vw, 0.94rem);
+  line-height: 1.55;
   text-wrap: pretty;
 }
 
-.ss-ind2-compliance__body {
-  margin: 0;
-  max-width: var(--srv2-measure);
-  color: color-mix(in srgb, var(--srv2-accent) 10%, var(--srv2-ink-soft));
-  font-size: clamp(0.86rem, 0.82rem + 0.2vw, 0.95rem);
-  line-height: 1.65;
+.ss-ind2-compliance__rules li > svg {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.22em;
+  padding: 0.12rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cmp-hue) 16%, transparent);
+  color: color-mix(in srgb, var(--cmp-hue) 72%, var(--ss-v2-platinum));
 }
 
-.ss-ind2-compliance__body strong {
-  color: var(--ss-v2-platinum);
+/* The bold opener of each rule — "Never asks", "Prompts for" — is the rule's
+   verb; it carries the card's hue at full platinum weight so the eye can read
+   the three verbs alone and have the card. */
+.ss-ind2-compliance__rules strong {
+  color: color-mix(in srgb, var(--cmp-hue) 42%, var(--ss-v2-platinum));
   font-weight: 600;
 }
 
-/* The citation, not a link: RichText renders no anchors, and a live link out of
-   a compliance claim invites the reader to check a source that may move. It is
-   a provenance mark — set in mono, kept above the AA floor, never greyed out. */
-.ss-ind2-compliance__source {
-  margin: 0.15rem 0 0;
-  padding-top: 0.6rem;
+/* Citations as chips: a statute reference never breaks mid-token, and one
+   that is too long for its line takes a chip of its own width instead of
+   pushing the card. Provenance, not links. */
+.ss-ind2-compliance__sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.1rem 0 0;
+  padding: 0.7rem 0 0;
   border-top: 1px solid var(--ss-v2-hairline);
-  color: color-mix(in srgb, var(--srv2-accent) 28%, var(--ss-v2-titanium));
-  font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.04em;
-  line-height: 1.5;
-  overflow-wrap: break-word;
-  text-wrap: pretty;
+  list-style: none;
 }
 
-/* One unbreakable span per citation THAT FITS: a statute reference that wraps
-   mid-token ("NAR / SoP 10-3") stops reading as a citation.
-
-   Two limits, both measured, and the rule sits inside both. Desktop only,
-   because an unbreakable span sets its card's min-content width and the source
-   line's content box is 160.8px at 320 and 227.3px at 390 against citations
-   that need 108-434px — nowrap there blew the mobile layout viewport out to
-   514px on /industry/estate-agents and zoomed the whole page. And, within
-   desktop, only the citations the component marked `data-fits` (see
-   COMPLIANCE_CITE_NOWRAP_MAX_CHARS in industry-sections.tsx): the one
-   64-character statute reference needs 433.9px against a 342.6px content box
-   at 1024, and while it carried this rule its tail was painted 53-91px outside
-   the card's border at every desktop width. Unmarked, it wraps at a space
-   inside its own card, with the parent's `overflow-wrap: break-word` as the
-   floor under that and `text-wrap: pretty` keeping the orphans down. */
-@media (min-width: 64rem) {
-  .ss-ind2-compliance__cite[data-fits="true"] {
-    white-space: nowrap;
-  }
+.ss-ind2-compliance__cite {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 28%, transparent);
+  color: color-mix(in srgb, var(--srv2-accent) 30%, var(--ss-v2-titanium));
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 /* Not fine print. This line carries the division of responsibility that makes
    every claim above it honest, so it sits at body size and full contrast in
-   its own lit band rather than shrinking into a disclaimer. */
-/* The base `p { max-width: 68ch }` in tokens/utilities.css held this band to
-   650px inside an 857px row and left a quarter of the panel empty beside it.
-   The band is full width; the MEASURE lives on the text inside it. */
+   its own lit band rather than shrinking into a disclaimer. The band is full
+   width; the MEASURE lives on the text inside it. */
+.ss-ind2-compliance__note-band {
+  margin-top: clamp(0.9rem, 0.7rem + 0.8vw, 1.4rem);
+}
+
 .ss-ind2-compliance__note {
   display: flex;
   gap: 0.7rem;
   align-items: flex-start;
   max-width: none;
-  margin: clamp(0.9rem, 0.7rem + 0.8vw, 1.4rem) 0 0;
+  margin: 0;
   padding: clamp(0.85rem, 0.7rem + 0.6vw, 1.2rem);
   border-radius: var(--ss-radius-xl);
   border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, transparent);
@@ -3872,18 +4048,33 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   font-weight: 600;
 }
 
-/* Phone scroll cost: `.ss-ind2-markets` and `.ss-ind2-compliance` are 1,438px
-   and 2,578px tall at 390 — together taller than the two consoles that already
-   carry this guard in core-pages.css, and stacked one on top of the other over
-   the same fixed, GPU-promoted `.ss-hv2-backdrop`. `backdrop-filter` makes each
-   sample and re-blur that backdrop every frame while the scroll itself runs on
-   the compositor. The filter goes at phone widths and an opaque ground stands
-   in for it; desktop keeps the real glass, where the layer is cheap. */
+/* Phone scroll cost: the atlas, the ledger and the compliance panel stack to
+   several thousand pixels at 390 over the same fixed, GPU-promoted
+   `.ss-hv2-backdrop`. `backdrop-filter` makes each sample and re-blur that
+   backdrop every frame while the scroll itself runs on the compositor. The
+   filter goes at phone widths and an opaque ground stands in for it; desktop
+   keeps the real glass, where the layer is cheap. */
 @media (max-width: 44rem) {
+  .ss-ind2-atlas,
   .ss-ind2-markets,
   .ss-ind2-compliance {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  .ss-ind2-atlas {
+    background:
+      radial-gradient(
+        120% 100% at 100% 0%,
+        color-mix(in srgb, var(--srv2-accent) 13%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        120% 100% at 0% 100%,
+        color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
+        transparent 55%
+      ),
+      color-mix(in srgb, var(--ss-v2-void-black) 82%, var(--ss-v2-graphite));
   }
 
   .ss-ind2-markets {

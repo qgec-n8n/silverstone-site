@@ -345,10 +345,18 @@ export function PanelReveal({
   children,
   className,
   delayMs = 0,
+  amount = 0.25,
 }: {
   children: ReactNode;
   className?: string;
   delayMs?: number;
+  /**
+   * Viewport threshold. 0.25 suits a panel shorter than the viewport; pass
+   * "some" for a panel that can be taller than it (the phone ledger, the
+   * compliance rulebook at ~2,800px on a 390 phone), where a quarter of the
+   * frame can never be in view at once and the entrance would never fire.
+   */
+  amount?: number | "some" | "all";
 }) {
   const reducedMotion = useReducedMotion() ?? false;
 
@@ -365,26 +373,29 @@ export function PanelReveal({
   }
 
   return (
-    <PanelRevealMotion className={className} delayMs={delayMs}>
+    <PanelRevealMotion amount={amount} className={className} delayMs={delayMs}>
       {children}
     </PanelRevealMotion>
   );
 }
 
 function PanelRevealMotion({
+  amount,
   children,
   className,
   delayMs,
 }: {
+  amount: number | "some" | "all";
   children: ReactNode;
   className?: string | undefined;
   delayMs: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   // A fractional threshold a tall panel could never reach would hold the
-  // entrance forever; 0.25 fires once a meaningful band of the frame is in.
+  // entrance forever; 0.25 fires once a meaningful band of the frame is in,
+  // and callers whose frame can outgrow the viewport pass "some".
   const ownInView = useInView(ref, {
-    amount: 0.25,
+    amount,
     margin: "0px 0px -18% 0px",
     once: true,
   });
