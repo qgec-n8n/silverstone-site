@@ -27,6 +27,7 @@ import {
 import { Link } from "react-router";
 
 import {
+  ArrowUpRight,
   Check,
   ChevronDown,
   Landmark,
@@ -38,6 +39,7 @@ import {
   X,
   type LucideIcon,
 } from "~/components/icons/lucide";
+import { ExpandableImage } from "~/components/media/expandable-image";
 import { CurrencyToggle } from "~/components/ui/currency-toggle";
 import { hasWebpSibling, webpSource } from "~/lib/image-sources";
 import { useRevealStart } from "~/motion/use-reveal-start";
@@ -47,6 +49,7 @@ import {
   PanelReveal,
   Reveal,
   RichText,
+  ServiceButton,
 } from "~/features/services-v2/components/primitives";
 import {
   ATLAS_COMPACT,
@@ -712,6 +715,8 @@ function AtlasLabels({ controlId }: { controlId: string }) {
  */
 function AtlanticAtlas({ controlId }: { controlId: string }) {
   const ref = useRef<HTMLDivElement>(null);
+  const stripId = useId();
+  const [metrosOpen, setMetrosOpen] = useState(false);
   const viewport = { amount: 0.4, margin: "0px 0px -8% 0px" } as const;
   const inView = useInView(ref, viewport);
   const seen = useInView(ref, { ...viewport, once: true });
@@ -766,23 +771,88 @@ function AtlanticAtlas({ controlId }: { controlId: string }) {
         <CurrencyToggle context="markets" idPrefix={controlId} tone="dark" />
       </Reveal>
 
-      {/* Every metro by name at every width: the plates label seven at most,
-          and a city name is something a reader may search for. */}
+      {/* Every metro by name at every width, behind a disclosure: the plates
+          label seven at most, and a city name is something a reader may
+          search for, so the twelve stay in the prerendered document (folded
+          with grid rows + `inert`, never unmounted) under a row that reads as
+          one line whether it is open or shut. */}
       <Reveal className="ss-ind2-atlas__strip" delayMs={280} kind="section">
-        <p className="ss-ind2-atlas__strip-line">
+        <button
+          aria-controls={stripId}
+          aria-expanded={metrosOpen}
+          className="ss-ind2-atlas__strip-toggle"
+          data-state={metrosOpen ? "open" : "closed"}
+          onClick={() => {
+            setMetrosOpen((state) => !state);
+          }}
+          type="button"
+        >
           <span className="ss-ind2-atlas__strip-label">
-            {US_METROS.length} US metros
+            US metros Silverstone AI currently serves
           </span>
-          {US_METROS.map((city) => (
-            <span
-              className="ss-ind2-atlas__strip-city"
-              data-zone={city.zone}
-              key={city.id}
-            >
-              {city.name}
+          <span aria-hidden="true" className="ss-ind2-atlas__strip-count">
+            {US_METROS.length}
+          </span>
+          <span className="ss-ind2-atlas__strip-hint">
+            {metrosOpen ? "Hide cities" : "Show cities"}
+          </span>
+          <ChevronDown aria-hidden="true" className="ss-ind2-atlas__strip-chevron" />
+        </button>
+        <div
+          className="ss-ind2-atlas__strip-fold"
+          data-state={metrosOpen ? "open" : "closed"}
+          id={stripId}
+          inert={!metrosOpen}
+        >
+          <p className="ss-ind2-atlas__strip-line">
+            {US_METROS.map((city) => (
+              <span
+                className="ss-ind2-atlas__strip-city"
+                data-zone={city.zone}
+                key={city.id}
+              >
+                {city.name}
+              </span>
+            ))}
+          </p>
+        </div>
+      </Reveal>
+
+      {/* The frontier: a reader whose metro is not on the plate is the one
+          the map should turn into an enquiry, so the offer sits outside the
+          fold, always visible, and the CTA is the shared conversion button
+          so it lands on the contact console client-side. */}
+      <Reveal className="ss-ind2-atlas__frontier-reveal" delayMs={360} kind="cta">
+        <div className="ss-ind2-atlas__frontier">
+          <div className="ss-ind2-atlas__frontier-copy">
+            <span className="ss-ind2-atlas__frontier-badge">
+              <Sparkles aria-hidden="true" />
+              New frontier · First-in-city offer
             </span>
-          ))}
-        </p>
+            <p className="ss-ind2-atlas__frontier-title">
+              Can’t find your city? Put it on the map.
+            </p>
+            <p className="ss-ind2-atlas__frontier-body">
+              Be the first business in your metro to run a Silverstone AI system and
+              take <strong>10% off your build</strong>. Enter the new frontier — and be
+              ready for what’s next before anyone else in town is.
+            </p>
+          </div>
+          <p aria-hidden="true" className="ss-ind2-atlas__frontier-figure">
+            <span className="ss-ind2-atlas__frontier-figure-value">10%</span>
+            <span className="ss-ind2-atlas__frontier-figure-label">
+              off · first in your city
+            </span>
+          </p>
+          <ServiceButton
+            className="ss-ind2-atlas__frontier-cta"
+            href="/contact"
+            withArrow={false}
+          >
+            Claim your city
+            <ArrowUpRight aria-hidden="true" />
+          </ServiceButton>
+        </div>
       </Reveal>
       <BorderBeam />
     </PanelReveal>
@@ -1257,7 +1327,10 @@ function ComplianceCard({
             with this id is not the lead; giving the id to this empty,
             absolutely-positioned ghost instead of the card keeps the card
             itself on the page while its lightbox is open, so the grid never
-            shows a hole. The lightbox grows out of this box and returns to it. */}
+            shows a hole. The lightbox grows out of this box and returns to it.
+            The ghost keeps Motion's default crossfade: when it is promoted
+            back on close, that is what projects the leaving lightbox onto
+            this box and fades it out over the second half of the return. */}
         {layoutId ? (
           <m.div
             aria-hidden="true"
@@ -1336,6 +1409,7 @@ function ComplianceFocus({
   point: CompliancePoint;
 }) {
   const articleRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion() ?? false;
 
   return (
     <DialogPrimitive.Portal forceMount>
@@ -1344,9 +1418,9 @@ function ComplianceFocus({
           <m.div
             animate={{ opacity: 1 }}
             className="ss-ind2-compliance-focus__scrim"
-            exit={{ opacity: 0, transition: { duration: 0.28, ease: "easeIn" } }}
+            exit={{ opacity: 0, transition: { duration: 0.22, ease: "easeIn" } }}
             initial={{ opacity: 0 }}
-            transition={{ duration: 0.36, ease: "easeOut" }}
+            transition={{ duration: 0.24, ease: "easeOut" }}
           />
         </DialogPrimitive.Overlay>
         {/* The stage centres the card and lets pointer events fall through
@@ -1374,7 +1448,18 @@ function ComplianceFocus({
               tabIndex={-1}
               transition={focusMorph}
               {...(layoutId
-                ? { layoutId }
+                ? {
+                    layoutId,
+                    /* Shared-layout elements crossfade by default: the lead
+                       would fade up from nothing over the whole morph, showing
+                       the blurred scrim through itself before going solid —
+                       the "faded, then dark" the reader saw. Off, the card is
+                       opaque from its first frame and simply grows out of its
+                       socket. The way back is the ghost's (see the card): it
+                       shrinks onto the compact card solid, and fades only over
+                       the second half of the return. */
+                    layoutCrossfade: false,
+                  }
                 : {
                     animate: { opacity: 1 },
                     exit: { opacity: 0, transition: { duration: 0.2 } },
@@ -1409,9 +1494,24 @@ function ComplianceFocus({
                 <DialogPrimitive.Description asChild>
                   <p className="ss-ind2-compliance__claim">{point.claim}</p>
                 </DialogPrimitive.Description>
-                <div className="ss-ind2-compliance__details">
+                {/* The rules are the one thing the compact card did not show,
+                    so they arrive a beat after the card has landed — a rise
+                    into place rather than a wall of text present from frame
+                    one. Motion counter-scales it against the morph like the
+                    rest of the body. */}
+                <m.div
+                  animate={{ opacity: 1, y: 0 }}
+                  className="ss-ind2-compliance__details"
+                  exit={{ opacity: 0, transition: { duration: 0.12 } }}
+                  initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+                  transition={
+                    reducedMotion
+                      ? { duration: 0 }
+                      : { delay: 0.16, duration: 0.46, ease: entranceEase }
+                  }
+                >
                   <ComplianceBody point={point} />
-                </div>
+                </m.div>
               </m.div>
             </m.article>
           </DialogPrimitive.Content>
@@ -1645,34 +1745,41 @@ export function IndustryFigure({
 
   return (
     <figure className="ss-srv2-figure">
-      <picture>
-        {image.mobile !== image.desktop ? (
-          <>
-            {hasWebpSibling(image.mobile) ? (
-              <source
-                media="(max-width: 767px)"
-                srcSet={webpSource(image.mobile)}
-                type="image/webp"
-              />
-            ) : null}
-            <source media="(max-width: 767px)" srcSet={image.mobile} />
-          </>
-        ) : null}
-        {hasWebpSibling(image.desktop) ? (
-          <>
-            <source srcSet={optimizedDesktop} type="image/webp" />
-            <source srcSet={image.desktop} />
-          </>
-        ) : null}
-        <img
-          src={optimizedDesktop}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          loading={loading}
-          decoding="async"
-        />
-      </picture>
+      <ExpandableImage
+        alt={image.alt}
+        height={image.height}
+        src={optimizedDesktop}
+        width={image.width}
+      >
+        <picture>
+          {image.mobile !== image.desktop ? (
+            <>
+              {hasWebpSibling(image.mobile) ? (
+                <source
+                  media="(max-width: 767px)"
+                  srcSet={webpSource(image.mobile)}
+                  type="image/webp"
+                />
+              ) : null}
+              <source media="(max-width: 767px)" srcSet={image.mobile} />
+            </>
+          ) : null}
+          {hasWebpSibling(image.desktop) ? (
+            <>
+              <source srcSet={optimizedDesktop} type="image/webp" />
+              <source srcSet={image.desktop} />
+            </>
+          ) : null}
+          <img
+            src={optimizedDesktop}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading={loading}
+            decoding="async"
+          />
+        </picture>
+      </ExpandableImage>
     </figure>
   );
 }

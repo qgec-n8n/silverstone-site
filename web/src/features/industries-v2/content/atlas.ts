@@ -121,7 +121,9 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -74.006,
     zone: "Eastern",
     tier: 1,
-    anchor: { wide: "e", compact: "e" },
+    /* South-east on the wide plate: due east sat squarely over Boston's
+       node, which is 13px east and 8px north of New York's at 1200. */
+    anchor: { wide: "se", compact: "e" },
   },
   {
     id: "bos",
@@ -175,7 +177,10 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -96.797,
     zone: "Central",
     tier: 1,
-    anchor: { wide: "w", compact: "n" },
+    /* North on the wide plate: west ran the name straight into Los Angeles's
+       label (south of its node, 270 units away) at every desktop width, and
+       south or east would sit on Houston's or Atlanta's node. */
+    anchor: { wide: "n", compact: "n" },
   },
   {
     id: "hou",

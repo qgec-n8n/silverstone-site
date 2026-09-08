@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
+import { ExpandableImage } from "~/components/media/expandable-image";
 import { RasterPicture } from "~/components/ui/raster-picture";
 
 import { Reveal } from "../components/reveal";
@@ -35,14 +36,21 @@ export function SystemVisual() {
           </Reveal>
           <Reveal className="ss-hv2-system-visual__media" delayMs={140} kind="image">
             <figure>
-              <RasterPicture
-                src="/home-v2/silverstone-system-visual.png"
+              <ExpandableImage
                 alt="Abstract chrome AI operating layer with cyan signal paths resolving into a central Silverstone system core."
-                width={1672}
                 height={941}
-                loading="lazy"
-                decoding="async"
-              />
+                src="/home-v2/silverstone-system-visual.png"
+                width={1672}
+              >
+                <RasterPicture
+                  src="/home-v2/silverstone-system-visual.png"
+                  alt="Abstract chrome AI operating layer with cyan signal paths resolving into a central Silverstone system core."
+                  width={1672}
+                  height={941}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </ExpandableImage>
             </figure>
           </Reveal>
         </div>

@@ -1,3 +1,4 @@
+import { ExpandableImage } from "~/components/media/expandable-image";
 import type { StoryPanel } from "~/data/home-v2";
 import { cn } from "~/lib/utils";
 
@@ -19,13 +20,15 @@ export function StoryImageCard({ panel }: StoryImageCardProps) {
     <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
       <Reveal className={cn(mediaRight && "lg:order-2")} kind="image">
         <figure className="ss-hv2-story__media">
-          <img
-            src={panel.image}
-            alt={panel.alt}
-            className="ss-hv2-img-mask"
-            loading="lazy"
-            decoding="async"
-          />
+          <ExpandableImage alt={panel.alt} src={panel.image}>
+            <img
+              src={panel.image}
+              alt={panel.alt}
+              className="ss-hv2-img-mask"
+              loading="lazy"
+              decoding="async"
+            />
+          </ExpandableImage>
         </figure>
       </Reveal>
 

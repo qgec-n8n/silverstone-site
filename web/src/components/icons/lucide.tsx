@@ -49,6 +49,12 @@ export const ArrowUpRight = createIcon("ArrowUpRight", [
   ["path", { d: "M7 7h10v10" }],
   ["path", { d: "M7 17 17 7" }],
 ]);
+export const Maximize2 = createIcon("Maximize2", [
+  ["path", { d: "M15 3h6v6" }],
+  ["path", { d: "M9 21H3v-6" }],
+  ["path", { d: "m21 3-7 7" }],
+  ["path", { d: "m3 21 7-7" }],
+]);
 export const CalendarCheck = createIcon("CalendarCheck", [
   ["path", { d: "M8 2v4" }],
   ["path", { d: "M16 2v4" }],

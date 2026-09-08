@@ -1,0 +1,397 @@
+/*
+ * Expandable images: the cue on the page and the lightbox it opens.
+ *
+ * Global on purpose — the lightbox is portalled out of every scoped
+ * stylesheet, so both halves style from the site tokens alone. The button
+ * takes the route's accent from `--srv2-accent` where a page defines one and
+ * the signal cyan elsewhere; the lightbox receives the same hue as
+ * `--lb-accent`, set inline at open time. See
+ * `~/components/media/expandable-image.tsx`.
+ */
+
+/* ---- The cue ---------------------------------------------------------- */
+
+.ss-zoom {
+  --zoom-accent: var(--srv2-accent, var(--ss-v2-signal-cyan));
+
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The picture keeps exactly the box it had before the button existed, so
+   every figure's reserved space and aspect ratio are unchanged. */
+.ss-zoom > picture,
+.ss-zoom > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ss-zoom:focus-visible {
+  outline: none;
+}
+
+.ss-zoom__ghost {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Four corner brackets: the reticle that says "this frame opens". They sit
+   above the figures' own gradient overlays (absolute, later in the tree). */
+.ss-zoom__corner {
+  --zoom-inset: 0.75rem;
+
+  position: absolute;
+  z-index: 2;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 1.5px solid color-mix(in srgb, var(--zoom-accent) 62%, var(--ss-v2-platinum));
+  opacity: 0.55;
+  filter: drop-shadow(
+    0 0 4px color-mix(in srgb, var(--ss-v2-void-black) 70%, transparent)
+  );
+  pointer-events: none;
+  transition:
+    translate 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease;
+}
+
+.ss-zoom__corner[data-at="nw"] {
+  top: var(--zoom-inset);
+  left: var(--zoom-inset);
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 5px;
+}
+
+.ss-zoom__corner[data-at="ne"] {
+  top: var(--zoom-inset);
+  right: var(--zoom-inset);
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: 5px;
+}
+
+.ss-zoom__corner[data-at="sw"] {
+  bottom: var(--zoom-inset);
+  left: var(--zoom-inset);
+  border-right: 0;
+  border-top: 0;
+  border-bottom-left-radius: 5px;
+}
+
+.ss-zoom__corner[data-at="se"] {
+  right: var(--zoom-inset);
+  bottom: var(--zoom-inset);
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 5px;
+}
+
+/* The chip: a small glass instrument in the corner, always legible at rest
+   (a finger has no hover), lit and fully present under a pointer. */
+.ss-zoom__cue {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.44rem 0.72rem 0.44rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--zoom-accent) 42%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 60%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--ss-v2-platinum);
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 12%, transparent),
+    0 10px 28px -16px var(--ss-v2-void-black);
+  opacity: 0.86;
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    opacity 320ms ease,
+    border-color 320ms ease,
+    box-shadow 320ms ease,
+    translate 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-zoom__cue svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--zoom-accent);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--zoom-accent) 70%, transparent));
+}
+
+/* A single light crosses the chip under a pointer. */
+.ss-zoom__cue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 34%,
+    color-mix(in srgb, var(--ss-v2-platinum) 24%, transparent) 50%,
+    transparent 66%
+  );
+  translate: -130% 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .ss-zoom:hover .ss-zoom__cue,
+  .ss-zoom:focus-visible .ss-zoom__cue {
+    opacity: 1;
+    border-color: color-mix(in srgb, var(--zoom-accent) 72%, var(--ss-v2-hairline));
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 14%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--zoom-accent) 28%, transparent),
+      0 0 26px -6px color-mix(in srgb, var(--zoom-accent) 70%, transparent);
+    translate: 0 -2px;
+  }
+
+  .ss-zoom:hover .ss-zoom__corner,
+  .ss-zoom:focus-visible .ss-zoom__corner {
+    opacity: 1;
+  }
+
+  /* The brackets glide out toward the true corners: the frame opening. */
+  .ss-zoom:hover .ss-zoom__corner[data-at="nw"],
+  .ss-zoom:focus-visible .ss-zoom__corner[data-at="nw"] {
+    translate: -0.28rem -0.28rem;
+  }
+
+  .ss-zoom:hover .ss-zoom__corner[data-at="ne"],
+  .ss-zoom:focus-visible .ss-zoom__corner[data-at="ne"] {
+    translate: 0.28rem -0.28rem;
+  }
+
+  .ss-zoom:hover .ss-zoom__corner[data-at="sw"],
+  .ss-zoom:focus-visible .ss-zoom__corner[data-at="sw"] {
+    translate: -0.28rem 0.28rem;
+  }
+
+  .ss-zoom:hover .ss-zoom__corner[data-at="se"],
+  .ss-zoom:focus-visible .ss-zoom__corner[data-at="se"] {
+    translate: 0.28rem 0.28rem;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ss-zoom:hover .ss-zoom__cue::after {
+    animation: ss-zoom-sheen 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* No hover on a finger: the chip and brackets stay a step brighter. */
+@media (hover: none) {
+  .ss-zoom__cue {
+    opacity: 0.94;
+  }
+
+  .ss-zoom__corner {
+    opacity: 0.72;
+  }
+}
+
+.ss-zoom:focus-visible .ss-zoom__cue {
+  outline: 2px solid color-mix(in srgb, var(--zoom-accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+/* An open image's socket steps back under the scrim. */
+.ss-zoom[data-state="open"] .ss-zoom__cue,
+.ss-zoom[data-state="open"] .ss-zoom__corner {
+  opacity: 0;
+}
+
+@keyframes ss-zoom-sheen {
+  from {
+    translate: -130% 0;
+  }
+
+  to {
+    translate: 130% 0;
+  }
+}
+
+/* ---- The lightbox ------------------------------------------------------ */
+
+/* The portal wrapper: its own fixed layer on the 700/800 ladder the site's
+   dialogs use — above the header (400) and the drawer (500). Pointer events
+   are off here and back on for the scrim (Radix sets it inline) and the
+   frame. */
+.ss-lightbox {
+  --lb-accent: var(--ss-v2-signal-cyan);
+
+  position: fixed;
+  inset: 0;
+  z-index: 700;
+  pointer-events: none;
+}
+
+.ss-lightbox__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 700;
+  background: color-mix(in srgb, var(--ss-v2-void-blue) 74%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.ss-lightbox__stage {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  display: grid;
+  place-items: center;
+  padding: max(0.9rem, env(safe-area-inset-top)) max(0.9rem, env(safe-area-inset-right))
+    max(0.9rem, env(safe-area-inset-bottom)) max(0.9rem, env(safe-area-inset-left));
+  pointer-events: none;
+}
+
+@media (min-width: 46rem) {
+  .ss-lightbox__stage {
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+}
+
+.ss-lightbox__panel {
+  display: grid;
+  width: 100%;
+  max-height: 100%;
+  gap: 0.9rem;
+  justify-items: center;
+  pointer-events: none;
+  outline: none;
+}
+
+/* The frame is sized by the image's own ratio: as wide as the stage allows,
+   never taller than the viewport minus room for the caption, capped so a
+   wide screen does not blow a 1600px still up to 3000. */
+.ss-lightbox__frame {
+  position: relative;
+  width: min(100%, calc(var(--lb-ratio, 1.5) * (100svh - 8rem)), 90rem);
+  margin: 0;
+  aspect-ratio: var(--lb-ratio, 1.5);
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--lb-accent) 36%, var(--ss-v2-hairline));
+  background: var(--ss-v2-graphite);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--lb-accent) 16%, transparent),
+    0 60px 140px -44px rgb(0 0 0 / 0.85),
+    0 30px 100px -40px color-mix(in srgb, var(--lb-accent) 60%, transparent);
+  pointer-events: auto;
+  /* A transform every frame of the morph; promote once. */
+  will-change: transform;
+}
+
+.ss-lightbox__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* One diagonal light crosses the frame as it lands. */
+.ss-lightbox__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    112deg,
+    transparent 34%,
+    color-mix(in srgb, var(--ss-v2-platinum) 10%, transparent) 47%,
+    color-mix(in srgb, var(--lb-accent) 12%, transparent) 52%,
+    transparent 66%
+  );
+  translate: -130% 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ss-lightbox__frame::after {
+    animation: ss-zoom-sheen 1100ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
+  }
+}
+
+.ss-lightbox__close {
+  position: absolute;
+  top: clamp(0.8rem, 0.6rem + 0.8vw, 1.2rem);
+  right: clamp(0.8rem, 0.6rem + 0.8vw, 1.2rem);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--lb-accent) 34%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 46%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: color-mix(in srgb, var(--lb-accent) 30%, var(--ss-v2-platinum));
+  cursor: pointer;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.ss-lightbox__close svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.ss-lightbox__close:hover,
+.ss-lightbox__close:focus-visible {
+  border-color: color-mix(in srgb, var(--lb-accent) 60%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--lb-accent) 16%, transparent);
+  color: var(--ss-v2-platinum);
+}
+
+.ss-lightbox__close:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--lb-accent) 75%, transparent);
+  outline-offset: 2px;
+}
+
+.ss-lightbox__caption {
+  max-width: min(100%, 64ch);
+  margin: 0;
+  padding-top: 0.2rem;
+  color: var(--ss-v2-titanium);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-zoom__cue,
+  .ss-zoom__corner,
+  .ss-lightbox__close {
+    transition: none;
+  }
+}

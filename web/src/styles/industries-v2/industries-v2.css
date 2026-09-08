@@ -2236,7 +2236,8 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     "readout"
     "chart"
     "control"
-    "strip";
+    "strip"
+    "frontier";
   gap: clamp(0.75rem, 0.55rem + 0.8vw, 1.15rem);
   padding: clamp(0.9rem, 0.6rem + 1.3vw, 1.8rem);
   border-radius: var(--ss-radius-2xl);
@@ -2261,7 +2262,8 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     grid-template-areas:
       "readout control"
       "chart chart"
-      "strip strip";
+      "strip strip"
+      "frontier frontier";
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
   }
@@ -2887,6 +2889,16 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   }
 }
 
+/* Between the compact breakpoint and ~1090px the wide plate is drawn at
+   under 860px, and the second tier's names (Denver, Seattle) no longer clear
+   Chicago's and each other's. The plate keeps their nodes and routes; the
+   strip under it keeps their names. */
+@media (min-width: 52rem) and (max-width: 67.999rem) {
+  .ss-ind2-atlas__label[data-tier="2"] {
+    display: none;
+  }
+}
+
 /* Pointing at a city brightens its callout. The arcs are not singled out on
    hover: the labels carry no per-city key. */
 @media (hover: hover) {
@@ -2937,27 +2949,118 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 }
 
 /* Neither plate labels every metro — seven on the wide plate, five on the
-   compact — so the strip prints all twelve at every width. On the wide plate
-   it is a legend line under the map, set a step tighter so the twelve names
-   hold one line inside the frame. */
-@media (min-width: 52rem) {
-  .ss-ind2-atlas__strip-line {
-    font-size: 0.56rem;
-    letter-spacing: 0.08em;
-  }
+   compact — so the strip names all twelve at every width, behind a row that
+   opens and shuts. The row is the whole disclosure control: label, count,
+   the state's own verb, and a chevron that turns. */
+.ss-ind2-atlas__strip-toggle {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.7rem;
+  margin: 0;
+  padding: 0.55rem 0.1rem;
+  border: 0;
+  border-top: 1px solid
+    color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 320ms ease;
+}
 
-  .ss-ind2-atlas__strip-city + .ss-ind2-atlas__strip-city::before {
-    margin-inline: 0.42em;
-  }
+.ss-ind2-atlas__strip-toggle:hover,
+.ss-ind2-atlas__strip-toggle:focus-visible {
+  border-top-color: color-mix(in srgb, var(--srv2-accent) 40%, var(--ss-v2-hairline));
+}
+
+.ss-ind2-atlas__strip-toggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.ss-ind2-atlas__strip-label {
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--mk-hue-us) 62%, var(--ss-v2-platinum));
+}
+
+.ss-ind2-atlas__strip-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding-inline: 0.4rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--mk-hue-us) 40%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--mk-hue-us) 12%, transparent);
+  color: var(--ss-v2-platinum);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.ss-ind2-atlas__strip-hint {
+  margin-left: auto;
+  color: color-mix(in srgb, var(--srv2-accent) 58%, var(--ss-v2-titanium));
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 240ms ease;
+}
+
+.ss-ind2-atlas__strip-toggle:hover .ss-ind2-atlas__strip-hint {
+  color: var(--ss-v2-platinum);
+}
+
+.ss-ind2-atlas__strip-chevron {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: none;
+  color: color-mix(in srgb, var(--srv2-accent) 70%, var(--ss-v2-platinum));
+  transition: rotate 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__strip-toggle[data-state="open"] .ss-ind2-atlas__strip-chevron {
+  rotate: 180deg;
+}
+
+/* The fold: a grid row that grows from nothing to its content, so the names
+   stay in the document (crawlable, searchable) whether the row is open or
+   shut; `inert` keeps a shut fold out of the tab order. */
+.ss-ind2-atlas__strip-fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease;
+}
+
+.ss-ind2-atlas__strip-fold[data-state="open"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
 .ss-ind2-atlas__strip-line {
   display: flex;
+  min-height: 0;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.25rem 0;
+  gap: 0.3rem 0;
   margin: 0;
   max-width: none;
+  overflow: hidden;
   font-family: var(--ss-font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.1em;
@@ -2965,10 +3068,8 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   text-transform: uppercase;
 }
 
-.ss-ind2-atlas__strip-label {
-  margin-right: 0.85em;
-  color: color-mix(in srgb, var(--mk-hue-us) 62%, var(--ss-v2-platinum));
-  white-space: nowrap;
+.ss-ind2-atlas__strip-fold[data-state="open"] .ss-ind2-atlas__strip-line {
+  padding: 0.35rem 0.1rem 0.5rem;
 }
 
 .ss-ind2-atlas__strip-city {
@@ -2985,6 +3086,237 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   content: "·";
   margin-inline: 0.5em;
   color: color-mix(in srgb, var(--srv2-accent) 40%, var(--ss-v2-titanium));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-ind2-atlas__strip-fold,
+  .ss-ind2-atlas__strip-chevron {
+    transition: none;
+  }
+}
+
+/* ---- The frontier ---------------------------------------------------------- */
+
+/* The first-in-city offer, under the strip and outside its fold: the one
+   band in the atlas that asks for something, so it carries the second accent
+   (the US lane's hue), a lit top edge, and a figure big enough to be read
+   from across the room. */
+.ss-ind2-atlas__frontier-reveal {
+  grid-area: frontier;
+  min-width: 0;
+}
+
+.ss-ind2-atlas__frontier {
+  --fr-hue: var(--srv2-accent-2);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: clamp(1.05rem, 0.85rem + 1vw, 1.6rem) clamp(1.05rem, 0.85rem + 1.2vw, 1.8rem);
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--fr-hue) 36%, var(--ss-v2-hairline));
+  background:
+    radial-gradient(
+      120% 140% at 0% 0%,
+      color-mix(in srgb, var(--fr-hue) 20%, transparent),
+      transparent 56%
+    ),
+    radial-gradient(
+      110% 140% at 100% 100%,
+      color-mix(in srgb, var(--srv2-accent) 16%, transparent),
+      transparent 60%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite-raised) 72%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--fr-hue) 14%, transparent),
+    0 34px 90px -54px color-mix(in srgb, var(--fr-hue) 80%, transparent);
+  overflow: hidden;
+}
+
+/* A signal travels the top edge: the band is live, not a printed notice. */
+.ss-ind2-atlas__frontier::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 46%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--fr-hue) 70%, var(--ss-v2-platinum)) 50%,
+    transparent
+  );
+  translate: -100% 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ss-ind2-atlas__frontier::before {
+    animation: ss-atlas-frontier-scan 5.6s cubic-bezier(0.4, 0, 0.2, 1) 1.2s infinite;
+  }
+}
+
+@keyframes ss-atlas-frontier-scan {
+  0% {
+    translate: -100% 0;
+  }
+
+  60%,
+  100% {
+    translate: 220% 0;
+  }
+}
+
+@media (min-width: 52rem) {
+  .ss-ind2-atlas__frontier {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 1.25rem clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  }
+}
+
+.ss-ind2-atlas__frontier-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.45rem;
+}
+
+.ss-ind2-atlas__frontier-badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.6rem 0.3rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--fr-hue) 44%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--fr-hue) 12%, transparent);
+  color: color-mix(in srgb, var(--fr-hue) 55%, var(--ss-v2-platinum));
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-ind2-atlas__frontier-badge svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--fr-hue);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--fr-hue) 80%, transparent));
+}
+
+.ss-ind2-atlas__frontier-title {
+  margin: 0;
+  max-width: none;
+  color: var(--ss-v2-platinum);
+  font-family: var(--ss-font-display, inherit);
+  font-size: clamp(1.12rem, 1rem + 0.7vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.ss-ind2-atlas__frontier-body {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--srv2-ink-soft);
+  font-size: clamp(0.92rem, 0.88rem + 0.25vw, 1.02rem);
+  line-height: 1.55;
+}
+
+.ss-ind2-atlas__frontier-body strong {
+  color: var(--ss-v2-platinum);
+  font-weight: 600;
+}
+
+/* The figure: spectral type across the two accents. A static gradient on
+   purpose — animating a clipped-text gradient repaints every frame, and the
+   site only runs loops it can gate on visibility; the band's edge scan
+   (a transform) is the one live element here. */
+.ss-ind2-atlas__frontier-figure {
+  display: grid;
+  margin: 0;
+  max-width: none;
+  justify-items: start;
+  gap: 0.15rem;
+}
+
+@media (min-width: 52rem) {
+  .ss-ind2-atlas__frontier-figure {
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+.ss-ind2-atlas__frontier-figure-value {
+  background-image: linear-gradient(
+    100deg,
+    var(--srv2-accent),
+    var(--ss-v2-platinum) 45%,
+    var(--fr-hue) 80%,
+    var(--srv2-accent)
+  );
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-family: var(--ss-font-display, inherit);
+  font-size: clamp(2.3rem, 1.9rem + 2vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--fr-hue) 45%, transparent));
+}
+
+.ss-ind2-atlas__frontier-figure-label {
+  color: color-mix(in srgb, var(--fr-hue) 50%, var(--ss-v2-titanium));
+  font-family: var(--ss-font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-ind2-atlas__frontier-cta {
+  justify-self: start;
+  white-space: nowrap;
+}
+
+.ss-ind2-atlas__frontier-cta svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (min-width: 52rem) {
+  .ss-ind2-atlas__frontier-cta {
+    justify-self: end;
+  }
+}
+
+/* Phone: the badge wraps rather than clips, and the strip's label holds one
+   line beside its count so the row does not break mid-phrase. */
+@media (max-width: 33.999rem) {
+  .ss-ind2-atlas__frontier-badge {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.35;
+  }
+
+  .ss-ind2-atlas__strip-label {
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-ind2-atlas__frontier::before {
+    animation: none;
+  }
 }
 
 /* ---- Ledger frame ---------------------------------------------------------- */
@@ -4376,6 +4708,49 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   outline: none;
   transform-style: flat;
   transition: none;
+  /* The morph is a transform on this element every frame; promote it once
+     so the lift never waits on a layer allocation mid-spring. */
+  will-change: transform;
+}
+
+/* One diagonal sheen crosses the opened card as it lands — the same light
+   the framed panels ignite with — so the lift reads as the card switching on
+   rather than merely enlarging. Clipped by the card's own overflow. */
+.ss-ind2-compliance__card--focus::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    112deg,
+    transparent 32%,
+    color-mix(in srgb, var(--ss-v2-platinum) 9%, transparent) 46%,
+    color-mix(in srgb, var(--cmp-hue) 14%, transparent) 52%,
+    transparent 66%
+  );
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.ss-ind2-compliance-focus__body {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ss-ind2-compliance__card--focus::before {
+    animation: ss-cmp-focus-sheen 1100ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+  }
+}
+
+@keyframes ss-cmp-focus-sheen {
+  from {
+    transform: translateX(-130%);
+  }
+
+  to {
+    transform: translateX(130%);
+  }
 }
 
 /* The body is its own Motion layout node, counter-scaled against the

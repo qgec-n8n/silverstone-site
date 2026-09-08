@@ -114,7 +114,9 @@ export function HomeV2({ contentId }: { contentId?: string }) {
       return undefined;
     }
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      // A dialog on the page (an expanded image) handles its own Escape and
+      // marks the event, so closing it must not also close the homepage body.
+      if (event.key === "Escape" && !event.defaultPrevented) {
         event.preventDefault();
         handleCloseBody();
       }

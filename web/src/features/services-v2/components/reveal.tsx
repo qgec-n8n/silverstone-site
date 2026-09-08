@@ -516,7 +516,7 @@ function ImageReveal({
     once: true,
   });
   const imagesLoaded = useImagesLoaded(containerRef);
-  const start = useRevealStart(containerRef, inView && imagesLoaded, delayMs);
+  const start = useRevealStart(containerRef, inView, delayMs, imagesLoaded);
 
   return (
     <m.div

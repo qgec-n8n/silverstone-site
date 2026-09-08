@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   type LucideIcon,
 } from "~/components/icons/lucide";
+import { ExpandableImage } from "~/components/media/expandable-image";
 import type { ApprovedCopyCard } from "~/content/services/approved-services";
 import { hasWebpSibling, webpSource } from "~/lib/image-sources";
 
@@ -38,30 +39,37 @@ export function ServiceFigure({ image }: { image: RouteArt["image"] }) {
 
   return (
     <figure className="ss-srv2-figure">
-      <picture>
-        {hasWebpSibling(image.mobile) ? (
-          <source
-            media="(max-width: 767px)"
-            srcSet={webpSource(image.mobile)}
-            type="image/webp"
+      <ExpandableImage
+        alt={image.alt}
+        height={image.height}
+        src={optimizedDesktop}
+        width={image.width}
+      >
+        <picture>
+          {hasWebpSibling(image.mobile) ? (
+            <source
+              media="(max-width: 767px)"
+              srcSet={webpSource(image.mobile)}
+              type="image/webp"
+            />
+          ) : null}
+          <source media="(max-width: 767px)" srcSet={image.mobile} />
+          {hasWebpSibling(image.desktop) ? (
+            <>
+              <source srcSet={optimizedDesktop} type="image/webp" />
+              <source srcSet={image.desktop} />
+            </>
+          ) : null}
+          <img
+            src={optimizedDesktop}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
           />
-        ) : null}
-        <source media="(max-width: 767px)" srcSet={image.mobile} />
-        {hasWebpSibling(image.desktop) ? (
-          <>
-            <source srcSet={optimizedDesktop} type="image/webp" />
-            <source srcSet={image.desktop} />
-          </>
-        ) : null}
-        <img
-          src={optimizedDesktop}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </picture>
+        </picture>
+      </ExpandableImage>
     </figure>
   );
 }

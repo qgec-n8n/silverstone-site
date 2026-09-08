@@ -7,6 +7,7 @@
 @import "../styles/experience-gate.css";
 @import "../styles/shell-header.css";
 @import "../styles/currency.css";
+@import "../styles/image-lightbox.css";
 
 @custom-variant dark (&:is(.dark *));
 

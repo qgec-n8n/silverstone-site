@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 
+import { ExpandableImage } from "~/components/media/expandable-image";
 import { Stack } from "~/components/layout/stack";
 import { TextLink } from "~/components/ui/text-link";
 import type {
@@ -83,15 +84,23 @@ function ContentBlock({
     }
     return (
       <figure>
-        <img
+        <ExpandableImage
           alt={asset.altCandidate}
-          className="h-auto w-full rounded-[var(--ss-radius-lg)]"
-          decoding="async"
+          className="overflow-hidden rounded-[var(--ss-radius-lg)]"
           height={asset.height}
-          loading="lazy"
           src={asset.publicPath}
           width={asset.width}
-        />
+        >
+          <img
+            alt={asset.altCandidate}
+            className="h-auto w-full rounded-[var(--ss-radius-lg)]"
+            decoding="async"
+            height={asset.height}
+            loading="lazy"
+            src={asset.publicPath}
+            width={asset.width}
+          />
+        </ExpandableImage>
       </figure>
     );
   }
