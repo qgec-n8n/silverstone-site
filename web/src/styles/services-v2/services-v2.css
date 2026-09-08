@@ -2392,14 +2392,39 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   letter-spacing: -0.02em;
   /* The verified figures carry the page's accent sweep — the same gradient
      treatment as heading emphasis, so stats read as the palette's proof
-     moments. Solid `color` stop kept for contrast checkers (see
-     .ss-chrome-text in tokens/cinematic.css). */
+     moments. The sweep itself rides on an aria-hidden twin of the figure
+     (`__sheen`, below); the figure that carries the text is solid, in the
+     sweep's midpoint colour, so it stays legible for contrast checkers and
+     whenever the twin fails to paint. */
+  color: color-mix(in srgb, var(--srv2-accent) 50%, var(--srv2-accent-2));
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The figure and its gradient twin. `background-clip: text` is the only way
+ * to paint a gradient through live text, and WebKit can stop painting it
+ * after the layer tree above changes — a fixed lightbox scrim coming and
+ * going — which left the numbers blank while the labels beside them stayed.
+ * The twin sits in the figure's own box with the same text, font and
+ * tracking, so when it paints it covers the same glyphs exactly, and when it
+ * does not the solid figure beneath still reads. The count-up writes both.
+ */
+.ss-srv2-metric__figure {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.ss-srv2-metric__sheen {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(100deg, var(--srv2-accent), var(--srv2-accent-2));
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--srv2-accent);
+  color: transparent;
   -webkit-text-fill-color: transparent;
-  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  user-select: none;
 }
 
 .ss-srv2-metric[data-value-size="medium"] .ss-srv2-metric__value {

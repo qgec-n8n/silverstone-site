@@ -19,7 +19,9 @@ import {
 import * as m from "motion/react-m";
 import {
   useEffect,
+  useMemo,
   useRef,
+  useSyncExternalStore,
   type ComponentPropsWithoutRef,
   type ReactNode,
 } from "react";
@@ -60,17 +62,50 @@ export function splitMetric(metric: string): { value: string; label: string } {
   return { value: metric.trim(), label: "" };
 }
 
+/* The gradient twin is client-only: the prerendered document carries each
+   verified figure exactly once, so a crawler that stores the HTML as the
+   page's facts never reads "850%850%". Server snapshot false, client true —
+   the twin mounts on the first post-hydration render, before anything has
+   scrolled it into view. */
+const subscribeNever = () => () => undefined;
+const useHydrated = () =>
+  useSyncExternalStore(
+    subscribeNever,
+    () => true,
+    () => false,
+  );
+
 /**
  * Animated count-up for a benchmark value. Only animates when the value has a
  * single clean leading numeric token (currency/sign/commas/decimals); anything
  * else (ranges, "<10 seconds", "3x → 20x") renders statically, unchanged, so
- * verified figures are never altered or misrepresented.
+ * verified figures are never altered or mismatched.
+ *
+ * `sheen` renders the figure twice: a solid one that carries the text, and an
+ * aria-hidden twin laid exactly over it that carries the accent gradient
+ * (`.ss-srv2-metric__sheen`). `background-clip: text` is the only way to paint
+ * a gradient through live text, and WebKit can stop painting it after the
+ * layer tree above changes — a fixed lightbox scrim coming and going — which
+ * left the proof console's numbers blank while their labels stayed. With the
+ * gradient on a twin, that failure shows the solid figure beneath instead of
+ * nothing; when it paints, the twin covers the same glyphs and nothing moves.
  */
-export function AnimatedMetricValue({ value }: { value: string }) {
+export function AnimatedMetricValue({
+  sheen = false,
+  value,
+}: {
+  /** Overlay the accent-gradient twin (see above). */
+  sheen?: boolean;
+  value: string;
+}) {
   const reducedMotion = useReducedMotion() ?? false;
+  const twin = useHydrated() && sheen;
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
-  const match = NUMERIC_METRIC.exec(value);
+  // Memoised on purpose: `exec` returns a fresh array every call, and as an
+  // effect dependency that re-ran the count-up — back to 0 — on every
+  // re-render of the console, not just the once when it scrolled into view.
+  const match = useMemo(() => NUMERIC_METRIC.exec(value), [value]);
   const currency = match?.[1] ?? "";
   const sign = match?.[2] ?? "";
   const numericText = match?.[3] ?? "";
@@ -102,14 +137,35 @@ export function AnimatedMetricValue({ value }: { value: string }) {
     return () => controls.stop();
   }, [inView, match, motionValue, numericTarget, reducedMotion]);
 
-  if (!match) {
-    return <span>{value}</span>;
-  }
-  if (reducedMotion) {
-    return <span>{value}</span>;
+  if (!match || reducedMotion) {
+    return sheen ? (
+      <span className="ss-srv2-metric__figure">
+        <span>{value}</span>
+        {twin ? (
+          <span aria-hidden="true" className="ss-srv2-metric__sheen">
+            {value}
+          </span>
+        ) : null}
+      </span>
+    ) : (
+      <span>{value}</span>
+    );
   }
 
-  return <m.span ref={ref}>{rendered}</m.span>;
+  const figure = <m.span ref={ref}>{rendered}</m.span>;
+  if (!sheen) {
+    return figure;
+  }
+  return (
+    <span className="ss-srv2-metric__figure">
+      {figure}
+      {twin ? (
+        <m.span aria-hidden="true" className="ss-srv2-metric__sheen">
+          {rendered}
+        </m.span>
+      ) : null}
+    </span>
+  );
 }
 
 /** Measured prose block: renders each paragraph with inline rich text. */

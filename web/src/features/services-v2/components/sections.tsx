@@ -141,7 +141,7 @@ export function BenchmarkConsole({
             <Reveal key={metric} kind="metric" delayMs={150 + index * 110}>
               <div className="ss-srv2-metric" data-value-size={valueSize}>
                 <span className="ss-srv2-metric__value">
-                  <AnimatedMetricValue value={value} />
+                  <AnimatedMetricValue sheen value={value} />
                 </span>
                 {label ? <span className="ss-srv2-metric__label">{label}</span> : null}
               </div>

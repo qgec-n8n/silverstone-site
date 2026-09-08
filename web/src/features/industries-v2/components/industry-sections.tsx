@@ -382,16 +382,17 @@ export function FitPanel({ right, caution }: { right: string[]; caution: string 
 /** Node and stroke sizes in viewBox units, per plate: the wide plate shows
  * ~0.46px per unit at 1100 wide, the compact one ~0.32px at 340. `quiet` is
  * a third-tier metro — plotted, never linked — and `ripple` the radius the
- * lit country's rings start from. The compact hub is held only a step above
- * its metros rather than at the wide plate's ratio: on a phone-width plate
- * London at 17 (bloom out to 102) read as a blob over the whole south-east,
- * so it is 13 — still the largest node, no longer the loudest thing on it. */
+ * lit country's rings start from. The compact hub is deliberately a size
+ * UNDER its metros rather than at the wide plate's ratio: on a phone-width
+ * plate London is the lit node — halo breathing, ring, bloom — and at 17
+ * (bloom out to 102) it read as a blob over the whole south-east. At 10 the
+ * glow still marks it as the hub; the dot itself stays out of the way. */
 const ATLAS_SIZE: Record<
   AtlasPlate["name"],
   { city: number; quiet: number; hub: number; ripple: { us: number; uk: number } }
 > = {
   wide: { city: 9, quiet: 6, hub: 14, ripple: { us: 70, uk: 22 } },
-  compact: { city: 11, quiet: 7, hub: 13, ripple: { us: 44, uk: 20 } },
+  compact: { city: 11, quiet: 7, hub: 10, ripple: { us: 44, uk: 20 } },
 };
 
 const spell = (n: number) =>
@@ -681,27 +682,46 @@ function AtlasLabels({ controlId }: { controlId: string }) {
       }))
       .filter(({ wide }) => wide.labelled),
   ];
-  return pairs.map(({ wide, compact, side }) => (
-    <label
-      className="ss-ind2-atlas__label"
-      data-anchor-compact={compact.side}
-      data-anchor-wide={wide.side}
-      data-side={side}
-      data-tier={wide.tier}
-      htmlFor={`${controlId}-${side === "uk" ? "gbp" : "usd"}`}
-      key={wide.id}
-      style={
-        {
-          "--at-wx": wide.at.x,
-          "--at-wy": wide.at.y,
-          "--at-cx": compact.at.x,
-          "--at-cy": compact.at.y,
-        } as CSSProperties
-      }
-    >
-      <span className="ss-ind2-atlas__label-name">{wide.name}</span>
-    </label>
-  ));
+  return pairs.map(({ wide, compact, side }) => {
+    const inputId = `${controlId}-${side === "uk" ? "gbp" : "usd"}`;
+    return (
+      <label
+        className="ss-ind2-atlas__label"
+        data-anchor-compact={compact.side}
+        data-anchor-wide={wide.side}
+        data-side={side}
+        data-tier={wide.tier}
+        htmlFor={inputId}
+        key={wide.id}
+        onClick={(event) => {
+          /* A label's native activation focuses its radio, and browsers scroll
+           a newly focused control into view — Chrome centres it — so a click
+           on a city lurched the page toward the market switch (about 450px
+           at desktop, where the switch sits in the readout band under the
+           sticky header). Do the activation by hand: focus without
+           scrolling, then the click that checks it. The `for` association
+           stays for the prerendered document and readers without script. */
+          const input = document.getElementById(inputId);
+          if (!(input instanceof HTMLInputElement)) {
+            return;
+          }
+          event.preventDefault();
+          input.focus({ preventScroll: true });
+          input.click();
+        }}
+        style={
+          {
+            "--at-wx": wide.at.x,
+            "--at-wy": wide.at.y,
+            "--at-cx": compact.at.x,
+            "--at-cy": compact.at.y,
+          } as CSSProperties
+        }
+      >
+        <span className="ss-ind2-atlas__label-name">{wide.name}</span>
+      </label>
+    );
+  });
 }
 
 /**
