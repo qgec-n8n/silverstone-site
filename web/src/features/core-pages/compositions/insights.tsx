@@ -11,6 +11,7 @@ import { InsightsBoard } from "~/features/core-pages/insights-board";
 import { CoreCardGrid, type CoreCard } from "~/features/core-pages/shared";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { INSIGHTS_MOBILE_HERO } from "~/features/core-pages/mobile-hero-copy";
 import {
   FinalCta,
   RelatedRail,
@@ -88,6 +89,7 @@ export function InsightsComposition() {
             text: "Jump-off points into services, pricing and discovery",
           },
         ]}
+        mobile={INSIGHTS_MOBILE_HERO}
         primaryCtaLabel="Browse all Insights"
         primaryCtaHref="/blog#insights-index"
         secondaryCtaLabel="Book a discovery call"

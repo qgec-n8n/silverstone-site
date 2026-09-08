@@ -31,6 +31,14 @@ export const dentistsCopy: IndustryCopy = {
     "Recall and rebooking with a named owner",
     "Clinical judgment never leaves the practice",
   ],
+  mobile: {
+    tagline: "Every missed call becomes a *booked patient*",
+    points: [
+      "Missed calls recovered",
+      "Recall with a named owner",
+      "Care stays with clinicians",
+    ],
+  },
   trustTokens: ["Non-clinical", "Data-minimized", "Escalation-led", "Practice-owned"],
   markets: {
     eyebrow: "Built for your market",

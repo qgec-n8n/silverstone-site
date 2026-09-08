@@ -286,3 +286,124 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     display: none;
   }
 }
+
+/* ---- Market focus (industry pages' Atlantic Bridge) ------------------------
+
+  Same control, same store, read as a market rather than as a currency: the
+  reader of an industry page is choosing which market the page leads with, and
+  the display currency follows from that.
+
+  The "US" / "UK" wording is REAL TEXT rendered by the component, not a CSS
+  `content` string. It was generated here once, and that put the control in
+  breach of WCAG 2.5.3: a sighted reader saw "£ UK" while the radio's
+  accessible name stayed "GBP, British pounds", so voice control could not
+  reach it by the word on screen. Anything a reader can read aloud belongs in
+  the DOM.
+*/
+
+.ss-cur[data-context="markets"] {
+  --ss-cur-track: color-mix(in srgb, var(--ss-v2-void-black) 62%, transparent);
+  --ss-cur-track-edge: color-mix(
+    in srgb,
+    var(--srv2-accent, var(--ss-v2-signal-cyan)) 26%,
+    var(--ss-v2-hairline)
+  );
+  --ss-cur-lozenge: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ss-v2-graphite-raised) 94%, var(--ss-v2-platinum)),
+    var(--ss-v2-graphite)
+  );
+  --ss-cur-lozenge-edge: color-mix(
+    in srgb,
+    var(--srv2-accent, var(--ss-v2-signal-cyan)) 40%,
+    transparent
+  );
+  --ss-cur-lozenge-shadow:
+    0 0 0 1px rgba(5, 7, 10, 0.55),
+    0 12px 26px -16px
+      color-mix(in srgb, var(--srv2-accent, var(--ss-v2-signal-cyan)) 85%, transparent);
+  --ss-cur-text: var(--ss-v2-titanium);
+  --ss-cur-text-active: var(--ss-v2-platinum);
+  --ss-cur-accent: var(--srv2-accent, var(--ss-v2-signal-cyan));
+  --ss-cur-seg: 4rem;
+}
+
+/* The market code replaces the currency code, in the same slot. */
+.ss-cur[data-context="markets"] .ss-cur__code {
+  display: none;
+}
+
+.ss-cur__market {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+/*
+  Touch widths: a 44px-tall track wherever the reader is likely to be tapping,
+  not only on a phone.
+*/
+@media (max-width: 51.999rem) {
+  .ss-cur[data-context="markets"] .ss-cur__track {
+    height: 2.75rem;
+  }
+
+  /* The 44px target is the INPUT, not the track. `.ss-cur__option` is a grid
+     item inside the track's 3px padding box, so its `height: 100%` resolves to
+     38px and the invisible input stretched over it inherits that miss. Growing
+     the input over the padding makes the tap area match the chrome the reader
+     is aiming at. Block axis only: widening it would overlap the neighbouring
+     segment by 6px down the centre line and hand those taps to whichever input
+     paints last. `height: auto` is required — with `top`, `bottom` AND `height`
+     all set the box is over-constrained and `bottom` is the one dropped. */
+  .ss-cur[data-context="markets"] .ss-cur__option input {
+    inset-block: -3px;
+    height: auto;
+  }
+
+  .ss-cur[data-context="markets"] .ss-cur__symbol {
+    font-size: 1.02rem;
+  }
+
+  .ss-cur[data-context="markets"] .ss-cur__market {
+    font-size: 0.72rem;
+  }
+}
+
+/*
+  Tablet: a fixed-width instrument. Full-bleed above a phone produced a ~600px
+  two-option slab at 768 whose glyph pair filled 16% of each segment, and it
+  read as a form field rather than as a control on a chart.
+*/
+@media (min-width: 34rem) and (max-width: 51.999rem) {
+  .ss-cur[data-context="markets"] {
+    --ss-cur-seg: 4.75rem;
+  }
+}
+
+/*
+  Phone: a full-width segmented switch. The lozenge is absolutely positioned
+  against the track's padding box, so `calc(50% - 3px)` is exactly one column
+  of the 3px-padded two-column track — width and travel from one expression.
+*/
+@media (max-width: 33.999rem) {
+  .ss-cur[data-context="markets"] {
+    --ss-cur-seg: calc(50% - 3px);
+
+    width: 100%;
+  }
+
+  .ss-cur[data-context="markets"] .ss-cur__track {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* `translate` resolves percentages against the ELEMENT's own box, not the
+     containing block — so the shared `--ss-cur-x: var(--ss-cur-seg)` rule would
+     travel half a lozenge, not half a track. The lozenge is exactly one column
+     wide here, so 100% of itself is exactly one segment. */
+  .ss-cur[data-context="markets"]:has(input[value="usd"]:checked) {
+    --ss-cur-x: 100%;
+  }
+}

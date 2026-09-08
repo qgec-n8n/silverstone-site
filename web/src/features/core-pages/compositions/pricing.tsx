@@ -39,6 +39,7 @@ import { CurrencyToggle } from "~/components/ui/currency-toggle";
 import { money } from "~/data/currency";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { PRICING_MOBILE_HERO } from "~/features/core-pages/mobile-hero-copy";
 import {
   FinalCta,
   RelatedRail,
@@ -82,6 +83,7 @@ export function PricingComposition() {
           "ROI modeled before build",
           "24/7 support on Premium and Enterprise retainers",
         ]}
+        mobile={PRICING_MOBILE_HERO}
         primaryCtaLabel="Get a custom quote"
         primaryCtaHref="/contact#contact-form"
         secondaryCtaLabel="Book a consultation"

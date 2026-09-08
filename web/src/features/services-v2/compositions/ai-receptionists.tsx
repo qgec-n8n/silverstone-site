@@ -85,6 +85,7 @@ export function AiReceptionistsComposition({
         titleId="srv2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={micro.ctaButton}
         secondaryCtaLabel="Try the live demo"
         secondaryCtaHref="/services/ai-receptionists#demo-ai-receptionists"

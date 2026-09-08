@@ -4,4 +4,10 @@
  * against the governed route manifest (including legacy /services/<industry>
  * aliases) and renders the industries-v2 experience for industry templates.
  */
-export { loader, meta, default } from "~/routes/services/detail";
+export {
+  loader,
+  clientLoader,
+  shouldRevalidate,
+  meta,
+  default,
+} from "~/routes/services/detail";

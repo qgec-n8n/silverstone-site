@@ -13,6 +13,8 @@
  */
 import type { ApprovedServiceRoute } from "~/content/services/approved-services";
 
+import type { MobileHeroCopy } from "./mobile-hero";
+
 export type ServicePoint = { title: string; body: string };
 
 export type ServiceCopy = {
@@ -24,6 +26,8 @@ export type ServiceCopy = {
   heroSub: string;
   /** Three concise capability points shown in the secondary-hero opener. */
   heroPoints: string[];
+  /** Phone-only hero copy; see `MobileHeroCopy`. */
+  mobile?: MobileHeroCopy;
   problem: { heading: string; body: string; painPoints: string[] };
   outcome: { heading: string; body: string };
   capabilities: { heading: string; lead: string };
@@ -50,6 +54,10 @@ export const webDesignCopy: ServiceCopy = {
     "From brief to launch in weeks, not quarters",
     "Wired into your CRM, calendar and follow-up",
   ],
+  mobile: {
+    tagline: "A site that turns visits into *booked calls*",
+    points: ["Scoped before we build", "Launch in weeks", "Wired into your CRM"],
+  },
   problem: {
     heading: "A site that doesn’t convert is an *expensive liability*",
     body: "Most sites look the part and still lose the sale. The positioning is vague, the navigation follows your org chart, forms vanish into an inbox, and mobile gets a squeezed desktop layout. Every unanswered question is a buyer who quietly leaves — a cost that never shows up on the invoice. The damage compounds quietly: a slow, script-heavy template drops phone visitors before the first paragraph lands; three service pages compete with each other for the same search; and nobody can say which page produced last month’s best inquiry, so the next redesign gets argued on taste. *A site you cannot measure can only be replaced, never improved.*",
@@ -187,6 +195,14 @@ export const appDevelopmentCopy: ServiceCopy = {
     "A testable first release in weeks, not quarters",
     "AI where it helps, deterministic logic where it must be certain",
   ],
+  mobile: {
+    tagline: "A first release your team can *actually test*",
+    points: [
+      "Scoped to the workflow",
+      "Testable release in weeks",
+      "Certainty where it matters",
+    ],
+  },
   problem: {
     heading: "App projects get *over-scoped* before the goal is set",
     body: "Feature lists grow before the workflow is defined. Dashboards, notifications, payments, messaging and reporting each sound useful on their own, so each one gets added — while the question that actually decides the budget, *what has to work first*, goes unanswered. Screens nobody asked for absorb the money. Edge cases multiply faster than anyone can test them. By the time it ships, no one can say whether it solved the problem, because the problem was never pinned down. Then the real cost lands: the release can’t be extended, so version two is a rebuild.",
@@ -315,6 +331,14 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
     "Under 10 seconds response time",
     "Every uncertain call hands to a human, with context",
   ],
+  mobile: {
+    tagline: "Every call answered, *inside the rules you set*",
+    points: [
+      "Under 10s response time",
+      "Books within your rules",
+      "Uncertain calls go human",
+    ],
+  },
   problem: {
     heading: "A voice demo is easy. *Surviving production* isn't",
     body: "The hard part was never making a synthetic voice speak. It's building a call system that understands real intent, handles interruptions, takes permitted actions, and knows exactly when to hand over to a person — every time, not just in the demo. Production is where the unglamorous work lives: what happens when the calendar times out, when two callers want the same slot, when someone gives a name the model has never heard, or when the caller is angry and the only right answer is a person. A demo has no consequences. A live line has a caller, a booking and your reputation attached to every turn.",
@@ -444,6 +468,14 @@ export const aiReceptionistsCopy: ServiceCopy = {
     "+66% increase in phone availability",
     "Routine inquiries handled; the rest routed to a person",
   ],
+  mobile: {
+    tagline: "Answers what it should, *routes what it shouldn't*",
+    points: [
+      "Every channel, one layer",
+      "+66% phone availability",
+      "Handovers reach a person",
+    ],
+  },
   problem: {
     heading: "Your front desk is a system of *decisions*, not a script",
     body: "Callers, chat messages and web inquiries all arrive with different urgency, different detail and different next steps. Behind each one sits a decision your desk makes without naming it: routine or specialist, which details are genuinely needed, whether this person can book directly or someone has to approve it, which location or practitioner owns it, where the record goes, and which topics must never be answered without a person. Leave those rules undocumented and automation only makes the inconsistency faster — routine requests still clog your team while the calls that matter wait in a queue.",
@@ -577,6 +609,14 @@ export const contentCreationCopy: ServiceCopy = {
     "500+ campaigns run through the same operating system",
     "Human judgment stays in every approval gate",
   ],
+  mobile: {
+    tagline: "Your expertise, published as *a working system*",
+    points: [
+      "Traced to your source",
+      "500+ campaigns run",
+      "Judgment stays with people",
+    ],
+  },
   problem: {
     heading: "More content isn't the same as more *authority*",
     body: "Volume is the easy problem. The harder one is producing material that stays credible, distinct, and recognizably yours — instead of generic output that quietly erodes the trust you're trying to build. The failure is usually structural rather than creative: the expertise sits with two or three people who are never actually interviewed, nobody owns the claim that goes into a draft, and nobody decides which single question a page exists to answer. So the calendar fills, the archive grows, and *nothing in it is worth citing* — least of all by the AI assistants your buyers now ask before they reach your site.",
@@ -706,6 +746,10 @@ export const aiAutomationCopy: ServiceCopy = {
     "98% extraction accuracy on structured documents",
     "First working automation live in 2–4 weeks",
   ],
+  mobile: {
+    tagline: "Every trigger and approval *you can inspect*",
+    points: ["Scoped by consequence", "98% extraction accuracy", "Live in 2–4 weeks"],
+  },
   problem: {
     heading: "Automation fails where *ownership* disappears",
     body: "Most operational waste doesn't live inside one tool — it lives in the handoffs between them. A lead copied into a spreadsheet by hand. A document waiting in an inbox. A report stitched together from exports. Somewhere, an employee has quietly become the integration layer. That person is usually the documentation too: the rule about which orders need a second check, the exception nobody wrote down, the account a connector authenticates as. When they're away the process slows; when they leave, it breaks. And the usual first response — a connector task built in an afternoon — moves the data without ever recording who owns the decision or what should happen when the data is wrong.",
@@ -834,6 +878,14 @@ export const aiConsultingCopy: ServiceCopy = {
     "60% average reduction in manual operations overhead",
     "A roadmap that ends in decisions, not more options",
   ],
+  mobile: {
+    tagline: "Decide what to automate *before you spend*",
+    points: [
+      "Independent before you buy",
+      "60% average overhead cut",
+      "A roadmap that decides",
+    ],
+  },
   problem: {
     heading: "Technology is chosen before the *operating problem*",
     body: "AI creates pressure to move fast — and an unusually large number of plausible wrong turns. Teams buy software before the workflow is defined. Pilots fail because the source data was never accessible. Departments procure overlapping tools that solve the same problem twice. The decisive questions go unasked: which workflow is causing measurable friction, who owns it, whether the inputs are reliable, which decisions must stay with an authorized person, and what happens when the system is wrong. Without those answers, the easiest task to demo gets automated while the process that actually constrains the business stays blocked by data, ownership or policy.",

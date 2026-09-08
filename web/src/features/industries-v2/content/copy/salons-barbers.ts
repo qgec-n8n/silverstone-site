@@ -31,6 +31,14 @@ export const salonsBarbersCopy: IndustryCopy = {
     "Cancellations refilled from your waitlist, fast",
     "Patch tests and suitability stay with practitioners",
   ],
+  mobile: {
+    tagline: "Every call answered while *your hands are busy*",
+    points: [
+      "Missed calls captured",
+      "Cancellations refilled",
+      "Patch tests stay with you",
+    ],
+  },
   trustTokens: [
     "Calendar-controlled",
     "Deposit-aware",

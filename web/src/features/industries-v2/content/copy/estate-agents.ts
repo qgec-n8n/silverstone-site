@@ -31,8 +31,17 @@ export const estateAgentsCopy: IndustryCopy = {
     "Viewings and showings offered from your live calendar",
     "Valuations, pricing and negotiation stay with your people",
   ],
+  mobile: {
+    tagline: "Portal leads answered *before your rivals*",
+    points: [
+      "Portal, phone and web",
+      "Viewings and showings",
+      "Valuations stay with you",
+    ],
+  },
   trustTokens: [
     "Portal-aware",
+    "Fair Housing-aware",
     "Calendar-controlled",
     "CRM-owned",
     "Consent-aware",
@@ -55,6 +64,7 @@ export const estateAgentsCopy: IndustryCopy = {
         ],
         vocabulary: "Listings, showings, buyer and seller leads, ISAs, closings.",
         keepsHuman: "Pricing, offers, negotiation and seller disclosures.",
+        rulebook: "Fair Housing Act, MLS and IDX rules, TCPA quiet hours.",
       },
       {
         market: "UK",
@@ -69,6 +79,7 @@ export const estateAgentsCopy: IndustryCopy = {
         vocabulary:
           "Instructions, viewings, valuations, applicants, vendors, completions.",
         keepsHuman: "Valuations, offers, negotiation and material information.",
+        rulebook: "Equality Act, material information, PECR consent rules.",
       },
     ],
     shared: [
@@ -76,6 +87,78 @@ export const estateAgentsCopy: IndustryCopy = {
       "Every inquiry is written to your CRM once, duplicate-checked, with a named owner.",
       "Only real calendar availability is ever offered, for a viewing or a showing.",
     ],
+  },
+  /*
+   * The named rulebook for this sector, stated on the page rather than buried
+   * in a FAQ, because "does your AI break fair housing law?" is the first
+   * question a US broker asks and the one that kills the deal if it is only
+   * answered on a call.
+   *
+   * WORDING CONTRACT — every sentence below is a *structural* claim (how the
+   * system is built and configured), never a legal status. No "complies with",
+   * "guarantees", "certified" or "approved": compliance depends on the
+   * brokerage's own configuration, staff and jurisdiction, and liability does
+   * not transfer to a vendor. The FTC's Operation AI Comply sweep (25 Sept
+   * 2024) makes an absolute claim a deception risk in its own right.
+   *
+   * Anchored on primary law, deliberately not on agency guidance, because two
+   * of the obvious anchors are gone:
+   *   - HUD's 2024 guidance on AI in housing advertising was WITHDRAWN
+   *     effective 17 September 2025, so "built to HUD's AI guidance" would be
+   *     false. Cite 42 U.S.C. § 3604 and 24 C.F.R. §§ 100.70 / 100.75 instead.
+   *   - NTSELAT's Material Information Parts A/B/C were WITHDRAWN in May 2025
+   *     when the DMCC Act 2024 repealed the CPRs. The duty survives, the
+   *     branded framework does not, so the copy says "material information"
+   *     and attributes it to the DMCC Act — never "NTSELAT Parts A/B/C".
+   * Also avoided: naming the seven federal classes "including sexual
+   * orientation and gender identity" (HUD's EO 13988 memo was withdrawn
+   * 17 September 2025) — the copy adds "whatever your state, city or board
+   * protects" instead, which is true everywhere and survives the churn.
+   *
+   * Full sourcing: scratchpad/research/fair-housing-mls.md.
+   */
+  compliance: {
+    eyebrow: "Fair housing and MLS rules",
+    heading: "Built inside *the rules of your market*",
+    lead: "Fair housing and MLS rules are not a disclaimer at the bottom of this page. They are the constraints the intake, the follow-up and the scheduling are designed around, in each market's own terms.",
+    points: [
+      {
+        market: "US",
+        title: "Fair Housing Act",
+        lede: "Protected classes are never asked, stored or ranked on.",
+        body: "The intake is configured so it never asks about race, color, religion, sex, national origin, familial status or disability, and never stores, routes or ranks on them, or on stand-ins like ZIP code. Qualification runs on budget, timing, location, property type and financing readiness: **criteria you set, see and can change.** Neighborhood-character and school questions are handed to a licensed agent rather than answered, accommodation requests reach a person immediately, and whatever additional classes your state, city or board protects are added to the same list.",
+        source: "42 U.S.C. § 3604 · 24 C.F.R. §§ 100.70, 100.75 · NAR SoP 10-3",
+      },
+      {
+        market: "US",
+        title: "MLS and IDX rules",
+        lede: "Listing data moves only under your own participant agreement.",
+        body: "Listing data is read and displayed only under your brokerage's own MLS participant agreement and IDX rules: listing-broker attribution carried, the feed refreshed on the MLS's cadence, seller opt-out and delayed-marketing flags honored, and nothing repurposed into a separate index, valuation or training set. Listing copy is drafted from the facts in your own feed and approved by a licensed agent before it goes out. **Buyer-broker compensation is never quoted or estimated from MLS data**, and a tour is booked only once the written buyer agreement is in place, or handed to the agent to complete first.",
+        source: "NAR IDX Policy 7.58 · NAR practice changes, 17 August 2024",
+      },
+      {
+        market: "UK",
+        title: "Equality Act, material information and marketing rules",
+        lede: "The same never-ask rule, plus the disclosures UK law requires.",
+        body: "The same never-ask, never-route rule runs on the nine protected characteristics, and in England on whether an applicant has children or receives benefits, with lettings follow-up configured never to invite or encourage an offer above the advertised rent. The system prompts for the material information the agent has to disclose and records that it was captured. Marketing runs on consent or the soft opt-in, with TPS and CTPS screening, an opt-out in every message, and automated voice calls held to the higher consent bar they require.",
+        source:
+          "Equality Act 2010, Part 4 · Renters' Rights Act 2025 (England) · DMCC Act 2024 · PECR reg. 19–22",
+      },
+      {
+        market: "Both",
+        title: "What stays with a licensed person",
+        lede: "The system captures and routes; a licensed person decides.",
+        body: "Valuations, pricing opinions, negotiation, offers and disclosures stay with a licensed agent or negotiator: the system captures and routes, it does not advise. Offers and inquiries are passed on promptly, in writing and in full, **never filtered, ranked or delayed.** Every conversation opens by saying it is an AI assistant, calls and messages stay inside the strictest contact window that applies where the recipient is, and an opt-out is honored the first time it arrives.",
+        source:
+          "Estate Agents (Undesirable Practices) (No. 2) Order 1991, Sch. 3 · 47 C.F.R. § 64.1200",
+      },
+    ],
+    glance: [
+      "Never asks about protected classes",
+      "Listing data only under your MLS agreement",
+      "Offers and pricing stay with a licensed agent",
+    ],
+    note: "These systems are designed and configured to operate inside these rules. That is not legal advice and it does not replace your brokerage's or agency's own compliance obligations: **you set the criteria and stay responsible for the decisions; we build the system so those criteria are the only thing it acts on, and so you can audit what it did.**",
   },
   problem: {
     heading: "Why do agencies and brokerages *lose* listings and instructions?",
@@ -179,6 +262,7 @@ export const estateAgentsCopy: IndustryCopy = {
       "Valuations, pricing and CMAs",
       "Negotiation and offers",
       "Complaints and disputes",
+      "Fair-housing and accommodation questions",
       "Material information and disclosures",
       "Every judgment call",
     ],
@@ -223,6 +307,12 @@ export const estateAgentsCopy: IndustryCopy = {
       {
         q: "Will leads know it's automated?",
         a: "It's transparent and written in your agency's voice. It never impersonates a negotiator or an agent.",
+      },
+      {
+        // Feeds the FAQPage graph verbatim, so this answer stays a structural
+        // claim: designed and configured, never "compliant" or "guaranteed".
+        q: "Do the systems respect fair-housing law and MLS rules?",
+        a: "They're designed to. The intake is configured so it never asks about, stores or routes on the federally protected classes or their UK equivalents, neighborhood-character questions go to a licensed agent instead of an answer, and listing data is read and displayed only under your brokerage's own MLS participant agreement and IDX rules. That is a design constraint, not a legal guarantee: you set the criteria and stay responsible for the decisions, and your counsel or compliance lead signs off the rules before anything goes live.",
       },
       {
         q: "Can it book viewings or showings directly?",

@@ -2071,14 +2071,51 @@
   }
 }
 
-/* ---- Market lanes ---------------------------------------------------------
-   The two-market operating manifest under the trust tokens: two lanes (US /
-   UK) on one panel, a shared-mechanism rail beneath. Both lanes are always
-   visible; nothing here toggles. The lane header carries a mono market code
-   and the rows are a definition list, so the specifics read as instrument
-   labels rather than as a comparison table. */
+/* ---- Atlantic Bridge (market lanes) ---------------------------------------
+   The two-market operating manifest under the trust tokens, and the signature
+   instrument of every industry page: a chart band (London ↔ New York), the
+   market focus control, a two-lane ledger and a shared-mechanism spine.
+
+   Both lanes are always in the DOM and always readable — nothing here hides,
+   unmounts or tabs. What the reader's market changes is EMPHASIS: the near
+   lane is raised and its tool chips fill, the far lane quietens by surface
+   only, never by dropping text contrast. Everything derives from two numbers,
+   `--mk-us` / `--mk-uk`, set from `<html data-currency>` (written before first
+   paint by the boot script in root.tsx) with the same no-JS `:has()` fallback
+   styles/currency.css uses — so the whole instrument is correct in the
+   prerendered HTML, with no hydration flash and no JavaScript. */
 
 .ss-ind2-markets {
+  /* 1 = the reader's market. Sterling is the default, so the UK lane leads. */
+  --mk-us: 0;
+  --mk-uk: 1;
+  /*
+    One recipe for "this is the reader's market", used by the desktop lane card
+    and by the phone cell. It has to be a real surface — a lit top, an accent
+    wash at the foot — because `--ss-v2-graphite-raised` sits only ~9 RGB steps
+    above the panel ground, so mixing it harder buys about four steps out of
+    255 and the switch appears to do nothing.
+  */
+  --mk-lit-top: color-mix(
+    in srgb,
+    var(--ss-v2-platinum) 7%,
+    var(--ss-v2-graphite-raised)
+  );
+  --mk-lit-foot: color-mix(
+    in srgb,
+    var(--srv2-accent) 19%,
+    var(--ss-v2-graphite-raised)
+  );
+  --mk-dim: color-mix(in srgb, var(--ss-v2-graphite-raised) 26%, transparent);
+  /* The arc gradient's middle stop, lifted toward platinum: three routes carry
+     an accent pair that is two shades of one hue, and without this their arc
+     renders as a flat monochrome line while estate-agents gets violet → cyan. */
+  --ss-ind2-arc-mid: color-mix(
+    in srgb,
+    var(--srv2-accent-2) 58%,
+    var(--ss-v2-platinum)
+  );
+
   position: relative;
   padding: clamp(1.4rem, 1rem + 1.6vw, 2.4rem);
   border-radius: var(--ss-radius-2xl);
@@ -2098,97 +2135,846 @@
   backdrop-filter: blur(16px);
 }
 
-.ss-ind2-markets__lanes {
-  display: grid;
-  gap: clamp(1rem, 0.7rem + 1vw, 1.6rem);
+html[data-currency="usd"] .ss-ind2-markets,
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-markets {
+  --mk-us: 1;
+  --mk-uk: 0;
 }
 
+/* ---- Chart band ----------------------------------------------------------
+   A latitude/longitude plate with no landmasses: an instrument chart, not a
+   map. The graticule is a real linear scale, so the printed ticks and the two
+   city nodes agree — see the geometry block in industry-sections.tsx, which is
+   where every number here comes from.
+
+   Two plates (wide chart, compact diagonal ladder) share these rules; only one
+   is ever displayed, and a display:none element runs no animation, so the
+   looping budget stays at one pulse plus one node breathe. */
+
+.ss-ind2-bridge {
+  display: grid;
+  grid-template-areas:
+    "readout"
+    "chart"
+    "control";
+  gap: 0.55rem;
+  margin-bottom: clamp(1.2rem, 0.9rem + 1vw, 1.9rem);
+  padding-bottom: clamp(1rem, 0.8rem + 0.8vw, 1.45rem);
+  border-bottom: 1px solid var(--ss-v2-hairline);
+}
+
+/* At the ledger breakpoint the control leaves the flow and seats itself in the
+   readout band, so the plate carries no chrome on top of it. */
 @media (min-width: 52rem) {
-  .ss-ind2-markets__lanes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .ss-ind2-bridge {
+    grid-template-areas:
+      "readout control"
+      "chart chart";
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 1.2rem;
   }
 }
 
+/* ---- Instrument readout --------------------------------------------------
+   The distance is the great circle between the two coordinates the nodes are
+   drawn at (5570.2 km / 3461.2 mi, haversine), rounded — it is a fact about
+   the chart, so it is real text rather than SVG decoration. */
+
+.ss-ind2-bridge__readout {
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: readout;
+  align-items: baseline;
+  gap: 0.15rem 0.5rem;
+  /* The base `p { max-width: 68ch }` in tokens/utilities.css held this to
+     406px and wrapped the tagline onto a second line inside a 600px column.
+     A readout is an instrument line, not a paragraph of prose. */
+  max-width: none;
+  margin: 0;
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-titanium));
+}
+
+.ss-ind2-bridge__readout > span + span::before {
+  content: "\00B7";
+  margin-right: 0.5rem;
+  opacity: 0.55;
+}
+
+.ss-ind2-bridge__readout-leg {
+  color: color-mix(in srgb, var(--srv2-accent) 34%, var(--ss-v2-platinum));
+}
+
+.ss-ind2-bridge__readout-fig {
+  color: color-mix(in srgb, var(--srv2-accent) 46%, var(--ss-v2-platinum));
+}
+
+/* The tagline is the first thing to go: below 46rem the leg and the two
+   figures are the readout, and the claim is made by the panel underneath. */
+@media (max-width: 45.999rem) {
+  .ss-ind2-bridge__readout-tag {
+    display: none;
+  }
+
+  .ss-ind2-bridge__readout {
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+.ss-ind2-bridge__chart {
+  position: relative;
+  overflow: hidden;
+  grid-area: chart;
+  /* Room under the plate for the lower node's label and the longitude rail:
+     both are fixed rem heights over a plate that is only ~120px tall at the
+     narrow end of this breakpoint. */
+  padding-bottom: 1.2rem;
+  /* One step down from the panel's 32px, one step up from the 10px cells:
+     nested corners read as concentric rather than as three unrelated radii. */
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
+  background:
+    radial-gradient(
+      80% 130% at 50% -20%,
+      color-mix(in srgb, var(--srv2-accent) 9%, transparent),
+      transparent 70%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
+}
+
+/* Sized by the SVG alone, so a label at left: 17% sits exactly over the node
+   at x = 203.9 of the 1200-unit viewBox, and top: 47.8% over y = 104 of the
+   16 → 200 window. */
+.ss-ind2-bridge__plate {
+  position: relative;
+}
+
+.ss-ind2-bridge__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ss-ind2-bridge__svg--compact {
+  display: none;
+}
+
+/* Below the ledger breakpoint the wide plate is a letterboxed smear — at 768px
+   it is 642 × 118 — so the whole instrument switches to the diagonal ladder on
+   the same breakpoint the ledger uses. One breakpoint, one shape change. */
+@media (max-width: 51.999rem) {
+  .ss-ind2-bridge__svg--wide {
+    display: none;
+  }
+
+  .ss-ind2-bridge__svg--compact {
+    display: block;
+  }
+
+  /* Apron for the caption row under the ladder. */
+  .ss-ind2-bridge__chart {
+    padding-bottom: 1.75rem;
+  }
+}
+
+/* ---- Graticule ----------------------------------------------------------- */
+
+.ss-ind2-bridge__lat {
+  stroke: color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
+  stroke-width: 1;
+}
+
+.ss-ind2-bridge__meridian {
+  stroke: var(--ss-v2-hairline);
+  stroke-width: 1;
+}
+
+/* Tick labels are HTML, not SVG <text>: an SVG glyph scales with the viewBox
+   and would be 7px at 768. Decorative, so aria-hidden — but still printed
+   above the AA floor, because a sighted reader reads them. */
+.ss-ind2-bridge__tick {
+  position: absolute;
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: color-mix(in srgb, var(--ss-v2-titanium) 78%, transparent);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.ss-ind2-bridge__tick[data-axis="lat"] {
+  left: 0.4rem;
+  translate: 0 -50%;
+}
+
+.ss-ind2-bridge__tick[data-axis="lon"] {
+  top: calc(100% + 0.35rem);
+  translate: -50% 0;
+}
+
+/* Both label sets are in the DOM; the media query swaps them with the plates. */
+.ss-ind2-bridge__tick[data-plate="compact"] {
+  display: none;
+}
+
+@media (max-width: 51.999rem) {
+  .ss-ind2-bridge__tick[data-plate="wide"] {
+    display: none;
+  }
+
+  /* Left edge, between the two nodes: 50°N and 45°N are the only two latitudes
+     on the ladder that no node halo and no part of the arc reaches. */
+  .ss-ind2-bridge__tick[data-plate="compact"] {
+    display: block;
+    left: 0.4rem;
+    font-size: 0.54rem;
+    translate: 0 -50%;
+  }
+}
+
+/* The straight chord under the bowed arc: what makes a flat-projection line
+   read as a great circle rather than as decoration. */
+.ss-ind2-bridge__chord {
+  stroke: color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
+  stroke-width: 1;
+  stroke-dasharray: 4 7;
+}
+
+.ss-ind2-bridge__arc {
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  transition: opacity 260ms ease;
+}
+
+/* Two stacked wide strokes, not a blur filter: the arc reads as light rather
+   than as a hairline, at no filter cost and predictable in user units. */
+.ss-ind2-bridge__arc-glow {
+  fill: none;
+  stroke: var(--srv2-accent);
+  stroke-width: 11;
+  stroke-linecap: round;
+  opacity: 0.085;
+}
+
+.ss-ind2-bridge__arc-bloom {
+  fill: none;
+  stroke: var(--srv2-accent);
+  stroke-width: 24;
+  stroke-linecap: round;
+  opacity: 0.04;
+}
+
+/* An SVG paint server cannot be swapped from a stylesheet, so both gradients
+   are drawn and CSS crossfades between them: the bright end of the arc is
+   always the reader's own market. */
+.ss-ind2-bridge__arc--usd {
+  opacity: 0;
+}
+
+html[data-currency="usd"] .ss-ind2-bridge__arc,
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-bridge__arc {
+  opacity: 0;
+}
+
+html[data-currency="usd"] .ss-ind2-bridge__arc--usd,
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-bridge__arc--usd {
+  opacity: 1;
+}
+
+.ss-ind2-bridge__svg--compact .ss-ind2-bridge__arc {
+  stroke-width: 2;
+}
+
+.ss-ind2-bridge__svg--compact .ss-ind2-bridge__arc-glow {
+  stroke-width: 8;
+}
+
+.ss-ind2-bridge__svg--compact .ss-ind2-bridge__arc-bloom {
+  stroke-width: 18;
+}
+
+/* ---- Nodes ---------------------------------------------------------------
+   Each node knows whether it is the reader's market, so one number drives the
+   bloom, the dot, the ring, the halo and the label together. */
+
+.ss-ind2-bridge__node[data-node="ldn"],
+.ss-ind2-bridge__node-label[data-node="ldn"] {
+  --mk-node-lit: var(--mk-uk);
+}
+
+.ss-ind2-bridge__node[data-node="nyc"],
+.ss-ind2-bridge__node-label[data-node="nyc"] {
+  --mk-node-lit: var(--mk-us);
+}
+
+.ss-ind2-bridge__bloom {
+  opacity: calc(0.06 + var(--mk-node-lit) * 0.11);
+  transition: opacity 260ms ease;
+}
+
+.ss-ind2-bridge__dot {
+  fill: var(--srv2-accent);
+  opacity: calc(0.4 + 0.6 * var(--mk-node-lit));
+  transition: opacity 260ms ease;
+}
+
+.ss-ind2-bridge__ring {
+  fill: none;
+  stroke: var(--srv2-accent);
+  stroke-width: 1.6;
+  opacity: calc(0.26 + 0.6 * var(--mk-node-lit));
+  transition: opacity 260ms ease;
+}
+
+.ss-ind2-bridge__halo {
+  fill: var(--srv2-accent);
+  opacity: calc(var(--mk-node-lit) * 0.16);
+  transition: opacity 260ms ease;
+}
+
+.ss-ind2-bridge__node-label {
+  position: absolute;
+  left: var(--mk-node-x);
+  top: var(--mk-node-y);
+  z-index: 1;
+  display: grid;
+  gap: 0.05rem;
+  /* max-content, or an absolutely positioned label near the right edge wraps
+     "NEW YORK" onto two lines before the translate has pulled it left. */
+  width: max-content;
+  /* Padding, not spacing: it is what makes the callout a >=44px target, and
+     the translate below takes the extra half-padding back out so the text
+     still sits exactly where the node coordinate puts it. */
+  padding: 0.55rem 0.6rem;
+  border-radius: 999px;
+  translate: -50% 0.3rem;
+  text-align: center;
+  /* A shadow halo rather than a filled callout chip: the label crosses
+     graticule hairlines and the chord, and a chip wide enough to cover them
+     also covered the node's own halo and most of the chord on the ladder. */
+  text-shadow:
+    0 0 5px var(--ss-v2-void-black),
+    0 0 12px var(--ss-v2-void-black);
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+/* Each callout IS the `<label>` for one of the market radios, so the chart is
+   the control: tap New York and the ledger moves to the US. Plain HTML, so it
+   works with JavaScript off and there is still exactly one radio group. */
+.ss-ind2-bridge__node-label:active {
+  background-color: color-mix(in srgb, var(--srv2-accent) 16%, transparent);
+}
+
+@media (hover: hover) {
+  .ss-ind2-bridge__node-label:hover {
+    background-color: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
+  }
+}
+
+@media (max-width: 51.999rem) {
+  /*
+    A caption row under the ladder rather than callouts on it. On a 109px plate
+    there is no clear space beside either node: the arc arrives at London
+    almost horizontally, so a callout above, below or left of it lands on the
+    line, and one in the corner lands on the node's own halo. Left caption =
+    the western node, right caption = the eastern one, which is how a chart
+    legend reads anyway — and it leaves the plate itself entirely to the
+    instrument.
+  */
+  .ss-ind2-bridge__node-label {
+    /* A real 44px target, not a caption with a cursor. It is pulled back over
+       the plate's empty foot — everything below the 40°N rule is bare grid —
+       so the target costs 6px of apron rather than 24. */
+    top: calc(100% - 1.1rem);
+    display: flex;
+    min-height: 44px;
+    gap: 0.4rem;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    translate: none;
+  }
+
+  .ss-ind2-bridge__node-label[data-node="nyc"] {
+    left: 0;
+    text-align: left;
+  }
+
+  .ss-ind2-bridge__node-label[data-node="ldn"] {
+    left: auto;
+    right: 0;
+    text-align: right;
+  }
+
+  /* Under ~360px the two captions meet in the middle of a 216px plate, so each
+     one stacks its coordinate under its name. */
+  @media (max-width: 22.5rem) {
+    .ss-ind2-bridge__node-label {
+      display: grid;
+      gap: 0.02rem;
+      align-content: center;
+      justify-content: start;
+    }
+
+    .ss-ind2-bridge__node-label[data-node="ldn"] {
+      justify-content: end;
+    }
+
+    .ss-ind2-bridge__chart {
+      padding-bottom: 2rem;
+    }
+  }
+
+  /* The plate is clear now, so the captions need no shadow to survive it. */
+  .ss-ind2-bridge__node-label {
+    text-shadow: none;
+  }
+}
+
+.ss-ind2-bridge__node-name {
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(
+    in srgb,
+    var(--ss-v2-platinum) calc(28% + var(--mk-node-lit) * 72%),
+    var(--ss-v2-titanium)
+  );
+  transition: color 260ms ease;
+}
+
+.ss-ind2-bridge__node-coord {
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: color-mix(
+    in srgb,
+    var(--srv2-accent) calc(24% + var(--mk-node-lit) * 34%),
+    var(--ss-v2-titanium)
+  );
+  transition: color 260ms ease;
+}
+
+/* ---- Pulse ---------------------------------------------------------------
+   One pulse, travelling the arc, ARRIVING at the reader's own market — the
+   glow builds where the reader is, so USD simply plays the same keyframes in
+   reverse. Both `offset-path` strings are the arcs the plates actually draw;
+   a unit test pins them to the constants in industry-sections.tsx, because a
+   hand-copied path is how they silently diverged once already.
+
+   The parked circle is the single fallback for both "no offset-path" and
+   "prefers reduced motion": visible, mid-flight, so the chart still reads as
+   in transit. */
+.ss-ind2-bridge__pulse {
+  display: none;
+  fill: var(--srv2-accent);
+  offset-path: path("M 203.9 147.2 Q 647 4 1090.4 104");
+  offset-rotate: 0deg;
+  filter: drop-shadow(0 0 6px var(--srv2-accent));
+}
+
+.ss-ind2-bridge__pulse--compact {
+  offset-path: path("M 62 105.7 Q 170 44 283.6 40.9");
+}
+
+.ss-ind2-bridge__pulse-park {
+  fill: var(--srv2-accent);
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px var(--srv2-accent));
+}
+
+@supports (offset-path: path("M 0 0 L 1 1")) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ss-ind2-bridge__pulse {
+      display: inline;
+      animation: ss-ind2-bridge-pulse 4.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+
+    .ss-ind2-bridge__pulse-park {
+      display: none;
+    }
+  }
+}
+
+html[data-currency="usd"] .ss-ind2-bridge__pulse,
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-bridge__pulse {
+  animation-direction: reverse;
+}
+
+/* `offset-distance` forces a layout every frame, so the instrument's two loops
+   only run while it is on screen — this panel is well below the fold, and it
+   was the page's only continuous layout source. Gated on `data-js` so the
+   prerendered document and a no-JS reader, where the in-view attribute is
+   never written, are never left with a frozen chart. */
+html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__pulse,
+html[data-js="on"] .ss-ind2-bridge:not([data-chart-live]) .ss-ind2-bridge__halo {
+  animation-play-state: paused;
+}
+
+@keyframes ss-ind2-bridge-pulse {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+
+  5% {
+    offset-distance: 3%;
+    opacity: 1;
+  }
+
+  72% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+
+  84% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* The breathe animates OPACITY, never scale: a scaled SVG circle forced a
+   layout on every frame for the life of the page. The unlit node's own
+   multiplier is zero, so its keyframes resolve to 0 → 0 and it breathes
+   nothing. */
+@media (prefers-reduced-motion: no-preference) {
+  .ss-ind2-bridge__halo {
+    animation: ss-ind2-bridge-breathe 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes ss-ind2-bridge-breathe {
+  0%,
+  100% {
+    opacity: calc(var(--mk-node-lit) * 0.07);
+  }
+
+  50% {
+    opacity: calc(var(--mk-node-lit) * 0.24);
+  }
+}
+
+/* One hairline sweep across the plate the first time it is seen — the
+   instrument powering on. Once, never a loop, and it settles back to the
+   stylesheet's own state because the base rule is opacity 0. */
+@media (prefers-reduced-motion: no-preference) {
+  .ss-ind2-bridge__plate::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      104deg,
+      transparent 42%,
+      color-mix(in srgb, var(--srv2-accent) 24%, transparent) 50%,
+      transparent 58%
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ss-ind2-bridge[data-chart-shown] .ss-ind2-bridge__plate::after {
+    animation: ss-ind2-bridge-sweep 1150ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+}
+
+@keyframes ss-ind2-bridge-sweep {
+  0% {
+    opacity: 0;
+    translate: -55% 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    translate: 55% 0;
+  }
+}
+
+/* Reading a lane — or reaching for a city — lights that city. */
+.ss-ind2-bridge__chart:has(.ss-ind2-bridge__node-label[data-node="ldn"]:hover)
+  .ss-ind2-bridge__node[data-node="ldn"],
+.ss-ind2-bridge__chart:has(.ss-ind2-bridge__node-label[data-node="nyc"]:hover)
+  .ss-ind2-bridge__node[data-node="nyc"],
+.ss-ind2-bridge__node-label:hover,
+.ss-ind2-markets:has(.ss-ind2-market--uk:hover) .ss-ind2-bridge__node[data-node="ldn"],
+.ss-ind2-markets:has(.ss-ind2-market--uk:focus-within)
+  .ss-ind2-bridge__node[data-node="ldn"],
+.ss-ind2-markets:has(.ss-ind2-market--uk:hover)
+  .ss-ind2-bridge__node-label[data-node="ldn"],
+.ss-ind2-markets:has(.ss-ind2-market--uk:focus-within)
+  .ss-ind2-bridge__node-label[data-node="ldn"],
+.ss-ind2-markets:has(.ss-ind2-market--us:hover) .ss-ind2-bridge__node[data-node="nyc"],
+.ss-ind2-markets:has(.ss-ind2-market--us:focus-within)
+  .ss-ind2-bridge__node[data-node="nyc"],
+.ss-ind2-markets:has(.ss-ind2-market--us:hover)
+  .ss-ind2-bridge__node-label[data-node="nyc"],
+.ss-ind2-markets:has(.ss-ind2-market--us:focus-within)
+  .ss-ind2-bridge__node-label[data-node="nyc"] {
+  --mk-node-lit: 1;
+}
+
+/* ---- Market focus control ------------------------------------------------ */
+
+.ss-ind2-bridge__control {
+  display: flex;
+  grid-area: control;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+}
+
+.ss-ind2-bridge__control-label {
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--srv2-accent) 45%, var(--ss-v2-titanium));
+  white-space: nowrap;
+}
+
+/* Phone: label above a full-width switch, so the two segments are real thumb
+   targets rather than a pill in a corner. */
+@media (max-width: 33.999rem) {
+  .ss-ind2-bridge__control {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+  }
+}
+
+/* ---- Ledger --------------------------------------------------------------
+   Two <dl>s in DOM order (US, UK) laid out as one ledger, so "Who runs it" in
+   one market sits on exactly the same line as "Who runs it" in the other. The
+   subgrid chain has to be declared at four levels because Reveal renders a div
+   between the lanes container and the card: lanes → .ss-ind2-market (Reveal)
+   → __inner → __rows. Never `display: contents` on the <dl> — Safari has
+   historically stripped definition-list semantics from it, which is the exact
+   guarantee this structure exists to keep.
+
+   Phone tracks: head + 4 × (label, value). Desktop tracks: head + 4 facts. */
+
+/* Below the ledger breakpoint the panel gives its gutters back to the cells:
+   at 320px those 18px are two characters per line in every value. */
+@media (max-width: 51.999rem) {
+  .ss-ind2-markets {
+    padding: clamp(0.72rem, 0.5rem + 1.15vw, 1.7rem);
+  }
+}
+
+.ss-ind2-markets__lanes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(9, auto);
+  column-gap: clamp(0.4rem, 0.1rem + 1.2vw, 0.8rem);
+  row-gap: 0;
+}
+
+/* The optional fifth fact — "Plays by", a sector's named rulebook — adds two
+   phone tracks (label + value) and one desktop track. `repeat()` takes an
+   integer literal, never a calc(), so the count is selected by the row count
+   the component stamps here rather than computed from a custom property. */
+.ss-ind2-markets__lanes[data-rows="5"] {
+  grid-template-rows: repeat(11, auto);
+}
+
 .ss-ind2-market {
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid;
   min-width: 0;
 }
 
+/* The columns are FIXED — US west, UK east — and never swap with the market
+   focus. Two reasons, both learned the hard way: `grid-column` is not an
+   animatable property, so switching market teleported two 416px cards
+   sideways while the surface underneath them cross-faded; and the plate draws
+   New York west of London at every width, so a lane order that follows the
+   reader contradicted the chart's own geography in exactly one of its two
+   states. The whole state change is therefore carried by surface, border, chip
+   fill, node lighting and the direction the pulse flies — none of which move
+   anything. DOM order, tab order and visual order are now the same sequence. */
+.ss-ind2-market--us {
+  --mk-near: var(--mk-us);
+
+  grid-column: 1;
+}
+
+.ss-ind2-market--uk {
+  --mk-near: var(--mk-uk);
+
+  grid-column: 2;
+}
+
 .ss-ind2-market__inner {
-  height: 100%;
-  padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
-  border-radius: var(--ss-radius-xl);
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 18%, var(--ss-v2-hairline));
-  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 58%, transparent);
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid;
+  min-width: 0;
 }
 
 .ss-ind2-market__head {
   display: flex;
+  grid-row: 1;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.7rem;
-  margin: 0 0 1rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--ss-v2-hairline);
+  gap: 0.45rem;
+  margin: 0;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid
+    color-mix(
+      in srgb,
+      var(--srv2-accent) calc(10% + var(--mk-near) * 34%),
+      var(--ss-v2-hairline)
+    );
 }
 
 .ss-ind2-market__code {
   display: inline-grid;
   place-items: center;
-  min-width: 2.4rem;
-  height: 1.5rem;
-  padding-inline: 0.5rem;
+  min-width: 1.9rem;
+  height: 1.15rem;
+  padding-inline: 0.4rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 40%, var(--ss-v2-hairline));
-  background: color-mix(in srgb, var(--srv2-accent) 12%, transparent);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--srv2-accent) calc(20% + var(--mk-near) * 26%),
+      var(--ss-v2-hairline)
+    );
+  background: color-mix(
+    in srgb,
+    var(--srv2-accent) calc(3% + var(--mk-near) * 15%),
+    transparent
+  );
   color: color-mix(in srgb, var(--srv2-accent) 55%, var(--ss-v2-platinum));
   font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.56rem;
   letter-spacing: 0.16em;
 }
 
 .ss-ind2-market__label {
   color: var(--ss-v2-platinum);
   font-family: var(--ss-font-display, inherit);
-  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.15rem);
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
 }
 
 .ss-ind2-market__rows {
   display: grid;
-  gap: 0.8rem;
+  grid-row: 2 / -1;
+  grid-template-rows: subgrid;
   margin: 0;
+  min-width: 0;
 }
 
 .ss-ind2-market__row {
+  /* The near lane's copy sits at full platinum; the far lane drops ~12% toward
+     titanium, so the two lanes have a type hierarchy and not only a surface
+     one. Never near the AA floor — the far lane measures ~13:1 on its own
+     surface — because quietening a market by dropping its contrast would be
+     the one thing this panel exists not to do. */
+  --mk-ink: color-mix(
+    in srgb,
+    var(--ss-v2-platinum) calc(74% + var(--mk-near) * 26%),
+    var(--ss-v2-titanium)
+  );
+  /* The near lane's surface is deliberately brighter, so its mono row labels
+     lift with it: at a flat titanium ground the 10.5px `dt` measured 4.38:1 on
+     the two routes with the lightest accent. */
+  --mk-label: color-mix(
+    in srgb,
+    var(--ss-v2-titanium) calc(100% - var(--mk-near) * 26%),
+    var(--ss-v2-platinum)
+  );
+
   display: grid;
-  gap: 0.25rem;
+  grid-template-rows: subgrid;
+  min-width: 0;
+  transition:
+    background-color 220ms ease,
+    translate 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-market__row:nth-child(1) {
+  grid-row: 1 / span 2;
+}
+
+.ss-ind2-market__row:nth-child(2) {
+  grid-row: 3 / span 2;
+}
+
+.ss-ind2-market__row:nth-child(3) {
+  grid-row: 5 / span 2;
+}
+
+.ss-ind2-market__row:nth-child(4) {
+  grid-row: 7 / span 2;
+}
+
+.ss-ind2-market__row:nth-child(5) {
+  grid-row: 9 / span 2;
 }
 
 .ss-ind2-market__row dt {
   font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
+  font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--srv2-accent) 40%, var(--ss-v2-titanium));
+  color: color-mix(in srgb, var(--srv2-accent) 42%, var(--mk-label));
 }
 
 .ss-ind2-market__row dd {
   margin: 0;
-  color: color-mix(in srgb, var(--srv2-accent) 8%, var(--ss-v2-platinum));
-  font-size: clamp(0.9rem, 0.86rem + 0.15vw, 0.98rem);
-  line-height: 1.5;
+  color: color-mix(in srgb, var(--srv2-accent) 8%, var(--mk-ink));
+  /* The ledger's values are the panel's primary content, so they are its
+     largest type — 13.8px at 390, where the secondary shared rail underneath
+     now sits at 13.1px. It used to be the other way round. */
+  font-size: clamp(0.86rem, 0.78rem + 0.4vw, 0.95rem);
+  line-height: 1.45;
+  text-wrap: pretty;
 }
 
 .ss-ind2-market__row[data-keeps] dd {
-  color: var(--ss-v2-platinum);
+  color: var(--mk-ink);
 }
 
-.ss-ind2-market__row[data-keeps] dt::before {
+/* The rulebook row is the page's first fair-housing / MLS signal, so it reads
+   at full contrast like "Stays with people" rather than as supporting detail. */
+.ss-ind2-market__row[data-fact="rulebook"] dd {
+  color: var(--mk-ink);
+}
+
+/* The two human-boundary rows carry the marker — who stays responsible, and
+   what they are responsible under. A single marked row in a five-row ledger
+   read as arbitrary. */
+.ss-ind2-market__row[data-keeps] dt::before,
+.ss-ind2-market__row[data-fact="rulebook"] dt::before {
   content: "";
   display: inline-block;
   width: 0.4rem;
   height: 0.4rem;
-  margin-right: 0.45rem;
+  margin-right: 0.4rem;
   border-radius: 999px;
   vertical-align: middle;
   background: linear-gradient(135deg, var(--srv2-accent), var(--srv2-accent-2));
@@ -2197,34 +2983,429 @@
 .ss-ind2-market__tools {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.3rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .ss-ind2-market__tools li {
-  padding: 0.28rem 0.65rem;
+  padding: 0.22rem 0.5rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
-  background: color-mix(in srgb, var(--ss-v2-graphite) 70%, transparent);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--srv2-accent) calc(10% + var(--mk-near) * 22%),
+      var(--ss-v2-hairline)
+    );
+  background: color-mix(
+    in srgb,
+    var(--srv2-accent) calc(var(--mk-near) * 13%),
+    transparent
+  );
   color: color-mix(in srgb, var(--srv2-accent) 20%, var(--ss-v2-platinum));
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   line-height: 1.3;
+  /* break-word, not anywhere: a 95px cell should wrap between words and only
+     split "OnTheMarket" when the word genuinely cannot fit on its own line. */
+  overflow-wrap: break-word;
 }
 
+/* ---- Ledger, phone: one card per market per fact -------------------------
+   Under 52rem the lane card dissolves and each VALUE becomes the card, so both
+   markets sit side by side inside a 320px screen. The fact label is printed
+   once, always on the western (US) lane so it is always the top-left of its
+   band — the eastern lane's <dt> stays in the DOM and in the accessibility
+   tree at `opacity: 0`, occupying the same shared track, so the two markets'
+   rows can never drift apart and a screen reader still hears every value
+   labelled. It is the one piece of text on this panel that is invisible by
+   construction, and it is a duplicate of the one beside it. */
+
+@media (max-width: 51.999rem) {
+  /* The lane track owns the width, not the longest word in it.
+     `.ss-ind2-market__row` is a grid item of the lanes grid, whose two tracks
+     measure 104.125px / 104.141px at 320px, and a grid item's default
+     `min-width: auto` refuses to go below its min-content — which here is the
+     longest single word in the value ("contraindications," measures 129.2px on
+     salons-barbers). The row then overflows its track and its opaque value card
+     paints across the neighbouring market's. `overflow-wrap: break-word` on the
+     value cannot prevent that on its own: it permits a break at layout time but
+     deliberately does NOT reduce the intrinsic min-content width, which is what
+     sizes the item. `hyphens: auto` used to hide this (Chromium does count
+     hyphenation opportunities in min-content) — removing it for the mid-word
+     breaks it caused is what exposed it. */
+  .ss-ind2-market__row,
+  .ss-ind2-market__row > dt,
+  .ss-ind2-market__row > dd {
+    min-width: 0;
+  }
+
+  .ss-ind2-market__row > dt {
+    /* Wraps. It used to be `white-space: nowrap`, on the reasoning that the
+       track a long label spills into holds the duplicate label at opacity 0,
+       so there was nothing there to collide with. True at 360px and above;
+       false at 320px, where the lane track is ~104px and "Stays with people"
+       measures ~121px of un-wrappable text. An overflowing <dt> also stretches
+       ITS ROW, and that row's <dd> is the visible card with an opaque
+       background, so the later-painted UK value covered the tail of the US
+       value — the text was unreachable, not merely clipped.
+
+       Letting it wrap is font-independent where a breakpoint would not be: on
+       a screen wide enough the label still occupies one line and nothing
+       changes, and both lanes' labels share one grid row, so when it does wrap
+       the two markets stay level. */
+    margin-top: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .ss-ind2-market--uk .ss-ind2-market__row > dt {
+    opacity: 0;
+  }
+
+  .ss-ind2-market__row > dd {
+    /* Every horizontal pixel here is a character of measure: two columns in a
+       306px panel leave ~120px each, and the panel's gutters and these cell
+       paddings are the only width left to give back. It is still a narrow
+       measure — the deliberate price of both markets being legible on one
+       phone screen, which is the whole point of the ledger. */
+    padding: 0.5rem 0.42rem 0.6rem;
+    border-radius: 10px;
+    /* `overflow-wrap`, never `hyphens: auto`. Automatic hyphenation buys a few
+       characters of measure in a ~104px cell, but it pays for them by breaking
+       ordinary words mid-token ("insur-ance", "the hygienist's col-umn") — nine
+       of them in a single panel at 390px — which reads as a typographic fault
+       rather than as tight setting. This breaks only the word that genuinely
+       cannot fit on a line of its own, which is the case the narrow cell
+       actually needs handled. */
+    overflow-wrap: break-word;
+    border: 1px solid
+      color-mix(
+        in srgb,
+        var(--srv2-accent) calc(6% + var(--mk-near) * 28%),
+        var(--ss-v2-hairline)
+      );
+    /* The lit surface is faded IN THE GRADIENT'S OWN COLOURS rather than by a
+       pseudo-element, because `dd::before` is already the market code chip.
+       Measured 1.36:1 against the far cell, worst case across all ten routes;
+       the 22% → 68% graphite mix it replaces measured 1.05:1, i.e. nothing. */
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--mk-lit-top) calc(var(--mk-near) * 100%), transparent),
+        color-mix(in srgb, var(--mk-lit-foot) calc(var(--mk-near) * 100%), transparent)
+      ),
+      var(--mk-dim);
+  }
+
+  /* The column code repeats per cell: the ledger head scrolls away, this does
+     not. Decorative — the lane already names its market in real text. */
+  /* Same track-owns-the-width rule for the tool chips inside a value cell.
+     The list and its pills are laid out by flex, whose items also default to a
+     content-based minimum, so the widest single pill ("WooCommerce", ~108px
+     with its padding) held the list 5.1px wider than the 102px cell and painted
+     it outside the card's border on /industry/ecommerce at 320px. Bounded to
+     the cell, the pill's own `overflow-wrap: break-word` (see the base
+     `.ss-ind2-market__tools li` rule) splits the name — which is exactly the
+     case that rule describes as a name that "genuinely cannot fit on its own
+     line", and it only ever arises on the narrowest phones. */
+  .ss-ind2-market__tools,
+  .ss-ind2-market__tools li {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .ss-ind2-market__row > dd::before {
+    display: block;
+    margin-bottom: 0.28rem;
+    font-family: var(--ss-font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: color-mix(
+      in srgb,
+      var(--srv2-accent) calc(34% + var(--mk-near) * 26%),
+      var(--ss-v2-titanium)
+    );
+  }
+
+  .ss-ind2-market__row[data-market="US"] > dd::before {
+    content: "US";
+  }
+
+  .ss-ind2-market__row[data-market="UK"] > dd::before {
+    content: "UK";
+  }
+}
+
+/* ---- Ledger, desktop ----------------------------------------------------- */
+
+@media (min-width: 52rem) {
+  .ss-ind2-markets__lanes {
+    grid-template-rows: repeat(5, auto);
+    column-gap: clamp(1rem, 0.7rem + 1vw, 1.6rem);
+    row-gap: 0.85rem;
+  }
+
+  .ss-ind2-markets__lanes[data-rows="5"] {
+    grid-template-rows: repeat(6, auto);
+  }
+
+  .ss-ind2-market__inner {
+    position: relative;
+    isolation: isolate;
+    padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+    border-radius: 18px;
+    border: 1px solid
+      color-mix(
+        in srgb,
+        var(--srv2-accent) calc(8% + var(--mk-near) * 32%),
+        var(--ss-v2-hairline)
+      );
+    background: var(--mk-dim);
+    transition: border-color 260ms ease;
+  }
+
+  /*
+    The near lane's elevation, and the reason this panel's control is legible
+    at all. Mixing `--ss-v2-graphite-raised` harder cannot do the job: the
+    token is only ~9 RGB steps above the panel ground, so a 24% → 68% swing
+    bought four steps out of 255 — a 1.03:1 surface ratio, which is nothing.
+    The near lane is a real surface instead: a lit gradient with an accent wash
+    at its foot, a cast shadow and a bevel, cross-faded over the far lane by
+    one number. Measured 1.31:1 against the far lane's interior, worst case
+    across all ten routes.
+  */
+  .ss-ind2-market__inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(180deg, var(--mk-lit-top), var(--mk-lit-foot));
+    box-shadow:
+      0 18px 44px -26px rgb(0 0 0 / 95%),
+      inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 10%, transparent);
+    opacity: var(--mk-near);
+    transition: opacity 260ms ease;
+  }
+
+  /* A lit top edge on the reader's own lane — the card reads as the live one. */
+  .ss-ind2-market__inner::after {
+    content: "";
+    position: absolute;
+    inset-inline: 14%;
+    top: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--srv2-accent), transparent);
+    opacity: var(--mk-near);
+    transition: opacity 260ms ease;
+  }
+
+  .ss-ind2-market__head {
+    gap: 0.7rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .ss-ind2-market__code {
+    min-width: 2.4rem;
+    height: 1.5rem;
+    padding-inline: 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  .ss-ind2-market__label {
+    font-size: clamp(1rem, 0.92rem + 0.3vw, 1.15rem);
+    letter-spacing: -0.01em;
+  }
+
+  .ss-ind2-market__row {
+    grid-template-rows: none;
+    gap: 0.28rem;
+    margin-inline: -0.55rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 10px;
+  }
+
+  .ss-ind2-market__row:nth-child(1) {
+    grid-row: 1;
+  }
+
+  .ss-ind2-market__row:nth-child(2) {
+    grid-row: 2;
+  }
+
+  .ss-ind2-market__row:nth-child(3) {
+    grid-row: 3;
+  }
+
+  .ss-ind2-market__row:nth-child(4) {
+    grid-row: 4;
+  }
+
+  .ss-ind2-market__row:nth-child(5) {
+    grid-row: 5;
+  }
+
+  /* A hairline above the rulebook row: the four facts above it describe the
+     operation, this one describes its limits, and the rule marks the change of
+     register without adding a second heading to a card that has one. */
+  .ss-ind2-market__row[data-fact="rulebook"] {
+    margin-top: 0.55rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid
+      color-mix(
+        in srgb,
+        var(--srv2-accent) calc(8% + var(--mk-near) * 24%),
+        var(--ss-v2-hairline)
+      );
+    border-radius: 0;
+  }
+
+  .ss-ind2-market__row dt {
+    font-size: 0.66rem;
+  }
+
+  .ss-ind2-market__tools {
+    gap: 0.4rem;
+  }
+
+  .ss-ind2-market__tools li {
+    padding: 0.28rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+  }
+}
+
+/* A finger gets the same acknowledgement a cursor does. Without it the ledger
+   answered nothing on a phone: the row lift below is gated on a hover-capable
+   pointer AND the desktop breakpoint, which between them exclude every touch
+   device the panel is mostly read on. */
+@media (hover: none) {
+  .ss-ind2-market__row > dd:active {
+    border-color: color-mix(in srgb, var(--srv2-accent) 34%, var(--ss-v2-hairline));
+    background-color: color-mix(
+      in srgb,
+      var(--ss-v2-graphite-raised) calc(34% + var(--mk-near) * 46%),
+      transparent
+    );
+  }
+}
+
+/* Reading one fact lifts it in BOTH lanes, so the eye tracks the comparison
+   across the ledger rather than down one card. */
+@media (hover: hover) and (min-width: 52rem) {
+  .ss-ind2-markets__lanes:has(.ss-ind2-market__row[data-fact="operators"]:hover)
+    .ss-ind2-market__row[data-fact="operators"],
+  .ss-ind2-markets__lanes:has(.ss-ind2-market__row[data-fact="tooling"]:hover)
+    .ss-ind2-market__row[data-fact="tooling"],
+  .ss-ind2-markets__lanes:has(.ss-ind2-market__row[data-fact="vocabulary"]:hover)
+    .ss-ind2-market__row[data-fact="vocabulary"],
+  .ss-ind2-markets__lanes:has(.ss-ind2-market__row[data-fact="keeps"]:hover)
+    .ss-ind2-market__row[data-fact="keeps"],
+  .ss-ind2-markets__lanes:has(.ss-ind2-market__row[data-fact="rulebook"]:hover)
+    .ss-ind2-market__row[data-fact="rulebook"] {
+    background-color: color-mix(in srgb, var(--srv2-accent) 8%, transparent);
+    translate: 0 -1px;
+  }
+}
+
+/* ---- Group entrance ------------------------------------------------------
+   The ledger's two lanes, the compliance cards and the responsibility band all
+   arrive by `translate` alone. No opacity: the copy in these two panels is the
+   page's differentiating text and it is never transparent, in the prerendered
+   document or at any moment after it — see LiftGroup in industry-sections.tsx.
+   Every keyframe fills `backwards`, so the settled state is the stylesheet's
+   and later hover transforms stay alive. */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* `html[data-js="on"]`, exactly as motion-reveal.css gates its own
+     pre-states: `data-lift` is only ever written by the client, so without it
+     an ungated pre-state leaves both lane cards and all four compliance cards
+     parked 18px low in the prerendered document, permanently. */
+  html[data-js="on"] .ss-ind2-lift > * {
+    translate: 0 18px;
+  }
+
+  .ss-ind2-lift[data-lift="shown"] > * {
+    translate: 0 0;
+    animation: ss-ind2-lift-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--lift-delay, 0ms);
+  }
+
+  .ss-ind2-lift[data-lift="shown"] > *:nth-child(2) {
+    animation-delay: calc(var(--lift-delay, 0ms) + 110ms);
+  }
+
+  .ss-ind2-lift[data-lift="shown"] > *:nth-child(3) {
+    animation-delay: calc(var(--lift-delay, 0ms) + 200ms);
+  }
+
+  .ss-ind2-lift[data-lift="shown"] > *:nth-child(4) {
+    animation-delay: calc(var(--lift-delay, 0ms) + 290ms);
+  }
+}
+
+@keyframes ss-ind2-lift-rise {
+  from {
+    translate: 0 18px;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+/* A button-driven deep link lands the reader mid-page; the shared handler
+   marks the destination and these settle in the same frame. */
+[data-reveal-bypass] .ss-ind2-lift > * {
+  translate: 0 0 !important;
+  animation: none !important;
+}
+
+/* ---- Shared spine -------------------------------------------------------- */
+
 .ss-ind2-markets__shared {
+  position: relative;
   display: grid;
   gap: 0.6rem 1.2rem;
   margin-top: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
   padding-top: clamp(1rem, 0.8rem + 0.8vw, 1.4rem);
+  padding-left: 1.15rem;
   border-top: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-ind2-markets__spine {
+  position: absolute;
+  top: clamp(1rem, 0.8rem + 0.8vw, 1.4rem);
+  bottom: 0.15rem;
+  left: 0.25rem;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 12px -2px color-mix(in srgb, var(--srv2-accent) 80%, transparent);
+  transform-origin: top;
 }
 
 @media (min-width: 52rem) {
   .ss-ind2-markets__shared {
     grid-template-columns: auto 1fr;
     align-items: start;
+    padding-left: 0;
+  }
+
+  .ss-ind2-markets__spine {
+    top: -1px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--srv2-accent),
+      var(--srv2-accent-2) 70%,
+      transparent
+    );
+    transform-origin: left;
   }
 }
 
@@ -2258,7 +3439,9 @@
   position: relative;
   padding-left: 1.4rem;
   color: var(--ss-v2-platinum);
-  font-size: clamp(0.9rem, 0.86rem + 0.15vw, 0.98rem);
+  /* Subordinate to the ledger's values by design: 13.1px at 390 against their
+     13.8px. The rail is the footnote that both markets share, not the lead. */
+  font-size: clamp(0.82rem, 0.79rem + 0.12vw, 0.94rem);
   line-height: 1.5;
   counter-increment: shared;
 }
@@ -2272,4 +3455,464 @@
   font-size: 0.66rem;
   letter-spacing: 0.08em;
   color: color-mix(in srgb, var(--srv2-accent) 60%, var(--ss-v2-titanium));
+}
+
+/* The spine draws and the items stagger once, on scroll-in: `data-spine-shown`
+   is set through the global reveal scheduler, not at mount, because this panel
+   is below the fold. The pre-state is `translate`/`scale` only — no text is
+   ever at opacity 0 here — and every keyframe fills `backwards`, so the
+   settled state is the stylesheet's and later transitions stay alive. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Same gate, same reason: an undrawn rail with no client to draw it. */
+  html[data-js="on"] .ss-ind2-markets__spine {
+    scale: 1 0;
+  }
+
+  .ss-ind2-markets__shared[data-spine-shown] .ss-ind2-markets__spine {
+    scale: 1 1;
+    animation: ss-ind2-spine-draw 820ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    /* Set by SharedSpine from the same scheduler slot the frame's own entrance
+       uses, so the draw starts once the frame has begun to appear. */
+    animation-delay: var(--spine-delay, 0ms);
+  }
+
+  html[data-js="on"] .ss-ind2-markets__shared-list li {
+    translate: 0 10px;
+  }
+
+  .ss-ind2-markets__shared[data-spine-shown] .ss-ind2-markets__shared-list li {
+    translate: 0 0;
+    animation: ss-ind2-shared-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .ss-ind2-markets__shared[data-spine-shown]
+    .ss-ind2-markets__shared-list
+    li:nth-child(1) {
+    animation-delay: calc(var(--spine-delay, 0ms) + 120ms);
+  }
+
+  .ss-ind2-markets__shared[data-spine-shown]
+    .ss-ind2-markets__shared-list
+    li:nth-child(2) {
+    animation-delay: calc(var(--spine-delay, 0ms) + 210ms);
+  }
+
+  .ss-ind2-markets__shared[data-spine-shown]
+    .ss-ind2-markets__shared-list
+    li:nth-child(3) {
+    animation-delay: calc(var(--spine-delay, 0ms) + 300ms);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 52rem) {
+  html[data-js="on"] .ss-ind2-markets__spine {
+    scale: 0 1;
+  }
+
+  .ss-ind2-markets__shared[data-spine-shown] .ss-ind2-markets__spine {
+    scale: 1 1;
+    animation-name: ss-ind2-spine-draw-x;
+  }
+}
+
+@keyframes ss-ind2-spine-draw {
+  from {
+    scale: 1 0;
+  }
+
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes ss-ind2-spine-draw-x {
+  from {
+    scale: 0 1;
+  }
+
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes ss-ind2-shared-rise {
+  from {
+    translate: 0 10px;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+/* A button-driven deep link lands the reader mid-page; the shared handler
+   marks the destination, and these settle in the same frame like every other
+   reveal. `!important` matches that file's convention. */
+[data-reveal-bypass] .ss-ind2-markets__spine {
+  scale: 1 1 !important;
+  animation: none !important;
+}
+
+[data-reveal-bypass] .ss-ind2-markets__shared-list li {
+  translate: 0 0 !important;
+  animation: none !important;
+}
+
+/* ---- Compliance panel ----------------------------------------------------
+   A sector's named rulebook, sitting directly beneath the market instrument
+   and built from the same materials — glass, one hairline, the route's own
+   accent pair, the same mono market chips — so the two panels read as one
+   argument continued rather than two unrelated boxes. The radial washes are
+   mirrored (accent-2 leads here, accent leads above) so the sibling is not a
+   twin.
+
+   Everything here is static at first paint: entrances come from Reveal, so
+   this block adds no keyframes and needs no reduced-motion gate of its own.
+   The only transitions are hover affordances, gated on a hover-capable
+   pointer. */
+
+.ss-ind2-compliance {
+  position: relative;
+  padding: clamp(1.4rem, 1rem + 1.6vw, 2.4rem);
+  border-radius: var(--ss-radius-2xl);
+  border: 1px solid var(--srv2-hairline);
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      120% 100% at 0% 100%,
+      color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+      transparent 55%
+    ),
+    var(--srv2-glass);
+  backdrop-filter: blur(16px);
+}
+
+/* ---- Read at a glance ----------------------------------------------------
+   Three structural claims above the detail. Chips, not prose: on a phone the
+   four cards below run to roughly 2,500px, and this row is the only part of
+   the rulebook a scan will catch. */
+
+.ss-ind2-compliance__glance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 clamp(0.9rem, 0.7rem + 0.7vw, 1.3rem);
+  padding: 0;
+  list-style: none;
+}
+
+.ss-ind2-compliance__glance-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--srv2-accent) 8%, transparent);
+  color: color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-platinum));
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+.ss-ind2-compliance__glance-item svg {
+  flex: none;
+  width: 0.85rem;
+  height: 0.85rem;
+  color: color-mix(in srgb, var(--srv2-accent) 62%, var(--ss-v2-chrome));
+}
+
+/* On a phone the three chips stack, so they read as a checklist rather than as
+   a wrapped row of fragments. */
+@media (max-width: 33.999rem) {
+  .ss-ind2-compliance__glance {
+    gap: 0.35rem;
+  }
+
+  .ss-ind2-compliance__glance-item {
+    font-size: 0.64rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+.ss-ind2-compliance__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.7rem, 0.5rem + 0.8vw, 1.1rem);
+}
+
+/* Two columns, not four: each card carries ~80 words of legal substance, and a
+   quarter-width column at 1440px would set them ~14 characters to the line. */
+@media (min-width: 46rem) {
+  .ss-ind2-compliance__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-ind2-compliance__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: clamp(0.95rem, 0.75rem + 0.8vw, 1.5rem);
+  /* Same nesting step as the market ledger's lane cards and the chart frame:
+     one radius ladder across both panels — 32 outer, 18 nested, 10 cell. */
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 12%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 52%, transparent);
+  transition:
+    border-color 260ms ease,
+    background-color 260ms ease,
+    translate 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (min-width: 46rem) {
+  .ss-ind2-compliance__card:hover {
+    border-color: color-mix(in srgb, var(--srv2-accent) 32%, var(--ss-v2-hairline));
+    background-color: color-mix(in srgb, var(--ss-v2-graphite-raised) 68%, transparent);
+    translate: 0 -2px;
+  }
+}
+
+/* The same acknowledgement for a finger. Without it the entire panel is inert
+   to the only gesture a phone reader has. */
+@media (hover: none) {
+  .ss-ind2-compliance__card:active {
+    border-color: color-mix(in srgb, var(--srv2-accent) 32%, var(--ss-v2-hairline));
+    background-color: color-mix(in srgb, var(--ss-v2-graphite-raised) 66%, transparent);
+    translate: 0 -1px;
+  }
+}
+
+.ss-ind2-compliance__head {
+  /* 1 when this card's market is the reader's own, so the chip lights in step
+     with the ledger's near lane above it. "Both" is always lit — it is never
+     the far market. */
+  --cmp-near: 0;
+
+  /* nowrap, so a long title wraps BESIDE its chip instead of dropping under
+     it: the four cards then present one shape, and the chip column stays a
+     scannable rail down the panel. Aligned to the first line, not centred —
+     a chip floating beside line two of three reads as decoration. */
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+.ss-ind2-compliance__head[data-market="UK"],
+.ss-ind2-compliance__head[data-market="Both"] {
+  --cmp-near: 1;
+}
+
+html[data-currency="usd"] .ss-ind2-compliance__head[data-market="UK"],
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-compliance__head[data-market="UK"] {
+  --cmp-near: 0;
+}
+
+html[data-currency="usd"] .ss-ind2-compliance__head[data-market="US"],
+html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+  .ss-ind2-compliance__head[data-market="US"] {
+  --cmp-near: 1;
+}
+
+.ss-ind2-compliance__chip {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  min-width: 2.4rem;
+  height: 1.5rem;
+  padding-inline: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--srv2-accent) calc(20% + var(--cmp-near) * 26%),
+      var(--ss-v2-hairline)
+    );
+  background: color-mix(
+    in srgb,
+    var(--srv2-accent) calc(3% + var(--cmp-near) * 15%),
+    transparent
+  );
+  color: color-mix(in srgb, var(--srv2-accent) 55%, var(--ss-v2-platinum));
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  /* "Both" is authored in sentence case because it is real content read by a
+     screen reader; the chip family is US / UK, so it is PRINTED as one of
+     them. Uppercasing here rather than in the copy keeps both true. */
+  text-transform: uppercase;
+  transition:
+    border-color 260ms ease,
+    background-color 260ms ease;
+}
+
+/* Two lines' worth of box even when the title takes one: card 3's title wraps
+   and card 4's does not, and without this the two bodies in that row start at
+   different baselines. */
+@media (min-width: 46rem) {
+  .ss-ind2-compliance__title {
+    min-height: 2.6em;
+  }
+}
+
+.ss-ind2-compliance__title {
+  margin: 0;
+  min-width: 0;
+  color: var(--ss-v2-platinum);
+  font-family: var(--ss-font-display, inherit);
+  font-size: clamp(0.95rem, 0.88rem + 0.3vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.ss-ind2-compliance__lede {
+  margin: 0;
+  max-width: var(--srv2-measure);
+  color: var(--ss-v2-platinum);
+  font-size: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  font-weight: 600;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.ss-ind2-compliance__body {
+  margin: 0;
+  max-width: var(--srv2-measure);
+  color: color-mix(in srgb, var(--srv2-accent) 10%, var(--srv2-ink-soft));
+  font-size: clamp(0.86rem, 0.82rem + 0.2vw, 0.95rem);
+  line-height: 1.65;
+}
+
+.ss-ind2-compliance__body strong {
+  color: var(--ss-v2-platinum);
+  font-weight: 600;
+}
+
+/* The citation, not a link: RichText renders no anchors, and a live link out of
+   a compliance claim invites the reader to check a source that may move. It is
+   a provenance mark — set in mono, kept above the AA floor, never greyed out. */
+.ss-ind2-compliance__source {
+  margin: 0.15rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--ss-v2-hairline);
+  color: color-mix(in srgb, var(--srv2-accent) 28%, var(--ss-v2-titanium));
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+/* One unbreakable span per citation THAT FITS: a statute reference that wraps
+   mid-token ("NAR / SoP 10-3") stops reading as a citation.
+
+   Two limits, both measured, and the rule sits inside both. Desktop only,
+   because an unbreakable span sets its card's min-content width and the source
+   line's content box is 160.8px at 320 and 227.3px at 390 against citations
+   that need 108-434px — nowrap there blew the mobile layout viewport out to
+   514px on /industry/estate-agents and zoomed the whole page. And, within
+   desktop, only the citations the component marked `data-fits` (see
+   COMPLIANCE_CITE_NOWRAP_MAX_CHARS in industry-sections.tsx): the one
+   64-character statute reference needs 433.9px against a 342.6px content box
+   at 1024, and while it carried this rule its tail was painted 53-91px outside
+   the card's border at every desktop width. Unmarked, it wraps at a space
+   inside its own card, with the parent's `overflow-wrap: break-word` as the
+   floor under that and `text-wrap: pretty` keeping the orphans down. */
+@media (min-width: 64rem) {
+  .ss-ind2-compliance__cite[data-fits="true"] {
+    white-space: nowrap;
+  }
+}
+
+/* Not fine print. This line carries the division of responsibility that makes
+   every claim above it honest, so it sits at body size and full contrast in
+   its own lit band rather than shrinking into a disclaimer. */
+/* The base `p { max-width: 68ch }` in tokens/utilities.css held this band to
+   650px inside an 857px row and left a quarter of the panel empty beside it.
+   The band is full width; the MEASURE lives on the text inside it. */
+.ss-ind2-compliance__note {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  max-width: none;
+  margin: clamp(0.9rem, 0.7rem + 0.8vw, 1.4rem) 0 0;
+  padding: clamp(0.85rem, 0.7rem + 0.6vw, 1.2rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 7%, transparent);
+  color: color-mix(in srgb, var(--srv2-accent) 8%, var(--srv2-ink-soft));
+  font-size: clamp(0.86rem, 0.82rem + 0.2vw, 0.95rem);
+  line-height: 1.65;
+}
+
+.ss-ind2-compliance__note > span {
+  max-width: var(--srv2-measure);
+}
+
+.ss-ind2-compliance__note svg {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.18rem;
+  color: color-mix(in srgb, var(--srv2-accent) 62%, var(--ss-v2-chrome));
+}
+
+.ss-ind2-compliance__note strong {
+  color: var(--ss-v2-platinum);
+  font-weight: 600;
+}
+
+/* Phone scroll cost: `.ss-ind2-markets` and `.ss-ind2-compliance` are 1,438px
+   and 2,578px tall at 390 — together taller than the two consoles that already
+   carry this guard in core-pages.css, and stacked one on top of the other over
+   the same fixed, GPU-promoted `.ss-hv2-backdrop`. `backdrop-filter` makes each
+   sample and re-blur that backdrop every frame while the scroll itself runs on
+   the compositor. The filter goes at phone widths and an opaque ground stands
+   in for it; desktop keeps the real glass, where the layer is cheap. */
+@media (max-width: 44rem) {
+  .ss-ind2-markets,
+  .ss-ind2-compliance {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .ss-ind2-markets {
+    background:
+      radial-gradient(
+        120% 100% at 0% 0%,
+        color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        120% 100% at 100% 100%,
+        color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
+        transparent 55%
+      ),
+      color-mix(in srgb, var(--ss-v2-void-black) 82%, var(--ss-v2-graphite));
+  }
+
+  .ss-ind2-compliance {
+    background:
+      radial-gradient(
+        120% 100% at 100% 0%,
+        color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        120% 100% at 0% 100%,
+        color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+        transparent 55%
+      ),
+      color-mix(in srgb, var(--ss-v2-void-black) 82%, var(--ss-v2-graphite));
+  }
 }

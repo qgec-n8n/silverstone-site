@@ -2267,6 +2267,15 @@ html[data-js="on"]
  */
 @media (max-width: 40rem) {
   .ss-hv2-secondary {
+    /*
+     * Note: since the phone hero adopted the shared `.ss-mhero__*`
+     * composition, every remaining consumer of --ss-hv2-stage in this block
+     * (the lead, the capability tiles, the benchmark board) is itself
+     * `display: none` on phones — see the adoption block at the end of this
+     * file. The stage is kept so those rules still resolve if a beat is ever
+     * brought back; anything shared uses --mhero-stage, which resolves
+     * identically in both heroes.
+     */
     --ss-hv2-stage: calc(
       100svh - var(--ss-layout-header, 0px) - 2 * var(--ss-hv2-secondary-pad)
     );
@@ -3355,4 +3364,584 @@ html[data-js="on"]
 */
 .ss-hv2[data-homepage-state="body"] .ss-hv2-hero {
   display: none;
+}
+
+/*
+ * ── Phones: the floating controls stay off the hero ────────────────────────
+ *
+ * The phone secondary hero is exactly one screen and it is the whole first
+ * impression, so the demos launcher, every return-to-intro control and the
+ * Silktide consent widget are all held back until the visitor has scrolled
+ * past it. The gate is `src/app/experience/mobile-chrome-gate.tsx`: it stamps
+ * `html[data-mobile-chrome="ready"]` once the trust strip's BOTTOM edge has
+ * risen into the upper half of the viewport (or, on routes with no trust
+ * strip, once half a viewport has been scrolled), with hysteresis so the
+ * controls cannot strobe on the threshold. The consent widget's half of this
+ * lives in OVERRIDES_CSS in components/layout/shell/cookie-consent-manager.tsx,
+ * because that stylesheet has to be injected next to the vendor's own.
+ *
+ * What this buys: the hero used to reserve a 7.4rem band at the bottom of the
+ * stage (`--srv2-mobile-chrome-reserve`) purely so the CTA row could never sink
+ * behind these controls. With the controls gone from the hero that band is now
+ * only the scroll cue's own breathing room, and the reclaimed ~64px went into
+ * the H1 and the air around it.
+ *
+ * `:not([data-mobile-chrome="ready"])` rather than a positive "off" value,
+ * deliberately: the attribute does not exist until the gate's effect runs, so
+ * the prerendered document already reads as hidden and no control can flash
+ * over a cold-loaded hero. Above 40rem the attribute is never set, and this
+ * block is inside the phone query anyway, so wider screens are untouched.
+ *
+ * Only opacity / visibility / pointer-events move — a shown control is
+ * pixel-identical to before. `visibility` is what takes a hidden control out of
+ * the tab order and the accessibility tree; transitioning it alongside opacity
+ * holds it visible for the whole fade out and restores it instantly on the way
+ * in (CSS interpolates visibility that way whenever one endpoint is `visible`).
+ */
+@media (max-width: 40rem) {
+  /* The `transition` shorthand replaces the base list, so `.ss-hv2-return`'s
+     own hover transitions are repeated here — dropping them would kill the
+     press feedback on exactly the devices this block targets. */
+  .ss-demo-launcher {
+    transition:
+      opacity 240ms var(--ss-motion-easing-standard),
+      visibility 240ms var(--ss-motion-easing-standard);
+  }
+
+  .ss-hv2-return {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease,
+      background 0.35s ease,
+      opacity 240ms var(--ss-motion-easing-standard),
+      visibility 240ms var(--ss-motion-easing-standard);
+  }
+
+  html:not([data-mobile-chrome="ready"]) .ss-demo-launcher,
+  html:not([data-mobile-chrome="ready"]) .ss-hv2-return {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* The site-wide reduced-motion reset in tokens/utilities.css already forces
+   every transition to --ss-motion-reduced-duration, so this is belt and braces
+   — it states the intent at the point of use, as the `.ss-hv2-return` block
+   further up this file does. */
+@media (max-width: 40rem) and (prefers-reduced-motion: reduce) {
+  .ss-demo-launcher,
+  .ss-hv2-return {
+    transition: none;
+  }
+}
+
+/*
+ * ══ Shared phone hero stack (`.ss-mhero__*`) ═══════════════════════════════
+ *
+ * One rule set for BOTH secondary heroes' phone composition: the shared
+ * services-v2 hero on 25 routes and the homepage's own. The markup is one
+ * component — features/services-v2/components/mobile-hero-stack.tsx — so a
+ * phone sees the same beats in the same rhythm on `/` as on `/about`:
+ *
+ *     breadcrumb index -> eyebrow -> H1 -> tagline -> glass manifest ->
+ *     pills -> scroll cue
+ *
+ * These rules live in home-v2.css and not in services-v2.css because this is
+ * the only hero stylesheet loaded on every route: services-v2.css ships in the
+ * service/industry/core-page chunks and is genuinely absent from the homepage
+ * (verified in the browser: no `.ss-srv2` rule and no `--srv2-frame-top` there),
+ * while this file is pulled into the root bundle by the always-mounted demos
+ * launcher.
+ *
+ * Everything is `display: none` outside `max-width: 40rem`, declared in the
+ * BASE rules below rather than only inside the phone query, so the tablet band
+ * (40-64rem) can never leak a phone beat into the desktop composition. The
+ * hidden beats stay in the DOM on every viewport — see the note in
+ * mobile-hero-stack.tsx on why nothing may exist on only one side of the
+ * breakpoint.
+ */
+
+:root {
+  /*
+   * Mirrors --srv2-frame-top (services-v2.css), duplicated because that file
+   * is not loaded on the homepage. Keep the two in step.
+   */
+  --mhero-frame-top: clamp(1rem, 0.4rem + 1.6vh, 2.1rem);
+  /*
+   * The scroll cue's own band. The cue box measures 46.8px on every phone; the
+   * extra ~7px is what keeps it off the fold. It used to be 7.4rem, reserving
+   * the floating controls that sat over the hero's bottom corners — those are
+   * now gated off the hero entirely (src/app/experience/mobile-chrome-gate.tsx)
+   * and the reclaimed height went into the H1 and the air around it.
+   */
+  --mhero-cue-band: calc(3.4rem + env(safe-area-inset-bottom, 0px));
+  /*
+   * The phone content budget, and the single number every fluid value in the
+   * phone hero is a straight line through. `svh`, never `dvh`: the type must
+   * not resize while a phone toolbar animates (the hero BOX is dvh, so a
+   * toolbar collapse moves the composition instead of reflowing it).
+   *
+   * Declared once, at the root, so the shared beats resolve to the same pixels
+   * in both heroes even though their section boxes are different heights.
+   */
+  --mhero-stage: calc(
+    100svh - var(--ss-layout-header, 0px) - var(--mhero-frame-top) -
+      var(--mhero-cue-band)
+  );
+  /*
+   * One rhythm for every hero beat, and the composition's biggest single
+   * lever: five or six gaps ride it.
+   *
+   * Line A is the original two-point fit — 0.4rem at a 320x568 stage (417.6px),
+   * 0.85rem at a 390x844 one (689.7px) — because the beats that never scale
+   * (breadcrumb line, eyebrow, the CTA row's 44px touch target) eat a fifth of
+   * a short phone's stage but only a tenth of a tall one's, so the air has to
+   * give up more than its share as the screen shortens.
+   *
+   * Line B is the third calibration point, added because line A left a tall
+   * phone visibly under-filled: at 430x932 (stage 776.3px) it reached only
+   * 15.9px of rhythm while ~140px of the stage sat dead between the pills and
+   * the cue on the shortest-stacked route. B crosses A at stage 690 — the
+   * 390x844 stage — so `max()` picks A on every screen up to and including
+   * the reference phone and B only above it. Two lines and a max(), never a
+   * second breakpoint tier: the whole point of the stage formula is that the
+   * composition is continuous.
+   *
+   * B's slope is bounded by the LONGEST phone stack on the site, not by taste.
+   * /about carries the tallest hero column, and its clearance between the last
+   * pill and the scroll cue is 18.0px at 390x844 and 29.6px at 430x932 — the
+   * floor the fold spec now asserts is that same 18px. So the composition has
+   * a growth budget of ~13px at a 776px stage and ZERO at a 690px one; a line
+   * steep enough to reach the 1.35rem this was first drawn at pushed /about to
+   * 5.7px at 390 and to -2px (pills overlapping the cue) at 430. Widening this
+   * further needs /about's stack to get shorter first, not a steeper line.
+   */
+  --mhero-flow-gap: clamp(
+    0.32rem,
+    max(
+      calc(0.0265 * var(--mhero-stage) - 4.65px),
+      calc(0.0333 * var(--mhero-stage) - 9.32px)
+    ),
+    1.15rem
+  );
+}
+
+.ss-mhero__beat,
+.ss-mhero__manifest {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .ss-mhero__beat {
+    display: block;
+  }
+
+  /*
+   * The tagline: one accent-tinted line in place of the deck AND the lead.
+   * 0.72rem at 320x568, 0.95rem at 390x844 — a shallower slope than the H1, so
+   * the display type scales fluidly while the reading type stays near-fixed
+   * (the split Apple's product pages use). `nowrap` is deliberately NOT set:
+   * the copy budget targets one line, and a route that outgrows it wraps to a
+   * second rather than overflowing the gutter.
+   */
+  .ss-mhero__tagline {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    color: color-mix(
+      in srgb,
+      var(--srv2-accent, var(--ss-v2-signal-cyan)) 34%,
+      var(--ss-v2-platinum)
+    );
+    font-size: clamp(
+      0.68rem,
+      min(4.4vw, calc(0.0136 * var(--mhero-stage) + 5.82px)),
+      1.05rem
+    );
+    line-height: 1.35;
+    letter-spacing: -0.006em;
+    text-wrap: pretty;
+  }
+
+  /*
+   * The accent span mixes toward platinum rather than painting the raw route
+   * accent, exactly as the desktop deck this line replaces does
+   * (`.ss-srv2-hero__deck em`, services-v2.css). Measured against the painted
+   * backdrop at 15.2px / 600 weight, before and after: the pure accent failed
+   * WCAG AA outright on /services/ai-consulting — p50 4.19 with 100% of the
+   * backdrop area below 4.5:1 at both 320x568 and 390x844 — and partially on
+   * /industry/gyms-fitness-studios (14.3% of area) and /services/ai-automation
+   * (10.1%). With the mix, p50 is 7.37-7.61 on all three and the area below
+   * 4.5:1 falls to 0.00-0.70%. The residue is the aether field's brightest
+   * particles crossing behind a glyph, which every accent-tinted string on the
+   * site carries — the cyan homepage tagline, at p05 10.15, has a worst pixel
+   * of 2.93 — so it is not a property of this colour. Token names are
+   * home-v2's, not services-v2's — this file is the one loaded on every route,
+   * the homepage included, where `--ss-srv2-accent` does not exist.
+   */
+  .ss-mhero__tagline em {
+    font-style: normal;
+    font-weight: 600;
+    color: color-mix(
+      in srgb,
+      var(--srv2-accent, var(--ss-v2-signal-cyan)) 62%,
+      var(--ss-v2-platinum)
+    );
+  }
+
+  /*
+   * The signal manifest: one glass instrument, hairline-divided, with two
+   * accent arcs hugging opposite corners — the hero's single decorative
+   * flourish and, per the site's rule, its ONLY blurred surface (a second
+   * backdrop-filter layer re-rasters on every scroll frame on a phone).
+   */
+  .ss-mhero__manifest {
+    --mhero-accent: var(--srv2-accent, var(--ss-v2-signal-cyan));
+    --mhero-hairline: color-mix(
+      in srgb,
+      var(--mhero-accent) 26%,
+      var(--ss-v2-hairline)
+    );
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+    margin: 0;
+    /* Vertical padding joins the stage formula above stage 640 (nothing below
+       it moves — the line is under the 0.2rem floor until then), so the glass
+       instrument reads as generous on a tall phone instead of as the same
+       tight card scaled up. */
+    padding: clamp(0.2rem, calc(0.0209 * var(--mhero-stage) - 11.19px), 0.4rem) 0.9rem;
+    list-style: none;
+    border: 1px solid var(--mhero-hairline);
+    border-radius: 0.85rem;
+    background:
+      linear-gradient(
+        165deg,
+        color-mix(in srgb, var(--mhero-accent) 8%, transparent),
+        transparent 58%
+      ),
+      var(--srv2-glass, var(--ss-v2-glass));
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, white 6%, transparent),
+      0 18px 40px -30px color-mix(in srgb, var(--mhero-accent) 55%, transparent);
+    backdrop-filter: blur(14px);
+    /*
+     * The panel has no component-level Reveal of its own (it is a bare <ul>,
+     * and wrapping it would add a box to the desktop composition too), so the
+     * phone composition animates it here. The delay is handed in as an inline
+     * custom property by the component, which is what lets each hero slot the
+     * panel into its OWN reveal ladder: 900ms on the shared hero (after the
+     * tagline at 840, before its rows at 980), 300ms on the homepage.
+     *
+     * `backwards`, never `forwards`: the fill only has to hold the hidden
+     * state through the delay, and a forwards fill would freeze the settled
+     * transform and kill every later hover/tap transform on the panel.
+     */
+    animation: ss-mhero-panel-in 700ms cubic-bezier(0.22, 1, 0.36, 1)
+      var(--mhero-panel-delay, 900ms) backwards;
+  }
+
+  .ss-mhero__manifest::before,
+  .ss-mhero__manifest::after {
+    content: "";
+    position: absolute;
+    width: 1.35rem;
+    height: 1.35rem;
+    border: 1px solid color-mix(in srgb, var(--mhero-accent) 80%, transparent);
+    pointer-events: none;
+  }
+
+  .ss-mhero__manifest::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+    border-top-left-radius: 0.85rem;
+  }
+
+  .ss-mhero__manifest::after {
+    right: -1px;
+    bottom: -1px;
+    border-left: 0;
+    border-top: 0;
+    border-bottom-right-radius: 0.85rem;
+  }
+
+  /*
+   * Rows, not a 3-up token row: measured at 320px the panel has 240px of inner
+   * width, and three columns of it are 80px each — nowhere near the ~26
+   * characters the copy budget allows, so a horizontal row could only fit by
+   * wrapping, which is the one thing this beat must not do.
+   */
+  .ss-mhero__row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.7rem;
+    /* Same third-calibration-point shape as --mhero-flow-gap: line B is pinned
+       so the row reaches ~3.3rem at a 430x932 stage and crosses line A at 640,
+       leaving every screen at or below 375x667 untouched. */
+    padding: clamp(
+        0.3rem,
+        max(
+          calc(0.0147 * var(--mhero-stage) - 1.34px),
+          calc(0.024 * var(--mhero-stage) - 7.75px)
+        ),
+        0.7rem
+      )
+      0.05rem;
+    color: var(--ss-v2-platinum);
+    /* Only the ceiling moved (0.95rem -> 1rem): it, not either term, was what
+       capped a 430x932 row's type at 15.2px. The vw term still binds at 390
+       and the stage term at every smaller phone, so both are untouched. */
+    font-size: clamp(
+      0.7rem,
+      min(3.6vw, calc(0.0118 * var(--mhero-stage) + 6.29px)),
+      1rem
+    );
+    line-height: 1.3;
+    text-align: start;
+  }
+
+  /*
+   * The rows' entrance, staggered by an inline `--mhero-row-delay` from the
+   * component: 980/1080/1180ms on the shared hero (its panel lands at 900),
+   * 380/480/580ms on the homepage (panel at 300). It is CSS and not a Motion
+   * `initial` because Motion writes that initial into the prerendered HTML as
+   * `opacity: 0`, which disqualifies the text from LCP candidacy until
+   * hydration finishes and leaves the stagger unplayed on a cold gated entry.
+   * `backwards`, never `forwards` — same reason as the panel's.
+   */
+  .ss-mhero__row {
+    animation: ss-mhero-row-in 850ms cubic-bezier(0.22, 1, 0.36, 1)
+      var(--mhero-row-delay, 980ms) backwards;
+  }
+
+  .ss-mhero__row + .ss-mhero__row {
+    border-top: 1px solid color-mix(in srgb, var(--ss-v2-hairline) 62%, transparent);
+  }
+
+  .ss-mhero__row-text {
+    text-wrap: pretty;
+  }
+
+  .ss-mhero__row-icon {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: clamp(1.15rem, calc(0.0353 * var(--mhero-stage) + 3.67px), 1.95rem);
+    height: clamp(1.15rem, calc(0.0353 * var(--mhero-stage) + 3.67px), 1.95rem);
+    border-radius: 0.55rem;
+    border: 1px solid
+      color-mix(in srgb, var(--srv2-accent, var(--ss-v2-signal-cyan)) 30%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--srv2-accent, var(--ss-v2-signal-cyan)) 12%,
+      transparent
+    );
+    color: var(--srv2-accent, var(--ss-v2-signal-cyan));
+  }
+
+  .ss-mhero__row-icon svg {
+    width: 62%;
+    height: 62%;
+  }
+
+  /*
+   * The action row's geometry, shared. The pills themselves stay per-hero:
+   * `.ss-srv2-btn` reads the route's own `--srv2-accent` gradient, which the
+   * homepage does not define, and the homepage's `[data-slot="button"]` is a
+   * different component. The shared hero's own `.ss-srv2 .ss-srv2-hero
+   * .ss-srv2-hero__actions` rules restate this geometry at the specificity the
+   * `.ss-core-hero` cascade note in services-v2.css requires; this rule is what
+   * drives the homepage.
+   */
+  .ss-mhero__actions {
+    display: grid;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    grid-template-columns: 1fr;
+    gap: var(--mhero-flow-gap);
+    padding-top: 0;
+  }
+
+  .ss-mhero__actions > * {
+    width: 100%;
+  }
+}
+
+/*
+ * Short phones: the two actions share one row rather than stacking. Two
+ * stacked controls plus their gap cost ~95px — a fifth of a 640px-tall phone's
+ * whole content budget — and each pill still keeps its 44px touch target.
+ * Mirrors the shared hero's own tier in services-v2.css.
+ */
+@media (max-width: 40rem) and (max-height: 43.75rem) {
+  .ss-mhero__actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* The manifest's arrival — the panel rises and fades in as one glass
+   instrument, immediately before its own rows stagger in. */
+@keyframes ss-mhero-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Each signal then slides in from the panel's left edge, in reading order. */
+@keyframes ss-mhero-row-in {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Panel and rows are both CSS entrances now, so both opt out here — the rows
+   used to branch on `useReducedMotion` inside the component. */
+@media (prefers-reduced-motion: reduce) {
+  .ss-mhero__manifest,
+  .ss-mhero__row {
+    animation: none;
+  }
+}
+
+/*
+ * ── The homepage hero adopts the shared phone composition ──────────────────
+ *
+ * `.ss-hv2-secondary` is its own component (an h2 title, two-line capability
+ * items, a benchmark board) but on a phone it renders the same beats as every
+ * other hero, in the same order and rhythm. These rules are the swap: the
+ * desktop column's lead, capability tiles and signal board step aside for the
+ * shared tagline + manifest, and the intro goes left-aligned like the rest of
+ * the site rather than keeping its centred phone treatment.
+ *
+ * They sit after the `max-width: 640px` block above (the same breakpoint,
+ * 640px = 40rem) so they win at equal specificity by source order. Everything
+ * hidden here stays in the DOM.
+ */
+@media (max-width: 40rem) {
+  .ss-hv2-secondary__lead,
+  .ss-hv2-secondary__caps,
+  .ss-hv2-secondary__mobile-signal {
+    display: none;
+  }
+
+  .ss-hv2-secondary__intro {
+    align-items: stretch;
+    text-align: left;
+    gap: var(--mhero-flow-gap);
+    padding-top: 0;
+  }
+
+  .ss-hv2-secondary__intro .ss-hv2-kicker {
+    align-self: flex-start;
+  }
+
+  /*
+   * The stack is centred in the stage with the cue anchored to the bottom:
+   * two `auto` margins split the free space between "above the first beat" and
+   * "between the actions and the cue". Same visual result as the shared hero's
+   * `justify-content: safe center` + bottom-anchored cue band, reached
+   * differently because the homepage's cue lives INSIDE the intro column.
+   */
+  .ss-hv2-secondary__intro > *:first-child {
+    margin-top: auto;
+  }
+
+  .ss-hv2-secondary__cue--intro {
+    margin-top: auto;
+    padding-top: var(--mhero-flow-gap);
+  }
+
+  /*
+   * Kept in lockstep with `.ss-srv2-hero__title`'s phone formula
+   * (services-v2.css): the same two calibration points, so the homepage's h2
+   * and every route's h1 render at the same size on the same phone. Only the
+   * heading level differs.
+   */
+  .ss-hv2-secondary__title {
+    font-size: clamp(
+      1.15rem,
+      min(11.5vw, calc(0.0853 * var(--mhero-stage) - 14.8px)),
+      3.05rem
+    );
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  /*
+   * The kicker sheds its capsule and becomes the same console label the shared
+   * hero's eyebrow uses on phones: dot, tracked mono caption, then a hairline
+   * rule running to the right edge. Scoped to the secondary hero's intro so
+   * the full-screen primary hero above keeps its pill.
+   */
+  .ss-hv2-secondary__intro .ss-hv2-kicker {
+    width: 100%;
+    max-width: none;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .ss-hv2-secondary__intro .ss-hv2-kicker::after {
+    content: "";
+    flex: 1 1 0.5rem;
+    height: 1px;
+    margin-left: 0.3rem;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 50%, transparent),
+      transparent 94%
+    );
+  }
+
+  /* Matches `.ss-srv2-hero__actions .ss-srv2-btn`'s phone sizing so the two
+     heroes' pills are the same object at the same viewport. `nowrap` holds the
+     label to one line for the same reason it does there: a wrapped CTA reads as
+     two half-thoughts stacked inside the pill. Both homepage labels are 17
+     characters, well inside the ~18-character budget that keeps the full
+     stage-driven type. */
+  .ss-hv2-secondary__actions [data-slot="button"] {
+    width: 100%;
+    justify-content: center;
+    min-height: clamp(2.75rem, calc(0.0107 * var(--mhero-stage) + 40.34px), 3rem);
+    padding-block: 0;
+    padding-inline: 1.1rem;
+    font-size: clamp(0.68rem, calc(0.0103 * var(--mhero-stage) + 7.66px), 0.9rem);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 40rem) and (max-height: 43.75rem) {
+  .ss-hv2-secondary__actions [data-slot="button"] {
+    padding-inline: 0.4rem;
+    line-height: 1.2;
+  }
 }

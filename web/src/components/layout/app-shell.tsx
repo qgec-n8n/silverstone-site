@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { MobileChromeGate } from "~/app/experience/mobile-chrome-gate";
 import { SkipLink } from "~/components/accessibility/skip-link";
 import { cn } from "~/lib/utils";
 import { usePageInView } from "~/motion";
@@ -53,6 +54,10 @@ function AppShell({ children, pendingIndicator }: AppShellProps) {
   return (
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
       <SkipLink />
+      {/* Renders nothing. Stamps html[data-mobile-chrome] so the floating
+          controls stay off the phone hero until the visitor scrolls past it —
+          mounted here because it must outlive every route change. */}
+      <MobileChromeGate />
       {chromeVisible ? <SiteHeader pendingIndicator={pendingIndicator} /> : null}
       <main
         className={cn(

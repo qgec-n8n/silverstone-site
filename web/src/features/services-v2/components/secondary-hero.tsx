@@ -10,19 +10,7 @@ import * as m from "motion/react-m";
 import { createElement, type ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 
-import {
-  Database,
-  Layers,
-  Plug,
-  ShieldCheck,
-  Target,
-  TrendingUp,
-  Unlock,
-  UserCheck,
-  Workflow,
-  Zap,
-  type LucideIcon,
-} from "~/components/icons/lucide";
+import { type LucideIcon } from "~/components/icons/lucide";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -33,6 +21,8 @@ import {
 } from "~/components/ui/breadcrumb";
 import { getBreadcrumbTrail } from "~/components/layout/shell/breadcrumb-trail";
 
+import type { MobileHeroCopy } from "../content/mobile-hero";
+import { inferPointIcon, MobileHeroStack } from "./mobile-hero-stack";
 import { Eyebrow, Reveal, RichText, ServiceButton } from "./primitives";
 
 /**
@@ -88,49 +78,6 @@ function HeroBreadcrumbs({ trail }: { trail: ReturnType<typeof getBreadcrumbTrai
 /** Hero capability point: a plain string renders with the gradient dot;
  * `{ icon, text }` renders a bordered icon chip instead (core pages). */
 export type SecondaryHeroPoint = string | { icon: LucideIcon; text: string };
-
-const FALLBACK_POINT_ICONS = [Target, Workflow, ShieldCheck] as const;
-
-/**
- * Service and industry copy is sourced as plain strings. Give those signals
- * the same icon-chip language as core pages without rewriting generated copy
- * contracts: the visible text selects a stable, semantically matched icon,
- * with a varied diagnostic/process/governance fallback.
- */
-function inferPointIcon(text: string, index: number): LucideIcon {
-  const normalized = text.toLowerCase();
-  if (/human|judgment|oversight|people|team/.test(normalized)) {
-    return UserCheck;
-  }
-  if (/source of truth|crm|record|data|diary|reservation|patient/.test(normalized)) {
-    return Database;
-  }
-  if (/measure|result|proof|impact|performance|kpi|outcome/.test(normalized)) {
-    return TrendingUp;
-  }
-  if (/sector|discipline|architecture|connected|industry/.test(normalized)) {
-    return Layers;
-  }
-  if (/integrat|tool|platform|stack/.test(normalized)) {
-    return Plug;
-  }
-  if (/lock-in|commit/.test(normalized)) {
-    return Unlock;
-  }
-  if (/second|week|fast|live|always|immediate/.test(normalized)) {
-    return Zap;
-  }
-  if (/scope|diagnos|problem|fit|choose|priority/.test(normalized)) {
-    return Target;
-  }
-  if (/govern|safe|secure|compliance|control|guardrail/.test(normalized)) {
-    return ShieldCheck;
-  }
-  if (/workflow|system|process|route|handoff|automation/.test(normalized)) {
-    return Workflow;
-  }
-  return FALLBACK_POINT_ICONS[index % FALLBACK_POINT_ICONS.length] ?? ShieldCheck;
-}
 
 /**
  * How tightly the primary CTA's label has to be fitted on a phone.
@@ -203,6 +150,7 @@ export function SecondaryHero({
   deck,
   lead,
   points,
+  mobile,
   primaryCtaLabel,
   primaryCtaHref = "/book#booking-calendar",
   secondaryCtaLabel,
@@ -226,6 +174,15 @@ export function SecondaryHero({
   deck?: string | undefined;
   lead: string;
   points: SecondaryHeroPoint[];
+  /**
+   * Phone-only copy: one short tagline in place of the deck and lead, and three
+   * chip-sized signals in place of the capability sentences (see
+   * `../content/mobile-hero.ts`). Optional so a route can land before its copy
+   * does — without it the phone falls back to the desktop capability list, and
+   * only the deck and lead are dropped (they are what the one-screen budget
+   * cannot hold either way).
+   */
+  mobile?: MobileHeroCopy | undefined;
   primaryCtaLabel: string;
   /** Defaults to the booking deep link; conversion pages point it at their
    * own in-page target (e.g. the contact form) instead. */
@@ -240,7 +197,14 @@ export function SecondaryHero({
   const breadcrumbTrail = getBreadcrumbTrail(location.pathname);
 
   return (
-    <section className="ss-srv2-section ss-srv2-hero" aria-labelledby={titleId}>
+    <section
+      className="ss-srv2-section ss-srv2-hero"
+      aria-labelledby={titleId}
+      /* Lets the phone tier swap the capability list for the manifest ONLY
+         where there is mobile copy to put in it — a route without it keeps its
+         desktop points rather than losing the beat entirely. */
+      data-mobile-copy={mobile ? "true" : undefined}
+    >
       <div className="ss-srv2__container">
         <div className="ss-srv2-hero__grid">
           <div className="ss-srv2-hero__intro">
@@ -275,6 +239,12 @@ export function SecondaryHero({
                   <RichText text={title} />
                 </h1>
               </Reveal>
+              {/* Phone-only, and placed here rather than beside the
+                  capability list so the reading order the phone actually
+                  renders (H1 -> tagline -> manifest) is the reading order in
+                  the markup. On desktop both beats are display:none and the
+                  deck/lead/capabilities below are untouched. */}
+              {mobile ? <MobileHeroStack copy={mobile} /> : null}
               {deck ? (
                 <Reveal
                   kind="section"
@@ -306,7 +276,9 @@ export function SecondaryHero({
                   <RichText text={lead} />
                 </p>
               </Reveal>
-              <ul className="ss-srv2-hero__caps">
+              {/* `role="list"` because the rule set removes the marker, which
+                  makes Safari drop list semantics from the element. */}
+              <ul className="ss-srv2-hero__caps" role="list">
                 {points.map((point, index) => (
                   <CapabilityPoint
                     key={typeof point === "string" ? point : point.text}
@@ -323,7 +295,12 @@ export function SecondaryHero({
               trigger="mount"
             >
               <div
-                className="ss-srv2-hero__actions"
+                /* `ss-mhero__actions` is the shared phone grid, so the
+                   homepage's own hero lays its two pills out identically (see
+                   the `.ss-mhero__*` block in styles/visual/home-v2.css). The
+                   pills themselves stay per-hero: `.ss-srv2-btn` reads the
+                   route's `--srv2-accent`, which the homepage does not define. */
+                className="ss-srv2-hero__actions ss-mhero__actions"
                 data-primary-cta-length={primaryCtaLengthBucket(primaryCtaLabel)}
               >
                 <ServiceButton href={primaryCtaHref} variant="primary">

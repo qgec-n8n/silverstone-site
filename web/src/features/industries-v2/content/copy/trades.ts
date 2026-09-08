@@ -31,6 +31,14 @@ export const tradesCopy: IndustryCopy = {
     "Service-area rules applied at intake, live",
     "Price and attendance — your call, always",
   ],
+  mobile: {
+    tagline: "Every missed call becomes a *workable job brief*",
+    points: [
+      "Missed calls recovered",
+      "Service-area rules applied",
+      "Price stays your call",
+    ],
+  },
   trustTokens: [
     "Service-area aware",
     "Evidence-led",

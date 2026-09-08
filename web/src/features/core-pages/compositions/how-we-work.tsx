@@ -16,6 +16,7 @@ import { coreSectionStyle, NumberedRail } from "~/features/core-pages/shared";
 import { BoundaryPanel } from "~/features/industries-v2/components/industry-sections";
 import { RichText, SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { HOW_WE_WORK_MOBILE_HERO } from "~/features/core-pages/mobile-hero-copy";
 import {
   BenchmarkConsole,
   FinalCta,
@@ -95,6 +96,7 @@ export function HowWeWorkComposition() {
             text: "Verified results from live client systems",
           },
         ]}
+        mobile={HOW_WE_WORK_MOBILE_HERO}
         primaryCtaLabel="Book a discovery call"
         secondaryCtaLabel="See verified results"
         secondaryCtaHref="/how-we-work#hww-proof"

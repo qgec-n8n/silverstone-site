@@ -189,7 +189,7 @@ export const hubCompositionByPath: Record<
 };
 
 /** Every composition in one flat path lookup, for the preloader below. */
-const preloadByPath: Record<string, { preload: () => void }> = {
+const preloadByPath: Record<string, { preload: () => Promise<void> }> = {
   ...coreCompositionByPath,
   ...serviceCompositionByRoute,
   ...industryCompositionByRoute,
@@ -197,15 +197,20 @@ const preloadByPath: Record<string, { preload: () => void }> = {
 };
 
 /**
- * Start downloading the composition chunk for `path`, if it has one.
+ * Start downloading the composition chunk for `path`, if it has one, and
+ * resolve once it has landed.
  *
- * Called from navigation intent (hover / focus / pointer-down) so the chunk is
- * already resolved by the time the route commits. Safe to call repeatedly and
- * for paths that own no composition — both are no-ops.
+ * Two callers, two uses of the same promise. Navigation intent (hover / focus
+ * / pointer-down) ignores it and just starts the fetch early. Each route's
+ * `clientLoader` AWAITS it, which makes the chunk a data dependency of the
+ * navigation: React Router keeps the page being left on screen until the next
+ * page's loaders settle, so the destination can no longer commit its Suspense
+ * fallback first. Safe to call repeatedly (the load is started once) and for
+ * paths that own no composition (resolves immediately).
  */
-export function preloadRouteComposition(path: string): void {
+export function preloadRouteComposition(path: string): Promise<void> {
   const normalized =
     path !== "/" && path.endsWith("/") ? path.replace(/\/+$/, "") : path;
 
-  preloadByPath[normalized]?.preload();
+  return preloadByPath[normalized]?.preload() ?? Promise.resolve();
 }

@@ -30,6 +30,14 @@ export const ecommerceCopy: IndustryCopy = {
     "Returns triaged in seconds, not tickets",
     "Refunds and disputes stay human, always",
   ],
+  mobile: {
+    tagline: "Order questions answered from *live order data*",
+    points: [
+      "Grounded in live data",
+      "Returns triaged in seconds",
+      "Refunds stay human",
+    ],
+  },
   trustTokens: ["State-aware", "Policy-controlled", "Exception-owned", "Measurable"],
   markets: {
     eyebrow: "Built for your market",

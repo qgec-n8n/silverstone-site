@@ -31,6 +31,14 @@ export const hospitalityCopy: IndustryCopy = {
     "Group inquiries arrive as complete briefs",
     "Allergens and emergencies reach people, always",
   ],
+  mobile: {
+    tagline: "Every guest answered from *real availability*",
+    points: [
+      "Never guesses availability",
+      "Group inquiries as briefs",
+      "Allergens reach people",
+    ],
+  },
   trustTokens: ["Reservation-aware", "Multichannel", "Safety-bounded", "Staff-visible"],
   markets: {
     eyebrow: "Built for your market",

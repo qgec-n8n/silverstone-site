@@ -1836,11 +1836,23 @@ export function ArticlePage({ post }: ArticlePageProps) {
                   <Breadcrumb className="ss-blog-article__breadcrumbs">
                     <BreadcrumbList>
                       <BreadcrumbItem>
-                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                        {/* `asChild` + `Link` rather than the raw `href` the
+                            primitive renders by default: a native anchor makes
+                            the browser fetch the document again, which replays
+                            the loader and Aether intro on arrival. */}
+                        <BreadcrumbLink asChild>
+                          <Link prefetch="intent" to="/">
+                            Home
+                          </Link>
+                        </BreadcrumbLink>
                       </BreadcrumbItem>
                       <BreadcrumbSeparator />
                       <BreadcrumbItem>
-                        <BreadcrumbLink href="/blog">Blog</BreadcrumbLink>
+                        <BreadcrumbLink asChild>
+                          <Link prefetch="intent" to="/blog">
+                            Blog
+                          </Link>
+                        </BreadcrumbLink>
                       </BreadcrumbItem>
                       <BreadcrumbSeparator />
                       <BreadcrumbItem>

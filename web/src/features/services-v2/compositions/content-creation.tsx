@@ -85,6 +85,7 @@ export function ContentCreationComposition({
         titleId="srv2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={micro.ctaButton}
         secondaryCtaLabel="See verified results"
         secondaryCtaHref="/services/content-creation#srv2-proof"

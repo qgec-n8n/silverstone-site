@@ -893,7 +893,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     /* Height of the floating chrome cluster pinned to the viewport's bottom
        corners (demos FAB + "Try a live demo" bubble on the right, consent /
        article-return controls on the left) — the scroll-cue band below
-       reserves it so the CTA block can never sink behind that chrome. */
+       reserves it so the CTA block can never sink behind that chrome.
+       This is the TABLET value. Phones override it to the cue's own height in
+       the `max-width: 40rem` block below, because the chrome-gate keeps those
+       controls off the hero entirely there (see mobile-chrome-gate.tsx). */
     --srv2-mobile-chrome-reserve: calc(7.4rem + env(safe-area-inset-bottom, 0px));
     height: auto;
     min-height: calc(100svh - var(--srv2-hero-chrome));
@@ -934,51 +937,82 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 /*
- * Phone composition — a left-aligned "flight console" editorial, replacing the
- * earlier centred chip stack. Desktop's voice is left-aligned and instrumental;
- * mobile now speaks the same language instead of a centred template: a mono
- * breadcrumb index line, a label-and-rule eyebrow, display-size title, full-
- * measure lead, and the three signal points fused into one hairline-divided
- * glass manifest (accent corner arcs, top-left / bottom-right) instead of
- * three floating pills. The whole stack (crumbs → eyebrow → title → lead →
- * manifest → CTAs) flows at ONE shared rhythm — --srv2-mobile-flow-gap — and
- * sits vertically centred in the one-screen stage: the intro is the centring
- * container, the top group no longer flex-grows, and viewport slack splits
- * above the crumbs and below the CTAs instead of pooling between the lead and
- * the manifest.
+ * Phone composition — a left-aligned "flight console" editorial, re-cut around
+ * a much larger H1. The beats, top to bottom: a mono breadcrumb index line, a
+ * label-and-rule eyebrow, a display-size title, ONE accent-tinted tagline, and
+ * three chip-sized signals fused into one hairline-divided glass manifest
+ * (accent corner arcs, top-left / bottom-right). The whole stack flows at one
+ * shared rhythm — --srv2-mobile-flow-gap — and sits vertically centred in the
+ * one-screen stage, so viewport slack splits above the crumbs and below the
+ * CTAs instead of pooling between beats.
+ *
+ * What the phone drops, and why it is safe: the deck and the lead are
+ * `display: none` here and the capability list is swapped for the manifest
+ * (only where `data-mobile-copy` says there is phone copy to put in it). All
+ * three stay in the markup — the phone rendering is the indexed rendering, so
+ * nothing may exist on only one side of the breakpoint — and each argument
+ * they carry is restated in the body copy below the fold. The tagline and the
+ * manifest rows are a compression of the same claims, never a new one. Copy
+ * budgets and the shared markup live in
+ * features/services-v2/components/mobile-hero-stack.tsx.
  *
  * Selector note: these overrides deliberately carry a `.ss-srv2` ancestor
  * prefix — core-pages.css loads after this file and its `.ss-core-hero ...`
  * hero tweaks (intro gap, lead measure) would out-cascade equal-specificity
  * mobile rules on /about, /pricing, /contact, /book, /how-we-work and /blog.
  *
- * --srv2-mobile-chrome-reserve is the height of the tallest floating chrome
- * stack pinned to the viewport's bottom corners: the route-return control sits
- * above the consent icon on the left, while the demo bubble sits above its FAB
- * on the right. The scroll-cue band reserves the higher of those top edges, so
- * the CTA block always ends above every fixed control and the
- * cue — anchored to the band's bottom — still sits on the fold, in the clear
- * lane between the two corner stacks, styled exactly as before.
+ * --srv2-mobile-chrome-reserve was, until the phone chrome-gate landed, the
+ * height of the tallest floating control stack pinned to the viewport's bottom
+ * corners (7.4rem). Those controls are now held off the hero until the visitor
+ * scrolls past it (src/app/experience/mobile-chrome-gate.tsx), so on phones the
+ * band is only the scroll cue's own breathing room and the ~64px reclaimed went
+ * into the H1, the air around it and the manifest. The cue still anchors to the
+ * band's bottom, on the fold, in the clear centre lane.
+ *
+ * The shared `--mhero-*` tokens this block rides (stage, flow gap, cue band)
+ * are declared once in styles/visual/home-v2.css, which is the only hero
+ * stylesheet loaded on EVERY route including the homepage — that is what lets
+ * one rule set drive both secondary heroes' phone compositions.
  */
 @media (max-width: 40rem) {
   /*
-   * The deck does not render on phones.
+   * Neither the deck nor the lead renders on phones — the tagline replaces
+   * both (see mobile-hero-stack.tsx).
    *
-   * The phone hero is budgeted to end exactly at the fold, and the CTA row must
-   * finish above the scroll cue — tests/e2e/mobile-hero-fold.spec.ts asserts
-   * `actions.bottom <= cue.top`, because that band reserves clearance for the
-   * floating demo and consent controls. That budget was already fully spent by
-   * eyebrow + H1 + lead + capability points + CTAs, so adding a sixth stacked
-   * element pushed the CTAs into the reserved band by roughly the deck's own
-   * height (measured at 31.9px on /pricing at 390x844).
+   * The deck was already hidden here: the phone hero ends exactly at the fold
+   * and the CTA row has to finish above the scroll cue
+   * (tests/e2e/mobile-hero-fold.spec.ts asserts `actions.bottom <= cue.top`),
+   * and a sixth stacked element cost roughly its own height — 31.9px measured
+   * on /pricing at 390x844. The lead joins it now for a different reason: not
+   * that there is no room, but that the leads run 138-291 characters, which is
+   * the wrong register at arm's length. One accent-tinted line reads at a
+   * glance; the paragraph reads as homework.
    *
-   * The deck is supporting copy, not the page's argument: each deck line's
-   * substance also appears in the route description, the body copy and llms.txt,
-   * and the H1 above it carries the target term by itself. So it renders from
-   * the tablet tier up, where there is room, and the phone keeps the one-screen
-   * contract it was tuned for.
+   * The trade-off, stated plainly: the phone rendering is the indexed
+   * rendering, so a lead hidden here is discounted even though it is still in
+   * the document. That is accepted because both elements STAY IN THE MARKUP
+   * (this is `display: none`, never a conditional render), the H1 above them
+   * carries the route's target term by itself, the tagline that replaces them
+   * restates the same claim, and every lead's substance also appears in the
+   * route description, the body copy below the fold and llms.txt. Nothing that
+   * exists only here is lost.
+   *
+   * Unconditional, unlike the capability list below, because these two are
+   * what the one-screen budget cannot hold whether or not phone copy landed.
    */
-  .ss-srv2-hero__deck {
+  .ss-srv2-hero__deck,
+  .ss-srv2-hero__lead {
+    display: none;
+  }
+
+  /*
+   * The three capability sentences give way to the phone manifest — but only
+   * on a route that actually has mobile copy to put there. `data-mobile-copy`
+   * is stamped by the component when the `mobile` prop is present, so a route
+   * whose phone copy has not landed yet keeps its desktop points rather than
+   * losing the beat entirely.
+   */
+  .ss-srv2 .ss-srv2-hero[data-mobile-copy="true"] .ss-srv2-hero__caps {
     display: none;
   }
 
@@ -989,33 +1023,39 @@ section[data-slot="page-section"]:has(.ss-srv2) {
       var(--ss-v2-hairline)
     );
     /*
+     * The cue band, and with it the phone content budget.
+     *
+     * This used to reserve the floating controls' 7.4rem corner stacks. They
+     * are now gated off the hero (mobile-chrome-gate.tsx), so the band is just
+     * the cue: its own box measures 46.8px, and 3.4rem leaves it a couple of
+     * pixels of clearance so it never touches the fold. Everything reclaimed
+     * went into the composition above.
+     */
+    --srv2-mobile-chrome-reserve: var(--mhero-cue-band);
+    /*
      * The phone hero's real content budget: one screen, minus everything that
      * is not the copy stack — the fixed header + frame band above it, and the
-     * scroll-cue / floating-chrome band below it. Every fluid value in this
-     * block is expressed as a fraction of this stage rather than of viewport
-     * width alone, so the composition shrinks continuously as the screen gets
-     * shorter instead of stepping down at fixed breakpoints and overflowing in
-     * between.
+     * cue band below it. Every fluid value in this block is expressed as a
+     * fraction of this stage rather than of viewport width alone, so the
+     * composition shrinks continuously as the screen gets shorter instead of
+     * stepping down at fixed breakpoints and overflowing in between.
      *
      * Each formula is a straight line through two calibration points rather
-     * than a plain fraction: a 390x844 stage reproduces this hero's shipped
-     * pixel values to within ~2%, and a 320x568 stage lands on the tightest
-     * still-legible composition. A plain fraction cannot do both, because the
-     * beats that never scale (breadcrumb line, eyebrow, the CTA row's touch
-     * target) eat a fifth of a short phone's stage but only a tenth of a tall
-     * one's — the copy has to give up more than its share as the screen
-     * shortens, which is exactly the slope these lines encode.
+     * than a plain fraction: 390x844 is the reference phone and 320x568 the
+     * tightest still-legible composition. A plain fraction cannot do both,
+     * because the beats that never scale (breadcrumb line, eyebrow, the CTA
+     * row's touch target) eat a fifth of a short phone's stage but only a
+     * tenth of a tall one's — the copy has to give up more than its share as
+     * the screen shortens, which is exactly the slope these lines encode.
+     *
+     * It aliases --mhero-stage (home-v2.css) rather than recomputing it, so
+     * the shared `.ss-mhero__*` beats resolve to identical pixels in this hero
+     * and in the homepage's, whose own section box is a different height.
      */
-    --srv2-mobile-stage: calc(
-      100svh - var(--srv2-hero-chrome) - var(--srv2-mobile-chrome-reserve)
-    );
-    /* One rhythm for every hero beat (crumbs/eyebrow/title/lead/manifest/CTAs)
-       — stage-driven, so the short-viewport tiers no longer retune it. */
-    --srv2-mobile-flow-gap: clamp(
-      0.24rem,
-      calc(0.0229 * var(--srv2-mobile-stage) - 2.98px),
-      1.15rem
-    );
+    --srv2-mobile-stage: var(--mhero-stage);
+    /* One rhythm for every hero beat (crumbs/eyebrow/title/tagline/manifest/
+       CTAs) — stage-driven, so the short-viewport tiers never retune it. */
+    --srv2-mobile-flow-gap: var(--mhero-flow-gap);
     padding-block: clamp(0.3rem, 0.8svh, 0.6rem);
     /*
      * The fold contract, phones only: the hero is exactly one screen tall, so
@@ -1050,6 +1090,26 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     min-height: calc(100vh - var(--srv2-hero-chrome));
     min-height: calc(100dvh - var(--srv2-hero-chrome));
     overflow: hidden;
+  }
+
+  /*
+   * `min-width: 0` is load-bearing, not tidiness. The intro is a grid item of
+   * `.ss-srv2-hero__grid`, whose phone column is a bare `1fr` — i.e.
+   * `minmax(auto, 1fr)`, so the track floors at the column's MIN-CONTENT
+   * width. One un-wrappable child was therefore able to set the width of the
+   * whole composition: /industry/estate-agents' 53-character console label
+   * stretched the column to 454px inside a 390px viewport and carried the H1,
+   * the manifest and both CTA pills off the right edge with it (the page never
+   * scrolled sideways, so the content was simply cut). Zeroing the automatic
+   * minimum on the flex/grid chain means no descendant can widen the stack
+   * again; the eyebrow rule below is the matching half — it has to be able to
+   * WRAP, or it would just overflow its own (now correctly narrow) box.
+   */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__grid,
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro,
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro,
@@ -1120,13 +1180,36 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     display: none;
   }
 
+  /* ...and the slash that introduced it, which is not part of that <li>. It is
+     its own list item, so hiding the crumb alone left every service and
+     industry phone hero ending on a dangling "HOME / SERVICES /". The
+     separator to hide is the one immediately before the last child
+     (`nth-last-child(2)`), and only in a trail long enough for the rule above
+     to have fired: in a two-level trail [item, sep, item] that same position
+     is the only separator there is, and its crumb is still displayed. */
+  .ss-srv2
+    .ss-srv2-hero
+    .ss-srv2-hero__crumbs
+    li[data-slot="breadcrumb-separator"]:nth-last-child(2):nth-child(n + 4) {
+    display: none;
+  }
+
   /* The eyebrow sheds its capsule and becomes a console label: icon, tracked
-     mono caption, then a hairline rule running to the right edge. nowrap +
-     the rule's small flex-basis keep the longest label (32 mono chars) on one
-     line at 320px. */
+     mono caption, then a hairline rule running to the right edge.
+
+     It must NOT be `nowrap`. The label text is a bare text node inside this
+     flex row (the markup is `Eyebrow` in components/primitives.tsx), so it is
+     an anonymous flex item — there is no element on it to ellipsise, and a
+     nowrap anonymous item cannot shrink below its own single line. Labels run
+     from 14 to 53 mono characters across the 25 routes; at 0.6rem with 0.18em
+     tracking the longest is ~400px, so on every phone width it either wraps or
+     escapes. Wrapping is the only one of those that stays inside the gutter.
+     A second line costs ~10px of stage, which the centred stack absorbs from
+     its own slack rather than from the fold. */
   .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow {
     width: 100%;
-    max-width: none;
+    min-width: 0;
+    max-width: 100%;
     justify-content: flex-start;
     gap: 0.5rem;
     padding: 0;
@@ -1135,13 +1218,19 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     background: transparent;
     font-size: 0.6rem;
     letter-spacing: 0.18em;
-    line-height: 1;
-    white-space: nowrap;
+    line-height: 1.25;
+    white-space: normal;
   }
 
+  /* `flex: 1 1 0` and not a real basis: the rule is only ever the free space
+     left over after the label. A short label leaves plenty and the rule runs
+     to the right edge exactly as before (the geometry is identical — a 0.5rem
+     basis was simply given straight back by flex-grow); a label long enough to
+     wrap leaves none, and the rule resolves to zero width and disappears
+     instead of hanging off the first line as an 8px stub. */
   .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow::after {
     content: "";
-    flex: 1 1 0.5rem;
+    flex: 1 1 0;
     height: 1px;
     margin-left: 0.3rem;
     background: linear-gradient(
@@ -1168,54 +1257,36 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
     width: 100%;
     max-width: 100%;
-    /* 10.6vw -> 10.1vw and 1.03 -> 1.01 line-height. The rewritten H1s carry
-       their target term, so they run longer than the creative lines this tier
-       was originally calibrated against (34-62 chars, now 47-63), which put the
-       longest of them a few pixels into the reserved cue band at 390x844. This
-       recovers that without moving the data-long threshold, which is tuned for
-       a different job. */
+    /*
+     * The title is where the reclaimed chrome band went: 2.41rem -> 2.75rem at
+     * 390x844 and 1.13rem -> 1.30rem at 320x568, the two points this line runs
+     * through. It stays `min(vw-term, stage-term)` and never vw alone — the
+     * stage term is what stops a short-but-wide phone (360x640) overflowing,
+     * and the vw term is what stops a tall one running the display size past
+     * its own line length.
+     */
     font-size: clamp(
-      1.1rem,
-      min(10.1vw, calc(0.0726 * var(--srv2-mobile-stage) - 6.87px)),
-      2.7rem
+      1.15rem,
+      min(11.5vw, calc(0.0853 * var(--srv2-mobile-stage) - 14.8px)),
+      3.05rem
     );
-    line-height: 1.01;
+    line-height: 1.02;
     letter-spacing: -0.035em;
+    /* At display size a phone line holds three or four words, so the natural
+       greedy rag leaves one-word orphans on the longest titles. `balance`
+       evens the line widths without changing the line count or the height
+       this block costs the stage. */
+    text-wrap: balance;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
+    /* Same two points, one step down: the >64-character titles hold the same
+       line budget as the shorter ones instead of gaining a line. */
     font-size: clamp(
-      1rem,
-      min(9.4vw, calc(0.0672 * var(--srv2-mobile-stage) - 6.11px)),
-      2.55rem
+      1.05rem,
+      min(10.6vw, calc(0.0787 * var(--srv2-mobile-stage) - 13.66px)),
+      2.85rem
     );
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
-    width: 100%;
-    max-width: 100%;
-    margin-inline: 0;
-    font-size: clamp(
-      0.62rem,
-      min(3.9vw, calc(0.016 * var(--srv2-mobile-stage) + 4.89px)),
-      1.02rem
-    );
-    line-height: 1.5;
-    text-wrap: pretty;
-  }
-
-  /* An outlier-length lead (see the note on data-long in secondary-hero.tsx)
-     wraps two lines past the budget at the normal size, which is what pushes
-     that route's CTAs down into the floating-chrome band. Sizing it to hold
-     the same line count as every other route keeps one composition rather
-     than one exception. */
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead[data-long="true"] {
-    font-size: clamp(
-      0.6rem,
-      min(2.95vw, calc(0.0146 * var(--srv2-mobile-stage) + 2.36px)),
-      0.85rem
-    );
-    line-height: 1.4;
   }
 
   /* The signal manifest: one glass instrument instead of three floating
@@ -1521,9 +1592,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
    the few remaining fixed values — the label-scale beats (eyebrow, cap line
    rhythm, button glyphs) that don't ride the stage formula. */
 @media (max-width: 40rem) and (max-height: 38rem) {
-  .ss-srv2-hero {
-    --srv2-mobile-chrome-reserve: calc(8rem + env(safe-area-inset-bottom, 0px));
-  }
+  /* The cue band no longer grows here. It used to (7.4rem -> 8rem) because it
+     was reserving the floating controls, whose corner stacks kept their full
+     height on short screens; now it is only the cue, which is one fixed size
+     on every phone. */
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow {
     font-size: 0.54rem;
@@ -1534,13 +1606,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
     line-height: 1.04;
   }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
-    line-height: 1.32;
-  }
-
-  /* The deck is the newest hero element, so it gets the tightest mobile budget:
-     it must never be the reason the CTA row crosses the fold. */
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
     padding: 0.06rem 0.65rem;

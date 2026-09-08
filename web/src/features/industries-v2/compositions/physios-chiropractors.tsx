@@ -85,6 +85,7 @@ export function PhysiosChiropractorsComposition({
         titleId="ind2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={copy.finalCta.buttonLabel}
         secondaryCtaLabel="Hear the live demo"
         secondaryCtaHref="/services/ai-receptionists#demo-ai-receptionists"

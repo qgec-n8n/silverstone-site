@@ -25,6 +25,7 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 import { DemoBay } from "~/features/hubs-v2/demo-bay";
 import { Reveal, SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { SERVICES_HUB_MOBILE_HERO } from "~/features/hubs-v2/mobile-hero-copy";
 import {
   BenchmarkConsole,
   FinalCta,
@@ -321,6 +322,7 @@ export function ServicesHubExperience() {
           "Human judgment designed in, not bolted on",
           "Measured against your baseline, not our slides",
         ]}
+        mobile={SERVICES_HUB_MOBILE_HERO}
         primaryCtaLabel="Book a discovery call"
         secondaryCtaLabel="Explore all seven"
         secondaryCtaHref="/services#hub2-services"

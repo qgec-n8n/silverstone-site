@@ -84,6 +84,7 @@ export function AiVoiceAgentsComposition({
         titleId="srv2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={micro.ctaButton}
         secondaryCtaLabel="Try the live demo"
         secondaryCtaHref="/services/ai-voice-agents#demo-ai-voice-agents"

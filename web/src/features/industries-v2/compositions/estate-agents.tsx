@@ -13,6 +13,7 @@ import {
   Inbox,
   MapPin,
   PhoneCall,
+  ShieldCheck,
   Sparkles,
   TrendingUp,
   UserCheck,
@@ -39,6 +40,7 @@ import {
 
 import {
   BoundaryPanel,
+  CompliancePanel,
   FitPanel,
   ImageDuo,
   IndustryFigure,
@@ -80,6 +82,7 @@ export function EstateAgentsComposition({
         titleId="ind2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={copy.finalCta.buttonLabel}
         secondaryCtaLabel="Hear the live demo"
         secondaryCtaHref="/services/ai-receptionists#demo-ai-receptionists"
@@ -102,6 +105,24 @@ export function EstateAgentsComposition({
           <MarketLanes markets={copy.markets} />
         </div>
       </section>
+
+      {/* Directly beneath the market instrument, because the rulebook is this
+          market's rulebook: the reader has just been told which lane is theirs.
+          Only sectors whose copy carries a `compliance` block render it. */}
+      {copy.compliance ? (
+        <section className="ss-srv2-section" aria-labelledby="ind2-compliance">
+          <div className="ss-srv2__container">
+            <SectionHead
+              eyebrow={copy.compliance.eyebrow}
+              icon={ShieldCheck}
+              heading={copy.compliance.heading}
+              headingId="ind2-compliance"
+              lead={copy.compliance.lead}
+            />
+            <CompliancePanel compliance={copy.compliance} />
+          </div>
+        </section>
+      ) : null}
 
       <section className="ss-srv2-section" aria-labelledby="ind2-problem">
         <div className="ss-srv2__container">

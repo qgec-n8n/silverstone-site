@@ -22,13 +22,39 @@ import { useId, useState } from "react";
 import { CURRENCIES, CURRENCY_LABELS, type Currency } from "~/data/currency";
 import { useCurrency } from "~/lib/currency";
 
+/**
+ * The market each currency stands for on the industry pages' Atlantic Bridge,
+ * where the reader is choosing a market and the display currency follows.
+ *
+ * Rendered here rather than generated from CSS `content`, because WCAG 2.5.3
+ * (Label in Name) requires the words a sighted reader sees to appear in the
+ * control's accessible name — and a `::after` string can never reach the
+ * accessibility tree. Visible text and accessible name now come from one place,
+ * so "click UK" reaches the sterling segment.
+ */
+const MARKET_LABELS: Record<Currency, string> = { gbp: "UK", usd: "US" };
+
 type CurrencyToggleProps = {
-  /** Where the toggle sits; the header build collapses to symbols on phones. */
-  context?: "header" | "drawer" | "pricing" | "pricing-inline";
+  /**
+   * Where the toggle sits; the header build collapses to symbols on phones.
+   * "markets" is the industry pages' Atlantic Bridge control — same store, same
+   * radio semantics, but labelled by market ("US · $" / "UK · £") in
+   * styles/currency.css, because on those pages the reader is choosing a market
+   * to read in and the currency follows from it.
+   */
+  context?: "header" | "drawer" | "pricing" | "pricing-inline" | "markets";
   size?: "default" | "compact" | "instrument";
   tone?: "light" | "dark";
   /** Show the small mono "Currency" label beside the capsule. */
   labeled?: boolean;
+  /**
+   * Own the radios' element ids, so something OUTSIDE this component can be a
+   * real `<label for>` for one of them. The Atlantic Bridge uses it to make its
+   * two city nodes switch the market: a plain HTML association, so it works in
+   * the prerendered document and with JavaScript off, and there is still only
+   * one radio group and one store. Defaults to this instance's own `useId`.
+   */
+  idPrefix?: string;
   className?: string;
 };
 
@@ -37,11 +63,14 @@ export function CurrencyToggle({
   size = "default",
   tone = "light",
   labeled = false,
+  idPrefix,
   className,
 }: CurrencyToggleProps) {
   const [currency, setCurrency] = useCurrency();
   const [announcement, setAnnouncement] = useState("");
-  const id = useId();
+  const generatedId = useId();
+  const id = idPrefix ?? generatedId;
+  const isMarkets = context === "markets";
 
   const onChange = (next: Currency) => {
     if (next === currency) {
@@ -51,7 +80,11 @@ export function CurrencyToggle({
     // runs for a change the reader made, never on load.
     document.documentElement.setAttribute("data-currency-live", "");
     setCurrency(next);
-    setAnnouncement(`Prices shown in ${CURRENCY_LABELS[next].name}.`);
+    setAnnouncement(
+      isMarkets
+        ? `Market focus set to ${MARKET_LABELS[next]}. Prices shown in ${CURRENCY_LABELS[next].name}.`
+        : `Prices shown in ${CURRENCY_LABELS[next].name}.`,
+    );
   };
 
   return (
@@ -61,7 +94,9 @@ export function CurrencyToggle({
       data-size={size === "default" ? undefined : size}
       data-tone={tone === "dark" ? "dark" : undefined}
     >
-      <legend className="ss-cur__legend">Display currency</legend>
+      <legend className="ss-cur__legend">
+        {isMarkets ? "Market focus" : "Display currency"}
+      </legend>
       {labeled ? (
         <span aria-hidden="true" className="ss-cur__label">
           Currency
@@ -75,7 +110,11 @@ export function CurrencyToggle({
           return (
             <label className="ss-cur__option" htmlFor={inputId} key={option}>
               <input
-                aria-label={`${label.code}, ${label.name}`}
+                aria-label={
+                  isMarkets
+                    ? `${MARKET_LABELS[option]}, ${label.code}, ${label.name}`
+                    : `${label.code}, ${label.name}`
+                }
                 checked={currency === option}
                 id={inputId}
                 name={`ss-currency-${context}`}
@@ -91,6 +130,11 @@ export function CurrencyToggle({
               <span aria-hidden="true" className="ss-cur__code">
                 {label.code}
               </span>
+              {isMarkets ? (
+                <span aria-hidden="true" className="ss-cur__market">
+                  {MARKET_LABELS[option]}
+                </span>
+              ) : null}
             </label>
           );
         })}

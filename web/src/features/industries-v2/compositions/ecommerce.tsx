@@ -83,6 +83,7 @@ export function EcommerceComposition({
         titleId="ind2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={copy.finalCta.buttonLabel}
         secondaryCtaLabel="See verified results"
         secondaryCtaHref="/industry/ecommerce#ind2-proof"

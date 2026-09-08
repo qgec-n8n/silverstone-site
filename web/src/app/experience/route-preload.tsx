@@ -40,7 +40,7 @@ export function useRoutePreload(): void {
     const onIntent = (event: Event) => {
       const path = pathFromEventTarget(event.target);
       if (path) {
-        preloadRouteComposition(path);
+        void preloadRouteComposition(path);
       }
     };
 

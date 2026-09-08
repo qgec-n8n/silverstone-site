@@ -10,6 +10,7 @@
  * units, ranges, currencies and time bases are preserved verbatim and must
  * never be edited here without a new approved register.
  */
+import type { MobileHeroCopy } from "~/features/services-v2/content/mobile-hero";
 import type { ShowcaseSiteId } from "~/features/services-v2/demos/showcase-state";
 
 export type IndustryRoute =
@@ -142,6 +143,18 @@ export type IndustryMarketLane = {
   vocabulary: string;
   /** The decisions the page keeps with people, in this market's terms. */
   keepsHuman: string;
+  /**
+   * The named laws and platform rules the system is configured around in this
+   * market, e.g. "Fair Housing Act, MLS and IDX rules, TCPA quiet hours".
+   *
+   * Optional, and only meaningful when BOTH lanes carry one: the ledger's
+   * subgrid aligns row *n* of one market against row *n* of the other, so a
+   * rulebook on one lane and nothing on the other would leave a hole in the
+   * comparison. `MarketLanes` therefore renders the row only when both lanes
+   * define it. Sectors whose rulebook is not established stay undefined
+   * rather than carrying a vague line.
+   */
+  rulebook?: string;
 };
 
 export type IndustryMarkets = {
@@ -152,6 +165,47 @@ export type IndustryMarkets = {
   lanes: [IndustryMarketLane, IndustryMarketLane];
   /** The mechanism, stated so it is true in both markets. Three items. */
   shared: string[];
+};
+
+/**
+ * A sector's regulatory operating boundary, stated on the page rather than
+ * buried in a FAQ: the laws and platform rules the built systems are
+ * configured around, in each market's own terms. Optional and per-sector —
+ * only sectors with a named rulebook (estate agents: the US Fair Housing Act
+ * and MLS rules) carry one. Wording contract: the copy describes how the
+ * systems are designed and configured; it never promises legal compliance.
+ */
+export type IndustryCompliance = {
+  eyebrow: string;
+  heading: string;
+  lead: string;
+  /**
+   * One card per rulebook, e.g. "Fair Housing Act", "MLS and IDX rules".
+   * `source` is an unobtrusive citation caption — plain text only, because
+   * `RichText` renders no links and any markdown link syntax would leak
+   * verbatim into the FAQ/schema copy that shares this vocabulary.
+   */
+  points: {
+    market: "US" | "UK" | "Both";
+    title: string;
+    /**
+     * A 6–10 word summary of the card, printed above the body at emphasis
+     * weight. Four ~80-word legal paragraphs are three phone screens of
+     * unbroken prose; the lede is what makes the panel scannable.
+     */
+    lede?: string;
+    body: string;
+    source?: string;
+  }[];
+  /**
+   * Three short structural claims printed as chips above the cards, so a
+   * reader has the boundary in three seconds before any of the detail. Keep
+   * them to a phone line each, and keep them literally true of the cards
+   * below — this row is a summary, never a separate promise.
+   */
+  glance?: string[];
+  /** Plain-words honesty line rendered beneath the cards. */
+  note: string;
 };
 
 export type IndustryCopy = {
@@ -166,10 +220,14 @@ export type IndustryCopy = {
   deck?: string;
   heroSub: string;
   heroPoints: string[];
+  /** Phone-only hero copy; see `MobileHeroCopy`. */
+  mobile?: MobileHeroCopy;
   /** Short trust tokens rendered under the secondary hero. */
   trustTokens: string[];
   /** The two-market operating manifest rendered under the trust tokens. */
   markets: IndustryMarkets;
+  /** Named regulatory boundary for the sector; see `IndustryCompliance`. */
+  compliance?: IndustryCompliance;
   caseStudy?: IndustryCaseStudy;
   /** Live productised offer promoted above the fold. See `SprintOffer`. */
   sprint?: SprintOffer;

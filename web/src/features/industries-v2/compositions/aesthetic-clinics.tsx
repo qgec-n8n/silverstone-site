@@ -105,6 +105,7 @@ export function AestheticClinicsComposition({
         titleId="ind2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         // The page's own sprint CTA ("Claim this week's sprint") is 24
         // characters — too long to hold one line inside half of the compact
         // phone action row without dropping a type step the other routes do

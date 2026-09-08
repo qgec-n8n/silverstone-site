@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
+import { Link, useInRouterContext } from "react-router";
 
 import { cn } from "~/lib/utils";
 
@@ -27,19 +28,47 @@ const textLinkVariants = cva(
 function TextLink({
   asChild = false,
   className,
+  href,
   variant,
   ...props
 }: React.ComponentProps<"a"> &
   VariantProps<typeof textLinkVariants> & {
     asChild?: boolean;
   }) {
+  // A native anchor to an internal path reloads the document, which replays the
+  // CoreSpin loader and Aether intro on the destination; a `Link` lands on the
+  // body. The router-context guard keeps the component usable in isolation
+  // (unit tests render it outside a router), where it degrades to the anchor.
+  const inRouterContext = useInRouterContext();
+  const classNames = cn(textLinkVariants({ className, variant }));
+
+  if (
+    !asChild &&
+    inRouterContext &&
+    href !== undefined &&
+    href.startsWith("/") &&
+    !href.startsWith("//")
+  ) {
+    return (
+      <Link
+        className={classNames}
+        data-slot="text-link"
+        data-variant={variant}
+        prefetch="intent"
+        to={href}
+        {...props}
+      />
+    );
+  }
+
   const Comp = asChild ? Slot.Root : "a";
 
   return (
     <Comp
       data-slot="text-link"
       data-variant={variant}
-      className={cn(textLinkVariants({ className, variant }))}
+      className={classNames}
+      href={href}
       {...props}
     />
   );

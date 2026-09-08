@@ -18,6 +18,7 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import { Reveal, SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { INDUSTRIES_HUB_MOBILE_HERO } from "~/features/hubs-v2/mobile-hero-copy";
 import {
   BenchmarkConsole,
   FinalCta,
@@ -221,6 +222,7 @@ export function IndustriesHubExperience() {
           "Grounded in your source of truth, not a script",
           "Verified Silverstone AI results on every page",
         ]}
+        mobile={INDUSTRIES_HUB_MOBILE_HERO}
         primaryCtaLabel="Book a discovery call"
         secondaryCtaLabel="Find your sector"
         secondaryCtaHref="/industry#hub2-sectors"

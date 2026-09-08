@@ -13,6 +13,7 @@ import {
 } from "~/features/core-pages/shared";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { BOOK_MOBILE_HERO } from "~/features/core-pages/mobile-hero-copy";
 import {
   FinalCta,
   ProcessTrack,
@@ -74,6 +75,7 @@ export function BookComposition() {
             text: "A native booking console — choose a time, qualify and confirm",
           },
         ]}
+        mobile={BOOK_MOBILE_HERO}
         primaryCtaLabel="Continue to booking"
         secondaryCtaLabel="Email us instead"
         secondaryCtaHref="/contact#contact-form"

@@ -24,6 +24,7 @@ import {
   SectionHead,
 } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { ABOUT_MOBILE_HERO } from "~/features/core-pages/mobile-hero-copy";
 import {
   FinalCta,
   RelatedRail,
@@ -109,6 +110,7 @@ export function AboutComposition() {
             text: "A team trained at Yale, Princeton and the University of Texas",
           },
         ]}
+        mobile={ABOUT_MOBILE_HERO}
         primaryCtaLabel="Book a discovery call"
         secondaryCtaLabel="See how we deliver"
         secondaryCtaHref="/how-we-work#hww-route"

@@ -80,6 +80,7 @@ export function AiConsultingComposition({
         titleId="srv2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={micro.ctaButton}
         secondaryCtaLabel="See how we deliver"
         secondaryCtaHref="/how-we-work#hww-route"

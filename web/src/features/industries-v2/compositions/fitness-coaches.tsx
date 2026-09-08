@@ -85,6 +85,7 @@ export function FitnessCoachesComposition({
         titleId="ind2-lead"
         lead={copy.heroSub}
         points={copy.heroPoints}
+        mobile={copy.mobile}
         primaryCtaLabel={copy.finalCta.buttonLabel}
         secondaryCtaLabel="Chat with Sam live"
         secondaryCtaHref="/services/ai-receptionists#demo-sam-messaging"

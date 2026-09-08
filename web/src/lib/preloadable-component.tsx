@@ -22,7 +22,9 @@ import { lazy, type ComponentType } from "react";
  * throttle is paid. Un-preloaded renders fall through to a plain `lazy()`,
  * keeping prerender, hydration and cold-load behaviour exactly as before.
  */
-type Preloadable<P extends object> = ComponentType<P> & { preload: () => void };
+type Preloadable<P extends object> = ComponentType<P> & {
+  preload: () => Promise<void>;
+};
 
 export function preloadableComponent<P extends object>(
   load: () => Promise<{ default: ComponentType<P> }>,
@@ -47,6 +49,16 @@ export function preloadableComponent<P extends object>(
     return <Lazy {...props} />;
   }
 
+  /*
+   * Returns the in-flight load so a caller can WAIT for the chunk, not just
+   * start it. Route `clientLoader`s await this: React Router holds the page
+   * being left on screen until every loader for the next page settles, so
+   * making the chunk part of that wait is what guarantees the destination
+   * commits fully formed instead of flashing the Suspense fallback.
+   *
+   * It never rejects — see the swallow below — so awaiting it can never throw
+   * a chunk error out of a `clientLoader` and into the route error boundary.
+   */
   Preloadable.preload = () => {
     started ??= load().then(
       (module) => {
@@ -58,6 +70,7 @@ export function preloadableComponent<P extends object>(
         // error boundary at the moment it is actually needed.
       },
     );
+    return started;
   };
 
   return Preloadable as Preloadable<P>;

@@ -15,6 +15,7 @@ import {
 } from "~/features/core-pages/shared";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
+import { CONTACT_MOBILE_HERO } from "~/features/core-pages/mobile-hero-copy";
 import {
   FinalCta,
   RelatedRail,
@@ -55,6 +56,7 @@ export function ContactComposition() {
           { icon: Mail, text: "A short form, answered across US and UK hours" },
           { icon: MapPin, text: "The London studio, if you'd rather visit" },
         ]}
+        mobile={CONTACT_MOBILE_HERO}
         primaryCtaLabel="Open the inquiry form"
         primaryCtaHref="/contact#contact-form"
         secondaryCtaLabel="Book a call instead"

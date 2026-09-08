@@ -30,6 +30,14 @@ export const fitnessCoachesCopy: IndustryCopy = {
     "Consultations booked from real calendar capacity",
     "Health and program decisions, always yours",
   ],
+  mobile: {
+    tagline: "Walk into every consult *already briefed*",
+    points: [
+      "Every DM qualified",
+      "Booked from real capacity",
+      "Program calls stay yours",
+    ],
+  },
   trustTokens: [
     "Transparent qualification",
     "Consent-aware follow-up",

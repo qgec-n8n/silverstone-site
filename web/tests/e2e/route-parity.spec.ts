@@ -24,9 +24,27 @@ const representativeSourceCopy = [
   },
 ];
 
-async function revealRouteTextIfNeeded(page: Page, text: string) {
-  const targetText = page.getByText(text, { exact: true }).first();
-  if (await targetText.isVisible().catch(() => false)) {
+async function revealRouteTextIfNeeded(page: Page) {
+  /*
+   * A gated route prerenders its whole body and the experience gate clips it
+   * to zero height rather than removing it, so every heading inside it is
+   * still reported as visible by Playwright while the intro is up. Deciding
+   * "already open" from the target text therefore skipped the explore click on
+   * routes that very much needed it, and the first real click was then
+   * intercepted by the full-bleed `.ss-service-intro` overlay.
+   *
+   * The route frame's own state is the signal that cannot lie:
+   * `data-route-body-visible` ships in the prerendered HTML as "false" and
+   * flips to "true" when the body opens (see
+   * routes/templates/route-experience-frame.tsx). Routes that render no frame
+   * at all — gate-free entries and core pages that skip the intro — have no
+   * such attribute and nothing to open.
+   */
+  const frameBody = page.locator("[data-route-body-visible]").first();
+  if ((await frameBody.count()) === 0) {
+    return;
+  }
+  if ((await frameBody.getAttribute("data-route-body-visible")) === "true") {
     return;
   }
 
@@ -37,6 +55,9 @@ async function revealRouteTextIfNeeded(page: Page, text: string) {
     .catch(() => false);
   if (hasRouteEntry) {
     await exploreButton.click();
+    await expect(frameBody).toHaveAttribute("data-route-body-visible", "true", {
+      timeout: 15_000,
+    });
   }
 
   // Opening the route hands over to the CoreSpin loader, which paints a
@@ -51,6 +72,15 @@ async function revealRouteTextIfNeeded(page: Page, text: string) {
     .catch(() => {
       // A route that never mounted a loader (a direct, gate-free entry) has
       // nothing to wait for.
+    });
+
+  // The intro fades out on its own timeline after the body flips visible; a
+  // click landing in that window still hits the overlay.
+  await page
+    .locator(".ss-service-intro")
+    .waitFor({ state: "detached", timeout: 15_000 })
+    .catch(() => {
+      // Already gone, or never mounted.
     });
 }
 
@@ -94,7 +124,7 @@ for (const comparison of representativeSourceCopy) {
     await page.goto(comparison.path);
 
     // Route-entry pages need the intro opened; bespoke core pages render directly.
-    await revealRouteTextIfNeeded(page, comparison.text);
+    await revealRouteTextIfNeeded(page);
     await expect(page.getByText(comparison.text, { exact: true })).toBeVisible({
       timeout: 15_000,
     });
@@ -111,7 +141,7 @@ test("rebuilt contact route renders a staging-safe enquiry form", async ({
   // mobile steps; both paths end at the send stage.
   const mobile = testInfo.project.name === "mobile-chromium";
   await page.goto("/contact");
-  await revealRouteTextIfNeeded(page, "Start with the question that matters");
+  await revealRouteTextIfNeeded(page);
 
   await expect(
     page.getByRole("heading", { name: "Start with the question that matters" }),
@@ -140,7 +170,7 @@ test("rebuilt book route exposes the native staging-safe booking console", async
 }, testInfo) => {
   const mobile = testInfo.project.name === "mobile-chromium";
   await page.goto("/book");
-  await revealRouteTextIfNeeded(page, "Book a 30-minute discovery call");
+  await revealRouteTextIfNeeded(page);
 
   await expect(
     page.getByRole("heading", { name: "Book a 30-minute discovery call" }),

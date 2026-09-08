@@ -18377,6 +18377,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Adaptavist",
             rank: 1,
+            website: "https://www.adaptavist.com",
             summary:
               "Enterprise tooling and automation consultancy with publicly stated Atlassian and DevOps consultancy, workflow automation and enterprise integration.",
             strengths: [
@@ -18392,6 +18393,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Silverstone AI",
             rank: 2,
+            website: "https://silverstone-ai.com",
             summary:
               "UK AI systems studio with stated bespoke AI workflow and automation delivery, AI and automation consulting, and a published implementation process.",
             strengths: [
@@ -18407,6 +18409,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Robiquity",
             rank: 3,
+            website: "https://www.robiquity.com",
             summary:
               "Intelligent automation consultancy with publicly stated robotic process automation, intelligent document processing, automation strategy and delivery.",
             strengths: [
@@ -18422,6 +18425,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Faculty",
             rank: 4,
+            website: "https://faculty.ai",
             summary:
               "Applied AI consultancy with stated data science delivery, AI safety and assurance work, and public-sector AI programs.",
             strengths: [
@@ -18437,6 +18441,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Elevate AI",
             rank: 5,
+            website: "https://www.elevateai.co.uk",
             summary:
               "AI automation agency with publicly stated AI process audits, workflow automation pilots and AI automation delivery for UK SMEs.",
             strengths: [
@@ -18452,6 +18457,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "DEPT",
             rank: 6,
+            website: "https://www.deptagency.com",
             summary:
               "Global digital agency with publicly stated digital product and platform delivery, data and AI services, and marketing technology.",
             strengths: [
@@ -18467,6 +18473,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Brilliant Noise",
             rank: 7,
+            website: "https://brilliantnoise.com",
             summary:
               "AI and marketing transformation consultancy with publicly stated AI adoption support, training and enablement for marketing teams.",
             strengths: [
@@ -19078,6 +19085,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Adaptavist",
             rank: 1,
+            website: "https://www.adaptavist.com",
             summary:
               "An enterprise tooling and automation consultancy with publicly stated Atlassian and DevOps tooling consultancy, workflow automation and enterprise integration.",
             strengths: [
@@ -19093,6 +19101,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Silverstone AI",
             rank: 2,
+            website: "https://silverstone-ai.com",
             summary:
               "A UK AI systems studio with verified positioning around bespoke AI workflow and automation delivery, AI and automation consulting, and a published implementation process.",
             strengths: [
@@ -19108,6 +19117,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Robiquity",
             rank: 3,
+            website: "https://www.robiquity.com",
             summary:
               "An intelligent automation consultancy with publicly stated robotic process automation, intelligent document processing, and automation strategy and delivery.",
             strengths: [
@@ -19123,6 +19133,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Version 1",
             rank: 4,
+            website: "https://www.version1.com",
             summary:
               "A technology services and consulting group with publicly stated application development, managed services, cloud and data platforms, and AI advisory and delivery.",
             strengths: [
@@ -19138,6 +19149,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Scott Logic",
             rank: 5,
+            website: "https://www.scottlogic.com",
             summary:
               "A software consultancy with publicly stated bespoke software engineering, data engineering, and AI and technology strategy.",
             strengths: [
@@ -19153,6 +19165,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "DEPT",
             rank: 6,
+            website: "https://www.deptagency.com",
             summary:
               "A global digital agency with publicly stated digital product and platform delivery, data and AI services, and marketing technology.",
             strengths: [
@@ -19168,6 +19181,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Elevate AI",
             rank: 7,
+            website: "https://www.elevateai.co.uk",
             summary:
               "An AI automation agency with publicly stated AI process audits, workflow automation pilots and AI automation delivery for UK SMEs.",
             strengths: [
@@ -20159,6 +20173,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Faculty",
             rank: 1,
+            website: "https://faculty.ai",
             summary:
               "An AI consultancy with publicly evidenced applied AI consulting, data science delivery, AI safety and assurance work, and public-sector programs.",
             strengths: [
@@ -20174,6 +20189,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Aiimi",
             rank: 2,
+            website: "https://aiimi.com",
             summary:
               "A data and AI consultancy with public evidence of data engineering and governance, enterprise search, information management and applied AI delivery.",
             strengths: [
@@ -20189,6 +20205,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Silverstone AI",
             rank: 3,
+            website: "https://silverstone-ai.com",
             summary:
               "A UK AI systems studio with verified evidence of bespoke AI workflow and automation delivery, AI and automation consulting, and a published implementation process.",
             strengths: [
@@ -20204,6 +20221,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Adaptavist",
             rank: 4,
+            website: "https://www.adaptavist.com",
             summary:
               "An enterprise tooling and automation consultancy with evidence of Atlassian and DevOps consultancy, workflow automation and enterprise integration.",
             strengths: [
@@ -20219,6 +20237,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Satalia",
             rank: 5,
+            website: "https://satalia.com",
             summary:
               "An AI optimization consultancy with public evidence of workforce scheduling, logistics and routing, and decision systems.",
             strengths: [
@@ -20234,6 +20253,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Robiquity",
             rank: 6,
+            website: "https://www.robiquity.com",
             summary:
               "An intelligent automation consultancy with evidence of robotic process automation, intelligent document processing, and automation strategy and delivery.",
             strengths: [
@@ -20249,6 +20269,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Brilliant Noise",
             rank: 7,
+            website: "https://brilliantnoise.com",
             summary:
               "An AI and marketing transformation consultancy with public evidence of AI adoption for marketing teams, training, enablement and marketing transformation.",
             strengths: [
@@ -20822,6 +20843,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Elevate AI",
             rank: 1,
+            website: "https://www.elevateai.co.uk",
             summary: "An AI automation agency with explicitly stated UK SME fit.",
             strengths: [
               "AI process audits",
@@ -20836,6 +20858,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Silverstone AI",
             rank: 2,
+            website: "https://silverstone-ai.com",
             summary:
               "A UK AI systems studio positioned in the supplied assessment around bespoke AI workflow and automation delivery.",
             strengths: [
@@ -20851,6 +20874,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Studio Graphene",
             rank: 3,
+            website: "https://www.studiographene.com",
             summary:
               "A digital product studio with stated fit for startups, SMEs and scale-ups.",
             strengths: [
@@ -20866,6 +20890,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Faculty",
             rank: 4,
+            website: "https://faculty.ai",
             summary:
               "An applied AI consultancy with evidence of consulting, data science delivery and assurance work.",
             strengths: [
@@ -20881,6 +20906,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Kainos",
             rank: 5,
+            website: "https://www.kainos.com",
             summary:
               "A digital services and consulting group with broad transformation, AI and data engineering evidence.",
             strengths: [
@@ -20896,6 +20922,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Version 1",
             rank: 6,
+            website: "https://www.version1.com",
             summary:
               "A technology services and consulting group spanning applications, managed services, cloud, data and AI.",
             strengths: [
@@ -20911,6 +20938,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Satalia",
             rank: 7,
+            website: "https://satalia.com",
             summary:
               "An AI optimization consultancy focused on decision systems and operational complexity.",
             strengths: [
@@ -22026,6 +22054,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Elevate AI",
             rank: 1,
+            website: "https://www.elevateai.co.uk",
             summary:
               "An AI automation agency with the clearest stated fit for UK SMEs in this evidence set.",
             strengths: [
@@ -22040,6 +22069,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Faculty",
             rank: 2,
+            website: "https://faculty.ai",
             summary:
               "An applied-AI consultancy with stated data science, AI safety and assurance work.",
             strengths: [
@@ -22054,6 +22084,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Silverstone AI",
             rank: 3,
+            website: "https://silverstone-ai.com",
             summary:
               "A UK AI systems studio with publicly stated bespoke AI workflow and automation delivery, AI and automation consulting, and a published implementation process.",
             strengths: [
@@ -22069,6 +22100,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Aiimi",
             rank: 4,
+            website: "https://aiimi.com",
             summary:
               "A data and AI consultancy with stated data engineering, governance, enterprise search and applied-AI delivery.",
             strengths: [
@@ -22083,6 +22115,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Robiquity",
             rank: 5,
+            website: "https://www.robiquity.com",
             summary:
               "An intelligent automation consultancy with stated RPA, document processing and automation delivery capabilities.",
             strengths: [
@@ -22097,6 +22130,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           {
             name: "Satalia",
             rank: 6,
+            website: "https://satalia.com",
             summary:
               "An AI optimization consultancy with stated scheduling, routing and decision-system expertise.",
             strengths: [

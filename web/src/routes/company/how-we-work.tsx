@@ -1,6 +1,11 @@
 import { useLoaderData } from "react-router";
 
-import { createRouteLoader, createRouteMeta } from "~/routes/shared/route-data";
+import {
+  createRouteClientLoader,
+  createRouteLoader,
+  createRouteMeta,
+  neverRevalidate,
+} from "~/routes/shared/route-data";
 import { CoreMarketingPage } from "~/routes/templates/core-marketing-page";
 
 export const loader = createRouteLoader({
@@ -9,6 +14,13 @@ export const loader = createRouteLoader({
   withMigratedContent: false,
 });
 export const meta = createRouteMeta<typeof loader>();
+
+// Holds the outgoing page on screen until this route's composition chunk
+// has landed, so the navigation never flashes the Suspense fallback below.
+export const clientLoader = createRouteClientLoader({ exactPath: "/how-we-work" });
+// Restores the params-only revalidation default that exporting a
+// `clientLoader` turns off; see `neverRevalidate`.
+export const shouldRevalidate = neverRevalidate;
 
 export default function HowWeWorkRoute() {
   const { content, route } = useLoaderData<typeof loader>();

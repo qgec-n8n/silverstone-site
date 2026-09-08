@@ -68,6 +68,32 @@ async function openBody(page: Page, button: string) {
   );
 }
 
+/**
+ * Click the floating return-to-route-intro control.
+ *
+ * On phones that control is deliberately withheld until the visitor has
+ * scrolled past the one-screen hero (see `app/experience/mobile-chrome-gate.tsx`
+ * and the `max-width: 40rem` block near `.ss-hv2-return` in
+ * styles/visual/home-v2.css), so scroll the way a visitor would and wait on the
+ * gate's own attribute rather than on a pixel count. Above 40rem the attribute
+ * is never set and nothing is ever hidden, so the scroll is skipped and the
+ * desktop project exercises exactly the sequence it always did.
+ */
+async function clickReturnToRouteIntro(page: Page) {
+  const phone = await page.evaluate(
+    () => window.matchMedia("(max-width: 40rem)").matches,
+  );
+  if (phone) {
+    await page.evaluate(() => {
+      window.scrollTo(0, window.innerHeight);
+    });
+    await expect(page.locator("html")).toHaveAttribute("data-mobile-chrome", "ready", {
+      timeout: 5_000,
+    });
+  }
+  await page.getByRole("button", { name: /return to route intro/i }).click();
+}
+
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -93,7 +119,7 @@ for (const route of serviceRoutes) {
     await openBody(page, route.button);
     await expect(page.getByRole("main")).toContainText(route.bodyHeading);
 
-    await page.getByRole("button", { name: /return to route intro/i }).click();
+    await clickReturnToRouteIntro(page);
     await waitForRouteIntro(page);
     await expect(page.getByRole("button", { name: route.button })).toBeFocused();
 
@@ -166,7 +192,7 @@ test("route-entry sequence remains usable with reduced motion", async ({ page })
     "An AI receptionist that knows when to hand over",
   );
 
-  await page.getByRole("button", { name: /return to route intro/i }).click();
+  await clickReturnToRouteIntro(page);
   await waitForRouteIntro(page);
   await expect(
     page.getByRole("button", { name: "Open the front-desk system" }),

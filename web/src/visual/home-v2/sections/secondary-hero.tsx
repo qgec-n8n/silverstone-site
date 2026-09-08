@@ -13,6 +13,9 @@ import {
   SECONDARY_BENCHMARKS,
 } from "~/data/home-v2";
 
+import { MobileHeroStack } from "~/features/services-v2/components/mobile-hero-stack";
+import { HOME_MOBILE_HERO } from "~/data/home-v2/mobile-hero";
+
 import { Icon } from "../components/icon";
 import { Reveal } from "../components/reveal";
 
@@ -57,11 +60,19 @@ function SystemScrollCue({ className }: { className?: string }) {
 }
 
 /**
- * Compact "Live Signal Benchmarks" board rendered only on mobile
- * (`.ss-hv2-secondary__mobile-signal` is `display:none` at >=64rem, so desktop
- * is untouched). Desktop shows the full console in the showcase column, but on
- * mobile that console stacks below the fold — this brings the flagship signal
- * above the fold, directly under the CTAs and above the scroll cue.
+ * Compact "Live Signal Benchmarks" board for the stacked (tablet) layout:
+ * `.ss-hv2-secondary__mobile-signal` is `display:none` at >=64rem, where the
+ * full console in the showcase column carries the same figures.
+ *
+ * It is ALSO `display:none` on phones (<=40rem) as of the phone-hero
+ * re-composition: the phone hero is one screen, and a five-cell benchmark board
+ * is the single largest beat that could be spent on the H1 and the air around
+ * it instead. It stays mounted rather than being conditionally rendered, so the
+ * figures and the benchmark disclaimer remain in the prerendered HTML on every
+ * viewport, and the homepage still shows them to phone visitors a little
+ * further down the page in the dedicated `BenchmarkMetrics` section. Moving the
+ * board below the TrustStrip on phones would mean editing the route file, which
+ * owns the section order.
  */
 function MobileSignalBoard({ metrics }: { metrics: readonly BenchmarkMetric[] }) {
   return (
@@ -147,6 +158,22 @@ export function SecondaryHero() {
                 The Silverstone <span className="ss-signal-text">System</span>
               </h2>
             </Reveal>
+            {/*
+              Phone-only, and the same component the other 25 heroes render, so
+              the homepage's phone composition is the site's phone composition:
+              title -> tagline -> glass manifest -> pills -> cue. Both beats are
+              `display:none` above 40rem, so the desktop column below (lead,
+              two-line capability items, signal board) is untouched.
+
+              The delays are this hero's own ladder, not the shared hero's: its
+              beats reveal at 0/80/160/440/510ms, so the tagline follows the
+              title at 240 and the manifest lands at 300 (rows 380/480/580).
+            */}
+            <MobileHeroStack
+              copy={HOME_MOBILE_HERO}
+              taglineDelayMs={240}
+              manifestDelayMs={300}
+            />
             <Reveal delayMs={160}>
               <p className="ss-lead ss-hv2-secondary__lead ss-hv2-copy">
                 <span className="ss-hv2-secondary__lead-full">
@@ -167,7 +194,7 @@ export function SecondaryHero() {
                 <CapabilityItem key={cap.label} cap={cap} index={index} />
               ))}
             </ul>
-            <div className="ss-hv2-secondary__actions flex flex-wrap items-center gap-4 pt-1">
+            <div className="ss-hv2-secondary__actions ss-mhero__actions flex flex-wrap items-center gap-4 pt-1">
               <Reveal delayMs={440} kind="cta">
                 <Button asChild size="lg" variant="accent" className="ss-btn-signal">
                   <Link to="/book#booking-calendar">Book a free audit</Link>

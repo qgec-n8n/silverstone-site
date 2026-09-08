@@ -189,6 +189,83 @@ const OVERRIDES_CSS = `
   font-weight: 500;
   margin: 0px;
 }
+
+/*
+ * Phones: the consent widget stays off the secondary hero.
+ *
+ * The phone hero is budgeted to exactly one screen and is the entire first
+ * impression, so the three floating controls pinned to the viewport's bottom
+ * corners — the demos launcher, the return-to-intro button and this widget —
+ * are all held back until the visitor has scrolled past it. The shared gate is
+ * \`src/app/experience/mobile-chrome-gate.tsx\`, which stamps
+ * \`html[data-mobile-chrome="ready"]\`; the other two controls' rules live beside
+ * them in styles/visual/home-v2.css. This half has to live here because the
+ * vendor stylesheet is loaded from a pinned, SRI-checked URL and cannot be
+ * edited — these overrides are injected immediately after it, so at equal
+ * specificity they already win, and \`html:not([...]) #stcm-banner\` (1,1,1)
+ * also outranks the vendor's own \`#stcm-banner.stcm-loaded { opacity: 1 }\`
+ * (1,1,0).
+ *
+ * Note what this defers: on a first visit Silktide shows the PROMPT
+ * (#stcm-banner) plus its #stcm-backdrop, not the persistent #stcm-icon, so on
+ * a phone the cookie prompt now appears once the visitor scrolls past the hero
+ * rather than on top of it. No cookie behaviour changes — the widget still
+ * initialises at the same moment, sets nothing before a choice is made, and the
+ * prompt is one short scroll away. It is deferred, never suppressed: the
+ * attribute is set by a passive scroll listener that also fires on load, so a
+ * deep link that lands mid-page shows it immediately.
+ *
+ * Only opacity / visibility / pointer-events move, so a shown control is
+ * pixel-identical to today. The widget toggles \`style.display\` inline
+ * (verified in the vendor script), which these rules deliberately never touch.
+ */
+@media (max-width: 40rem) {
+  #stcm-icon,
+  #stcm-banner,
+  #stcm-backdrop {
+    transition:
+      opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Repeats #stcm-icon's own transitions above: the shorthand replaces them. */
+  #stcm-icon {
+    transition:
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease,
+      opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html:not([data-mobile-chrome="ready"]) #stcm-icon,
+  html:not([data-mobile-chrome="ready"]) #stcm-banner,
+  html:not([data-mobile-chrome="ready"]) #stcm-backdrop {
+    /*
+     * \`!important\` on opacity only, and only because the vendor runs
+     * \`animation: stcm-fade-in 0.3s ease-in-out forwards\` on #stcm-icon (and a
+     * slide-down on #stcm-banner): a forwards-filled animation's final value
+     * sits in the animation origin of the cascade, which outranks any normal
+     * author declaration however specific. Measured: without it the icon was
+     * \`visibility: hidden\` but \`opacity: 1\`, so it popped instead of fading.
+     * visibility and pointer-events are not animated by the vendor and need no
+     * escalation.
+     */
+    opacity: 0 !important;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Belt and braces: the site-wide reduced-motion reset already forces every
+   transition to --ss-motion-reduced-duration. This states the intent locally,
+   where a reader of the consent overrides can see it. */
+@media (max-width: 40rem) and (prefers-reduced-motion: reduce) {
+  #stcm-icon,
+  #stcm-banner,
+  #stcm-backdrop {
+    transition: none;
+  }
+}
 `;
 
 const MODAL_ID = "stcm-modal";

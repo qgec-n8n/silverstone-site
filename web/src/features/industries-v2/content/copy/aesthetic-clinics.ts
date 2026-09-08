@@ -62,6 +62,14 @@ export const aestheticClinicsCopy: IndustryCopy = {
     "Consultations confirmed with your deposit already held",
     "No prescription-only medicine ever named in a public reply",
   ],
+  mobile: {
+    tagline: "The first clinic to answer *takes the booking*",
+    points: [
+      "Every DM, form and call",
+      "Deposit held at booking",
+      "Never names a prescription",
+    ],
+  },
   trustTokens: [
     "Prescriber-gated",
     "Deposit-secured",

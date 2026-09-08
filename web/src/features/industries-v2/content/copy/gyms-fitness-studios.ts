@@ -32,6 +32,14 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
     "Trials tracked from booking to follow-up",
     "Injuries and disputes always stay human",
   ],
+  mobile: {
+    tagline: "See exactly where *every lead went*",
+    points: [
+      "Every inquiry has an owner",
+      "Trials tracked end to end",
+      "Injuries always stay human",
+    ],
+  },
   trustTokens: ["Location-aware", "Member-contextual", "Consent-led", "Staff-owned"],
   markets: {
     eyebrow: "Built for your market",

@@ -32,6 +32,14 @@ export const physiosChiropractorsCopy: IndustryCopy = {
     "Intake completed before arrival",
     "Symptoms go straight to clinicians",
   ],
+  mobile: {
+    tagline: "After-hours questions answered, *never diagnosed*",
+    points: [
+      "Access and booking handled",
+      "Intake done before arrival",
+      "Symptoms go to clinicians",
+    ],
+  },
   trustTokens: ["Non-clinical", "Privacy-led", "Clinician-owned", "System-accountable"],
   markets: {
     eyebrow: "Built for your market",

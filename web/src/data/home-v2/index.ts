@@ -5,6 +5,7 @@
 export * from "./benchmarks";
 export * from "./services";
 export * from "./integrations";
+export * from "./mobile-hero";
 export * from "./process";
 export * from "./storytelling";
 export * from "./system";
