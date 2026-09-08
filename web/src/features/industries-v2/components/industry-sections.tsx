@@ -15,6 +15,7 @@ import {
 import * as m from "motion/react-m";
 import { Dialog as DialogPrimitive } from "radix-ui";
 import {
+  Fragment,
   useEffect,
   useId,
   useRef,
@@ -53,12 +54,15 @@ import {
 } from "~/features/services-v2/components/primitives";
 import {
   ATLAS_COMPACT,
+  ATLAS_PHONE,
   ATLAS_WIDE,
   LINKED_METROS,
   LONDON,
   US_METROS,
   US_TIME_ZONES,
   type AtlasAura,
+  type AtlasInset,
+  type AtlasInsetName,
   type AtlasNode,
   type AtlasPlate,
 } from "../content/atlas";
@@ -393,6 +397,11 @@ const ATLAS_SIZE: Record<
 > = {
   wide: { city: 9, quiet: 6, hub: 14, ripple: { us: 70, uk: 22 } },
   compact: { city: 11, quiet: 7, hub: 10, ripple: { us: 44, uk: 20 } },
+  /* The phone plate draws at the compact plate's ~0.32px per unit, but its
+     US inset is 240px across (the compact plate's US was 130), so the nodes
+     sit a size under the compact plate's without crowding; the hub keeps the
+     small dot the phone asked for and lets its lit halo mark it. */
+  phone: { city: 10, quiet: 6, hub: 9, ripple: { us: 60, uk: 40 } },
 };
 
 const spell = (n: number) =>
@@ -484,10 +493,142 @@ function AtlasRipples({
   );
 }
 
+/** The insets' corner radius, in viewBox units: ~8px on a 270px plate. */
+const INSET_RADIUS = 24;
+const INSET_TAG: Record<AtlasInsetName, string> = {
+  us: "United States",
+  uk: "United Kingdom",
+};
+
 /**
- * One plate. Two are rendered — wide and compact — and only ever one is
- * displayed; a `display: none` element runs no animation, so the looping
- * budget is one plate's halos and rings, never both.
+ * The phone plate's two framed regions (see `buildPhoneAtlas`). Each inset
+ * carries its own hairline frame and ground, a graticule at its own scale
+ * (10° on the US, 5° on the UK, whose inset spans fourteen degrees), the
+ * world dots for context and its own country's dots on top, with the market
+ * wash clipped to the frame so the light stays inside the map it belongs to.
+ * The rings and the routes are drawn by the plate over both. A small mono tag
+ * names each region: two scales on one plate need saying.
+ */
+function AtlasInsets({
+  aura,
+  id,
+  insets,
+}: {
+  aura: Record<AtlasInsetName, AtlasAura>;
+  id: string;
+  insets: Record<AtlasInsetName, AtlasInset>;
+}) {
+  const sides: AtlasInsetName[] = ["us", "uk"];
+  return (
+    <>
+      <defs>
+        {sides.map((side) => {
+          const inset = insets[side];
+          const pitch = side === "uk" ? inset.graticule / 2 : inset.graticule;
+          return (
+            <Fragment key={side}>
+              <clipPath id={`${id}-clip-${side}`}>
+                <rect
+                  height={inset.h}
+                  rx={INSET_RADIUS}
+                  width={inset.w}
+                  x={inset.x}
+                  y={inset.y}
+                />
+              </clipPath>
+              <pattern
+                height={pitch}
+                id={`${id}-grid-${side}`}
+                patternUnits="userSpaceOnUse"
+                width={pitch}
+                x={inset.x}
+                y={inset.y}
+              >
+                <path
+                  className="ss-ind2-atlas__inset-grid"
+                  d={`M ${String(pitch)} 0 V ${String(pitch)} H 0`}
+                />
+              </pattern>
+            </Fragment>
+          );
+        })}
+      </defs>
+      {sides.map((side) => {
+        const inset = insets[side];
+        const glow = aura[side];
+        return (
+          <g className="ss-ind2-atlas__inset" data-side={side} key={side}>
+            <rect
+              className="ss-ind2-atlas__inset-ground"
+              height={inset.h}
+              rx={INSET_RADIUS}
+              width={inset.w}
+              x={inset.x}
+              y={inset.y}
+            />
+            <rect
+              fill={`url(#${id}-grid-${side})`}
+              height={inset.h}
+              rx={INSET_RADIUS}
+              width={inset.w}
+              x={inset.x}
+              y={inset.y}
+            />
+            <g clipPath={`url(#${id}-clip-${side})`}>
+              <ellipse
+                className="ss-ind2-atlas__aura-wash"
+                cx={glow.cx}
+                cy={glow.cy}
+                data-side={side}
+                fill={`url(#${id}-aura-${side})`}
+                rx={glow.rx}
+                ry={glow.ry}
+              />
+              <image
+                className="ss-ind2-atlas__land ss-ind2-atlas__land--world"
+                height={inset.h}
+                href={inset.layers.world}
+                width={inset.w}
+                x={inset.x}
+                y={inset.y}
+              />
+              <image
+                className={`ss-ind2-atlas__land ss-ind2-atlas__land--${side}`}
+                height={inset.h}
+                href={inset.layers.land}
+                width={inset.w}
+                x={inset.x}
+                y={inset.y}
+              />
+            </g>
+            <rect
+              className="ss-ind2-atlas__inset-frame"
+              height={inset.h}
+              rx={INSET_RADIUS}
+              width={inset.w}
+              x={inset.x}
+              y={inset.y}
+            />
+            {/* Seated where each inset has open water: under the Pacific
+                for the US, in the Atlantic above the Hebrides for the UK. */}
+            <text
+              className="ss-ind2-atlas__inset-tag"
+              x={inset.x + 24}
+              y={side === "us" ? inset.y + inset.h - 20 : inset.y + 34}
+            >
+              {INSET_TAG[side]}
+            </text>
+          </g>
+        );
+      })}
+    </>
+  );
+}
+
+/**
+ * One plate. Three are rendered — wide, compact and phone — and only ever one
+ * is displayed; a `display: none` element runs no animation, so the looping
+ * budget is one plate's halos and rings, never all three.
  *
  * Each route carries TWO strokes and CSS crossfades them, because an SVG
  * paint server cannot be flipped from a stylesheet: the bright end of every
@@ -569,50 +710,57 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
         </radialGradient>
       </defs>
 
-      {/* The washes sit under the dots, so a lit country is lit from beneath
-          and its dots stand on the light rather than floating over it. */}
-      <ellipse
-        className="ss-ind2-atlas__aura-wash"
-        cx={plate.aura.us.cx}
-        cy={plate.aura.us.cy}
-        data-side="us"
-        fill={`url(#${id}-aura-us)`}
-        rx={plate.aura.us.rx}
-        ry={plate.aura.us.ry}
-      />
-      <ellipse
-        className="ss-ind2-atlas__aura-wash"
-        cx={plate.aura.uk.cx}
-        cy={plate.aura.uk.cy}
-        data-side="uk"
-        fill={`url(#${id}-aura-uk)`}
-        rx={plate.aura.uk.rx}
-        ry={plate.aura.uk.ry}
-      />
-      <image
-        className="ss-ind2-atlas__land ss-ind2-atlas__land--world"
-        height={plate.h}
-        href={plate.layers.world}
-        width={plate.w}
-      />
-      <image
-        className="ss-ind2-atlas__land ss-ind2-atlas__land--us"
-        height={plate.h}
-        href={plate.layers.us}
-        width={plate.w}
-      />
-      <image
-        className="ss-ind2-atlas__land ss-ind2-atlas__land--uk"
-        height={plate.h}
-        href={plate.layers.uk}
-        width={plate.w}
-      />
-      <rect
-        className="ss-ind2-atlas__fade"
-        fill={`url(#${id}-fade)`}
-        height={plate.h}
-        width={plate.w}
-      />
+      {plate.insets ? (
+        <AtlasInsets aura={plate.aura} id={id} insets={plate.insets} />
+      ) : (
+        <>
+          {/* The washes sit under the dots, so a lit country is lit from
+              beneath and its dots stand on the light rather than floating
+              over it. */}
+          <ellipse
+            className="ss-ind2-atlas__aura-wash"
+            cx={plate.aura.us.cx}
+            cy={plate.aura.us.cy}
+            data-side="us"
+            fill={`url(#${id}-aura-us)`}
+            rx={plate.aura.us.rx}
+            ry={plate.aura.us.ry}
+          />
+          <ellipse
+            className="ss-ind2-atlas__aura-wash"
+            cx={plate.aura.uk.cx}
+            cy={plate.aura.uk.cy}
+            data-side="uk"
+            fill={`url(#${id}-aura-uk)`}
+            rx={plate.aura.uk.rx}
+            ry={plate.aura.uk.ry}
+          />
+          <image
+            className="ss-ind2-atlas__land ss-ind2-atlas__land--world"
+            height={plate.h}
+            href={plate.layers.world}
+            width={plate.w}
+          />
+          <image
+            className="ss-ind2-atlas__land ss-ind2-atlas__land--us"
+            height={plate.h}
+            href={plate.layers.us}
+            width={plate.w}
+          />
+          <image
+            className="ss-ind2-atlas__land ss-ind2-atlas__land--uk"
+            height={plate.h}
+            href={plate.layers.uk}
+            width={plate.w}
+          />
+          <rect
+            className="ss-ind2-atlas__fade"
+            fill={`url(#${id}-fade)`}
+            height={plate.h}
+            width={plate.w}
+          />
+        </>
+      )}
 
       {/* The rings sit over the dots and under the routes: light leaving the
           lit country across its own landmass. */}
@@ -673,21 +821,28 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
  */
 function AtlasLabels({ controlId }: { controlId: string }) {
   const pairs = [
-    { wide: ATLAS_WIDE.hub, compact: ATLAS_COMPACT.hub, side: "uk" as const },
+    {
+      wide: ATLAS_WIDE.hub,
+      compact: ATLAS_COMPACT.hub,
+      phone: ATLAS_PHONE.hub,
+      side: "uk" as const,
+    },
     ...ATLAS_WIDE.cities
       .map((wide, index) => ({
         wide,
         compact: ATLAS_COMPACT.cities[index] ?? wide,
+        phone: ATLAS_PHONE.cities[index] ?? wide,
         side: "us" as const,
       }))
       .filter(({ wide }) => wide.labelled),
   ];
-  return pairs.map(({ wide, compact, side }) => {
+  return pairs.map(({ wide, compact, phone, side }) => {
     const inputId = `${controlId}-${side === "uk" ? "gbp" : "usd"}`;
     return (
       <label
         className="ss-ind2-atlas__label"
         data-anchor-compact={compact.side}
+        data-anchor-phone={phone.side}
         data-anchor-wide={wide.side}
         data-side={side}
         data-tier={wide.tier}
@@ -706,7 +861,11 @@ function AtlasLabels({ controlId }: { controlId: string }) {
             return;
           }
           event.preventDefault();
-          input.focus({ preventScroll: true });
+          // A pointer tap never focuses the radio (see CurrencyToggle); only
+          // a synthetic activation does, and then without scrolling.
+          if (event.detail === 0) {
+            input.focus({ preventScroll: true });
+          }
           input.click();
         }}
         style={
@@ -715,6 +874,8 @@ function AtlasLabels({ controlId }: { controlId: string }) {
             "--at-wy": wide.at.y,
             "--at-cx": compact.at.x,
             "--at-cy": compact.at.y,
+            "--at-px": phone.at.x,
+            "--at-py": phone.at.y,
           } as CSSProperties
         }
       >
@@ -776,6 +937,7 @@ function AtlanticAtlas({ controlId }: { controlId: string }) {
           <div className="ss-ind2-atlas__plate">
             <AtlasPlateSvg plate={ATLAS_WIDE} />
             <AtlasPlateSvg plate={ATLAS_COMPACT} />
+            <AtlasPlateSvg plate={ATLAS_PHONE} />
             <AtlasLabels controlId={controlId} />
           </div>
         </div>

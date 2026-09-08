@@ -2889,6 +2889,122 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   }
 }
 
+/* ---- Phone plate ----------------------------------------------------------
+   Below 40rem the plate is two framed insets on one field (see
+   `buildPhoneAtlas` in content/atlas.ts): the continental US across the top
+   at full width, the British Isles beneath it on the right at four times the
+   scale, London's routes bridging the two. Desktop and tablet plates are
+   untouched: this block only ever selects the phone SVG and re-seats the
+   shared labels on its coordinates. */
+.ss-ind2-atlas__svg--phone {
+  display: none;
+}
+
+.ss-ind2-atlas__inset-ground {
+  fill: color-mix(in srgb, var(--ss-v2-platinum) 3%, transparent);
+}
+
+.ss-ind2-atlas__inset-grid {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ss-v2-platinum) 7%, transparent);
+  stroke-width: 1.5;
+}
+
+.ss-ind2-atlas__inset-frame {
+  fill: none;
+  stroke: color-mix(in srgb, var(--srv2-accent) 24%, var(--ss-v2-hairline));
+  stroke-width: 2;
+}
+
+.ss-ind2-atlas__inset-tag {
+  font-family: var(--ss-font-mono);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  fill: color-mix(in srgb, var(--srv2-accent) 42%, var(--ss-v2-titanium));
+  opacity: 0.8;
+}
+
+.ss-ind2-atlas__svg--phone .ss-ind2-atlas__ripple {
+  stroke-width: 2.4;
+}
+
+@media (max-width: 40rem) {
+  .ss-ind2-atlas__plate {
+    aspect-ratio: 950 / 630;
+  }
+
+  .ss-ind2-atlas__svg--compact {
+    display: none;
+  }
+
+  .ss-ind2-atlas__svg--phone {
+    display: block;
+  }
+
+  /* The field's graticule at the US inset's pitch (10° = 125 of 950 units
+     across, of 630 down), so the ocean's grid continues the inset's. */
+  .ss-ind2-atlas__chart {
+    background-size:
+      calc(100% / 7.6) 100%,
+      100% calc(100% / 5.04),
+      auto,
+      auto;
+  }
+
+  .ss-ind2-atlas__label {
+    left: var(--at-px);
+    top: var(--at-py);
+  }
+
+  /* The US inset is ~240px across here: the second tier fits again. */
+  .ss-ind2-atlas__label[data-tier="2"] {
+    display: inline-flex;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="e"] {
+    translate: 0.5rem -50%;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="w"] {
+    translate: calc(-100% - 0.5rem) -50%;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="n"] {
+    translate: -50% calc(-100% - 0.45rem);
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="s"] {
+    translate: -50% 0.45rem;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="ne"] {
+    translate: 0.35rem calc(-100% - 0.25rem);
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="se"] {
+    translate: 0.35rem 0.25rem;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="sw"] {
+    translate: calc(-100% - 0.35rem) 0.25rem;
+  }
+
+  .ss-ind2-atlas__label[data-anchor-phone="nw"] {
+    translate: calc(-100% - 0.35rem) calc(-100% - 0.25rem);
+  }
+}
+
+/* On the narrowest phones (an SE, a 360-wide Android) the US inset is under
+   200px across and Seattle's name runs into Denver's; the second tier steps
+   back to the strip there, as it does on the compact plate. */
+@media (max-width: 23rem) {
+  .ss-ind2-atlas__label[data-tier="2"] {
+    display: none;
+  }
+}
+
 /* Between the compact breakpoint and ~1090px the wide plate is drawn at
    under 860px, and the second tier's names (Denver, Seattle) no longer clear
    Chicago's and each other's. The plate keeps their nodes and routes; the

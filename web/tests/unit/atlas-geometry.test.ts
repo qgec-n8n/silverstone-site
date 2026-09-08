@@ -5,6 +5,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   ATLAS_COMPACT,
+  ATLAS_PHONE,
+  ATLAS_PHONE_GRID,
+  ATLAS_PHONE_INSETS,
   ATLAS_PLATES,
   ATLAS_SCALE,
   ATLAS_WIDE,
@@ -13,11 +16,17 @@ import {
   US_METROS,
   US_TIME_ZONES,
   projectOn,
+  projectOnInset,
   quadAt,
   type AtlasPlate,
+  type AtlasRegionPlate,
 } from "~/features/industries-v2/content/atlas";
 
-const plates: AtlasPlate[] = [ATLAS_WIDE, ATLAS_COMPACT];
+/** The two ocean plates, one equirectangular region each. */
+const plates: AtlasRegionPlate[] = [ATLAS_WIDE, ATLAS_COMPACT];
+/** Every plate, the phone's two-inset one included: the invariants that do
+ * not depend on a single region hold on all three. */
+const everyPlate: AtlasPlate[] = [...plates, ATLAS_PHONE];
 const publicDir = path.resolve(__dirname, "../../public");
 
 /*
@@ -50,7 +59,7 @@ describe("Atlantic atlas geometry", () => {
   });
 
   it("keeps every node and every arc inside its plate", () => {
-    for (const plate of plates) {
+    for (const plate of everyPlate) {
       for (const node of [plate.hub, ...plate.cities]) {
         expect(node.point.x, `${plate.name} ${node.name} x`).toBeGreaterThan(0);
         expect(node.point.x, `${plate.name} ${node.name} x`).toBeLessThan(plate.w);
@@ -97,7 +106,7 @@ describe("Atlantic atlas geometry", () => {
   });
 
   it("reads honestly: north is up, west is left, London is east of every metro", () => {
-    for (const plate of plates) {
+    for (const plate of everyPlate) {
       const by = Object.fromEntries(plate.cities.map((city) => [city.id, city.point]));
       const point = (id: string) => {
         const found = by[id];
@@ -115,7 +124,7 @@ describe("Atlantic atlas geometry", () => {
   });
 
   it("bows every route north of its chord, leaving London for the metro", () => {
-    for (const plate of plates) {
+    for (const plate of everyPlate) {
       for (const link of plate.links) {
         // The path starts at the hub, so a dash offset running 1 → 0 draws
         // the route outward from London.
@@ -133,7 +142,7 @@ describe("Atlantic atlas geometry", () => {
     expect(LINKED_METROS.every((city) => city.tier <= 2)).toBe(true);
     expect(LINKED_METROS.length).toBeGreaterThanOrEqual(6);
     expect(LINKED_METROS.length).toBeLessThanOrEqual(8);
-    for (const plate of plates) {
+    for (const plate of everyPlate) {
       expect(plate.links.map((link) => link.city.id)).toEqual(
         LINKED_METROS.map((city) => city.id),
       );
@@ -216,5 +225,83 @@ describe("Atlantic atlas geometry", () => {
       expect(city.lng).toBeGreaterThan(-125);
       expect(city.lng).toBeLessThan(-66);
     }
+  });
+});
+
+/*
+ * The phone plate is two insets on one field, each an honest region at its
+ * own scale. The same four things have to agree — the generated inset
+ * layers, the paths, the labels and this file — plus one more: the insets
+ * must not overlap, and every node must sit inside the inset that draws its
+ * country.
+ */
+describe("phone plate", () => {
+  const plate = ATLAS_PHONE;
+  const w = ATLAS_PHONE_GRID.width * ATLAS_SCALE;
+  const h = ATLAS_PHONE_GRID.height * ATLAS_SCALE;
+
+  it("matches the generated inset layers dot-for-dot", () => {
+    expect(plate.insets).toBeDefined();
+    for (const side of ["us", "uk"] as const) {
+      const spec = ATLAS_PHONE_INSETS[side];
+      const inset = plate.insets?.[side];
+      if (!inset) throw new Error(`no ${side} inset`);
+      for (const href of [inset.layers.world, inset.layers.land]) {
+        const svg = readFileSync(path.join(publicDir, href), "utf8");
+        expect(svg, `${href} viewBox`).toContain(
+          `viewBox="0 0 ${String(spec.width)} ${String(spec.height)}"`,
+        );
+        expect(svg, `${href} draws dots`).toMatch(/<path [^>]*stroke-linecap="round"/);
+      }
+      expect(inset.w).toBe(spec.width * ATLAS_SCALE);
+      expect(inset.h).toBe(spec.height * ATLAS_SCALE);
+      expect(inset.x).toBe(spec.x * ATLAS_SCALE);
+      expect(inset.y).toBe(spec.y * ATLAS_SCALE);
+      // An equirectangular degree is the same length on both axes.
+      const lngSpan = spec.region.lng.max - spec.region.lng.min;
+      const latSpan = spec.region.lat.max - spec.region.lat.min;
+      expect(spec.width / lngSpan).toBeCloseTo(spec.height / latSpan, 6);
+    }
+    expect(plate.w).toBe(w);
+    expect(plate.h).toBe(h);
+    expect(plate.viewBox).toBe(`0 0 ${String(w)} ${String(h)}`);
+  });
+
+  it("keeps the insets apart and inside the plate, the UK beneath the US", () => {
+    const us = plate.insets?.us;
+    const uk = plate.insets?.uk;
+    if (!us || !uk) throw new Error("insets");
+    expect(us.x + us.w).toBeLessThanOrEqual(w);
+    expect(uk.x + uk.w).toBeLessThanOrEqual(w);
+    expect(uk.y + uk.h).toBeLessThanOrEqual(h);
+    expect(uk.y).toBeGreaterThan(us.y + us.h);
+    // The UK island is drawn at a larger scale than the US: that is the point.
+    expect(uk.graticule).toBeGreaterThan(us.graticule);
+  });
+
+  it("seats every metro inside the US inset and London inside the UK one", () => {
+    const us = plate.insets?.us;
+    const uk = plate.insets?.uk;
+    if (!us || !uk) throw new Error("insets");
+    for (const city of plate.cities) {
+      const expected = projectOnInset("us", city.lat, city.lng);
+      expect(city.point, city.name).toEqual(expected);
+      expect(city.point.x, city.name).toBeGreaterThan(us.x);
+      expect(city.point.x, city.name).toBeLessThan(us.x + us.w);
+      expect(city.point.y, city.name).toBeGreaterThan(us.y);
+      expect(city.point.y, city.name).toBeLessThan(us.y + us.h);
+    }
+    expect(plate.hub.point).toEqual(projectOnInset("uk", LONDON.lat, LONDON.lng));
+    expect(plate.hub.point.x).toBeGreaterThan(uk.x);
+    expect(plate.hub.point.x).toBeLessThan(uk.x + uk.w);
+    expect(plate.hub.point.y).toBeGreaterThan(uk.y);
+    expect(plate.hub.point.y).toBeLessThan(uk.y + uk.h);
+  });
+
+  it("labels the first two tiers, like the wide plate", () => {
+    const named = US_METROS.filter((city) => city.tier <= 2).length;
+    expect(plate.cities.filter((city) => city.labelled)).toHaveLength(named);
+    expect(plate.hub.labelled).toBe(true);
+    expect(plate.hub.side).toBe(LONDON.anchor.phone);
   });
 });

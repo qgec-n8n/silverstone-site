@@ -21,7 +21,10 @@ export type AtlasRegion = {
   lng: { min: number; max: number };
 };
 
-export type AtlasPlateName = "wide" | "compact";
+export type AtlasPlateName = "wide" | "compact" | "phone";
+
+/** The two ocean plates: one equirectangular region each. */
+export type AtlasRegionPlateName = "wide" | "compact";
 
 type AtlasPlateSpec = {
   region: AtlasRegion;
@@ -65,7 +68,7 @@ export type AtlasCity = {
 /** viewBox units per dot-grid unit. Keeps stroke widths in whole numbers. */
 export const ATLAS_SCALE = 10;
 
-export const ATLAS_PLATES: Record<AtlasPlateName, AtlasPlateSpec> = {
+export const ATLAS_PLATES: Record<AtlasRegionPlateName, AtlasPlateSpec> = {
   /** 192° × 68°: Alaska to the Caspian, the Sahel to Svalbard. */
   wide: {
     region: { lat: { min: 4, max: 72 }, lng: { min: -140, max: 52 } },
@@ -82,8 +85,60 @@ export const ATLAS_PLATES: Record<AtlasPlateName, AtlasPlateSpec> = {
   },
 };
 
+/*
+ * ---- The phone plate --------------------------------------------------------
+ *
+ * Below 40rem one North-Atlantic region no longer works: at ~270px across it
+ * resolved the US at 130px and the UK as a dozen dots cut off at the right
+ * edge. The phone plate is two INSETS on one plate instead — the continental
+ * US across the top at full width, the British Isles below it on the right —
+ * each an honest equirectangular region at its own scale (0.8° per dot for
+ * the US, 0.4° for the UK, so the island finally has a coastline). London's
+ * routes leave the UK inset and land on the US one; the arcs are the bridge.
+ * The desktop and tablet plates are untouched.
+ */
+export type AtlasInsetName = "us" | "uk";
+
+export type AtlasInsetSpec = AtlasPlateSpec & {
+  /** The inset's origin on the phone plate, in dot-grid units. */
+  x: number;
+  y: number;
+};
+
+export const ATLAS_PHONE_INSETS: Record<AtlasInsetName, AtlasInsetSpec> = {
+  /** 60° × 27.2°, Seattle to Maine, the Rio Grande to the 49th parallel. */
+  us: {
+    region: { lat: { min: 22.4, max: 49.6 }, lng: { min: -126, max: -66 } },
+    width: 75,
+    height: 34,
+    x: 0,
+    y: 0,
+  },
+  /** 14° × 10°: Ireland to the Frisian coast, the Channel to the Orkneys. */
+  uk: {
+    region: { lat: { min: 49.5, max: 59.5 }, lng: { min: -11, max: 3 } },
+    width: 35,
+    height: 25,
+    x: 60,
+    y: 38,
+  },
+};
+
+/** The phone plate's own grid: the US inset plus an Atlantic margin wide
+ * enough for New York's label, and the UK inset seated under it, flush
+ * right, with a gutter between. */
+export const ATLAS_PHONE_GRID = { width: 95, height: 63 } as const;
+
+export const ATLAS_PHONE_LAYER_HREF: Record<
+  AtlasInsetName,
+  { world: string; land: string }
+> = {
+  us: { world: "/maps/atlas-phone-us-world.svg", land: "/maps/atlas-phone-us-us.svg" },
+  uk: { world: "/maps/atlas-phone-uk-world.svg", land: "/maps/atlas-phone-uk-uk.svg" },
+};
+
 export const ATLAS_LAYER_HREF: Record<
-  AtlasPlateName,
+  AtlasRegionPlateName,
   Record<"world" | "us" | "uk", string>
 > = {
   wide: {
@@ -105,7 +160,7 @@ export const LONDON: AtlasCity = {
   lng: -0.1278,
   zone: "GMT",
   tier: 1,
-  anchor: { wide: "e", compact: "w" },
+  anchor: { wide: "e", compact: "w", phone: "w" },
 };
 
 /**
@@ -123,7 +178,7 @@ export const US_METROS: readonly AtlasCity[] = [
     tier: 1,
     /* South-east on the wide plate: due east sat squarely over Boston's
        node, which is 13px east and 8px north of New York's at 1200. */
-    anchor: { wide: "se", compact: "e" },
+    anchor: { wide: "se", compact: "e", phone: "se" },
   },
   {
     id: "bos",
@@ -132,7 +187,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -71.0589,
     zone: "Eastern",
     tier: 3,
-    anchor: { wide: "ne", compact: "ne" },
+    anchor: { wide: "ne", compact: "ne", phone: "ne" },
   },
   {
     id: "phl",
@@ -141,7 +196,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -75.1652,
     zone: "Eastern",
     tier: 3,
-    anchor: { wide: "sw", compact: "sw" },
+    anchor: { wide: "sw", compact: "sw", phone: "sw" },
   },
   {
     id: "chi",
@@ -150,7 +205,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -87.6298,
     zone: "Central",
     tier: 1,
-    anchor: { wide: "n", compact: "n" },
+    anchor: { wide: "n", compact: "n", phone: "n" },
   },
   {
     id: "atl",
@@ -159,7 +214,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -84.388,
     zone: "Eastern",
     tier: 3,
-    anchor: { wide: "e", compact: "e" },
+    anchor: { wide: "e", compact: "e", phone: "e" },
   },
   {
     id: "mia",
@@ -168,7 +223,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -80.1918,
     zone: "Eastern",
     tier: 1,
-    anchor: { wide: "e", compact: "e" },
+    anchor: { wide: "e", compact: "e", phone: "e" },
   },
   {
     id: "dal",
@@ -180,7 +235,7 @@ export const US_METROS: readonly AtlasCity[] = [
     /* North on the wide plate: west ran the name straight into Los Angeles's
        label (south of its node, 270 units away) at every desktop width, and
        south or east would sit on Houston's or Atlanta's node. */
-    anchor: { wide: "n", compact: "n" },
+    anchor: { wide: "n", compact: "n", phone: "n" },
   },
   {
     id: "hou",
@@ -189,7 +244,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -95.3698,
     zone: "Central",
     tier: 3,
-    anchor: { wide: "se", compact: "se" },
+    anchor: { wide: "se", compact: "se", phone: "se" },
   },
   {
     id: "den",
@@ -198,7 +253,9 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -104.9903,
     zone: "Mountain",
     tier: 2,
-    anchor: { wide: "n", compact: "n" },
+    /* North-west on the phone: due north met Seattle's name coming in from
+       the west on a 375px plate. */
+    anchor: { wide: "n", compact: "n", phone: "nw" },
   },
   {
     id: "lax",
@@ -207,7 +264,9 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -118.2437,
     zone: "Pacific",
     tier: 1,
-    anchor: { wide: "s", compact: "s" },
+    /* South-east on the phone: centred below, the name ran off the inset's
+       west edge, and due east sat under Dallas's label. */
+    anchor: { wide: "s", compact: "s", phone: "se" },
   },
   {
     id: "sfo",
@@ -216,7 +275,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -122.4194,
     zone: "Pacific",
     tier: 3,
-    anchor: { wide: "ne", compact: "ne" },
+    anchor: { wide: "ne", compact: "ne", phone: "w" },
   },
   {
     id: "sea",
@@ -225,7 +284,7 @@ export const US_METROS: readonly AtlasCity[] = [
     lng: -122.3321,
     zone: "Pacific",
     tier: 2,
-    anchor: { wide: "e", compact: "e" },
+    anchor: { wide: "e", compact: "e", phone: "e" },
   },
 ];
 
@@ -245,11 +304,37 @@ const asPct = (value: number, span: number) =>
   `${String(round1((value / span) * 100))}%`;
 
 /** Equirectangular: the same straight line the generator's dots sit on. */
-export function projectOn(plate: AtlasPlateName, lat: number, lng: number): AtlasPoint {
-  const { region, width, height } = ATLAS_PLATES[plate];
+function projectInRegion(
+  spec: AtlasPlateSpec,
+  lat: number,
+  lng: number,
+  origin: AtlasPoint = { x: 0, y: 0 },
+): AtlasPoint {
+  const { region, width, height } = spec;
   const x = ((lng - region.lng.min) / (region.lng.max - region.lng.min)) * width;
   const y = ((region.lat.max - lat) / (region.lat.max - region.lat.min)) * height;
-  return { x: round1(x * ATLAS_SCALE), y: round1(y * ATLAS_SCALE) };
+  return {
+    x: round1((origin.x + x) * ATLAS_SCALE),
+    y: round1((origin.y + y) * ATLAS_SCALE),
+  };
+}
+
+export function projectOn(
+  plate: AtlasRegionPlateName,
+  lat: number,
+  lng: number,
+): AtlasPoint {
+  return projectInRegion(ATLAS_PLATES[plate], lat, lng);
+}
+
+/** The same line, on one of the phone plate's insets, in plate coordinates. */
+export function projectOnInset(
+  inset: AtlasInsetName,
+  lat: number,
+  lng: number,
+): AtlasPoint {
+  const spec = ATLAS_PHONE_INSETS[inset];
+  return projectInRegion(spec, lat, lng, { x: spec.x, y: spec.y });
 }
 
 /** How far north of its chord an arc bows, as a fraction of the chord. */
@@ -330,6 +415,17 @@ export type AtlasLink = {
 /** A soft ellipse of light under one country's dots: its glow. */
 export type AtlasAura = { cx: number; cy: number; rx: number; ry: number };
 
+/** One of the phone plate's framed regions, in viewBox units. */
+export type AtlasInset = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** viewBox units per 10° of longitude: the inset's graticule pitch. */
+  graticule: number;
+  layers: { world: string; land: string };
+};
+
 export type AtlasPlate = {
   name: AtlasPlateName;
   w: number;
@@ -339,30 +435,53 @@ export type AtlasPlate = {
   cities: AtlasNode[];
   links: AtlasLink[];
   aura: Record<"us" | "uk", AtlasAura>;
+  /** The ocean plates' three full-plate layers; the phone plate draws its
+   * insets' layers instead (see `insets`). */
   layers: Record<"world" | "us" | "uk", string>;
+  insets?: Record<AtlasInsetName, AtlasInset>;
 };
 
-function nodeOn(
+/** An ocean plate: one region, so its name indexes `ATLAS_PLATES`. */
+export type AtlasRegionPlate = Omit<AtlasPlate, "name" | "insets"> & {
+  name: AtlasRegionPlateName;
+};
+
+function nodeAt(
   plate: AtlasPlateName,
   city: AtlasCity,
+  point: AtlasPoint,
   w: number,
   h: number,
 ): AtlasNode {
-  const point = projectOn(plate, city.lat, city.lng);
   return {
     ...city,
     point,
     at: { x: asPct(point.x, w), y: asPct(point.y, h) },
     side: city.anchor[plate],
-    labelled: city.tier === 1 || (plate === "wide" && city.tier === 2),
+    /* The wide plate and the phone plate have room for the second tier (the
+       phone's US inset is 240px across, the wide plate's US 360); the compact
+       plate resolves the US at ~150px and keeps the first tier alone. */
+    labelled: city.tier === 1 || (plate !== "compact" && city.tier === 2),
     linked: city.tier <= 2,
   };
 }
 
-/** viewBox units per degree on this plate, for sizing the auras. */
-function unitsPerDegree(plate: AtlasPlateName): number {
-  const { region, width } = ATLAS_PLATES[plate];
-  return (width * ATLAS_SCALE) / (region.lng.max - region.lng.min);
+function nodeOn(
+  plate: AtlasRegionPlateName,
+  city: AtlasCity,
+  w: number,
+  h: number,
+): AtlasNode {
+  return nodeAt(plate, city, projectOn(plate, city.lat, city.lng), w, h);
+}
+
+/** viewBox units per degree of longitude in a region, for sizing the auras. */
+function unitsPerDegreeIn(spec: AtlasPlateSpec): number {
+  return (spec.width * ATLAS_SCALE) / (spec.region.lng.max - spec.region.lng.min);
+}
+
+function unitsPerDegree(plate: AtlasRegionPlateName): number {
+  return unitsPerDegreeIn(ATLAS_PLATES[plate]);
 }
 
 /**
@@ -371,47 +490,51 @@ function unitsPerDegree(plate: AtlasPlateName): number {
  * in, not an arbitrary disc. The UK is too small to fit to one node, so its
  * glow is a fixed few degrees around the island's centre.
  */
-function aurasOn(
-  plate: AtlasPlateName,
+function aurasFor(
   cities: AtlasNode[],
+  usUnit: number,
+  uk: AtlasPoint,
+  ukUnit: number,
 ): Record<"us" | "uk", AtlasAura> {
-  const unit = unitsPerDegree(plate);
   const xs = cities.map((city) => city.point.x);
   const ys = cities.map((city) => city.point.y);
   const west = Math.min(...xs);
   const east = Math.max(...xs);
   const north = Math.min(...ys);
   const south = Math.max(...ys);
-  const uk = projectOn(plate, 54.4, -2.8);
   return {
     us: {
       cx: round1((west + east) / 2),
       cy: round1((north + south) / 2),
-      rx: round1(((east - west) / 2) * 1.3 + unit * 2),
-      ry: round1(((south - north) / 2) * 1.35 + unit * 2.5),
+      rx: round1(((east - west) / 2) * 1.3 + usUnit * 2),
+      ry: round1(((south - north) / 2) * 1.35 + usUnit * 2.5),
     },
     uk: {
       cx: uk.x,
       cy: uk.y,
-      rx: round1(unit * 6.5),
-      ry: round1(unit * 6),
+      rx: round1(ukUnit * 6.5),
+      ry: round1(ukUnit * 6),
     },
   };
 }
 
-export function buildAtlasPlate(name: AtlasPlateName): AtlasPlate {
-  const spec = ATLAS_PLATES[name];
-  const w = spec.width * ATLAS_SCALE;
-  const h = spec.height * ATLAS_SCALE;
-  const hub = nodeOn(name, LONDON, w, h);
-  const cities = US_METROS.map((city) => nodeOn(name, city, w, h));
+function aurasOn(
+  plate: AtlasRegionPlateName,
+  cities: AtlasNode[],
+): Record<"us" | "uk", AtlasAura> {
+  const unit = unitsPerDegree(plate);
+  return aurasFor(cities, unit, projectOn(plate, 54.4, -2.8), unit);
+}
+
+/** The routes, London first, ranked nearest metro first. */
+function linksFrom(hub: AtlasNode, cities: AtlasNode[], h: number): AtlasLink[] {
   const linked = cities.filter((city) => city.linked);
   const byChord = [...linked].sort(
     (a, b) =>
       Math.hypot(hub.point.x - a.point.x, hub.point.y - a.point.y) -
       Math.hypot(hub.point.x - b.point.x, hub.point.y - b.point.y),
   );
-  const links = linked.map((city) => {
+  return linked.map((city) => {
     const ctrl = arcControl(hub.point, city.point, h);
     return {
       city,
@@ -420,6 +543,14 @@ export function buildAtlasPlate(name: AtlasPlateName): AtlasPlate {
       rank: byChord.indexOf(city),
     };
   });
+}
+
+export function buildAtlasPlate(name: AtlasRegionPlateName): AtlasRegionPlate {
+  const spec = ATLAS_PLATES[name];
+  const w = spec.width * ATLAS_SCALE;
+  const h = spec.height * ATLAS_SCALE;
+  const hub = nodeOn(name, LONDON, w, h);
+  const cities = US_METROS.map((city) => nodeOn(name, city, w, h));
   return {
     name,
     w,
@@ -427,11 +558,66 @@ export function buildAtlasPlate(name: AtlasPlateName): AtlasPlate {
     viewBox: `0 0 ${String(w)} ${String(h)}`,
     hub,
     cities,
-    links,
+    links: linksFrom(hub, cities, h),
     aura: aurasOn(name, cities),
     layers: ATLAS_LAYER_HREF[name],
   };
 }
 
+function insetBox(name: AtlasInsetName): AtlasInset {
+  const spec = ATLAS_PHONE_INSETS[name];
+  return {
+    x: spec.x * ATLAS_SCALE,
+    y: spec.y * ATLAS_SCALE,
+    w: spec.width * ATLAS_SCALE,
+    h: spec.height * ATLAS_SCALE,
+    graticule: round1(unitsPerDegreeIn(spec) * 10),
+    layers: ATLAS_PHONE_LAYER_HREF[name],
+  };
+}
+
+/**
+ * The phone plate: every metro projected on the US inset, London on the UK
+ * one, and the routes drawn between them in the plate's shared coordinates.
+ * The US glow is fitted to the metros at the US inset's scale; the UK glow is
+ * the island's own few degrees at the UK inset's much larger one.
+ */
+export function buildPhoneAtlas(): AtlasPlate {
+  const w = ATLAS_PHONE_GRID.width * ATLAS_SCALE;
+  const h = ATLAS_PHONE_GRID.height * ATLAS_SCALE;
+  const hub = nodeAt(
+    "phone",
+    LONDON,
+    projectOnInset("uk", LONDON.lat, LONDON.lng),
+    w,
+    h,
+  );
+  const cities = US_METROS.map((city) =>
+    nodeAt("phone", city, projectOnInset("us", city.lat, city.lng), w, h),
+  );
+  return {
+    name: "phone",
+    w,
+    h,
+    viewBox: `0 0 ${String(w)} ${String(h)}`,
+    hub,
+    cities,
+    links: linksFrom(hub, cities, h),
+    aura: aurasFor(
+      cities,
+      unitsPerDegreeIn(ATLAS_PHONE_INSETS.us),
+      projectOnInset("uk", 54.4, -2.8),
+      unitsPerDegreeIn(ATLAS_PHONE_INSETS.uk),
+    ),
+    layers: {
+      world: ATLAS_PHONE_LAYER_HREF.us.world,
+      us: ATLAS_PHONE_LAYER_HREF.us.land,
+      uk: ATLAS_PHONE_LAYER_HREF.uk.land,
+    },
+    insets: { us: insetBox("us"), uk: insetBox("uk") },
+  };
+}
+
 export const ATLAS_WIDE = buildAtlasPlate("wide");
 export const ATLAS_COMPACT = buildAtlasPlate("compact");
+export const ATLAS_PHONE = buildPhoneAtlas();

@@ -362,16 +362,17 @@ test.describe("mobile secondary hero parity", () => {
       "ss-mhero__row",
       "ss-mhero__actions",
     ]);
-    // The homepage stands its three-figure signal board in the manifest's slot
-    // — same beats in the same order, one proof panel swapped for the other,
-    // because one phone screen holds one of them (see MobileSignalBoard). The
-    // manifest stays in the document for the crawler.
+    // The homepage carries the shared beats AND stands its three-figure
+    // signal board directly under the manifest: the chips name the offer,
+    // the board is the proof, and the stage holds both (the rows sit a touch
+    // tighter than the shared hero's to keep the CTA row's clearance above
+    // the cue — see `.ss-hv2-secondary .ss-mhero__row` in home-v2.css).
     expect(home, "the homepage's phone beats differ from the shared hero's").toEqual([
       "ss-mhero__tagline",
-      "ss-mhero__manifest:hidden",
-      "ss-mhero__row:hidden",
-      "ss-mhero__row:hidden",
-      "ss-mhero__row:hidden",
+      "ss-mhero__manifest",
+      "ss-mhero__row",
+      "ss-mhero__row",
+      "ss-mhero__row",
       "ss-hv2-mobile-signal",
       "ss-mhero__actions",
     ]);

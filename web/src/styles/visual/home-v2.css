@@ -3838,6 +3838,32 @@ html[data-js="on"]
 }
 
 /*
+ * The seam between the Operating layer and The system. Both are standard
+ * sections, so the layer's three short cards were followed by its own full
+ * bottom padding AND The system's full top padding — about 290px of empty
+ * field at desktop (230px on a phone) before the next eyebrow. The layer
+ * keeps a short apron under its cards and The system opens on most of its
+ * own padding, so the break still reads as a break without the dead run.
+ */
+.ss-hv2 #operating-layer {
+  padding-block-end: calc(var(--ss-layout-section-mobile) * 0.4);
+}
+
+.ss-hv2 #services {
+  padding-block-start: calc(var(--ss-layout-section-mobile) * 0.6);
+}
+
+@media (min-width: 64rem) {
+  .ss-hv2 #operating-layer {
+    padding-block-end: calc(var(--ss-layout-section-desktop) * 0.4);
+  }
+
+  .ss-hv2 #services {
+    padding-block-start: calc(var(--ss-layout-section-desktop) * 0.6);
+  }
+}
+
+/*
  * ── The homepage hero adopts the shared phone composition ──────────────────
  *
  * `.ss-hv2-secondary` is its own component (an h2 title, two-line capability
@@ -3853,12 +3879,33 @@ html[data-js="on"]
  */
 @media (max-width: 40rem) {
   .ss-hv2-secondary__lead,
-  .ss-hv2-secondary__caps,
-  /* The board stands in the manifest's slot on the homepage (see
-     MobileSignalBoard in sections/secondary-hero.tsx); the manifest stays in
-     the document for the crawler. */
-  .ss-hv2-secondary .ss-mhero__manifest {
+  .ss-hv2-secondary__caps {
     display: none;
+  }
+
+  /* The manifest (three service chips) sits directly above the live-signal
+     board: the board is the homepage's proof beat, the chips are its offer,
+     and the phone fold carries both. The board keeps its own top margin, so
+     the pair reads as two instruments rather than one tall panel. */
+  .ss-hv2-secondary .ss-mhero__manifest {
+    display: grid;
+  }
+
+  .ss-hv2-secondary .ss-hv2-secondary__mobile-signal {
+    margin-top: 0;
+  }
+
+  /* With both instruments on the stage the rows sit a touch tighter than the
+     shared hero's (6px of block padding at 390x844 against 8.8), which is
+     what keeps the CTA row's 18px clearance above the scroll cue — the fold
+     contract tests/e2e/mobile-hero-fold.spec.ts asserts. Same floor and
+     ceiling as the shared rule, so nothing moves on a 320 or 375 stage. */
+  .ss-hv2-secondary .ss-mhero__row {
+    padding-block: clamp(0.3rem, calc(0.0102 * var(--mhero-stage) - 1px), 0.6rem);
+  }
+
+  .ss-hv2-secondary .ss-mhero__manifest {
+    padding-block: 0.1rem;
   }
 
   .ss-hv2-secondary__intro {

@@ -4,8 +4,10 @@
  *
  *   node scripts/generate-atlas-dots.mjs
  *
- * Writes six static SVGs to `public/maps/`: for each plate (wide, compact) a
- * world layer, a US-only layer and a UK-only layer. The country layers share
+ * Writes ten static SVGs to `public/maps/`: for each ocean plate (wide,
+ * compact) a world layer, a US-only layer and a UK-only layer, and for each
+ * of the phone atlas's two insets (phone-us, phone-uk) the world layer plus
+ * its own country. The country layers share
  * the world layer's exact grid, so they sit dot-for-dot on top of it and the
  * stylesheet can brighten one landmass under the market switch by opacity
  * alone.
@@ -57,6 +59,26 @@ const PLATES = {
     width: 111,
     height: 42,
   },
+  /**
+   * The phone atlas is two insets on one plate rather than one ocean-wide
+   * region: at ~270px across, a single North Atlantic plate resolved the US
+   * at 130px and the UK as a dozen dots on the right edge. Each inset keeps
+   * its own honest equirectangular scale — 0.8° per dot for the continental
+   * US, 0.4° for the British Isles — and only ever draws the world layer
+   * plus its own country.
+   */
+  "phone-us": {
+    region: { lat: { min: 22.4, max: 49.6 }, lng: { min: -126, max: -66 } },
+    width: 75,
+    height: 34,
+    layers: ["world", "us"],
+  },
+  "phone-uk": {
+    region: { lat: { min: 49.5, max: 59.5 }, lng: { min: -11, max: 3 } },
+    width: 35,
+    height: 25,
+    layers: ["world", "uk"],
+  },
 };
 
 /** `dotted-map` country codes are ISO 3166-1 alpha-3. */
@@ -91,7 +113,10 @@ function plateSvg(plate, layer) {
 await mkdir(outDir, { recursive: true });
 
 for (const [plateName, plate] of Object.entries(PLATES)) {
-  for (const layer of LAYERS) {
+  const layers = plate.layers
+    ? LAYERS.filter((layer) => plate.layers.includes(layer.name))
+    : LAYERS;
+  for (const layer of layers) {
     const { count, svg } = plateSvg(plate, layer);
     const file = path.join(outDir, `atlas-${plateName}-${layer.name}.svg`);
     await writeFile(file, svg);

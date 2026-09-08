@@ -103,12 +103,12 @@ export function PricingComposition() {
           />
           {/* The hero instrument that carries the desktop toggle sits in the
               showcase panel, which phones do not render — so the packages
-              section opens with its own control below that breakpoint. */}
+              section opens with its own control below that breakpoint: one
+              full-width switch and nothing else, since the two currency
+              glyphs already say what it does. The fixed-pair note lives in
+              the page's pricing disclosure. */}
           <div className="ss-pri-currency-inline">
-            <CurrencyToggle context="pricing-inline" labeled tone="dark" />
-            <p className="ss-pri-currency-inline__note">
-              USD at fixed pairs, reviewed quarterly.
-            </p>
+            <CurrencyToggle context="pricing-inline" size="grand" tone="dark" />
           </div>
           <ImplementationPackages />
         </div>

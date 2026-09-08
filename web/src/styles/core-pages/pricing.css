@@ -3128,24 +3128,13 @@
 
 /* Phone/tablet display-currency control. The hero showcase (and the
    instrument toggle inside it) is not rendered below the showcase
-   breakpoint, so the packages section carries its own control there. */
+   breakpoint, so the packages section carries its own control there: the
+   grand switch (styles/currency.css) on its own, centred, no frame and no
+   caption — the switch is the instrument. */
 .ss-pri-currency-inline {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem 1rem;
-  margin-bottom: clamp(1.2rem, 1rem + 1vw, 2rem);
-  padding: 0.9rem 1.1rem;
-  border-radius: var(--ss-radius-xl);
-  border: 1px solid var(--ss-v2-hairline);
-  background: color-mix(in srgb, var(--ss-v2-graphite) 55%, transparent);
-}
-
-.ss-pri-currency-inline__note {
-  margin: 0;
-  color: var(--ss-v2-titanium);
-  font-size: 0.8rem;
-  line-height: 1.4;
+  justify-content: center;
+  margin-bottom: clamp(1.4rem, 1.1rem + 1.4vw, 2.4rem);
 }
 
 @media (min-width: 64rem) {

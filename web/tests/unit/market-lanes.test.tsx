@@ -5,9 +5,11 @@ import { describe, expect, it } from "vitest";
 import { MarketLanes } from "~/features/industries-v2/components/industry-sections";
 import {
   ATLAS_COMPACT,
+  ATLAS_PHONE,
   ATLAS_WIDE,
   LINKED_METROS,
   US_METROS,
+  type AtlasPlate,
 } from "~/features/industries-v2/content/atlas";
 import { industryCopyByRoute, industryRoutes } from "~/features/industries-v2/content";
 import { MotionProvider } from "~/motion";
@@ -150,23 +152,35 @@ describe("MarketLanes (Atlantic atlas + ledger)", () => {
       expect(chart?.getAttribute("aria-label")).toContain(name);
     }
 
-    // Two plates (wide, compact), each decorative, each drawing three static
-    // dot layers, a route to every linked metro, thirteen nodes and a glow
-    // per country. Nothing flies the routes any more: the draw itself is the
-    // motion, and it leaves London.
+    // Three plates (wide, compact, phone), each decorative, each drawing its
+    // static dot layers — three full-plate layers on the ocean plates, the
+    // world and country layer of each inset on the phone plate — a route to
+    // every linked metro, thirteen nodes and a glow per country. Nothing
+    // flies the routes any more: the draw itself is the motion, and it
+    // leaves London.
     const svgs = container.querySelectorAll(".ss-ind2-atlas__svg");
-    expect(svgs).toHaveLength(2);
+    expect(svgs).toHaveLength(3);
     for (const svg of svgs) {
       expect(svg).toHaveAttribute("aria-hidden", "true");
-      const plate = svg.classList.contains("ss-ind2-atlas__svg--wide")
+      const plate: AtlasPlate = svg.classList.contains("ss-ind2-atlas__svg--wide")
         ? ATLAS_WIDE
-        : ATLAS_COMPACT;
+        : svg.classList.contains("ss-ind2-atlas__svg--compact")
+          ? ATLAS_COMPACT
+          : ATLAS_PHONE;
       const layers = [...svg.querySelectorAll("image")].map((image) =>
         image.getAttribute("href"),
       );
-      expect(layers).toHaveLength(3);
-      for (const href of layers) {
-        expect(href).toMatch(/^\/maps\/atlas-(wide|compact)-(world|us|uk)\.svg$/);
+      if (plate.insets) {
+        expect(layers).toHaveLength(4);
+        for (const href of layers) {
+          expect(href).toMatch(/^\/maps\/atlas-phone-(us|uk)-(world|us|uk)\.svg$/);
+        }
+        expect(svg.querySelectorAll(".ss-ind2-atlas__inset")).toHaveLength(2);
+      } else {
+        expect(layers).toHaveLength(3);
+        for (const href of layers) {
+          expect(href).toMatch(/^\/maps\/atlas-(wide|compact)-(world|us|uk)\.svg$/);
+        }
       }
       expect(svg.querySelectorAll(".ss-ind2-atlas__link")).toHaveLength(
         LINKED_METROS.length,

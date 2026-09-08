@@ -43,7 +43,7 @@ type CurrencyToggleProps = {
    * to read in and the currency follows from it.
    */
   context?: "header" | "drawer" | "pricing" | "pricing-inline" | "markets";
-  size?: "default" | "compact" | "instrument";
+  size?: "default" | "compact" | "instrument" | "grand";
   tone?: "light" | "dark";
   /** Show the small mono "Currency" label beside the capsule. */
   labeled?: boolean;
@@ -108,7 +108,25 @@ export function CurrencyToggle({
           const label = CURRENCY_LABELS[option];
           const inputId = `${id}-${option}`;
           return (
-            <label className="ss-cur__option" htmlFor={inputId} key={option}>
+            <label
+              className="ss-cur__option"
+              htmlFor={inputId}
+              key={option}
+              onMouseDown={(event) => {
+                /* A press on an option lands on its invisible radio, and a
+                   pressed form control takes focus — which the browser then
+                   scrolls into view (WebKit nudged the page on every tap of
+                   the market switch; iOS may pan or zoom to it as well).
+                   Cancelling the press keeps the focus from happening while
+                   the click that follows still checks the radio, so a tap
+                   only ever switches the currency. `mousedown`, not
+                   `pointerdown`: WebKit drops the click of a touch whose
+                   pointerdown was cancelled, but honours a cancelled
+                   synthesised mousedown. Keyboard users are untouched: Tab
+                   and the arrow keys never press. */
+                event.preventDefault();
+              }}
+            >
               <input
                 aria-label={
                   isMarkets

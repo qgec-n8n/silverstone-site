@@ -90,7 +90,7 @@ export function Hero({
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-            London AI automation agency · UK & US
+            AI automation agency · UK & US
           </m.span>
 
           <m.h1
