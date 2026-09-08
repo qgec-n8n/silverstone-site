@@ -25,7 +25,9 @@ export function IndustryRelevance() {
       lead="Silverstone AI adapts the same system architecture to different operating realities: appointments, bookings, inquiries, quotes, support and follow-up."
       containerSize="wide"
     >
-      <div className="ss-hv2-industries mt-14">
+      {/* The framed grid materialises as one object before its cards land
+          inside it: the same nesting as every framed panel on the site. */}
+      <Reveal className="ss-hv2-industries mt-14" kind="section">
         {INDUSTRY_SIGNALS.map((industry, index) => (
           <Reveal key={industry.id} delayMs={index * 60} kind="card" className="h-full">
             <Link to={industry.href} className="ss-hv2-industry">
@@ -40,7 +42,7 @@ export function IndustryRelevance() {
             </Link>
           </Reveal>
         ))}
-      </div>
+      </Reveal>
     </SectionShell>
   );
 }

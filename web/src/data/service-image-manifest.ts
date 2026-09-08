@@ -184,14 +184,16 @@ export const serviceImageUses: ServiceImageUse[] = [
   {
     route: "/industry/estate-agents",
     section: "architecture split + workflow gallery",
-    desktopAsset: "Real_Estate_1.jpeg",
+    // The portrait crop serves desktop as well (2026-09-08); the landscape
+    // Real_Estate_1.jpeg stays in the approved set but is no longer placed.
+    desktopAsset: "Real_Estate_1_Mobile.jpeg",
     mobileAsset: "Real_Estate_1_Mobile.jpeg",
     rationale:
       "Approved estate-agency set (Real_Estate_1/2/3 pairs) showing branch command, inquiry workflow and viewing coordination surfaces.",
     alt: "Illustrative branch command panel capturing valuation, portal-lead and viewing activity.",
     sourceType: "approved-zip",
-    desktopDimensions: { width: 2528, height: 1696 },
-    mobileDimensions: { width: 1696, height: 2528 },
+    desktopDimensions: { width: 1080, height: 1610 },
+    mobileDimensions: { width: 1080, height: 1610 },
     loading: "lazy",
   },
   {

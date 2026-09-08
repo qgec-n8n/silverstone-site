@@ -26,6 +26,7 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import {
   BorderBeam,
+  PanelReveal,
   Prose,
   Reveal,
   SectionHead,
@@ -115,7 +116,7 @@ export function EcommerceComposition({
             heading={copy.problem.heading}
             headingId="ind2-problem"
           />
-          <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+          <PanelReveal className="ss-ind2-problem-panel ss-srv2-beam-border">
             <Reveal kind="section">
               <Prose paragraphs={[copy.problem.body]} />
             </Reveal>
@@ -125,7 +126,7 @@ export function EcommerceComposition({
               columns={4}
             />
             <BorderBeam />
-          </div>
+          </PanelReveal>
         </div>
       </section>
 

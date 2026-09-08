@@ -346,6 +346,7 @@ export function PanelReveal({
   className,
   delayMs = 0,
   amount = 0.25,
+  id,
 }: {
   children: ReactNode;
   className?: string;
@@ -357,6 +358,13 @@ export function PanelReveal({
    * frame can never be in view at once and the entrance would never fire.
    */
   amount?: number | "some" | "all";
+  /**
+   * The frame's own element id, for a panel that is a deep-link target (the
+   * contact page's studio map). It stays on the element the frame class is
+   * on, so `data-reveal-bypass` lands on the panel and the entrance resolves
+   * instant for a linked-to reader.
+   */
+  id?: string;
 }) {
   const reducedMotion = useReducedMotion() ?? false;
 
@@ -366,6 +374,7 @@ export function PanelReveal({
         className={className}
         data-motion-reveal="true"
         data-motion-reveal-kind="panel"
+        id={id}
       >
         {children}
       </div>
@@ -373,7 +382,7 @@ export function PanelReveal({
   }
 
   return (
-    <PanelRevealMotion amount={amount} className={className} delayMs={delayMs}>
+    <PanelRevealMotion amount={amount} className={className} delayMs={delayMs} id={id}>
       {children}
     </PanelRevealMotion>
   );
@@ -384,11 +393,13 @@ function PanelRevealMotion({
   children,
   className,
   delayMs,
+  id,
 }: {
   amount: number | "some" | "all";
   children: ReactNode;
   className?: string | undefined;
   delayMs: number;
+  id?: string | undefined;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   // A fractional threshold a tall panel could never reach would hold the
@@ -412,6 +423,7 @@ function PanelRevealMotion({
       data-motion-reveal="true"
       data-motion-reveal-kind="panel"
       data-panel-shown={start !== null ? "true" : undefined}
+      id={id}
       data-panel-instant={instant || undefined}
       style={
         {

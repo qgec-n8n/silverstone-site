@@ -14,12 +14,10 @@
  * the article set.
  *
  * The category pills filter the grid in place, so they are buttons and emit
- * no links — which left the seventeen service and industry routes behind the
- * taxonomy with zero link equity from this hub even though every category
- * already carries a real `href`. `CategoryDirectory` below closes that: one
- * visible, always-rendered rail of real links to each of those routes,
- * rendered outside the filter/paging state so it is in the prerendered HTML
- * for every visitor and every crawler alike.
+ * no links; the service and industry routes behind the taxonomy are linked
+ * from the global header and footer on every page, including this one. (A
+ * duplicate directory of those links used to sit under the grid; removed
+ * 2026-09-08 as redundant beside the filter row.)
  */
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -32,7 +30,6 @@ import {
   INSIGHT_CATEGORIES,
   insightArticleCategoryLabel,
   type InsightArticle,
-  type InsightCategory,
 } from "./insights-data";
 
 type FilterId = "all" | (string & {});
@@ -160,57 +157,6 @@ function ArticleCard({ article }: { article: InsightArticle }) {
   );
 }
 
-/**
- * The systems behind the taxonomy, as real links. Kept separate from the
- * filter pills on purpose: a pill changes what this page shows, a link here
- * opens the page that category is about, and collapsing the two would make
- * one of those two jobs worse. Topic categories are deliberately absent —
- * their `href` values point back at the same service routes and /pricing, so
- * listing them again would repeat destinations rather than add any.
- */
-function CategoryDirectory({
-  industryCategories,
-  serviceCategories,
-}: {
-  industryCategories: InsightCategory[];
-  serviceCategories: InsightCategory[];
-}) {
-  return (
-    <nav
-      className="ss-insight-board__directory ss-hairline-t pt-8"
-      aria-labelledby="insights-directory-title"
-    >
-      <p className="ss-insight-board__count" id="insights-directory-title">
-        Every topic here maps to a system we build — open the page behind it
-      </p>
-      <div className="ss-insight-filters mt-4">
-        <span className="ss-insight-filters__group-label">Services</span>
-        {serviceCategories.map((category) => (
-          <Link
-            key={category.id}
-            className="ss-insight-filters__pill"
-            prefetch="intent"
-            to={category.href}
-          >
-            {category.label}
-          </Link>
-        ))}
-        <span className="ss-insight-filters__group-label">Industries</span>
-        {industryCategories.map((category) => (
-          <Link
-            key={category.id}
-            className="ss-insight-filters__pill"
-            prefetch="intent"
-            to={category.href}
-          >
-            {category.label}
-          </Link>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
 export function InsightsBoard() {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterId>("all");
@@ -235,11 +181,11 @@ export function InsightsBoard() {
     paging.key === pagingKey ? Math.min(paging.visible, filtered.length) : PAGE_SIZE;
   const remaining = Math.max(0, filtered.length - visibleCount);
 
-  const serviceCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "service");
-  const industryCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "industry");
   // A pill with nothing behind it is a dead end, so topic pills only appear once
   // that topic has published articles. The editorial program fills these in
   // over time and the row grows with it rather than shipping empty on day one.
+  const serviceCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "service");
+  const industryCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "industry");
   const topicCategories = INSIGHT_CATEGORIES.filter(
     (c) =>
       c.group === "topic" &&
@@ -368,11 +314,6 @@ export function InsightsBoard() {
           </p>
         </div>
       )}
-
-      <CategoryDirectory
-        industryCategories={industryCategories}
-        serviceCategories={serviceCategories}
-      />
     </div>
   );
 }

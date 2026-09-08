@@ -15,7 +15,11 @@ import { useState } from "react";
 
 import { ArrowUpRight, MapPin } from "~/components/icons/lucide";
 import { OrbitalLoader } from "~/components/ui/orbital-loader";
-import { BorderBeam, Reveal } from "~/features/services-v2/components/primitives";
+import {
+  BorderBeam,
+  PanelReveal,
+  Reveal,
+} from "~/features/services-v2/components/primitives";
 
 /**
  * Postcode note (owner-confirmed 2026-09-03). 4 Deacon Street is a
@@ -43,7 +47,7 @@ export function MapPanel() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="ss-core-map ss-srv2-beam-border" id="studio-map">
+    <PanelReveal className="ss-core-map ss-srv2-beam-border" id="studio-map">
       <Reveal kind="section">
         <div className="ss-core-booking__body">
           <span className="ss-srv2-bench__tag">
@@ -95,6 +99,6 @@ export function MapPanel() {
         </div>
       </Reveal>
       <BorderBeam />
-    </div>
+    </PanelReveal>
   );
 }

@@ -17,7 +17,11 @@ import { useRef, useState, type KeyboardEvent } from "react";
 
 import { ChevronDown } from "~/components/icons/lucide";
 import { PRICING_FAQ } from "~/data/pricing-faq";
-import { Reveal, RichText } from "~/features/services-v2/components/primitives";
+import {
+  PanelReveal,
+  Reveal,
+  RichText,
+} from "~/features/services-v2/components/primitives";
 
 export function PricingFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -52,7 +56,7 @@ export function PricingFaq() {
   };
 
   return (
-    <div className="ss-pri-faq">
+    <PanelReveal amount="some" className="ss-pri-faq">
       {PRICING_FAQ.map((item, index) => {
         const open = openIndex === index;
         const triggerId = `pricing-faq-trigger-${String(index)}`;
@@ -102,6 +106,6 @@ export function PricingFaq() {
           </Reveal>
         );
       })}
-    </div>
+    </PanelReveal>
   );
 }

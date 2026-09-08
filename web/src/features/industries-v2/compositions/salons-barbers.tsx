@@ -24,6 +24,7 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import {
   BorderBeam,
+  PanelReveal,
   Prose,
   Reveal,
   SectionHead,
@@ -124,14 +125,14 @@ export function SalonsBarbersComposition({
               <IndustryFigure image={art.primary} />
             </Reveal>
           </div>
-          <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+          <PanelReveal className="ss-ind2-problem-panel ss-srv2-beam-border">
             <ServiceCards
               cards={toCards(copy.problem.cards)}
               icons={painIcons}
               columns={4}
             />
             <BorderBeam />
-          </div>
+          </PanelReveal>
         </div>
       </section>
 

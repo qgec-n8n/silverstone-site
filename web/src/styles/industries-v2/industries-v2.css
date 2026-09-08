@@ -1207,6 +1207,14 @@
   .ss-ind2 .ss-srv2-split {
     grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
   }
+
+  /* Estate agents places the portrait crop (1080 × 1610) in its architecture
+     split. At the shared 26rem cap the photo would stand ~620px tall beside
+     three short beats of copy, so its column is narrower and the figure
+     settles at roughly the copy's own height. */
+  .ss-ind2[data-industry="estate-agents"] .ss-srv2-split:has(.ss-ind2-linkrail) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
+  }
 }
 
 /* ---- Problem section premium panel -------------------------------------- */
@@ -2325,7 +2333,9 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 .ss-ind2-atlas__chart {
   position: relative;
   overflow: hidden;
-  border-radius: 18px;
+  /* 20px, the radius the image reveal's final clip-path settles on, so the
+     aperture never trims the frame's own corners. */
+  border-radius: 20px;
   border: 1px solid color-mix(in srgb, var(--srv2-accent) 14%, var(--ss-v2-hairline));
   /* A true 10° graticule under the dots: the plate spans 192° × 68° (wide)
      and 140° × 56° (compact), so the tile is one tenth of a degree-span. */
@@ -2398,20 +2408,141 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 }
 
 /* The three dot layers. The world is a static field; the two country layers
-   sit dot-for-dot on top of it and brighten with the market switch — the
-   reader's own landmass lights up. */
+   sit dot-for-dot on top of it and the market switch lights exactly one of
+   them — the reader's own landmass — and puts the other out entirely, so
+   the far country is only ever the world's own quiet dots. */
 .ss-ind2-atlas__land--us {
-  opacity: calc(0.12 + var(--mk-us) * 0.5);
+  opacity: calc(var(--mk-us) * 0.84);
   transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ss-ind2-atlas__land--uk {
-  opacity: calc(0.16 + var(--mk-uk) * 0.6);
+  opacity: calc(var(--mk-uk) * 0.94);
   transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ss-ind2-atlas__fade {
   pointer-events: none;
+}
+
+/* ---- Country light ---------------------------------------------------------
+   The reader's market radiates. A gradient ellipse under its dots (drawn in
+   the plate before the land layers) fades up with the switch and breathes
+   while the plate is on screen; three rings leave the country's centre —
+   London itself for the UK, the middle of the landmass for the US — and
+   fade as they cross it. Everything is gated by the same currency selectors
+   the halos use, so the no-JavaScript radio path lights the same side. */
+
+.ss-ind2-atlas__aura-wash {
+  --aura-lit: var(--mk-us);
+
+  opacity: calc(var(--aura-lit) * 0.92);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__aura-wash[data-side="uk"] {
+  --aura-lit: var(--mk-uk);
+}
+
+.ss-ind2-atlas__aura {
+  --aura-hue: var(--mk-hue-us);
+}
+
+.ss-ind2-atlas__aura[data-side="uk"] {
+  --aura-hue: var(--mk-hue-uk);
+}
+
+.ss-ind2-atlas__ripple {
+  fill: none;
+  stroke: var(--aura-hue);
+  stroke-width: 1.6;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ss-ind2-atlas__svg--compact .ss-ind2-atlas__ripple {
+  stroke-width: 2.2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Sterling (the default) lights the UK; the US rules below override. */
+  .ss-ind2-atlas__chart[data-chart-live] .ss-ind2-atlas__aura-wash[data-side="uk"] {
+    animation: ss-ind2-atlas-aura 4.6s ease-in-out infinite;
+  }
+
+  .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura[data-side="uk"]
+    .ss-ind2-atlas__ripple {
+    animation: ss-ind2-atlas-ripple 3.9s cubic-bezier(0.16, 0.6, 0.4, 1) infinite;
+    animation-delay: calc(var(--ripple-i, 0) * -1.3s);
+  }
+
+  html[data-currency="usd"]
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura-wash[data-side="uk"],
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura-wash[data-side="uk"],
+  html[data-currency="usd"]
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura[data-side="uk"]
+    .ss-ind2-atlas__ripple,
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura[data-side="uk"]
+    .ss-ind2-atlas__ripple {
+    animation: none;
+  }
+
+  html[data-currency="usd"]
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura-wash[data-side="us"],
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura-wash[data-side="us"] {
+    animation: ss-ind2-atlas-aura 4.6s ease-in-out infinite;
+  }
+
+  html[data-currency="usd"]
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura[data-side="us"]
+    .ss-ind2-atlas__ripple,
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-atlas__chart[data-chart-live]
+    .ss-ind2-atlas__aura[data-side="us"]
+    .ss-ind2-atlas__ripple {
+    animation: ss-ind2-atlas-ripple 3.9s cubic-bezier(0.16, 0.6, 0.4, 1) infinite;
+    animation-delay: calc(var(--ripple-i, 0) * -1.3s);
+  }
+}
+
+/* Only the scale breathes: opacity stays with the switch's own transition,
+   so a market that has just been lit fades up instead of snapping to the
+   animation's first frame. */
+@keyframes ss-ind2-atlas-aura {
+  0%,
+  100% {
+    transform: scale(0.96);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes ss-ind2-atlas-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: scale(4.6);
+    opacity: 0;
+  }
 }
 
 /* ---- Arcs ------------------------------------------------------------------
@@ -2436,8 +2567,8 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 
 .ss-ind2-atlas__arc-glow {
   stroke: var(--ss-ind2-arc-mid);
-  stroke-width: 11;
-  opacity: 0.14;
+  stroke-width: 8;
+  opacity: 0.12;
 }
 
 .ss-ind2-atlas__svg--compact .ss-ind2-atlas__arc {
@@ -2445,7 +2576,7 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 }
 
 .ss-ind2-atlas__svg--compact .ss-ind2-atlas__arc-glow {
-  stroke-width: 14;
+  stroke-width: 11;
 }
 
 .ss-ind2-atlas__arc--uk {
@@ -2458,11 +2589,13 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Power-on: the twelve links draw from the US toward London, staggered, once
-   the plate has been seen. The pre-state is gated on `html[data-js="on"]`, so
-   the prerendered document and a reader without JavaScript get every arc
-   drawn; `pathLength="1"` on the paths is what lets one dash rule fit all
-   twelve. */
+/* Power-on: the routes leave London for the metros once the plate has been
+   seen — every path starts at the hub, so one dash offset running 1 → 0 draws
+   outward — staggered by `--atlas-i`, the route's rank by length, so the near
+   coast lights first and the Pacific last. The pre-state is gated on
+   `html[data-js="on"]`, so the prerendered document and a reader without
+   JavaScript get every route drawn; `pathLength="1"` on the paths is what
+   lets one dash rule fit them all. */
 @media (prefers-reduced-motion: no-preference) {
   html[data-js="on"] .ss-ind2-atlas__chart:not([data-chart-shown]) .ss-ind2-atlas__arc,
   html[data-js="on"]
@@ -2476,8 +2609,8 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   .ss-ind2-atlas__chart[data-chart-shown] .ss-ind2-atlas__arc-glow {
     stroke-dasharray: 1;
     stroke-dashoffset: 0;
-    animation: ss-ind2-atlas-draw 1200ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-    animation-delay: calc(var(--atlas-delay, 0ms) + var(--atlas-i, 0) * 70ms);
+    animation: ss-ind2-atlas-draw 1500ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--atlas-delay, 0ms) + var(--atlas-i, 0) * 120ms);
   }
 }
 
@@ -2497,88 +2630,13 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   animation: none !important;
 }
 
-/* ---- Pulses ----------------------------------------------------------------
-   One signal per link, flying the arc on a CSS `offset-path` (set inline by
-   the component from the same path string the arc draws). Twelve loops share
-   one 7.2s cycle, each in flight for a third of it and staggered by a negative
-   delay, so three or four are ever airborne at once. Under the US market the
-   timeline plays in reverse: signals leave London for the metros instead of
-   arriving from them.
-
-   Without `offset-path` support the moving pulse would sit at the plate's
-   origin, so it only exists inside the @supports; everyone else gets the
-   parked pulse, mid-arc. */
-
-.ss-ind2-atlas__pulse {
-  display: none;
-  fill: var(--ss-v2-platinum);
-}
-
-.ss-ind2-atlas__pulse-park {
-  fill: var(--ss-ind2-arc-mid);
-  opacity: 0.85;
-}
-
-@supports (offset-path: path("M0 0h1")) {
-  @media (prefers-reduced-motion: no-preference) {
-    .ss-ind2-atlas__pulse {
-      display: block;
-      opacity: 0;
-      offset-rotate: 0deg;
-      offset-distance: 0%;
-      animation: ss-ind2-atlas-fly 7.2s linear infinite;
-      animation-delay: calc(var(--atlas-i, 0) * -0.55s);
-    }
-
-    .ss-ind2-atlas__pulse-park {
-      display: none;
-    }
-
-    html[data-currency="usd"] .ss-ind2-atlas__pulse,
-    html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
-      .ss-ind2-atlas__pulse {
-      animation-direction: reverse;
-    }
-
-    /* Off-screen the loops stop: `data-chart-live` is `once: false`. */
-    html[data-js="on"]
-      .ss-ind2-atlas__chart:not([data-chart-live])
-      .ss-ind2-atlas__pulse {
-      animation-play-state: paused;
-    }
-  }
-}
-
-@keyframes ss-ind2-atlas-fly {
-  0% {
-    offset-distance: 0%;
-    opacity: 0;
-  }
-
-  5% {
-    opacity: 1;
-  }
-
-  30% {
-    offset-distance: 100%;
-    opacity: 1;
-  }
-
-  34% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
-
-  100% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
-}
-
 /* ---- Nodes ----------------------------------------------------------------
    London and the twelve metros. A node is a dot, a ring, a soft halo and a
    bloom; the lit side (the reader's market) keeps all four and its halos
-   breathe, the far side keeps the dot and a quiet ring. */
+   breathe, the far side keeps a bright dot and a quiet ring. The dot wears a
+   keyline in the plate's own ground so it separates from the dot-matrix land
+   under it, whichever side is lit; a third-tier metro (`data-linked="false"`)
+   is the same node a size down and a step quieter. */
 
 .ss-ind2-atlas__node {
   --node-lit: var(--mk-us);
@@ -2597,7 +2655,7 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 
 .ss-ind2-atlas__halo {
   fill: var(--node-hue);
-  opacity: calc(0.06 + var(--node-lit) * 0.18);
+  opacity: calc(0.08 + var(--node-lit) * 0.2);
   transform-box: fill-box;
   transform-origin: center;
   transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -2606,22 +2664,37 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 .ss-ind2-atlas__ring {
   fill: none;
   stroke: var(--node-hue);
-  stroke-width: 1px;
+  stroke-width: 1.5px;
   vector-effect: non-scaling-stroke;
-  opacity: calc(0.3 + var(--node-lit) * 0.6);
+  opacity: calc(0.42 + var(--node-lit) * 0.5);
   transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ss-ind2-atlas__dot {
   fill: color-mix(
     in srgb,
-    var(--node-hue) calc(45% + var(--node-lit) * 45%),
+    var(--node-hue) calc(28% + var(--node-lit) * 36%),
     var(--ss-v2-platinum)
   );
-  opacity: calc(0.62 + var(--node-lit) * 0.38);
+  stroke: var(--ss-ind2-atlas-ground);
+  stroke-width: 3;
+  paint-order: stroke fill;
+  opacity: calc(0.86 + var(--node-lit) * 0.14);
   transition:
     fill 640ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-atlas__node[data-linked="false"] .ss-ind2-atlas__dot {
+  opacity: calc(0.66 + var(--node-lit) * 0.24);
+}
+
+.ss-ind2-atlas__node[data-linked="false"] .ss-ind2-atlas__ring {
+  opacity: calc(0.2 + var(--node-lit) * 0.35);
+}
+
+.ss-ind2-atlas__node[data-linked="false"] .ss-ind2-atlas__bloom {
+  opacity: calc(var(--node-lit) * 0.5);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -2863,11 +2936,18 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   min-width: 0;
 }
 
-/* The wide plate labels all thirteen cities itself; the strip is for the
-   compact plate, which labels a handful. */
+/* Neither plate labels every metro — seven on the wide plate, five on the
+   compact — so the strip prints all twelve at every width. On the wide plate
+   it is a legend line under the map, set a step tighter so the twelve names
+   hold one line inside the frame. */
 @media (min-width: 52rem) {
-  .ss-ind2-atlas__strip {
-    display: none;
+  .ss-ind2-atlas__strip-line {
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+  }
+
+  .ss-ind2-atlas__strip-city + .ss-ind2-atlas__strip-city::before {
+    margin-inline: 0.42em;
   }
 }
 
@@ -3682,10 +3762,12 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
    mirrored (accent-2 leads here, accent leads above) so the sibling is not a
    twin.
 
-   Each card is a claim and three rules. The type hierarchy does the work a
-   paragraph used to: platinum claim, accent-tinted verb phrase opening each
-   rule, ink-soft detail, mono citation chips. Entrances come from the shared
-   PanelReveal/Reveal primitives; this block adds no keyframes of its own. */
+   Each card opens as a claim and unfolds into three rules. The type
+   hierarchy does the work a paragraph used to: platinum claim, accent-tinted
+   verb phrase opening each rule, ink-soft detail, mono citation chips.
+   Entrances come from the shared PanelReveal/Reveal primitives; the only
+   motion this block owns is the unfold (a `grid-template-rows` transition,
+   the FAQ's mechanism) and the chevron's turn. The tilt is Motion's, inline. */
 
 .ss-ind2-compliance {
   position: relative;
@@ -3710,15 +3792,73 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 /* ---- Read at a glance ----------------------------------------------------
    Three structural claims above the detail: the whole boundary in three
    seconds before any card is read. Each is a summary of a card underneath,
-   never a separate promise. */
+   never a separate promise. The bar seats them beside the expand-all control. */
+
+.ss-ind2-compliance__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1rem;
+  margin: 0 0 clamp(0.9rem, 0.7rem + 0.7vw, 1.3rem);
+}
 
 .ss-ind2-compliance__glance {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  margin: 0 0 clamp(0.9rem, 0.7rem + 0.7vw, 1.3rem);
+  margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* The control's reveal wrapper is the flex item, so the push to the bar's
+   end lives on it: a wrapped control sits at the right edge, not the left. */
+.ss-ind2-compliance__all-reveal {
+  margin-left: auto;
+}
+
+.ss-ind2-compliance__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent-2) 30%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 32%, transparent);
+  color: color-mix(in srgb, var(--srv2-accent-2) 40%, var(--ss-v2-platinum));
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 260ms ease,
+    background-color 260ms ease,
+    color 260ms ease;
+}
+
+.ss-ind2-compliance__all svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-compliance__all[data-state="open"] svg {
+  transform: rotate(180deg);
+}
+
+.ss-ind2-compliance__all:hover,
+.ss-ind2-compliance__all:focus-visible {
+  border-color: color-mix(in srgb, var(--srv2-accent-2) 55%, var(--ss-v2-hairline));
+  background-color: color-mix(in srgb, var(--srv2-accent-2) 10%, transparent);
+  color: var(--ss-v2-platinum);
+}
+
+.ss-ind2-compliance__all:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--srv2-accent-2) 70%, transparent);
+  outline-offset: 2px;
 }
 
 .ss-ind2-compliance__glance-item {
@@ -3763,11 +3903,22 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 }
 
 /* Two columns, not four: three rules of a line or two each need ~30
-   characters to the line to stay rules rather than ragged fragments. */
+   characters to the line to stay rules rather than ragged fragments. Closed,
+   a row's two cards stretch to one height; the moment a card is open the
+   row stops stretching, so its closed neighbour stays compact instead of
+   growing a hollow to match. */
 @media (min-width: 46rem) {
   .ss-ind2-compliance__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .ss-ind2-compliance__grid:has(.ss-ind2-compliance__card[data-state="open"]) {
+    align-items: start;
+  }
+}
+
+.ss-ind2-compliance__cell {
+  min-width: 0;
 }
 
 .ss-ind2-compliance__card {
@@ -3776,21 +3927,33 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
      never the far market. */
   --cmp-near: 0;
   --cmp-hue: var(--srv2-accent);
+  --cmp-gap: 0.8rem;
 
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: var(--cmp-gap);
+  height: 100%;
   min-width: 0;
   padding: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
   /* Same nesting step as the market ledger's lane cards and the plate: one
-     radius ladder across the panels — 32 outer, 18 nested, 10 cell. */
+     radius ladder across the panels — 32 outer, 18 nested, 10 cell. Also
+     `CARD_RADIUS` in the component, which hands the value to Motion so the
+     lightbox morph scale-corrects the corners. */
   border-radius: 18px;
   border: 1px solid color-mix(in srgb, var(--srv2-accent) 12%, var(--ss-v2-hairline));
   background: color-mix(in srgb, var(--ss-v2-graphite-raised) 52%, transparent);
+  cursor: pointer;
+  /* The tilt is a real 3D rotation (Motion sets `transform` inline); the
+     card's own children stay flat, so text never blurs mid-lean. */
+  transform-style: preserve-3d;
   transition:
     border-color 260ms ease,
     background-color 260ms ease,
-    translate 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow 320ms ease,
+    translate 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 460ms ease;
 }
 
 @media (hover: hover) and (min-width: 46rem) {
@@ -3809,6 +3972,15 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     background-color: color-mix(in srgb, var(--ss-v2-graphite-raised) 66%, transparent);
     translate: 0 -1px;
   }
+}
+
+/* An open card sits up: a lit edge, a settled ground, its own accent ring. */
+.ss-ind2-compliance__card[data-state="open"] {
+  border-color: color-mix(in srgb, var(--cmp-hue) 40%, var(--ss-v2-hairline));
+  background-color: color-mix(in srgb, var(--ss-v2-graphite-raised) 74%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--cmp-hue) 22%, transparent),
+    0 26px 60px -44px color-mix(in srgb, var(--cmp-hue) 80%, transparent);
 }
 
 /* The card's hue and its lit state follow its market: US cards take the second
@@ -3931,6 +4103,103 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   text-wrap: balance;
 }
 
+/* The control: the title itself is the button, full width of its column, so
+   the accessible name of "expand" is the rule it expands. */
+.ss-ind2-compliance__trigger {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ss-ind2-compliance__trigger:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--cmp-hue) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.ss-ind2-compliance__chevron {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15em;
+  color: color-mix(in srgb, var(--cmp-hue) 70%, var(--ss-v2-platinum));
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-ind2-compliance__card[data-state="open"] .ss-ind2-compliance__chevron {
+  transform: rotate(180deg);
+}
+
+/* The unfold. Closed, the region is a zero-height grid row that also gives
+   back the card's gap, so a compact card carries no blank line where its
+   rules will be; open, the row grows to the content. `inert` (set by the
+   component) keeps a closed region out of the tab order. */
+.ss-ind2-compliance__details {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: calc(var(--cmp-gap) * -1);
+  opacity: 0;
+  transition:
+    grid-template-rows 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin-top 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease;
+}
+
+.ss-ind2-compliance__card[data-state="open"] .ss-ind2-compliance__details {
+  grid-template-rows: 1fr;
+  margin-top: 0;
+  opacity: 1;
+  transition:
+    grid-template-rows 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin-top 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 380ms ease 120ms;
+}
+
+.ss-ind2-compliance__details-inner {
+  display: grid;
+  gap: var(--cmp-gap);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* What a closed card is holding, printed at the foot in the panel's mono. */
+.ss-ind2-compliance__meta {
+  margin-top: auto;
+  padding-top: 0.15rem;
+  color: color-mix(in srgb, var(--cmp-hue) 30%, var(--ss-v2-titanium));
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  transition: color 260ms ease;
+}
+
+.ss-ind2-compliance__card:hover .ss-ind2-compliance__meta,
+.ss-ind2-compliance__card[data-state="open"] .ss-ind2-compliance__meta {
+  color: color-mix(in srgb, var(--cmp-hue) 55%, var(--ss-v2-platinum));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-ind2-compliance__details,
+  .ss-ind2-compliance__card[data-state="open"] .ss-ind2-compliance__details,
+  .ss-ind2-compliance__chevron,
+  .ss-ind2-compliance__all svg {
+    transition: none;
+  }
+}
+
 /* The claim: the card's whole point, in one line at emphasis weight, tinted
    toward the card's hue so the four claims read as four different lights. */
 .ss-ind2-compliance__claim {
@@ -4006,6 +4275,208 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   letter-spacing: 0.03em;
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+/* ---- The socket and the lightbox ---------------------------------------
+   A card's click brings it forward: a dialog portalled to the body (the
+   panel's backdrop-filter would pin a fixed lightbox inside the frame) that
+   Motion morphs out of the card's own box. The grid keeps every card in
+   place while one is forward — the card that left dims to a socket, its
+   neighbours step back — so no hole opens. Scale and opacity are paint-only,
+   so the socket the lightbox returns to measures the same throughout.
+   "Expand all" is the in-page unfold and untouched by any of this. */
+
+.ss-ind2-compliance__ghost {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.ss-ind2-compliance__grid[data-focus]
+  .ss-ind2-compliance__card:not([data-focus-origin]) {
+  scale: 0.96;
+  opacity: 0.55;
+}
+
+.ss-ind2-compliance__grid[data-focus] .ss-ind2-compliance__card[data-focus-origin] {
+  opacity: 0.4;
+  border-color: color-mix(in srgb, var(--cmp-hue) 44%, var(--ss-v2-hairline));
+}
+
+/* The portal wrapper: its own fixed layer above the header (z 400) and the
+   drawer (z 500), on the 700/800 ladder the site's dialogs use. It re-opens
+   the `.ss-srv2` scope the portal left, so it must also cancel that scope's
+   gutter. Pointer events are off on the wrapper and back on for the scrim
+   (Radix sets it inline) and the card. */
+.ss-srv2.ss-ind2-compliance-focus {
+  position: fixed;
+  inset: 0;
+  z-index: 700;
+  padding: 0;
+  pointer-events: none;
+}
+
+.ss-ind2-compliance-focus__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 700;
+  /* Light enough that the grid stays readable behind the card: the point of
+     the recession is that the reader sees the other cards step back. */
+  background: color-mix(in srgb, var(--ss-v2-void-blue) 46%, transparent);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+/* The stage centres the card and lets pointer events through to the scrim,
+   so a click beside the card is an outside click and closes it. */
+.ss-ind2-compliance-focus__stage {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  display: grid;
+  place-items: center;
+  padding: max(0.75rem, env(safe-area-inset-top))
+    max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom))
+    max(0.75rem, env(safe-area-inset-left));
+  pointer-events: none;
+}
+
+@media (min-width: 46rem) {
+  .ss-ind2-compliance-focus__stage {
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+}
+
+/* The card, forward. Doubled class: it has to outrank the open-state ring
+   and background above. Opaque ground — it sits over the scrim, not the
+   panel's glass. */
+.ss-ind2-compliance__card.ss-ind2-compliance__card--focus {
+  --cmp-gap: 1rem;
+
+  width: min(44rem, 100%);
+  height: auto;
+  max-height: min(86svh, 100%);
+  padding: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+  border-color: color-mix(in srgb, var(--cmp-hue) 46%, var(--ss-v2-hairline));
+  background:
+    radial-gradient(
+      120% 90% at 100% 0%,
+      color-mix(in srgb, var(--cmp-hue) 14%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(180deg, var(--ss-v2-graphite-raised), var(--ss-v2-graphite));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--cmp-hue) 24%, transparent),
+    0 48px 110px -36px rgb(0 0 0 / 0.75),
+    0 30px 90px -40px color-mix(in srgb, var(--cmp-hue) 70%, transparent);
+  cursor: default;
+  pointer-events: auto;
+  overflow: hidden;
+  outline: none;
+  transform-style: flat;
+  transition: none;
+}
+
+/* The body is its own Motion layout node, counter-scaled against the
+   card's morph so the text slides rather than stretches. It is also the
+   flex column that lets the rules scroll while the head stays put. */
+.ss-ind2-compliance-focus__body {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--cmp-gap);
+}
+
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__head,
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__claim {
+  flex: none;
+}
+
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__head {
+  padding-right: 2.75rem;
+}
+
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__title {
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+}
+
+/* A span in the lightbox, not a button: the title is the dialog's name. */
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__trigger {
+  cursor: default;
+}
+
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__claim {
+  font-size: clamp(1rem, 0.92rem + 0.4vw, 1.16rem);
+}
+
+.ss-ind2-compliance__card.ss-ind2-compliance__card--focus .ss-ind2-compliance__details {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0;
+  padding-right: 0.35rem;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--cmp-hue) 40%, transparent) transparent;
+  transition: none;
+}
+
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__details-inner {
+  overflow: visible;
+}
+
+.ss-ind2-compliance__card--focus .ss-ind2-compliance__rules li {
+  font-size: clamp(0.94rem, 0.88rem + 0.3vw, 1.04rem);
+  line-height: 1.6;
+}
+
+.ss-ind2-compliance-focus__close {
+  position: absolute;
+  top: clamp(0.9rem, 0.7rem + 0.8vw, 1.4rem);
+  right: clamp(0.9rem, 0.7rem + 0.8vw, 1.4rem);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--cmp-hue) 26%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 32%, transparent);
+  color: color-mix(in srgb, var(--cmp-hue) 40%, var(--ss-v2-platinum));
+  cursor: pointer;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.ss-ind2-compliance-focus__close svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ss-ind2-compliance-focus__close:hover,
+.ss-ind2-compliance-focus__close:focus-visible {
+  border-color: color-mix(in srgb, var(--cmp-hue) 52%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--cmp-hue) 14%, transparent);
+  color: var(--ss-v2-platinum);
+}
+
+.ss-ind2-compliance-focus__close:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--cmp-hue) 70%, transparent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-ind2-compliance__card,
+  .ss-ind2-compliance-focus__close {
+    transition: none;
+  }
 }
 
 /* Not fine print. This line carries the division of responsibility that makes

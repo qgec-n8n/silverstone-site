@@ -253,9 +253,12 @@ export const estateAgentsCopy: IndustryCopy = {
   services: {
     heading: "The architecture behind the switchboard",
     lead: "Assembled around your CRM and calendar, never a pre-packaged stack.",
+    // Three short beats, one link cluster each: the full consent, quiet-hours
+    // and email-header detail lives in the FAQ ("How is calling and texting
+    // US leads designed?"), so the card names the principle and hands off.
     paragraphs: [
-      "[AI reception for property inquiries](/services/ai-receptionists), [voice handling for missed calls](/services/ai-voice-agents) and [connected automation workflows](/services/ai-automation) work as one system around your CRM, whether that is Reapit, Alto, Follow Up Boss or kvCORE.",
-      "Outbound follow-up is built around permission, not volume: consent is captured and time-stamped at the point of inquiry, opt-out and STOP requests are honored the moment they arrive, automated calls and texts to US numbers are held inside TCPA quiet-hours windows, and automated email carries an accurate sender header, a real postal address and an unsubscribe that works first click. **Your counsel sets the rules; we build the workflow to them.**",
+      "[AI reception for property inquiries](/services/ai-receptionists), [voice handling for missed calls](/services/ai-voice-agents) and [connected automation workflows](/services/ai-automation) run as one system around your CRM, whether that is Reapit, Alto, Follow Up Boss or kvCORE.",
+      "Follow-up is built around permission, not volume: consent captured at the point of inquiry, opt-outs honored the moment they arrive, US calls and texts held inside TCPA quiet hours. **Your counsel sets the rules; we build the workflow to them.**",
       "Where your website leaks demand, a [conversion-led agency web build](/services/web-design-development) closes the gap, with [AI consulting](/services/ai-consulting) shaping the architecture first.",
     ],
   },

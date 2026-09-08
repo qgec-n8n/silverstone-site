@@ -4,19 +4,38 @@
  * here renders structured approved copy — no raw markdown blocks, no
  * authoring labels.
  */
-import { useInView, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import * as m from "motion/react-m";
-import { useId, useRef, type CSSProperties, type ReactNode } from "react";
+import { Dialog as DialogPrimitive } from "radix-ui";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+  type PointerEvent,
+  type ReactNode,
+} from "react";
 import { Link } from "react-router";
 
 import {
   Check,
+  ChevronDown,
   Landmark,
   Layers,
   Scale,
   ShieldCheck,
   Sparkles,
   UserCheck,
+  X,
   type LucideIcon,
 } from "~/components/icons/lucide";
 import { CurrencyToggle } from "~/components/ui/currency-toggle";
@@ -32,9 +51,11 @@ import {
 import {
   ATLAS_COMPACT,
   ATLAS_WIDE,
+  LINKED_METROS,
   LONDON,
   US_METROS,
   US_TIME_ZONES,
+  type AtlasAura,
   type AtlasNode,
   type AtlasPlate,
 } from "../content/atlas";
@@ -344,11 +365,11 @@ export function FitPanel({ right, caution }: { right: string[]; caution: string 
 /*
  * ---- Atlantic atlas ---------------------------------------------------------
  *
- * London linked to twelve US metros on a dotted world plate: the instrument
- * that opens the two-market section. All geometry comes from
- * `../content/atlas` — the plates, the node positions, every arc — so the
- * static dot layers, the SVG, the HTML labels and the pulses' `offset-path`
- * agree by construction rather than by hand-copying numbers between them.
+ * London and twelve US metros on a dotted world plate: the instrument that
+ * opens the two-market section. All geometry comes from `../content/atlas` —
+ * the plates, the node positions, every route, each country's glow — so the
+ * static dot layers, the SVG and the HTML labels agree by construction rather
+ * than by hand-copying numbers between them.
  *
  * The plate is decorative (aria-hidden SVGs under a described wrapper); the
  * city names, the time-zone count and the market switch are real HTML text,
@@ -356,18 +377,39 @@ export function FitPanel({ right, caution }: { right: string[]; caution: string 
  */
 
 /** Node and stroke sizes in viewBox units, per plate: the wide plate shows
- * ~0.46px per unit at 1100 wide, the compact one ~0.32px at 340. */
+ * ~0.46px per unit at 1100 wide, the compact one ~0.32px at 340. `quiet` is
+ * a third-tier metro — plotted, never linked — and `ripple` the radius the
+ * lit country's rings start from. */
 const ATLAS_SIZE: Record<
   AtlasPlate["name"],
-  { city: number; hub: number; pulse: number }
+  { city: number; quiet: number; hub: number; ripple: { us: number; uk: number } }
 > = {
-  wide: { city: 7, hub: 11, pulse: 6 },
-  compact: { city: 9, hub: 14, pulse: 8 },
+  wide: { city: 9, quiet: 6, hub: 14, ripple: { us: 70, uk: 22 } },
+  compact: { city: 11, quiet: 7, hub: 17, ripple: { us: 44, uk: 20 } },
 };
 
-const ATLAS_ARIA = `Map: London linked to ${US_METROS.length === 12 ? "twelve" : String(US_METROS.length)} US metros — ${US_METROS.map(
+const spell = (n: number) =>
+  [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+  ][n] ?? String(n);
+
+const ATLAS_ARIA = `Map: London and ${spell(US_METROS.length)} US metros — ${US_METROS.map(
   (city) => city.name,
-).join(", ")}. The market you are reading in is the lit side.`;
+).join(
+  ", ",
+)}. Routes drawn from London to ${LINKED_METROS.map((city) => city.name).join(", ")}. The market you are reading in is the lit side.`;
 
 function AtlasNodeMark({
   bloomId,
@@ -382,7 +424,12 @@ function AtlasNodeMark({
 }) {
   const { x, y } = node.point;
   return (
-    <g className="ss-ind2-atlas__node" data-city={node.id} data-side={side}>
+    <g
+      className="ss-ind2-atlas__node"
+      data-city={node.id}
+      data-linked={node.linked ? "true" : "false"}
+      data-side={side}
+    >
       {/* The bloom is what makes a lit node read as a light source rather
           than as a filled dot; it is a gradient, so it costs no filter. */}
       <circle
@@ -400,19 +447,53 @@ function AtlasNodeMark({
 }
 
 /**
+ * One country's radiance: three rings that expand out of its centre while it
+ * is the reader's market (the wash under its dots is drawn separately, below
+ * the land layers). Plain geometry — no filter, no blur — so the glow costs
+ * the compositor one layer, not a per-frame re-rasterisation.
+ */
+function AtlasRipples({
+  aura,
+  ripple,
+  side,
+}: {
+  aura: AtlasAura;
+  ripple: number;
+  side: "us" | "uk";
+}) {
+  return (
+    <g className="ss-ind2-atlas__aura" data-side={side}>
+      {[0, 1, 2].map((index) => (
+        <circle
+          className="ss-ind2-atlas__ripple"
+          cx={aura.cx}
+          cy={aura.cy}
+          key={index}
+          r={ripple}
+          style={{ "--ripple-i": index } as CSSProperties}
+        />
+      ))}
+    </g>
+  );
+}
+
+/**
  * One plate. Two are rendered — wide and compact — and only ever one is
  * displayed; a `display: none` element runs no animation, so the looping
- * budget is one plate's pulses and halos, never both.
+ * budget is one plate's halos and rings, never both.
  *
- * Each arc carries TWO strokes and CSS crossfades them, because an SVG paint
- * server cannot be flipped from a stylesheet: the bright end of every arc is
- * always the reader's own market.
+ * Each route carries TWO strokes and CSS crossfades them, because an SVG
+ * paint server cannot be flipped from a stylesheet: the bright end of every
+ * route is always the reader's own market.
  */
 function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
   const id = `ind2-atlas-${plate.name}`;
   const size = ATLAS_SIZE[plate.name];
   const west = Math.min(...plate.cities.map((city) => city.point.x));
   const east = plate.hub.point.x;
+  /* The UK ripples leave London itself; the US rings leave the country's
+     centre, so they cross the whole landmass rather than one metro. */
+  const ukAura = { ...plate.aura.uk, cx: plate.hub.point.x, cy: plate.hub.point.y };
 
   return (
     <svg
@@ -456,6 +537,18 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
           <stop offset="45%" stopColor="var(--srv2-accent-2)" stopOpacity="0.22" />
           <stop offset="100%" stopColor="var(--srv2-accent-2)" stopOpacity="0" />
         </radialGradient>
+        {/* The country washes: the same hue as the market's nodes, so a lit
+            landmass and its lit cities read as one light. */}
+        <radialGradient id={`${id}-aura-uk`}>
+          <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.7" />
+          <stop offset="55%" stopColor="var(--srv2-accent)" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="var(--srv2-accent)" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={`${id}-aura-us`}>
+          <stop offset="0%" stopColor="var(--srv2-accent-2)" stopOpacity="0.55" />
+          <stop offset="60%" stopColor="var(--srv2-accent-2)" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="var(--srv2-accent-2)" stopOpacity="0" />
+        </radialGradient>
         {/* The plate's edges fade into the panel ground, so the dots read as a
             field of light seen through the frame, not as a pasted image. */}
         <radialGradient cx="50%" cy="46%" id={`${id}-fade`} r="64%">
@@ -469,6 +562,26 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
         </radialGradient>
       </defs>
 
+      {/* The washes sit under the dots, so a lit country is lit from beneath
+          and its dots stand on the light rather than floating over it. */}
+      <ellipse
+        className="ss-ind2-atlas__aura-wash"
+        cx={plate.aura.us.cx}
+        cy={plate.aura.us.cy}
+        data-side="us"
+        fill={`url(#${id}-aura-us)`}
+        rx={plate.aura.us.rx}
+        ry={plate.aura.us.ry}
+      />
+      <ellipse
+        className="ss-ind2-atlas__aura-wash"
+        cx={plate.aura.uk.cx}
+        cy={plate.aura.uk.cy}
+        data-side="uk"
+        fill={`url(#${id}-aura-uk)`}
+        rx={plate.aura.uk.rx}
+        ry={plate.aura.uk.ry}
+      />
       <image
         className="ss-ind2-atlas__land ss-ind2-atlas__land--world"
         height={plate.h}
@@ -494,12 +607,17 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
         width={plate.w}
       />
 
-      {plate.links.map((link, index) => (
+      {/* The rings sit over the dots and under the routes: light leaving the
+          lit country across its own landmass. */}
+      <AtlasRipples aura={plate.aura.us} ripple={size.ripple.us} side="us" />
+      <AtlasRipples aura={ukAura} ripple={size.ripple.uk} side="uk" />
+
+      {plate.links.map((link) => (
         <g
           className="ss-ind2-atlas__link"
           data-city={link.city.id}
           key={link.city.id}
-          style={{ "--atlas-i": index } as CSSProperties}
+          style={{ "--atlas-i": link.rank } as CSSProperties}
         >
           <path className="ss-ind2-atlas__arc-glow" d={link.path} pathLength={1} />
           <path
@@ -514,20 +632,6 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
             pathLength={1}
             stroke={`url(#${id}-us)`}
           />
-          {/* cx/cy stay at the origin: `offset-path` carries the pulse. */}
-          <circle
-            className="ss-ind2-atlas__pulse"
-            cx="0"
-            cy="0"
-            r={size.pulse}
-            style={{ offsetPath: `path("${link.path}")` }}
-          />
-          <circle
-            className="ss-ind2-atlas__pulse-park"
-            cx={link.park.x}
-            cy={link.park.y}
-            r={size.pulse}
-          />
         </g>
       ))}
 
@@ -536,7 +640,7 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
           bloomId={`${id}-bloom-us`}
           key={city.id}
           node={city}
-          r={size.city}
+          r={city.linked ? size.city : size.quiet}
           side="us"
         />
       ))}
@@ -551,20 +655,25 @@ function AtlasPlateSvg({ plate }: { plate: AtlasPlate }) {
 }
 
 /**
- * The HTML labels over the plate: one per city, carrying BOTH plates'
+ * The HTML labels over the plate: one per named city, carrying BOTH plates'
  * positions and anchors as custom properties, so the same real text is placed
  * by whichever plate the stylesheet is showing. They are `<label for>`s on the
  * market switch's radios — tapping Chicago moves the ledger to the US, tapping
  * London to the UK — with no second source of truth.
+ *
+ * Only the first two tiers are printed here (the stylesheet drops the second
+ * on the compact plate); the quiet third tier is named by the strip below.
  */
 function AtlasLabels({ controlId }: { controlId: string }) {
   const pairs = [
     { wide: ATLAS_WIDE.hub, compact: ATLAS_COMPACT.hub, side: "uk" as const },
-    ...ATLAS_WIDE.cities.map((wide, index) => ({
-      wide,
-      compact: ATLAS_COMPACT.cities[index] ?? wide,
-      side: "us" as const,
-    })),
+    ...ATLAS_WIDE.cities
+      .map((wide, index) => ({
+        wide,
+        compact: ATLAS_COMPACT.cities[index] ?? wide,
+        side: "us" as const,
+      }))
+      .filter(({ wide }) => wide.labelled),
   ];
   return pairs.map(({ wide, compact, side }) => (
     <label
@@ -593,18 +702,20 @@ function AtlasLabels({ controlId }: { controlId: string }) {
  * The atlas panel: readout strip, the plate with its labels, the metro strip
  * and the market focus control, in its own frame above the ledger.
  *
- * `data-chart-live` (`once: false`) stops the pulses and halos when the plate
- * leaves the viewport — twelve looping animations nobody can see still cost
- * frames on a phone — and `data-chart-shown` fires the one-time arc draw
- * through the global reveal scheduler, so the links power on just after the
- * frame itself has materialised.
+ * `data-chart-live` (`once: false`) stops the halos and rings when the plate
+ * leaves the viewport — looping animations nobody can see still cost frames
+ * on a phone — and `data-chart-shown` fires the one-time route draw through
+ * the global reveal scheduler. The plate opens as an aperture (the `image`
+ * reveal), and the routes leave London ~0.9s later, once the plate is most of
+ * the way open; the threshold is 0.4 so that draw happens on screen rather
+ * than below the fold.
  */
 function AtlanticAtlas({ controlId }: { controlId: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const viewport = { amount: 0.2, margin: "0px 0px -8% 0px" } as const;
+  const viewport = { amount: 0.4, margin: "0px 0px -8% 0px" } as const;
   const inView = useInView(ref, viewport);
   const seen = useInView(ref, { ...viewport, once: true });
-  const start = useRevealStart(ref, seen, 380);
+  const start = useRevealStart(ref, seen, 900);
   const shown = start !== null;
   const delay = start === null || start.instant ? 0 : start.delayMs;
 
@@ -622,7 +733,7 @@ function AtlanticAtlas({ controlId }: { controlId: string }) {
         </p>
       </Reveal>
 
-      <Reveal className="ss-ind2-atlas__chart-reveal" delayMs={100} kind="card">
+      <Reveal className="ss-ind2-atlas__chart-reveal" delayMs={100} kind="image">
         <div
           aria-label={ATLAS_ARIA}
           className="ss-ind2-atlas__chart"
@@ -655,8 +766,8 @@ function AtlanticAtlas({ controlId }: { controlId: string }) {
         <CurrencyToggle context="markets" idPrefix={controlId} tone="dark" />
       </Reveal>
 
-      {/* Every metro by name at every width: the compact plate labels only a
-          handful, and a city name is something a reader may search for. */}
+      {/* Every metro by name at every width: the plates label seven at most,
+          and a city name is something a reader may search for. */}
       <Reveal className="ss-ind2-atlas__strip" delayMs={280} kind="section">
         <p className="ss-ind2-atlas__strip-line">
           <span className="ss-ind2-atlas__strip-label">
@@ -917,10 +1028,19 @@ function SharedSpine({ items }: { items: string[] }) {
  * its copy; the composition guards on that block's presence, so sectors
  * without an established rulebook render nothing rather than a vague panel.
  *
- * Each card is one claim and three rules, not a paragraph: a rulebook that is
- * scanned is a rulebook that is read. The note is deliberately NOT fine print —
- * it carries the division of responsibility that makes every claim above it
- * honest, so it renders at body weight under the cards, at full contrast.
+ * Each card opens compact — icon, market chip, title and the one-line claim —
+ * and a reader who wants the rules opens the card (or all of them at once).
+ * The rules and citations are always in the document, merely collapsed by
+ * CSS (`grid-template-rows: 0fr → 1fr`) with `inert` keeping a closed card's
+ * detail out of the tab order: the same contract as the FAQ, so the legal
+ * copy stays in the prerendered HTML for a crawler and for the panel's own
+ * test. On a pointer device a closed card tilts a few degrees toward the
+ * cursor — a card you can pick up — and stops the moment it is opened, since
+ * nobody reads a rulebook that is moving.
+ *
+ * The note is deliberately NOT fine print — it carries the division of
+ * responsibility that makes every claim above it honest, so it renders at body
+ * weight under the cards, at full contrast.
  */
 
 const COMPLIANCE_ICONS: Record<IndustryComplianceIcon, LucideIcon> = {
@@ -971,73 +1091,486 @@ function GlancePill({ claim, index }: { claim: string; index: number }) {
   );
 }
 
-export function CompliancePanel({ compliance }: { compliance: IndustryCompliance }) {
-  const cardCount = compliance.points.length;
+type CompliancePoint = IndustryCompliance["points"][number];
 
+/** How far a closed card leans toward the cursor, in degrees. */
+const TILT_DEGREES = 5;
+const tiltSpring = { stiffness: 260, damping: 22, mass: 0.6 } as const;
+/* The card's own radius, handed to Motion as a value so the morph between a
+   grid card and its lightbox scale-corrects the corners instead of stretching
+   them with the box. Matches `.ss-ind2-compliance__card` in the stylesheet. */
+const CARD_RADIUS = 18;
+const focusMorph = { type: "spring", stiffness: 300, damping: 34, mass: 0.9 } as const;
+
+function complianceCitations(point: CompliancePoint) {
+  return point.source ? point.source.split(" · ") : [];
+}
+
+/* The head and the body are shared between a card in the grid and its
+   lightbox, so the two can never drift apart in copy or structure. The title
+   element differs (a button in the grid, the dialog's own title in focus) and
+   is passed in. */
+function ComplianceHead({
+  point,
+  title,
+}: {
+  point: CompliancePoint;
+  title: ReactNode;
+}) {
+  const Icon = COMPLIANCE_ICONS[point.icon];
   return (
-    /* "some": four rule cards stack to ~2,800px on a 390 phone; a quarter of
-       that is never in an 844px viewport at once, and with the default
-       threshold the frame stayed at opacity 0 forever. */
-    <PanelReveal amount="some" className="ss-ind2-compliance ss-srv2-beam-border">
-      {/* The whole boundary in three seconds, above the detail. Each chip is a
-          summary of a card underneath — never a claim the cards do not make. */}
-      {compliance.glance ? (
-        <ul className="ss-ind2-compliance__glance" aria-label="At a glance">
-          {compliance.glance.map((claim, index) => (
-            <GlancePill claim={claim} index={index} key={claim} />
+    <div className="ss-ind2-compliance__head" data-market={point.market}>
+      <span aria-hidden="true" className="ss-ind2-compliance__icon">
+        <Icon aria-hidden="true" />
+      </span>
+      <span className="ss-ind2-compliance__titles">
+        {/* Real text, not aria-hidden: nothing else in this card names
+            the market its rule applies to. */}
+        <span className="ss-ind2-compliance__chip">{point.market}</span>
+        {title}
+      </span>
+    </div>
+  );
+}
+
+function ComplianceBody({ point }: { point: CompliancePoint }) {
+  const citations = complianceCitations(point);
+  return (
+    <div className="ss-ind2-compliance__details-inner">
+      <ul className="ss-ind2-compliance__rules">
+        {point.rules.map((rule) => (
+          <li key={rule}>
+            <Check aria-hidden="true" />
+            <span>
+              <RichText text={rule} />
+            </span>
+          </li>
+        ))}
+      </ul>
+      {citations.length > 0 ? (
+        /* One chip per citation, so a statute never breaks across
+           lines as "NAR / SoP 10-3", and a long reference simply
+           takes a chip of its own width. Not links: RichText renders
+           no anchors, and a live link out of a compliance claim
+           invites the reader to check a source that may move. */
+        <ul aria-label="Sources" className="ss-ind2-compliance__sources">
+          {citations.map((citation) => (
+            <li className="ss-ind2-compliance__cite" key={citation}>
+              {citation}
+            </li>
           ))}
         </ul>
       ) : null}
-      <div className="ss-ind2-compliance__grid">
-        {compliance.points.map((point, index) => {
-          const Icon = COMPLIANCE_ICONS[point.icon];
-          return (
-            <Reveal
-              className="ss-ind2-compliance__card"
-              delayMs={180 + index * 110}
-              key={point.title}
-              kind="card"
+    </div>
+  );
+}
+
+function ComplianceCard({
+  focused,
+  index,
+  layoutId,
+  onFocus,
+  onKeyDown,
+  open,
+  point,
+  registerTrigger,
+}: {
+  focused: boolean;
+  index: number;
+  /** Shared with the lightbox; undefined when motion is reduced. */
+  layoutId: string | undefined;
+  onFocus: () => void;
+  onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
+  open: boolean;
+  point: CompliancePoint;
+  registerTrigger: (node: HTMLButtonElement | null) => void;
+}) {
+  const reducedMotion = useReducedMotion() ?? false;
+  const id = useId();
+  const triggerId = `${id}-trigger`;
+  const detailId = `${id}-detail`;
+  const citations = complianceCitations(point);
+
+  /* The tilt: cursor offset from the card's centre → a few degrees of
+     rotation, through a spring so the card settles rather than snaps. Both
+     values park at zero while the card is open, focused, or motion is
+     reduced — a parked card is also a flat one for the morph to measure. */
+  const cardRef = useRef<HTMLElement>(null);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const rotateX = useSpring(
+    useTransform(pointerY, [-180, 180], [TILT_DEGREES, -TILT_DEGREES]),
+    tiltSpring,
+  );
+  const rotateY = useSpring(
+    useTransform(pointerX, [-240, 240], [-TILT_DEGREES, TILT_DEGREES]),
+    tiltSpring,
+  );
+  const tilts = !reducedMotion && !open && !focused;
+
+  useEffect(() => {
+    if (!tilts) {
+      pointerX.set(0);
+      pointerY.set(0);
+    }
+  }, [tilts, pointerX, pointerY]);
+
+  const onPointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (!tilts || event.pointerType !== "mouse" || !cardRef.current) {
+      return;
+    }
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    pointerX.set(event.clientX - left - width / 2);
+    pointerY.set(event.clientY - top - height / 2);
+  };
+  const onPointerLeave = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
+  return (
+    <Reveal
+      className="ss-ind2-compliance__cell"
+      delayMs={180 + index * 110}
+      kind="card"
+    >
+      {/* The whole card is a hit area for a pointer; the button in the title
+          is the control itself — keyboard, screen reader, `aria-expanded`.
+          Either brings the card forward into the lightbox. */}
+      <m.article
+        className="ss-ind2-compliance__card"
+        data-focus-origin={focused ? "true" : undefined}
+        data-state={open ? "open" : "closed"}
+        onClick={() => {
+          // A reader selecting a sentence to copy it is not asking to open.
+          if (window.getSelection()?.toString()) {
+            return;
+          }
+          onFocus();
+        }}
+        onPointerLeave={onPointerLeave}
+        onPointerMove={onPointerMove}
+        ref={cardRef}
+        style={{ rotateX, rotateY, transformPerspective: 900 }}
+      >
+        {/* The morph's socket. Motion's shared layout hides whichever element
+            with this id is not the lead; giving the id to this empty,
+            absolutely-positioned ghost instead of the card keeps the card
+            itself on the page while its lightbox is open, so the grid never
+            shows a hole. The lightbox grows out of this box and returns to it. */}
+        {layoutId ? (
+          <m.div
+            aria-hidden="true"
+            className="ss-ind2-compliance__ghost"
+            layoutDependency={focused}
+            layoutId={layoutId}
+            style={{ borderRadius: CARD_RADIUS }}
+            transition={focusMorph}
+          />
+        ) : null}
+        <ComplianceHead
+          point={point}
+          title={
+            <h3 className="ss-ind2-compliance__title">
+              <button
+                aria-expanded={focused}
+                aria-haspopup="dialog"
+                className="ss-ind2-compliance__trigger"
+                id={triggerId}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onFocus();
+                }}
+                onKeyDown={onKeyDown}
+                ref={registerTrigger}
+                type="button"
+              >
+                <span>{point.title}</span>
+                <ChevronDown
+                  aria-hidden="true"
+                  className="ss-ind2-compliance__chevron"
+                />
+              </button>
+            </h3>
+          }
+        />
+        <p className="ss-ind2-compliance__claim">{point.claim}</p>
+        {/* The rules stay in the page — prerendered, crawlable — and unfold
+            in place under "Expand all"; a single card's click reads them in
+            the lightbox instead. `inert` keeps a folded region out of the
+            tab order. */}
+        <div
+          aria-labelledby={triggerId}
+          className="ss-ind2-compliance__details"
+          id={detailId}
+          inert={!open}
+          role="region"
+        >
+          <ComplianceBody point={point} />
+        </div>
+        {/* What the card is holding, so a closed card is not a mystery. */}
+        <span aria-hidden="true" className="ss-ind2-compliance__meta">
+          {`${String(point.rules.length)} rules${
+            citations.length > 0 ? ` · ${String(citations.length)} sources` : ""
+          } · read`}
+        </span>
+      </m.article>
+    </Reveal>
+  );
+}
+
+/* One card brought forward. A Radix dialog for the semantics — focus trap,
+   Escape, scrim click, scroll lock, focus return — portalled to the body
+   because the panel's backdrop-filter would otherwise pin a fixed lightbox
+   inside its own frame. The portal leaves the `.ss-srv2` scope behind, so the
+   wrapper re-opens it and carries the route's two accents across. */
+function ComplianceFocus({
+  accent,
+  layoutId,
+  onCloseAutoFocus,
+  point,
+}: {
+  accent: CSSProperties;
+  layoutId: string | undefined;
+  onCloseAutoFocus: () => void;
+  point: CompliancePoint;
+}) {
+  const articleRef = useRef<HTMLElement>(null);
+
+  return (
+    <DialogPrimitive.Portal forceMount>
+      <div className="ss-srv2 ss-ind2 ss-ind2-compliance-focus" style={accent}>
+        <DialogPrimitive.Overlay asChild forceMount>
+          <m.div
+            animate={{ opacity: 1 }}
+            className="ss-ind2-compliance-focus__scrim"
+            exit={{ opacity: 0, transition: { duration: 0.28, ease: "easeIn" } }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.36, ease: "easeOut" }}
+          />
+        </DialogPrimitive.Overlay>
+        {/* The stage centres the card and lets pointer events fall through
+            to the scrim, so a click beside the card is an outside click. */}
+        <div className="ss-ind2-compliance-focus__stage">
+          <DialogPrimitive.Content
+            asChild
+            forceMount
+            onCloseAutoFocus={(event) => {
+              event.preventDefault();
+              onCloseAutoFocus();
+            }}
+            onOpenAutoFocus={(event) => {
+              // Land on the card itself, not its close button: the first
+              // Tab then reaches the close, and a pointer reader sees no ring.
+              event.preventDefault();
+              articleRef.current?.focus({ preventScroll: true });
+            }}
+          >
+            <m.article
+              className="ss-ind2-compliance__card ss-ind2-compliance__card--focus"
+              data-state="open"
+              ref={articleRef}
+              style={{ borderRadius: CARD_RADIUS }}
+              tabIndex={-1}
+              transition={focusMorph}
+              {...(layoutId
+                ? { layoutId }
+                : {
+                    animate: { opacity: 1 },
+                    exit: { opacity: 0, transition: { duration: 0.2 } },
+                    initial: { opacity: 0 },
+                  })}
             >
-              <div className="ss-ind2-compliance__head" data-market={point.market}>
-                <span aria-hidden="true" className="ss-ind2-compliance__icon">
-                  <Icon aria-hidden="true" />
-                </span>
-                <span className="ss-ind2-compliance__titles">
-                  {/* Real text, not aria-hidden: nothing else in this card
-                      names the market its rule applies to. */}
-                  <span className="ss-ind2-compliance__chip">{point.market}</span>
-                  <h3 className="ss-ind2-compliance__title">{point.title}</h3>
-                </span>
-              </div>
-              <p className="ss-ind2-compliance__claim">{point.claim}</p>
-              <ul className="ss-ind2-compliance__rules">
-                {point.rules.map((rule) => (
-                  <li key={rule}>
-                    <Check aria-hidden="true" />
-                    <span>
-                      <RichText text={rule} />
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              {point.source ? (
-                /* One chip per citation, so a statute never breaks across
-                   lines as "NAR / SoP 10-3", and a long reference simply
-                   takes a chip of its own width. Not links: RichText renders
-                   no anchors, and a live link out of a compliance claim
-                   invites the reader to check a source that may move. */
-                <ul aria-label="Sources" className="ss-ind2-compliance__sources">
-                  {point.source.split(" · ").map((citation) => (
-                    <li className="ss-ind2-compliance__cite" key={citation}>
-                      {citation}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </Reveal>
-          );
-        })}
+              <DialogPrimitive.Close asChild>
+                <button
+                  aria-label="Close"
+                  className="ss-ind2-compliance-focus__close"
+                  type="button"
+                >
+                  <X aria-hidden="true" />
+                </button>
+              </DialogPrimitive.Close>
+              {/* The content rides the morph undistorted: a child with its
+                  own `layout` is counter-scaled against the card's changing
+                  box, so text slides into place instead of stretching. */}
+              <m.div className="ss-ind2-compliance-focus__body" layout="position">
+                <ComplianceHead
+                  point={point}
+                  title={
+                    <DialogPrimitive.Title asChild>
+                      <h3 className="ss-ind2-compliance__title">
+                        <span className="ss-ind2-compliance__trigger">
+                          <span>{point.title}</span>
+                        </span>
+                      </h3>
+                    </DialogPrimitive.Title>
+                  }
+                />
+                <DialogPrimitive.Description asChild>
+                  <p className="ss-ind2-compliance__claim">{point.claim}</p>
+                </DialogPrimitive.Description>
+                <div className="ss-ind2-compliance__details">
+                  <ComplianceBody point={point} />
+                </div>
+              </m.div>
+            </m.article>
+          </DialogPrimitive.Content>
+        </div>
       </div>
+    </DialogPrimitive.Portal>
+  );
+}
+
+export function CompliancePanel({ compliance }: { compliance: IndustryCompliance }) {
+  const reducedMotion = useReducedMotion() ?? false;
+  const panelId = useId();
+  const cardCount = compliance.points.length;
+  const [openTitles, setOpenTitles] = useState<readonly string[]>([]);
+  const [focusIndex, setFocusIndex] = useState<number | null>(null);
+  const [accent, setAccent] = useState<CSSProperties>({});
+  const triggers = useRef<(HTMLButtonElement | null)[]>([]);
+  const gridRef = useRef<HTMLDivElement>(null);
+  /* The card to hand focus back to once the lightbox has finished leaving;
+     by then `focusIndex` is already null. */
+  const lastFocus = useRef<number | null>(null);
+  const allOpen = openTitles.length === cardCount;
+  const focusPoint = focusIndex === null ? undefined : compliance.points[focusIndex];
+
+  const layoutIdFor = (index: number) =>
+    reducedMotion ? undefined : `${panelId}-compliance-${String(index)}`;
+
+  const focusCard = (index: number) => {
+    const grid = gridRef.current;
+    if (grid) {
+      const style = getComputedStyle(grid);
+      setAccent({
+        "--srv2-accent": style.getPropertyValue("--srv2-accent"),
+        "--srv2-accent-2": style.getPropertyValue("--srv2-accent-2"),
+      } as CSSProperties);
+    }
+    lastFocus.current = index;
+    setFocusIndex(index);
+  };
+
+  /* Arrow/Home/End roving between the card triggers, as on the FAQ. */
+  const focusTrigger = (index: number) => {
+    triggers.current[(index + cardCount) % cardCount]?.focus();
+  };
+  const onTriggerKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    switch (event.key) {
+      case "ArrowDown":
+      case "ArrowRight":
+        event.preventDefault();
+        focusTrigger(index + 1);
+        break;
+      case "ArrowUp":
+      case "ArrowLeft":
+        event.preventDefault();
+        focusTrigger(index - 1);
+        break;
+      case "Home":
+        event.preventDefault();
+        focusTrigger(0);
+        break;
+      case "End":
+        event.preventDefault();
+        focusTrigger(cardCount - 1);
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    /* "some": the cards stack tall on a 390 phone even closed; a quarter of
+       the frame is not reliably in an 844px viewport at once, and with the
+       default threshold the frame could stay at opacity 0 forever. */
+    <PanelReveal amount="some" className="ss-ind2-compliance ss-srv2-beam-border">
+      <div className="ss-ind2-compliance__bar">
+        {/* The whole boundary in three seconds, above the detail. Each chip
+            is a summary of a card underneath — never a claim the cards do not
+            make. */}
+        {compliance.glance ? (
+          <ul className="ss-ind2-compliance__glance" aria-label="At a glance">
+            {compliance.glance.map((claim, index) => (
+              <GlancePill claim={claim} index={index} key={claim} />
+            ))}
+          </ul>
+        ) : null}
+        <Reveal className="ss-ind2-compliance__all-reveal" delayMs={140} kind="pill">
+          {/* Its visible label changes with state, so it is a plain button,
+              not a pressed toggle: the name says what pressing it does. This
+              is the one control that unfolds the rules in the page itself;
+              the cards' own clicks bring a single card forward instead. */}
+          <button
+            className="ss-ind2-compliance__all"
+            data-state={allOpen ? "open" : "closed"}
+            onClick={() => {
+              setOpenTitles(
+                allOpen ? [] : compliance.points.map((point) => point.title),
+              );
+            }}
+            type="button"
+          >
+            <ChevronDown aria-hidden="true" />
+            {allOpen ? "Collapse all" : "Expand all rules"}
+          </button>
+        </Reveal>
+      </div>
+      {/* `data-focus` while a card is forward: the others step back. */}
+      <div
+        className="ss-ind2-compliance__grid"
+        data-focus={focusIndex === null ? undefined : "true"}
+        ref={gridRef}
+      >
+        {compliance.points.map((point, index) => (
+          <ComplianceCard
+            focused={focusIndex === index}
+            index={index}
+            key={point.title}
+            layoutId={layoutIdFor(index)}
+            onFocus={() => {
+              focusCard(index);
+            }}
+            onKeyDown={(event) => {
+              onTriggerKeyDown(event, index);
+            }}
+            open={openTitles.includes(point.title)}
+            point={point}
+            registerTrigger={(node) => {
+              triggers.current[index] = node;
+            }}
+          />
+        ))}
+      </div>
+      {/* The dialog root is always mounted (it renders no DOM of its own);
+          the portal is conditional inside AnimatePresence, and `forceMount`
+          on it keeps Radix from unmounting the overlay and content before
+          their exit animations have run. */}
+      <DialogPrimitive.Root
+        onOpenChange={(open) => {
+          if (!open) {
+            setFocusIndex(null);
+          }
+        }}
+        open={focusIndex !== null}
+      >
+        <AnimatePresence>
+          {focusPoint && focusIndex !== null ? (
+            <ComplianceFocus
+              accent={accent}
+              key="compliance-focus"
+              layoutId={layoutIdFor(focusIndex)}
+              onCloseAutoFocus={() => {
+                if (lastFocus.current !== null) {
+                  triggers.current[lastFocus.current]?.focus({ preventScroll: true });
+                }
+              }}
+              point={focusPoint}
+            />
+          ) : null}
+        </AnimatePresence>
+      </DialogPrimitive.Root>
       <Reveal
         className="ss-ind2-compliance__note-band"
         delayMs={180 + cardCount * 110 + 60}

@@ -8,6 +8,7 @@ import {
   ATLAS_PLATES,
   ATLAS_SCALE,
   ATLAS_WIDE,
+  LINKED_METROS,
   LONDON,
   US_METROS,
   US_TIME_ZONES,
@@ -20,11 +21,11 @@ const plates: AtlasPlate[] = [ATLAS_WIDE, ATLAS_COMPACT];
 const publicDir = path.resolve(__dirname, "../../public");
 
 /*
- * Five things have to agree on the atlas's geometry: the generated dot
- * layers, the SVG paths, each pulse's `offset-path`, the HTML labels and this
- * file. The plate table is duplicated in `scripts/generate-atlas-dots.mjs`
- * (a plain .mjs that cannot import TypeScript), so the first test reads the
- * generated files back and fails the moment the two copies drift.
+ * Four things have to agree on the atlas's geometry: the generated dot
+ * layers, the SVG paths, the HTML labels and this file. The plate table is
+ * duplicated in `scripts/generate-atlas-dots.mjs` (a plain .mjs that cannot
+ * import TypeScript), so the first test reads the generated files back and
+ * fails the moment the two copies drift.
  */
 describe("Atlantic atlas geometry", () => {
   it("matches the generated dot plates dot-for-dot", () => {
@@ -113,29 +114,93 @@ describe("Atlantic atlas geometry", () => {
     }
   });
 
-  it("bows every arc north of its chord and parks the pulse on it", () => {
+  it("bows every route north of its chord, leaving London for the metro", () => {
     for (const plate of plates) {
       for (const link of plate.links) {
-        const from = link.city.point;
-        const to = plate.hub.point;
+        // The path starts at the hub, so a dash offset running 1 → 0 draws
+        // the route outward from London.
+        const from = plate.hub.point;
+        const to = link.city.point;
         expect(link.ctrl.y).toBeLessThan((from.y + to.y) / 2);
         expect(link.path).toBe(
           `M ${String(from.x)} ${String(from.y)} Q ${String(link.ctrl.x)} ${String(link.ctrl.y)} ${String(to.x)} ${String(to.y)}`,
         );
-        const onCurve = quadAt(from, link.ctrl, to, 0.58);
-        expect(link.park.x).toBeCloseTo(onCurve.x, 0);
-        expect(link.park.y).toBeCloseTo(onCurve.y, 0);
       }
     }
   });
 
-  it("labels every metro on the wide plate and the first tier on the compact one", () => {
-    expect(ATLAS_WIDE.cities.every((city) => city.labelled)).toBe(true);
-    expect(ATLAS_WIDE.hub.labelled).toBe(true);
+  it("draws a route only to the first two tiers, ranked nearest-first", () => {
+    expect(LINKED_METROS.every((city) => city.tier <= 2)).toBe(true);
+    expect(LINKED_METROS.length).toBeGreaterThanOrEqual(6);
+    expect(LINKED_METROS.length).toBeLessThanOrEqual(8);
+    for (const plate of plates) {
+      expect(plate.links.map((link) => link.city.id)).toEqual(
+        LINKED_METROS.map((city) => city.id),
+      );
+      expect(plate.cities.filter((city) => city.linked)).toHaveLength(
+        LINKED_METROS.length,
+      );
+      // Every quiet metro is still plotted: the geography stays honest.
+      expect(plate.cities).toHaveLength(US_METROS.length);
+      // Ranks are a permutation ordered by chord length, shortest first.
+      const chord = (link: (typeof plate.links)[number]) =>
+        Math.hypot(
+          plate.hub.point.x - link.city.point.x,
+          plate.hub.point.y - link.city.point.y,
+        );
+      const byRank = [...plate.links].sort((a, b) => a.rank - b.rank);
+      expect(byRank.map((link) => link.rank)).toEqual(
+        plate.links.map((_, index) => index),
+      );
+      for (let index = 1; index < byRank.length; index += 1) {
+        const previous = byRank[index - 1];
+        const current = byRank[index];
+        if (!previous || !current) throw new Error("rank gap");
+        expect(chord(current)).toBeGreaterThanOrEqual(chord(previous));
+      }
+    }
+  });
+
+  it("labels the first two tiers on the wide plate and the first on the compact one", () => {
     const tierOne = US_METROS.filter((city) => city.tier === 1).length;
+    const named = US_METROS.filter((city) => city.tier <= 2).length;
+    expect(ATLAS_WIDE.cities.filter((city) => city.labelled)).toHaveLength(named);
+    expect(ATLAS_WIDE.hub.labelled).toBe(true);
     expect(ATLAS_COMPACT.cities.filter((city) => city.labelled)).toHaveLength(tierOne);
     expect(tierOne).toBeGreaterThanOrEqual(5);
     expect(tierOne).toBeLessThanOrEqual(7);
+    // A labelled city is always a linked one; the quiet tier is never named
+    // on the plate (the strip beneath it names every metro).
+    for (const plate of plates) {
+      for (const city of plate.cities) {
+        if (city.labelled) expect(city.linked).toBe(true);
+        if (city.tier === 3) expect(city.labelled).toBe(false);
+      }
+    }
+  });
+
+  it("fits each country's glow inside its plate, centred on its cities", () => {
+    for (const plate of plates) {
+      for (const side of ["us", "uk"] as const) {
+        const aura = plate.aura[side];
+        expect(aura.rx).toBeGreaterThan(0);
+        expect(aura.ry).toBeGreaterThan(0);
+        expect(aura.cx).toBeGreaterThan(0);
+        expect(aura.cx).toBeLessThan(plate.w);
+        expect(aura.cy).toBeGreaterThan(0);
+        expect(aura.cy).toBeLessThan(plate.h);
+      }
+      // The US wash covers every metro; the UK wash sits over London.
+      for (const city of plate.cities) {
+        const { cx, cy, rx, ry } = plate.aura.us;
+        const dx = (city.point.x - cx) / rx;
+        const dy = (city.point.y - cy) / ry;
+        expect(dx * dx + dy * dy, city.name).toBeLessThanOrEqual(1);
+      }
+      const uk = plate.aura.uk;
+      expect(Math.abs(plate.hub.point.x - uk.cx)).toBeLessThan(uk.rx);
+      expect(Math.abs(plate.hub.point.y - uk.cy)).toBeLessThan(uk.ry);
+    }
   });
 
   it("names twelve distinct metros across four continental time zones", () => {

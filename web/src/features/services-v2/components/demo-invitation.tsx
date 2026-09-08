@@ -10,7 +10,7 @@ import {
   type LucideIcon,
 } from "~/components/icons/lucide";
 
-import { BorderBeam } from "./primitives";
+import { BorderBeam, PanelReveal } from "./primitives";
 
 type DemoInvitationAction = {
   href: string;
@@ -89,38 +89,44 @@ export function DemoInvitation({ variant }: { variant: DemoInvitationVariant }) 
   return (
     <section className="ss-srv2-demo-invite" aria-labelledby={`demo-invite-${variant}`}>
       <div className="ss-srv2__container">
-        <div className="ss-srv2-demo-invite__surface ss-srv2-beam-border">
-          <div className="ss-srv2-demo-invite__signal" aria-hidden="true">
-            <span />
-            <SignalIcon />
+        {/* The frame entrance sits on a wrapper, not on the surface: the
+            surface's own `::after` is its grid texture, and the panel's
+            ignition sheen is also an `::after`. The wrapper shares the
+            surface's radius so the edge light traces the same corners. */}
+        <PanelReveal className="ss-srv2-demo-invite__reveal">
+          <div className="ss-srv2-demo-invite__surface ss-srv2-beam-border">
+            <div className="ss-srv2-demo-invite__signal" aria-hidden="true">
+              <span />
+              <SignalIcon />
+            </div>
+            <div className="ss-srv2-demo-invite__copy">
+              <span className="ss-srv2-demo-invite__eyebrow">
+                <Sparkles aria-hidden="true" /> Live systems online
+              </span>
+              <h2 id={`demo-invite-${variant}`}>{heading}</h2>
+              <p>{body}</p>
+            </div>
+            <div className="ss-srv2-demo-invite__actions">
+              {actions.map(({ href, label, detail, icon: Icon }) => (
+                <Link
+                  className="ss-focus-ring ss-srv2-demo-invite__action"
+                  key={href}
+                  to={href}
+                >
+                  <span className="ss-srv2-demo-invite__action-icon">
+                    <Icon aria-hidden="true" />
+                  </span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{detail}</small>
+                  </span>
+                  <ArrowRight aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+            <BorderBeam />
           </div>
-          <div className="ss-srv2-demo-invite__copy">
-            <span className="ss-srv2-demo-invite__eyebrow">
-              <Sparkles aria-hidden="true" /> Live systems online
-            </span>
-            <h2 id={`demo-invite-${variant}`}>{heading}</h2>
-            <p>{body}</p>
-          </div>
-          <div className="ss-srv2-demo-invite__actions">
-            {actions.map(({ href, label, detail, icon: Icon }) => (
-              <Link
-                className="ss-focus-ring ss-srv2-demo-invite__action"
-                key={href}
-                to={href}
-              >
-                <span className="ss-srv2-demo-invite__action-icon">
-                  <Icon aria-hidden="true" />
-                </span>
-                <span>
-                  <strong>{label}</strong>
-                  <small>{detail}</small>
-                </span>
-                <ArrowRight aria-hidden="true" />
-              </Link>
-            ))}
-          </div>
-          <BorderBeam />
-        </div>
+        </PanelReveal>
       </div>
     </section>
   );

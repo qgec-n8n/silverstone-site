@@ -55,10 +55,15 @@ export const industryArt: Record<IndustryRoute, IndustryArt> = {
     accentFrom: "#8b7cf6",
     accentTo: "#22d3ee",
     icon: Building2,
+    /* The portrait crop at every width: the landscape still was replaced on
+       desktop too (2026-09-08), so one asset serves both plates and the
+       explicit dimensions keep the `<img>` box honest for its ratio. */
     primary: image(
-      "/approved-images/Real_Estate_1.jpeg",
+      "/approved-images/Real_Estate_1_Mobile.jpeg",
       "/approved-images/Real_Estate_1_Mobile.jpeg",
       "Illustrative branch command panel capturing valuation, portal-lead and viewing activity.",
+      1080,
+      1610,
     ),
     gallery: [
       image(

@@ -45,7 +45,7 @@ const routeAssets: Record<string, string[]> = {
   "/services/ai-automation": ["/approved-images/services_workflow_automation.jpg"],
   "/services/ai-consulting": ["/approved-images/services_consulting.jpg"],
   "/industry": ["/approved-images/general-services-3.png"],
-  "/industry/estate-agents": ["/approved-images/Real_Estate_1.jpeg"],
+  "/industry/estate-agents": ["/approved-images/Real_Estate_1_Mobile.jpeg"],
   "/industry/salons-barbers": ["/approved-images/Salon_1.jpeg"],
   "/industry/aesthetic-clinics": ["/approved-images/aesthetic-1.webp"],
   "/industry/ecommerce": ["/approved-images/ecommerce-1.webp"],

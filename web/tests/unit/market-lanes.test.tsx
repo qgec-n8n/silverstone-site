@@ -3,7 +3,12 @@ import { MemoryRouter } from "react-router";
 import { describe, expect, it } from "vitest";
 
 import { MarketLanes } from "~/features/industries-v2/components/industry-sections";
-import { US_METROS } from "~/features/industries-v2/content/atlas";
+import {
+  ATLAS_COMPACT,
+  ATLAS_WIDE,
+  LINKED_METROS,
+  US_METROS,
+} from "~/features/industries-v2/content/atlas";
 import { industryCopyByRoute, industryRoutes } from "~/features/industries-v2/content";
 import { MotionProvider } from "~/motion";
 
@@ -111,13 +116,17 @@ describe("MarketLanes (Atlantic atlas + ledger)", () => {
     const { container } = renderLanes("/industry/dentists");
     const metros = US_METROS.map((city) => city.name);
 
-    // One real-text label per city over the plate, London first, each a
-    // <label for> on the market switch: tapping a metro moves the ledger to
-    // the US, tapping London to the UK.
+    // One real-text label per named city over the plate, London first, each
+    // a <label for> on the market switch: tapping a metro moves the ledger
+    // to the US, tapping London to the UK. The quiet tier is plotted but
+    // named only by the strip.
+    const named = ATLAS_WIDE.cities
+      .filter((city) => city.labelled)
+      .map((city) => city.name);
     const labels = [
       ...container.querySelectorAll<HTMLLabelElement>(".ss-ind2-atlas__label"),
     ];
-    expect(labels.map((label) => label.textContent)).toEqual(["London", ...metros]);
+    expect(labels.map((label) => label.textContent)).toEqual(["London", ...named]);
     for (const label of labels) {
       const radio = container.querySelector<HTMLInputElement>(`#${label.htmlFor}`);
       expect(radio?.type).toBe("radio");
@@ -136,19 +145,22 @@ describe("MarketLanes (Atlantic atlas + ledger)", () => {
 
     const chart = container.querySelector(".ss-ind2-atlas__chart");
     expect(chart).toHaveAttribute("role", "img");
-    expect(chart?.getAttribute("aria-label")).toMatch(
-      /London linked to twelve US metros/,
-    );
+    expect(chart?.getAttribute("aria-label")).toMatch(/London and twelve US metros/);
     for (const name of metros) {
       expect(chart?.getAttribute("aria-label")).toContain(name);
     }
 
     // Two plates (wide, compact), each decorative, each drawing three static
-    // dot layers, twelve links and thirteen nodes.
+    // dot layers, a route to every linked metro, thirteen nodes and a glow
+    // per country. Nothing flies the routes any more: the draw itself is the
+    // motion, and it leaves London.
     const svgs = container.querySelectorAll(".ss-ind2-atlas__svg");
     expect(svgs).toHaveLength(2);
     for (const svg of svgs) {
       expect(svg).toHaveAttribute("aria-hidden", "true");
+      const plate = svg.classList.contains("ss-ind2-atlas__svg--wide")
+        ? ATLAS_WIDE
+        : ATLAS_COMPACT;
       const layers = [...svg.querySelectorAll("image")].map((image) =>
         image.getAttribute("href"),
       );
@@ -157,16 +169,23 @@ describe("MarketLanes (Atlantic atlas + ledger)", () => {
         expect(href).toMatch(/^\/maps\/atlas-(wide|compact)-(world|us|uk)\.svg$/);
       }
       expect(svg.querySelectorAll(".ss-ind2-atlas__link")).toHaveLength(
-        US_METROS.length,
+        LINKED_METROS.length,
       );
       expect(svg.querySelectorAll(".ss-ind2-atlas__node")).toHaveLength(
         US_METROS.length + 1,
       );
-      // Every pulse flies the arc its own link draws.
+      // The linked nodes: every routed metro, plus London at the other end.
+      expect(
+        svg.querySelectorAll('.ss-ind2-atlas__node[data-linked="true"]'),
+      ).toHaveLength(LINKED_METROS.length + 1);
+      expect(svg.querySelectorAll(".ss-ind2-atlas__pulse")).toHaveLength(0);
+      expect(svg.querySelectorAll(".ss-ind2-atlas__aura-wash")).toHaveLength(2);
+      expect(svg.querySelectorAll(".ss-ind2-atlas__ripple")).toHaveLength(6);
       for (const link of svg.querySelectorAll(".ss-ind2-atlas__link")) {
-        const d = link.querySelector(".ss-ind2-atlas__arc")?.getAttribute("d");
-        const pulse = link.querySelector<SVGCircleElement>(".ss-ind2-atlas__pulse");
-        expect(pulse?.style.offsetPath).toBe(`path("${d ?? ""}")`);
+        const d = link.querySelector(".ss-ind2-atlas__arc")?.getAttribute("d") ?? "";
+        expect(
+          d.startsWith(`M ${String(plate.hub.point.x)} ${String(plate.hub.point.y)} `),
+        ).toBe(true);
       }
     }
   });

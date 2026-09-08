@@ -102,6 +102,13 @@
   padding-block: clamp(3.5rem, 2.5rem + 5vw, 7rem) 0;
 }
 
+/* The frame entrance lives on this wrapper (see DemoInvitation): it shares
+   the surface's radius so the panel's ignition hairlines and sheen trace the
+   same corners as the surface itself. */
+.ss-srv2-demo-invite__reveal {
+  border-radius: var(--ss-radius-xl);
+}
+
 .ss-srv2-demo-invite__surface {
   position: relative;
   isolation: isolate;

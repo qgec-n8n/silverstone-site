@@ -24,6 +24,7 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import {
   BorderBeam,
+  PanelReveal,
   Prose,
   Reveal,
   SectionHead,
@@ -111,7 +112,7 @@ export function DentistsComposition({
             heading={copy.problem.heading}
             headingId="ind2-problem"
           />
-          <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+          <PanelReveal className="ss-ind2-problem-panel ss-srv2-beam-border">
             <Reveal kind="section">
               <Prose paragraphs={[copy.problem.body]} />
             </Reveal>
@@ -121,7 +122,7 @@ export function DentistsComposition({
               columns={4}
             />
             <BorderBeam />
-          </div>
+          </PanelReveal>
         </div>
       </section>
 
@@ -186,7 +187,7 @@ export function DentistsComposition({
 
       <section className="ss-srv2-section" aria-labelledby="ind2-services">
         <div className="ss-srv2__container">
-          <div className="ss-srv2-split">
+          <PanelReveal className="ss-srv2-split">
             <div>
               <SectionHead
                 eyebrow="Around the clinical team"
@@ -200,7 +201,7 @@ export function DentistsComposition({
             <Reveal kind="image">
               <IndustryFigure image={art.primary} />
             </Reveal>
-          </div>
+          </PanelReveal>
         </div>
       </section>
 
