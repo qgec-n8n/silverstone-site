@@ -155,18 +155,21 @@ export function WebDesignComposition({
       {/* 5 — Why Silverstone is different (with the approved system image) */}
       <section className="ss-srv2-section" aria-labelledby="srv2-different">
         <div className="ss-srv2__container">
-          <div className="ss-srv2-split ss-srv2-split--wide-copy">
-            <div>
-              <SectionHead
-                eyebrow="Why Silverstone AI"
-                icon={Sparkles}
-                heading={copy.differentiator.heading}
-                headingId="srv2-different"
-                lead={copy.differentiator.body}
-              />
+          <div className="ss-srv2-split ss-srv2-split--stacked">
+            <SectionHead
+              eyebrow="Why Silverstone AI"
+              icon={Sparkles}
+              heading={copy.differentiator.heading}
+              headingId="srv2-different"
+              lead={copy.differentiator.body}
+            />
+            <div className="ss-srv2-split__stack">
+              <Reveal kind="image">
+                <ServiceFigure image={art.image} />
+              </Reveal>
               {copy.comparison ? (
                 <Reveal kind="section" delayMs={90}>
-                  <div className="ss-srv2-compare" style={{ marginTop: "1.5rem" }}>
+                  <div className="ss-srv2-compare">
                     <div className="ss-srv2-compare__col">
                       <p className="ss-srv2-compare__label">
                         {copy.comparison.before.title}
@@ -187,9 +190,6 @@ export function WebDesignComposition({
                 </Reveal>
               ) : null}
             </div>
-            <Reveal kind="image">
-              <ServiceFigure image={art.image} />
-            </Reveal>
           </div>
         </div>
       </section>

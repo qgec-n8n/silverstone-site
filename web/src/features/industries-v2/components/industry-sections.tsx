@@ -382,13 +382,16 @@ export function FitPanel({ right, caution }: { right: string[]; caution: string 
 /** Node and stroke sizes in viewBox units, per plate: the wide plate shows
  * ~0.46px per unit at 1100 wide, the compact one ~0.32px at 340. `quiet` is
  * a third-tier metro — plotted, never linked — and `ripple` the radius the
- * lit country's rings start from. */
+ * lit country's rings start from. The compact hub is held only a step above
+ * its metros rather than at the wide plate's ratio: on a phone-width plate
+ * London at 17 (bloom out to 102) read as a blob over the whole south-east,
+ * so it is 13 — still the largest node, no longer the loudest thing on it. */
 const ATLAS_SIZE: Record<
   AtlasPlate["name"],
   { city: number; quiet: number; hub: number; ripple: { us: number; uk: number } }
 > = {
   wide: { city: 9, quiet: 6, hub: 14, ripple: { us: 70, uk: 22 } },
-  compact: { city: 11, quiet: 7, hub: 17, ripple: { us: 44, uk: 20 } },
+  compact: { city: 11, quiet: 7, hub: 13, ripple: { us: 44, uk: 20 } },
 };
 
 const spell = (n: number) =>

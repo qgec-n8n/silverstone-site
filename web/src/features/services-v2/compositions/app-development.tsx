@@ -142,7 +142,7 @@ export function AppDevelopmentComposition({
 
       <section className="ss-srv2-section" aria-labelledby="srv2-different">
         <div className="ss-srv2__container">
-          <div className="ss-srv2-split">
+          <div className="ss-srv2-split ss-srv2-split--stacked">
             <SectionHead
               eyebrow="Why Silverstone AI"
               icon={Sparkles}
@@ -150,31 +150,33 @@ export function AppDevelopmentComposition({
               headingId="srv2-different"
               lead={copy.differentiator.body}
             />
-            {copy.comparison ? (
-              <Reveal kind="section" delayMs={90}>
-                <div className="ss-srv2-compare" style={{ marginTop: "1.5rem" }}>
-                  <div className="ss-srv2-compare__col">
-                    <p className="ss-srv2-compare__label">
-                      {copy.comparison.before.title}
-                    </p>
-                    <p className="ss-srv2-compare__text">
-                      {copy.comparison.before.body}
-                    </p>
-                  </div>
-                  <div className="ss-srv2-compare__col" data-tone="accent">
-                    <p className="ss-srv2-compare__label">
-                      {copy.comparison.after.title}
-                    </p>
-                    <p className="ss-srv2-compare__text">
-                      {copy.comparison.after.body}
-                    </p>
-                  </div>
-                </div>
+            <div className="ss-srv2-split__stack">
+              <Reveal kind="image">
+                <ServiceFigure image={art.image} />
               </Reveal>
-            ) : null}
-            <Reveal kind="image">
-              <ServiceFigure image={art.image} />
-            </Reveal>
+              {copy.comparison ? (
+                <Reveal kind="section" delayMs={90}>
+                  <div className="ss-srv2-compare">
+                    <div className="ss-srv2-compare__col">
+                      <p className="ss-srv2-compare__label">
+                        {copy.comparison.before.title}
+                      </p>
+                      <p className="ss-srv2-compare__text">
+                        {copy.comparison.before.body}
+                      </p>
+                    </div>
+                    <div className="ss-srv2-compare__col" data-tone="accent">
+                      <p className="ss-srv2-compare__label">
+                        {copy.comparison.after.title}
+                      </p>
+                      <p className="ss-srv2-compare__text">
+                        {copy.comparison.after.body}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              ) : null}
+            </div>
           </div>
         </div>
       </section>

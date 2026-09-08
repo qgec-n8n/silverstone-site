@@ -21,6 +21,7 @@ import {
 
 import {
   Highlight,
+  Prose,
   Reveal,
   RichText,
   SectionHead,
@@ -146,7 +147,7 @@ export function ContentCreationComposition({
 
       <section className="ss-srv2-section" aria-labelledby="srv2-different">
         <div className="ss-srv2__container">
-          <div className="ss-srv2-split">
+          <div className="ss-srv2-split ss-srv2-split--stacked">
             <div>
               <SectionHead
                 eyebrow="Why Silverstone AI"
@@ -162,9 +163,22 @@ export function ContentCreationComposition({
                   the human sign-off that keeps every asset distinct instead of generic.
                 </p>
               </Reveal>
+              <Reveal className="ss-srv2-split__prose" kind="section" delayMs={120}>
+                <Prose
+                  paragraphs={[
+                    "Every piece starts from a source we can stand behind — a founder interview, a delivered project, a position your team actually holds — and is atomized into the formats each channel rewards.",
+                    "The system is governed, not merely fast: approved terminology, claims that trace back to evidence, and a named reviewer who signs off before anything carries your name.",
+                  ]}
+                />
+              </Reveal>
+            </div>
+            <div className="ss-srv2-split__stack">
+              <Reveal kind="image">
+                <ServiceFigure image={art.image} />
+              </Reveal>
               {copy.comparison ? (
                 <Reveal kind="section" delayMs={90}>
-                  <div className="ss-srv2-compare" style={{ marginTop: "1.5rem" }}>
+                  <div className="ss-srv2-compare">
                     <div className="ss-srv2-compare__col">
                       <p className="ss-srv2-compare__label">
                         {copy.comparison.before.title}
@@ -185,9 +199,6 @@ export function ContentCreationComposition({
                 </Reveal>
               ) : null}
             </div>
-            <Reveal kind="image">
-              <ServiceFigure image={art.image} />
-            </Reveal>
           </div>
         </div>
       </section>

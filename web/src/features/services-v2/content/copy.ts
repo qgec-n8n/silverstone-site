@@ -81,16 +81,16 @@ export const webDesignCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "One studio, not *five suppliers*",
-    body: "Silverstone AI combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is *the visible edge of a working commercial system* — designed around the decision a qualified buyer needs to make. The same team wires the booking flow, the CRM hand-off and the follow-up, and, where it genuinely earns its place, the AI receptionist that answers the calls arriving after hours. Built in London, delivered for UK businesses and US companies alike.",
+    body: "Silverstone AI combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is *the visible edge of a working commercial system* — designed around the decision a qualified buyer needs to make. The same team wires the booking flow, the CRM hand-off and the follow-up, and, where it genuinely earns its place, the AI receptionist that answers the calls arriving after hours. One team also means one accountable owner for the result: the people who wrote the copy watch the booked-call numbers after launch. Built in London, delivered for UK businesses and US companies alike.",
   },
   comparison: {
     before: {
       title: "Surface-led rebuild",
-      body: "Starts with appearance. A template is chosen, copy is poured in afterward, SEO and integrations become later problems, and the launch date quietly replaces the commercial goal.",
+      body: "Starts with appearance. A template is chosen, copy is poured in afterward, SEO and integrations become later problems, and the launch date replaces the goal.",
     },
     after: {
       title: "Silverstone AI website system",
-      body: "Starts with the buyer’s decision. Copy, design, engineering and the systems behind the forms are built together, and the build is judged on booked calls rather than compliments.",
+      body: "Starts with the buyer’s decision. Copy, design, engineering and the systems behind the forms are built together, and the site is judged on booked calls, not compliments.",
     },
   },
   proof: {
@@ -225,16 +225,16 @@ export const appDevelopmentCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "A release built to *reduce risk*",
-    body: "We define the states your system must handle before we design a single screen — *what happens when data is missing, when an action fails, when two users collide*. The critical route is prototyped with acceptance criteria attached while change is still cheap, and open questions get written down rather than hidden behind a polished design. Where AI is involved it gets approved inputs, approved outputs and a fallback, with human review kept on any decision that carries real cost. That discipline is what makes a first release trustworthy enough to build on.",
+    body: "We define the states your system must handle before we design a single screen — *what happens when data is missing, when an action fails, when two users collide*. The critical route is prototyped with acceptance criteria attached while change is still cheap, and open questions get written down rather than hidden behind a polished design. Where AI is involved it gets approved inputs, approved outputs and a fallback, with human review kept on any decision that carries real cost. That discipline is what makes a first release trustworthy enough to build on. Each release ships with the evidence that it works, not just the screens.",
   },
   comparison: {
     before: {
       title: "Feature-led build",
-      body: "Treats the backlog as the strategy: scope is agreed as a list of screens, and the hard questions — states, permissions, ownership — are postponed until they are expensive.",
+      body: "Treats the backlog as the strategy: scope is a list of screens, and the hard questions — states, permissions, ownership — wait until they are expensive.",
     },
     after: {
       title: "Silverstone AI first-release model",
-      body: "Makes the user, the workflow, the system states and the evidence explicit first, so the release ships smaller, proves something, and can be extended rather than rebuilt.",
+      body: "Makes the user, workflow, system states and evidence explicit first, so the release ships smaller, proves something, and can be extended rather than rebuilt.",
     },
   },
   proof: {
@@ -361,7 +361,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "Built for the call that goes *off-script*",
-    body: "Real callers interrupt, change their mind, and ask things the script didn't anticipate. We design for that — *with confidence thresholds, permitted actions, and a clean human handover* before the agent guesses. Every action it can take is enumerated and bounded, every failure path has a named owner, and every uncertain call is reviewable as a transcript. That is the difference between a voice that sounds convincing and a call system you can put in front of paying customers.",
+    body: "Real callers interrupt, change their mind, and ask things the script didn't anticipate. We design for that — *with confidence thresholds, permitted actions, and a clean human handover* before the agent guesses. Every action it can take is enumerated and bounded, every failure path has a named owner, and every uncertain call is reviewable as a transcript. Before launch we rehearse the calls that go wrong and script the recovery for each one. That is the difference between a voice that sounds convincing and a call system you can put in front of paying customers.",
   },
   comparison: {
     before: {
@@ -498,7 +498,7 @@ export const aiReceptionistsCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "*Answering* versus *operating*",
-    body: "A generic answering bot recites information. An operating front desk *qualifies the inquiry, checks availability, updates your systems*, and knows precisely when a decision needs a human — every time, not most of the time. The difference shows when something fails: a full calendar, a rejected write, a caller who doesn't fit the script. An operating desk says what is true, retries only where retrying is safe, and moves the inquiry to a named owner instead of ending the conversation politely and losing it. Blocked topics, confidence thresholds and escalation routes are written down before launch, and every conversation leaves a record you can read.",
+    body: "A generic answering bot recites information. An operating front desk *qualifies the inquiry, checks availability, updates your systems*, and knows precisely when a decision needs a human. The difference shows when something fails: a full calendar, a rejected write, a caller who doesn't fit the script. An operating desk says what is true, retries only where retrying is safe, and moves the inquiry to a named owner instead of ending the call and losing it. Blocked topics, confidence thresholds and escalation routes are written down before launch, and every conversation leaves a record you can read.",
   },
   comparison: {
     before: {
@@ -645,11 +645,11 @@ export const contentCreationCopy: ServiceCopy = {
   comparison: {
     before: {
       title: "AI content factory",
-      body: "Optimizes for output volume and generic consistency: one prompt, many near-identical assets, no accountable source and nobody between the model and the publish button.",
+      body: "Optimizes for volume and generic consistency: one prompt, many near-identical assets, no accountable source, and nobody between the model and the publish button.",
     },
     after: {
       title: "Silverstone content system",
-      body: "Optimizes for source quality, distinct intent, governance and commercial usefulness: every asset traces to approved expertise, answers one audience question, and clears a named reviewer before it carries your name.",
+      body: "Optimizes for source quality, distinct intent and commercial use: every asset traces to approved expertise, answers one question, and clears a named reviewer first.",
     },
   },
   proof: {
@@ -772,16 +772,16 @@ export const aiAutomationCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "AI where *judgment* helps",
-    body: "We don't default to AI for everything. Deterministic logic runs wherever the rule is already known — AI earns its place only *where judgment genuinely adds value*, and every exception has a defined human owner. The same discipline decides autonomy: we start from consequence — what a wrong action would cost, who finds out, and how it gets reversed. Cheap-to-undo steps run unattended. Anything that moves money, messages a client or writes to a system of record waits for approval until it has earned autonomy.",
+    body: "We don't default to AI for everything. Deterministic logic runs wherever the rule is already known — AI earns its place only *where judgment genuinely adds value*, and every exception has a defined human owner. The same discipline decides autonomy: we start from consequence — what a wrong action would cost, who finds out, and how it gets reversed. Cheap-to-undo steps run unattended. Anything that moves money, messages a client or writes to a system of record waits for approval until it has earned autonomy. Each rule is written down where the people who run the process can read it, so the automation stays explainable long after launch.",
   },
   comparison: {
     before: {
       title: "Connector-first automation",
-      body: "Starts with the apps already available and a happy-path trigger. Data moves, but no one owns the decision, exceptions have nowhere to go, and the first renamed field breaks the flow quietly.",
+      body: "Starts with the apps to hand and a happy-path trigger. Data moves, but nobody owns the decision, exceptions have nowhere to go, and one renamed field breaks it quietly.",
     },
     after: {
       title: "Silverstone AI operating layer",
-      body: "Starts with ownership, source of truth, exception and consequence, then selects the platform. Rules stay deterministic, AI stays bounded, approvals gate the costly steps, and every run is logged and monitored.",
+      body: "Starts with ownership, source of truth, exception and consequence, then chooses the platform. Rules stay deterministic, AI stays bounded, and every run is logged.",
     },
   },
   proof: {
@@ -908,16 +908,16 @@ export const aiConsultingCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "A route that ends in *decisions*",
-    body: "We're not tied to a platform or a delivery pipeline to protect. The output is a clear recommendation — *including where the honest answer is to wait, or not automate at all*. Judgment-led work, disputed processes, ungoverned inputs and genuinely infrequent tasks are named as such rather than dressed up as opportunities. Where a build is justified, the reasoning travels with it: the requirements, controls and measures that justified the decision are the ones delivery is tested against — whether your team builds it, a vendor does, or we do.",
+    body: "We're not tied to a platform or a delivery pipeline to protect. The output is a clear recommendation — *including where the honest answer is to wait, or not automate at all*. Judgment-led work, disputed processes, ungoverned inputs and genuinely infrequent tasks are named as such rather than dressed up as opportunities. Where a build is justified, the reasoning travels with it: the requirements, controls and measures that justified the decision are the ones delivery is tested against — whether your team builds it, a vendor does, or we do. You leave with a sequence you can defend to a board and a baseline to measure the next step against.",
   },
   comparison: {
     before: {
       title: "Tool-led AI strategy",
-      body: "Starts with a product and hunts for places to deploy it. Scope follows the vendor's roadmap, the business case is written after the purchase, and the enabling work — data, ownership, policy — surfaces once the invoice is paid.",
+      body: "Starts with a product and hunts for places to use it. The business case is written after the purchase; the data, ownership and policy work surfaces once the invoice is paid.",
     },
     after: {
       title: "Silverstone AI advisory route",
-      body: "Starts with the operating problem and a baseline you can defend. Build, buy, configure, defer and leave alone are all permitted answers, and the recommendation carries the requirements, controls and measures delivery will be judged against.",
+      body: "Starts with the operating problem and a defensible baseline. Build, buy, configure, defer and leave alone are all permitted answers, and each carries its own measures.",
     },
   },
   proof: {

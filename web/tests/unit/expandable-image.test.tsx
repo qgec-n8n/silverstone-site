@@ -45,7 +45,7 @@ function renderImage() {
 }
 
 describe("ExpandableImage", () => {
-  it("wraps the picture in a named dialog trigger that carries the cue", () => {
+  it("frames the picture beside a named dialog trigger that is the cue", () => {
     const { container } = renderImage();
     const button = screen.getByRole("button", {
       name: "Expand image: A studio at night.",
@@ -53,11 +53,25 @@ describe("ExpandableImage", () => {
 
     expect(button).toHaveAttribute("aria-haspopup", "dialog");
     expect(button).toHaveAttribute("aria-expanded", "false");
-    expect(button.querySelector("img")).not.toBeNull();
+    // The chip is the control; the picture sits beside it in the frame, not
+    // inside it, so the image itself is not part of the button.
+    expect(button.querySelector("img")).toBeNull();
+    expect(button.closest(".ss-zoom")?.querySelector("img")).not.toBeNull();
+    expect(button.querySelector(".ss-zoom__cue")?.textContent).toBe("Expand");
     expect(container.querySelectorAll(".ss-zoom__corner")).toHaveLength(4);
-    expect(container.querySelector(".ss-zoom__cue")?.textContent).toBe("Expand");
     // The page's own image is untouched: still one <img> in the document.
     expect(document.querySelectorAll("img")).toHaveLength(1);
+  });
+
+  it("does not open from a click on the picture itself", () => {
+    renderImage();
+
+    fireEvent.click(screen.getByRole("img", { name: "A studio at night." }));
+
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(
+      screen.getByRole("button", { name: "Expand image: A studio at night." }),
+    ).toHaveAttribute("aria-expanded", "false");
   });
 
   it("opens the image as a dialog titled by its alt, and closes on Escape", () => {

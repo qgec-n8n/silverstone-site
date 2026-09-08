@@ -1,14 +1,16 @@
 /**
  * Every content image on the site opens into a lightbox.
  *
- * `ExpandableImage` wraps a `<picture>`/`<img>` in a button that carries the
- * cue — four corner brackets and a small glass chip reading "Expand" — and,
- * on activation, brings the image forward as a Radix dialog: focus trap,
- * Escape, scrim click, scroll lock, focus return. The image morphs out of its
- * own frame on the page and back into it on close (Motion shared layout),
- * solid from the first frame; the scrim darkens as it lifts.
+ * `ExpandableImage` wraps a `<picture>`/`<img>` in a frame that carries the
+ * cue — four corner brackets and a small glass chip reading "Expand". The chip
+ * is the control: only it opens the lightbox (the picture itself is inert, so
+ * a click or tap on the image never lifts it), and on activation it brings the
+ * image forward as a Radix dialog: focus trap, Escape, scrim click, scroll
+ * lock, focus return. The image morphs out of its own frame on the page and
+ * back into it on close (Motion shared layout), solid from the first frame;
+ * the scrim darkens as it lifts.
  *
- * The morph's socket is an invisible ghost inside the button that carries the
+ * The morph's socket is an invisible ghost inside the frame that carries the
  * shared `layoutId` — never the image itself, which shared layout would hide
  * and leave a hole in the page. Where the page shows a crop (`object-fit:
  * cover` at a fixed aspect), the ghost is fitted to the largest box of the
@@ -19,7 +21,7 @@
  *
  * The portal leaves every scoped stylesheet, so the lightbox is styled from
  * the global tokens (`~/styles/image-lightbox.css`) and carries the route's
- * accent across as `--lb-accent`, read from the button at open time.
+ * accent across as `--lb-accent`, read from the frame at open time.
  */
 import { AnimatePresence, useReducedMotion, type MotionStyle } from "motion/react";
 import * as m from "motion/react-m";
@@ -37,7 +39,7 @@ const FRAME_RADIUS = 20;
 const morph = { type: "spring", stiffness: 290, damping: 33, mass: 0.9 } as const;
 const entranceEase = [0.22, 1, 0.36, 1] as const;
 
-/** The ghost's box inside the button, in px. `null` fills the button. */
+/** The ghost's box inside the frame, in px. `null` fills the frame. */
 type Socket = { left: number; top: number; width: number; height: number };
 
 type Frame = {
@@ -100,15 +102,16 @@ export function ExpandableImage({
   const reducedMotion = useReducedMotion() ?? false;
   const id = useId();
   const layoutId = reducedMotion ? undefined : `${id}-image`;
+  const frameRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [frame, setFrame] = useState<Frame | null>(null);
   const open = frame !== null;
 
   const expand = () => {
-    const button = buttonRef.current;
-    const image = button?.querySelector("img");
-    if (!button || !image) {
+    const frame = frameRef.current;
+    const image = frame?.querySelector("img");
+    if (!frame || !image) {
       return;
     }
     const imageBox = image.getBoundingClientRect();
@@ -124,10 +127,10 @@ export function ExpandableImage({
        box in a flushed commit of its own, then the dialog mounts and the
        ghost's `layoutDependency` flips with it. */
     flushSync(() => {
-      setSocket(fitSocket(imageBox, button.getBoundingClientRect(), natural));
+      setSocket(fitSocket(imageBox, frame.getBoundingClientRect(), natural));
     });
 
-    const style = getComputedStyle(button);
+    const style = getComputedStyle(frame);
     const accent = firstOf(
       style.getPropertyValue("--srv2-accent").trim(),
       style.getPropertyValue("--ss-v2-signal-cyan").trim(),
@@ -153,15 +156,10 @@ export function ExpandableImage({
 
   return (
     <>
-      <button
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        aria-label={`Expand image: ${alt}`}
+      <div
         className={cn("ss-zoom", className)}
         data-state={open ? "open" : "closed"}
-        onClick={expand}
-        ref={buttonRef}
-        type="button"
+        ref={frameRef}
       >
         {children}
         {layoutId ? (
@@ -182,11 +180,25 @@ export function ExpandableImage({
             key={corner}
           />
         ))}
-        <span aria-hidden="true" className="ss-zoom__cue">
-          <Maximize2 aria-hidden="true" />
-          <span>Expand</span>
-        </span>
-      </button>
+        {/* The chip is the only control — the picture beside it opens
+            nothing. The button's padding is an invisible hit area around
+            the chip, so the finger target is generous while the chip itself
+            stays a small instrument. */}
+        <button
+          aria-expanded={open}
+          aria-haspopup="dialog"
+          aria-label={`Expand image: ${alt}`}
+          className="ss-zoom__button"
+          onClick={expand}
+          ref={buttonRef}
+          type="button"
+        >
+          <span aria-hidden="true" className="ss-zoom__cue">
+            <Maximize2 aria-hidden="true" />
+            <span>Expand</span>
+          </span>
+        </button>
+      </div>
 
       <DialogPrimitive.Root
         onOpenChange={(next) => {

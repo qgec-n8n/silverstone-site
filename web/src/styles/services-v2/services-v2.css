@@ -1917,17 +1917,30 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2-split[data-flip="true"] > :first-child {
     order: 2;
   }
+}
 
-  /*
-   * The Web Design differentiator split pairs a comparison table with a now-
-   * landscape approved image (2528x1696) — a shorter, wider photo than the
-   * shared 34rem cap was set for. Narrowing the image column hands the
-   * comparison copy real extra width instead of wrapping tightly beside a
-   * cap sized for a taller image, shortening the copy block in the process.
-   */
-  .ss-srv2-split--wide-copy {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
-  }
+/*
+ * The differentiator split ("Why Silverstone AI", every service page): copy
+ * on the left; on the right the approved photo with its two comparison cards
+ * directly beneath it, all one column wide — the photo's edges sit on the
+ * cards' outer edges and its top on the eyebrow's. Tops align rather than
+ * centres because the two columns are written to run to about the same
+ * height, so there is no shortfall to centre against. The stack's gap is the
+ * cards' own gutter, so image and cards read as one grid.
+ */
+.ss-srv2-split--stacked {
+  align-items: start;
+}
+
+.ss-srv2-split__stack {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* Copy that continues under a split's lead line, at the head's own rhythm. */
+.ss-srv2-split__prose {
+  margin-block-start: var(--ss-space-4);
 }
 
 /*
