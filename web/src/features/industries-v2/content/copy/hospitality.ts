@@ -9,10 +9,10 @@ export const hospitalityCopy: IndustryCopy = {
   sector: "Hospitality",
   routeEntry: {
     loaderText: "Coordinating the guest journey",
-    pill: "Guest-journey orchestration",
-    title: "Be available at peak demand without making service feel automatic",
+    pill: "Hospitality AI · reservations & guest inquiries",
+    title: "Hospitality automation for hotels, restaurants and venues",
     subtitle:
-      "Connect availability, reservations, group inquiries and pre-arrival communication while preserving the judgment of the team on duty.",
+      "AI automation for hotels, restaurants and venues: availability, reservations, group inquiries and pre-arrival communication connected while the team on duty keeps the judgment.",
     buttonLabel: "Explore the guest journey",
   },
   seo: {

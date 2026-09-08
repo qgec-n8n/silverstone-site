@@ -60,56 +60,79 @@ const routeAssets: Record<string, string[]> = {
   "/pricing": ["/home-v2/consulting-strategy.png"],
 };
 
+/*
+ * The Aether intro splash is the first copy a visitor — and a crawler that
+ * hydrates — reads on each route, so every title states the page's subject in
+ * plain terms (the service or sector, and where useful "London" / "UK and US")
+ * before the body hero adds the argument. Kept to the same lengths as the
+ * lines they replaced, so the splash's type budget is unchanged.
+ */
 const coreRouteEntries: Record<
   string,
   Pick<RouteExperience, "loaderText" | "pill" | "title" | "subtitle" | "buttonLabel">
 > = {
+  "/services": {
+    loaderText: "Preparing the service architecture",
+    pill: "AI agency services · London, UK & US",
+    title: "AI automation, development and consulting services",
+    subtitle:
+      "Silverstone AI's seven services for UK and US businesses: AI agents, voice agents and receptionists, workflow automation, web and app development, content systems and AI consulting.",
+    buttonLabel: "Explore our services",
+  },
+  "/industry": {
+    loaderText: "Mapping sector operating patterns",
+    pill: "Industry AI automation · UK & US",
+    title: "AI automation built for your industry",
+    subtitle:
+      "Sector-specific AI reception, booking, follow-up and back-office systems for ten industries across the UK and US, with the judgment calls kept human.",
+    buttonLabel: "Explore industry systems",
+  },
   "/how-we-work": {
     loaderText: "Calibrating the delivery route",
     pill: "The Silverstone method",
-    title: "Complex technology. Controlled delivery.",
+    title: "How a London AI agency delivers automation",
     subtitle:
-      "A disciplined route from commercial diagnosis to tested, measurable systems, designed around your people, data and operating reality.",
+      "How Silverstone AI takes AI automation from commercial diagnosis to tested, measurable systems, designed around your people, data and operating reality.",
     buttonLabel: "Enter the delivery framework",
   },
   "/blog": {
     loaderText: "Indexing the insight library",
     pill: "Silverstone Intelligence",
-    title: "Read before you build.",
+    title: "AI guides from a London automation agency",
     subtitle:
-      "Practical analysis for leaders deciding what to automate, what to design, what to measure and where human judgment still matters.",
+      "Practical analysis from Silverstone AI for leaders deciding what to automate, what to design, what to measure and where human judgment still matters.",
     buttonLabel: "Open the Insights library",
   },
   "/about": {
     loaderText: "Resolving the Silverstone standard",
     pill: "The Silverstone standard",
-    title: "Capability is common. Judgment is rare.",
+    title: "A London AI automation agency and consultancy",
     subtitle:
-      "Silverstone AI joins commercial strategy, digital craft, engineering, AI and automation, then applies the restraint to use each only where it belongs.",
+      "Silverstone AI joins AI consulting, commercial strategy, digital craft, engineering, AI agents and automation, then applies the restraint to use each only where it belongs.",
     buttonLabel: "Discover the standard",
   },
   "/pricing": {
     loaderText: "Shaping the investment model",
     pill: "Pricing, scope and return",
-    title: "Investment made visible before the build begins.",
+    title: "Transparent AI automation pricing in GBP and USD",
     subtitle:
-      "Clear starting prices, defined implementation bands and written proposals shaped around scope, risk and measurable commercial value.",
+      "Clear starting prices for AI agents, automation, consulting and websites, defined implementation bands and written proposals shaped around scope, risk and measurable value.",
     buttonLabel: "See the pricing model",
   },
   "/contact": {
     loaderText: "Opening a direct channel",
     pill: "Direct correspondence",
-    title: "Put the problem in writing.",
+    title: "Contact a London AI automation agency",
     subtitle:
-      "Send the context that matters so Silverstone AI can decide whether a written answer, discovery call or different route makes sense.",
+      "Send the context that matters so Silverstone AI can decide whether a written answer, a discovery call or a different route makes sense, across UK and US hours.",
     buttonLabel: "Open the inquiry form",
   },
   "/book": {
     loaderText: "Preparing your discovery call",
     pill: "30-minute discovery",
-    title: "One problem. One focused conversation.",
+    title: "Book an AI automation discovery call",
     subtitle:
-      "Bring the process, journey or digital decision that matters most. Silverstone AI will use the call to understand fit and define the most sensible next step.",
+      "Bring the process, journey or digital decision that matters most. Silverstone AI uses the 30-minute call to understand fit and define the most sensible next step.",
     buttonLabel: "Continue to booking",
   },
 };

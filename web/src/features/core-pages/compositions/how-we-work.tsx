@@ -87,7 +87,7 @@ export function HowWeWorkComposition() {
         icon={Workflow}
         title="How we take AI automation *from problem to working system*"
         titleId="core-hww-title"
-        lead="The full delivery method: five gated stages, the judgment that stays human, the failure modes we design against, and the results. The same method runs for a clinic in Austin and an agency in Leeds; only the tooling differs."
+        lead="The full delivery method, from AI consulting to a live system: five gated stages, the judgment that stays human, the failure modes we design against, and the results. The same method runs for a clinic in Austin and an agency in Leeds; only the tooling differs."
         points={[
           { icon: Workflow, text: "Five stages, from diagnosis to governed launch" },
           { icon: UserCheck, text: "Where human judgment stays in charge" },

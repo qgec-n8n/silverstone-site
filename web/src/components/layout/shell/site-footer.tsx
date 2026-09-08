@@ -107,9 +107,9 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
               <span className="sr-only">Silverstone AI — home</span>
             </Link>
             <p className="mt-3 max-w-[23rem] text-body-sm text-titanium">
-              Silverstone AI builds AI reception, voice, automation, web, app and
-              content systems for businesses in the US and UK, designed, engineered and
-              assured in-house.
+              Silverstone AI is a London-based AI automation agency: AI agents, voice
+              agents, workflow automation, web, app and AI consulting for UK and US
+              businesses, engineered and assured in-house.
             </p>
             {/* Hooked for the footer layout matrix in
                 tests/e2e/homepage-interaction.spec.ts, which checks this line

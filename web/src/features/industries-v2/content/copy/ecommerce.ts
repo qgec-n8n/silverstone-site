@@ -9,10 +9,10 @@ export const ecommerceCopy: IndustryCopy = {
   sector: "Ecommerce brands",
   routeEntry: {
     loaderText: "Synchronizing store and service",
-    pill: "Commerce operations intelligence",
-    title: "Scale the experience, not the queue",
+    pill: "Ecommerce AI · Shopify & DTC brands",
+    title: "Ecommerce automation for Shopify and DTC brands",
     subtitle:
-      "Turn product questions, order context, returns and post-purchase communication into one governed operating system.",
+      "AI automation for ecommerce brands: product questions, order context, returns and post-purchase communication in one governed operating system.",
     buttonLabel: "Explore the commerce system",
   },
   seo: {

@@ -9,10 +9,10 @@ export const salonsBarbersCopy: IndustryCopy = {
   sector: "Salons & barbershops",
   routeEntry: {
     loaderText: "Aligning the calendar and chair time",
-    pill: "Calendar intelligence for client-service businesses",
-    title: "Make every available hour easier to sell",
+    pill: "Salon & barbershop AI · bookings, waitlists, rebooking",
+    title: "Salon and barbershop automation that fills chairs",
     subtitle:
-      "Connect inquiries, deposits, cancellations, waitlists and rebooking without interrupting the experience in the chair.",
+      "AI automation for salons and barbershops: inquiries, deposits, cancellations, waitlists and rebooking handled without interrupting the experience in the chair.",
     buttonLabel: "Open the booking system",
   },
   seo: {

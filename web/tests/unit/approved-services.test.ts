@@ -52,8 +52,10 @@ describe("approved service content pack", () => {
     expect(web.routeEntry.loaderText).toBe(
       "Aligning message, movement and measurement",
     );
-    expect(web.routeEntry.pill).toBe("Custom digital experience");
-    expect(web.routeEntry.title).toBe("Make the website earn its place");
+    expect(web.routeEntry.pill).toBe(
+      "Web design & development · London agency, UK & US",
+    );
+    expect(web.routeEntry.title).toBe("Web design and development that converts");
     expect(web.routeEntry.buttonLabel).toBe("Explore the commercial website system");
 
     for (const route of expectedRoutes) {

@@ -9,10 +9,10 @@ export const estateAgentsCopy: IndustryCopy = {
   sector: "Estate agents & real estate teams",
   routeEntry: {
     loaderText: "Preparing the agency system",
-    pill: "Property inquiry operating system",
-    title: "Respond while the opportunity is still live",
+    pill: "AI for estate agents & real estate brokerages",
+    title: "AI for estate agents and brokerages that answers first",
     subtitle:
-      "A connected layer for portal leads, calls, showing and viewing requests, valuation and listing inquiries and agent follow-up, built around the way agencies and brokerages actually work.",
+      "AI automation for estate agents and real estate brokerages: portal leads, calls, viewing and showing requests, valuation inquiries and agent follow-up, built around how agencies actually work.",
     buttonLabel: "Explore the inquiry journey",
   },
   seo: {

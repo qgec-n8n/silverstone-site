@@ -25,21 +25,31 @@ type Capability = {
   detail: string;
 };
 
+/**
+ * What Silverstone AI builds, in three literal lines: every one of the seven
+ * services sits under one of these, so a reader (or an answer engine) leaves
+ * the fold knowing the category, the location and the full offer. How the
+ * studio operates (pilots, weeks, human oversight) lives in `OperatingLayer`,
+ * below the trust strip.
+ */
 const CAPABILITIES: Capability[] = [
   {
-    icon: "Unlock",
-    label: "No lock-in pilots",
-    detail: "Prove the value on real work first, then commit when it earns it.",
+    icon: "PhoneCall",
+    label: "AI agents & AI voice agents",
+    detail:
+      "AI receptionists, voice agents and chat agents that answer, qualify and book around the clock.",
   },
   {
-    icon: "Zap",
-    label: "Live in weeks",
-    detail: "From audit to a working system in weeks, not quarters.",
+    icon: "Workflow",
+    label: "Workflow automation & AI business systems",
+    detail:
+      "Agentic workflows across your CRM, calendar and back office, with human approval where it matters.",
   },
   {
-    icon: "UserCheck",
-    label: "Human-in-the-loop",
-    detail: "Your team keeps oversight of every decision the system makes.",
+    icon: "Globe",
+    label: "Web, app development & AI consulting",
+    detail:
+      "Conversion-focused websites, custom apps and an AI roadmap that decides what to automate first.",
   },
 ];
 
@@ -130,9 +140,12 @@ function CapabilityItem({ cap, index }: { cap: Capability; index: number }) {
 }
 
 /**
- * Body opener directly beneath the hero. It carries the positioning,
- * capability proof and a major live-signal module in the former image slot. It
- * is the scroll/transition target for the hero's "Explore the system" action.
+ * Body opener directly beneath the hero. It states what Silverstone AI is — a
+ * London-based AI automation agency, the seven services, the two markets — in
+ * the most literal terms on the site, beside the live-signal console. It is
+ * the scroll/transition target for the hero's "Explore the system" action.
+ * The "Silverstone System" operating narrative that used to open here now
+ * follows the trust strip (`OperatingLayer`).
  */
 export function SecondaryHero() {
   const consoleMetrics = HEADLINE_BENCHMARKS;
@@ -148,12 +161,12 @@ export function SecondaryHero() {
             <Reveal>
               <span className="ss-eyebrow ss-hv2-kicker self-start font-mono">
                 <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-                Operating layer
+                London-based AI automation agency
               </span>
             </Reveal>
             <Reveal delayMs={80}>
               <h2 className="ss-hv2-display ss-hv2-secondary__title text-4xl sm:text-5xl">
-                The Silverstone <span className="ss-signal-text">System</span>
+                The London <span className="ss-signal-text">AI agency</span>.
               </h2>
             </Reveal>
             {/*
@@ -182,15 +195,15 @@ export function SecondaryHero() {
             <Reveal delayMs={160}>
               <p className="ss-lead ss-hv2-secondary__lead ss-hv2-copy">
                 <span className="ss-hv2-secondary__lead-full">
-                  Calls, messages, bookings and follow-ups converge into a single
-                  operating layer. Silverstone AI answers in seconds, captures the
-                  detail and routes the work — while your team keeps oversight of every
-                  outcome.
+                  Silverstone AI is a London-based AI automation agency specializing in
+                  AI agents, AI voice agents and receptionists, workflow automation, web
+                  and app development, AI business systems and AI consulting for
+                  businesses across the UK and US.
                 </span>
                 <span className="ss-hv2-secondary__lead-short">
-                  Calls, messages, bookings and follow-ups converge into one operating
-                  layer — answered in seconds, with your team keeping oversight of every
-                  outcome.
+                  Silverstone AI is a London-based AI automation agency: AI agents,
+                  voice agents, workflow automation, web and app development and AI
+                  consulting for UK and US businesses.
                 </span>
               </p>
             </Reveal>

@@ -9,10 +9,10 @@ export const dentistsCopy: IndustryCopy = {
   sector: "Dental practices",
   routeEntry: {
     loaderText: "Preparing the practice system",
-    pill: "Patient access, clinically bounded",
-    title: "Protect reception capacity. Preserve clinical responsibility.",
+    pill: "Dental practice AI · non-clinical admin",
+    title: "Dental practice automation for calls, recalls and booking",
     subtitle:
-      "A governed layer for calls, booking, recall, forms and follow-up—designed to stop wherever patient safety or professional judgment begins.",
+      "AI automation for dental practices and dental offices: calls, booking, recall, forms and follow-up, designed to stop wherever patient safety or professional judgment begins.",
     buttonLabel: "Explore the patient-admin journey",
   },
   seo: {

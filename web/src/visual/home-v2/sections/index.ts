@@ -4,6 +4,7 @@ export { ConversionClimax } from "./conversion-climax";
 export { ImageStorytelling } from "./image-storytelling";
 export { IndustryRelevance } from "./industry-relevance";
 export { IntegrationCarousel } from "./integration-carousel";
+export { OperatingLayer } from "./operating-layer";
 export { ProcessStory } from "./process-story";
 export { SecondaryHero } from "./secondary-hero";
 export { ServicesUniverse } from "./services-universe";

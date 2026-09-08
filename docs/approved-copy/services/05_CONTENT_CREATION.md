@@ -132,9 +132,9 @@ AI content generation, content automation agency UK, content at scale, thought l
 
 ## 4. Aether Flow route-entry hero
 
-- **Pill:** Content operations / Editorial system
-- **Title:** Make every strong idea travel further
-- **Subtitle:** A source-led system that turns approved expertise into distinct website, insight, email and social assets—each with a reason to exist.
+- **Pill:** AI content creation · governed, on-brand
+- **Title:** AI content systems that build authority
+- **Subtitle:** AI-assisted content creation and repurposing from a London agency: approved expertise turned into website, insight, email and social assets, each with a reason to exist.
 - **Route-entry button:** Explore the content operating system
 
 ## 5. Complete public page copy

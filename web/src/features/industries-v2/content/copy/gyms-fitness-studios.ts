@@ -9,10 +9,10 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   sector: "Gyms & fitness studios",
   routeEntry: {
     loaderText: "Linking club and member signals",
-    pill: "Trial-to-membership intelligence",
-    title: "Make every genuine inquiry visible to the team",
+    pill: "Gym & fitness studio AI · trials to members",
+    title: "Gym and fitness studio automation for every inquiry",
     subtitle:
-      "Connect website, phone, social, classes and membership records so trials and follow-up move with context—not scattered reminders.",
+      "AI automation for gyms and fitness studios: website, phone, social, classes and membership records connected so trials and follow-up move with context, not scattered reminders.",
     buttonLabel: "Explore the member journey",
   },
   seo: {

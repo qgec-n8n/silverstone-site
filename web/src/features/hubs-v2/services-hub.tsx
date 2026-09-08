@@ -314,9 +314,9 @@ export function ServicesHubExperience() {
       <SecondaryHero
         eyebrow="Silverstone AI service architecture"
         icon={Workflow}
-        title="AI automation services built around *real business workflows*"
+        title="AI automation, AI consulting and *development services*"
         titleId="hub2-lead"
-        lead="Seven disciplines, one operating standard: every system is scoped around a costly problem, wired into your source of truth and measured after launch. Choose the entry point — the architecture connects behind it."
+        lead="Seven disciplines, one operating standard: AI agents and receptionists, voice agents, workflow automation, web and app development, content systems and AI consulting, each scoped around a costly problem, wired into your source of truth and measured after launch."
         points={[
           "Scoped before anything is built",
           "Human judgment designed in, not bolted on",

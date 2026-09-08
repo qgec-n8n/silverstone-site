@@ -119,7 +119,7 @@ export function buildOrganizationNode(): SchemaEntry {
     name: "Silverstone AI",
     url: "https://silverstone-ai.com/",
     description:
-      "Silverstone AI is a London-based AI automation agency that designs and builds AI receptionists, AI voice agents, workflow automation, websites and apps for small and mid-sized businesses in the United States and the United Kingdom.",
+      "Silverstone AI is a London-based AI automation agency specializing in AI agents, AI voice agents and receptionists, workflow automation, web and app development, AI business systems and AI consulting for businesses in the United Kingdom and the United States.",
     // schema.org's purpose-built field for separating an entity from
     // similarly-named ones, which is this site's core retrieval problem:
     // unqualified "Silverstone" resolves to the motor-racing circuit in
@@ -182,9 +182,11 @@ export function buildOrganizationNode(): SchemaEntry {
     })),
     areaServed: AREA_SERVED,
     knowsAbout: [
+      "AI agents",
       "AI receptionists",
       "AI voice agents",
       "Workflow automation",
+      "AI consulting",
       "AI automation consulting",
       "Web design and development",
       "App development",

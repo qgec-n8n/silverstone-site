@@ -9,10 +9,10 @@ export const fitnessCoachesCopy: IndustryCopy = {
   sector: "Fitness coaches",
   routeEntry: {
     loaderText: "Preparing the coaching funnel",
-    pill: "Lead-to-client operating system",
-    title: "Keep the service personal. Make the journey disciplined.",
+    pill: "Online fitness coach AI · leads to clients",
+    title: "Automation for online fitness coaches and trainers",
     subtitle:
-      "Connect social leads, consultation booking, onboarding and follow-up so the coach enters each conversation with context.",
+      "AI automation for online coaches and personal trainers: social leads, consultation booking, onboarding and follow-up connected so every conversation starts with context.",
     buttonLabel: "Explore the coaching journey",
   },
   seo: {

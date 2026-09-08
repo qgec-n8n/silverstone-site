@@ -135,9 +135,9 @@ AI automation agency UK, automate everything, intelligent workflows, agentic, se
 
 ## 4. Aether Flow route-entry hero
 
-- **Pill:** Operational systems / Automation
-- **Title:** Make the handoffs work without hiding the exceptions
-- **Subtitle:** Custom workflows that connect triggers, data, rules, AI judgment, approvals and reporting into an operating layer your team can inspect.
+- **Pill:** Workflow automation · AI agents & systems
+- **Title:** Workflow automation and AI agents for your operations
+- **Subtitle:** Custom AI automation for UK and US businesses: triggers, data, rules, AI agents, approvals and reporting connected into one operating layer your team can inspect.
 - **Route-entry button:** Trace the automation system
 
 ## 5. Complete public page copy

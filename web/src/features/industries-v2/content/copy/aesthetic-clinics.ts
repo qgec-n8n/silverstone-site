@@ -41,9 +41,9 @@ export const aestheticClinicsCopy: IndustryCopy = {
   routeEntry: {
     loaderText: "Preparing the consultation pathway",
     pill: "Seven-day booking conversion sprint · one clinic a week",
-    title: "Turn interest into booked, deposit-backed consultations",
+    title: "AI booking automation for aesthetic clinics and med spas",
     subtitle:
-      "Answer every inquiry in seconds, hold the deposit up front, and keep every clinical judgment — and every prescription-only medicine — with your prescriber.",
+      "AI automation for aesthetic clinics and med spas: every inquiry answered in seconds, deposits held up front, and every clinical judgment — and every prescription-only medicine — kept with your prescriber.",
     buttonLabel: "Open the clinic system",
   },
   seo: {

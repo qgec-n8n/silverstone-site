@@ -132,9 +132,9 @@ AI voice agents UK, human-like, natural conversation, voice AI, intelligent call
 
 ## 4. Aether Flow route-entry hero
 
-- **Pill:** Conversational systems / Voice
-- **Title:** Give every call a controlled next state
-- **Subtitle:** Custom voice workflows that listen, respond, act and escalate within rules your business can inspect.
+- **Pill:** AI voice agents · calls, booking, escalation
+- **Title:** AI voice agents that answer every call
+- **Subtitle:** Custom AI voice agents for UK and US phone lines: they listen, respond, book, act and escalate within rules your business can inspect.
 - **Route-entry button:** Explore the call architecture
 
 ## 5. Complete public page copy

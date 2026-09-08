@@ -310,11 +310,14 @@ function ImageLightbox({
                 </DialogPrimitive.Close>
               </m.figure>
               <DialogPrimitive.Title asChild>
+                {/* Opacity only: a translate would draw the glyphs at
+                    fractional offsets on the way in and then snap them
+                    crisp, which reads as the caption changing colour. */}
                 <m.p
-                  animate={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1 }}
                   className="ss-lightbox__caption"
                   exit={{ opacity: 0, transition: { duration: 0.12 } }}
-                  initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+                  initial={reducedMotion ? false : { opacity: 0 }}
                   transition={settle}
                 >
                   {caption}

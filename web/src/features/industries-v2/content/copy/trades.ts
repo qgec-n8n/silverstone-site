@@ -9,10 +9,10 @@ export const tradesCopy: IndustryCopy = {
   sector: "Trades, contractors & home services",
   routeEntry: {
     loaderText: "Routing calls into booked jobs",
-    pill: "Field-service intake and follow-through",
-    title: "Answer the opportunity before the van is back at the office",
+    pill: "Trades & contractor AI · calls to booked jobs",
+    title: "AI call answering for trades, contractors and home services",
     subtitle:
-      "Capture job context, qualify location and urgency, coordinate callbacks and keep quotes and estimates moving without promising what the field team has not confirmed.",
+      "AI automation for trades and contractors: job context captured, location and urgency qualified, callbacks coordinated and quotes kept moving without promising what the field team has not confirmed.",
     buttonLabel: "Explore the job journey",
   },
   seo: {

@@ -374,13 +374,14 @@ export function renderLlmsTxt(sections, docs) {
   const lines = [
     "# Silverstone AI",
     "",
-    "> Silverstone AI is an AI automation agency — a London studio with" +
-      " US-based team members — serving small and mid-sized businesses in the" +
-      " United States and the United Kingdom. It builds AI receptionists, AI" +
-      " voice agents, workflow automation, websites and apps, and runs both" +
-      " markets from one system.",
+    "> Silverstone AI is a London-based AI automation agency — a London studio" +
+      " with US-based team members — specializing in AI agents, AI voice agents" +
+      " and receptionists, workflow automation, web and app development, AI" +
+      " business systems and AI consulting for businesses in the United Kingdom" +
+      " and the United States, run as one system across both markets.",
     "",
-    "Entity: Silverstone AI. Type: AI automation agency. Based in London," +
+    "Entity: Silverstone AI. Type: London AI automation agency and AI" +
+      " consultancy. Based in London," +
       " United Kingdom. Serves: small and mid-sized businesses in the United" +
       " States and the United Kingdom, in each market's own conventions —" +
       " US or UK spelling, currency, time zones and address formats.",

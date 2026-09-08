@@ -149,9 +149,9 @@ const servicePages = [
     id: "route-service-ai-consulting",
     path: "/services/ai-consulting",
     label: "AI & Automation Consulting",
-    title: "AI & Automation Consulting | Silverstone AI",
+    title: "AI Consulting Services for UK & US Businesses | Silverstone AI",
     description:
-      "AI and automation consulting for US and UK businesses: opportunity audits, workflow prioritization, data readiness, governance and build-versus-buy roadmaps.",
+      "AI consulting for UK and US businesses from a London AI automation agency: opportunity audits, workflow prioritization, data readiness, governance and build-versus-buy roadmaps.",
     h1: "AI consulting that settles what to automate before you buy",
     primaryIntent:
       "AI automation consulting for US and UK businesses; AI strategy and automation audit",
@@ -387,12 +387,12 @@ export const approvedRouteOverrides: RouteOverride[] = [
     // "Home | Silverstone AI"; phrasing mirrors the approved description and
     // the social-card alt ("websites, apps and AI workflows for UK
     // businesses"). Metadata only — the visible H1 is unchanged.
-    title: "Silverstone AI | AI Automation Agency for US & UK Businesses",
+    title: "Silverstone AI | London AI Automation Agency for UK & US Businesses",
     description:
-      "Silverstone AI is a London-based AI automation agency building AI receptionists, voice agents, automation, websites and apps for small and mid-sized businesses in the US and UK.",
-    h1: "The AI automation agency for businesses that refuse to miss",
+      "Silverstone AI is a London-based AI automation agency specializing in AI agents, voice agents, workflow automation, web and app development and AI consulting for UK and US businesses.",
+    h1: "The London AI automation agency for businesses that refuse to miss",
     headingPlan: {
-      h1: "The AI automation agency for businesses that refuse to miss",
+      h1: "The London AI automation agency for businesses that refuse to miss",
       h1Source: "H-01 approved metadata map",
       supportingHeadingsStatus: "approved editorial overlay",
     },
@@ -415,7 +415,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-about",
     title: "About Silverstone AI | London Studio, US and UK Clients",
     description:
-      "Silverstone AI is an AI automation agency in London with US-based team members, serving businesses in the US and UK with clear scope, human oversight and evidence-led delivery.",
+      "Silverstone AI is a London-based AI automation agency and AI consultancy with US-based team members, serving UK and US businesses with clear scope, human oversight and evidence-led delivery.",
     h1: "A London AI automation agency working across the UK and US",
     headingPlan: {
       h1: "A London AI automation agency working across the UK and US",
@@ -437,12 +437,12 @@ export const approvedRouteOverrides: RouteOverride[] = [
   },
   {
     id: "route-services",
-    title: "AI, Automation, Web & App Services | Silverstone AI",
+    title: "AI Automation, AI Consulting, Web & App Services | Silverstone AI",
     description:
       "Silverstone AI’s seven services for US and UK businesses: AI receptionists, voice agents, automation, consulting, web design, app development and content systems.",
-    h1: "AI automation services built around real business workflows",
+    h1: "AI automation, AI consulting and development services",
     headingPlan: {
-      h1: "AI automation services built around real business workflows",
+      h1: "AI automation, AI consulting and development services",
       h1Source: "H-01 approved metadata map",
       supportingHeadingsStatus: "approved editorial overlay",
     },
@@ -504,7 +504,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-book",
     title: "Book a Discovery Call | Silverstone AI",
     description:
-      "Book a 30-minute discovery call with Silverstone AI to discuss a website, app, content or AI workflow problem. US and UK time zones covered.",
+      "Book a 30-minute discovery call with Silverstone AI, a London AI automation agency, about AI agents, automation, a website, an app or AI consulting. UK and US time zones covered.",
     h1: "Book a 30-minute discovery call",
     headingPlan: {
       h1: "Book a 30-minute discovery call",
@@ -523,7 +523,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-contact",
     title: "Contact Silverstone AI | London Studio, US and UK Hours",
     description:
-      "Contact Silverstone AI about web design, app development, content, AI reception, voice agents or workflow automation. Replies across US and UK business hours.",
+      "Contact Silverstone AI, a London AI automation agency, about AI agents, voice agents, workflow automation, web design, app development or AI consulting. Replies across UK and US hours.",
     h1: "Start with the question that matters",
     headingPlan: {
       h1: "Start with the question that matters",

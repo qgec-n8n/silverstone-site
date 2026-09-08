@@ -90,7 +90,7 @@ export function Hero({
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-            AI automation agency · London · US & UK
+            London AI automation agency · UK & US
           </m.span>
 
           <m.h1
@@ -98,7 +98,7 @@ export function Hero({
             custom={1}
             className="ss-hv2-aether-reveal ss-hv2-display ss-hv2-hero__title"
           >
-            The AI automation agency for businesses that{" "}
+            The London AI automation agency for businesses that{" "}
             <span className="ss-chrome-text">refuse to miss</span>.
           </m.h1>
 
@@ -108,15 +108,16 @@ export function Hero({
             className="ss-lead ss-hv2-hero__lead text-[color:var(--ss-v2-titanium)]"
           >
             <span className="ss-hv2-hero__lead-full">
-              Silverstone AI designs AI voice, reception and automation systems that
-              answer every call, capture every inquiry and run the repetitive work, so
-              small teams in the US and UK respond faster, deliver more and grow without
-              adding headcount.
+              Silverstone AI is a London-based AI automation agency. We design AI
+              agents, AI voice agents and receptionists, workflow automation, websites
+              and apps, and provide AI consulting for UK and US businesses, so every
+              call is answered, every inquiry is captured and the repetitive work runs
+              itself.
             </span>
             <span className="ss-hv2-hero__lead-short">
-              Silverstone AI designs AI voice, reception and automation systems that
-              answer every call and run the repetitive work, so small teams in the US
-              and UK respond faster and grow without adding headcount.
+              Silverstone AI is a London-based AI automation agency building AI agents,
+              voice agents, workflow automation, websites and apps, with AI consulting,
+              for UK and US businesses.
             </span>
           </m.p>
 

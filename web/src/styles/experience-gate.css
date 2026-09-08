@@ -88,3 +88,29 @@ html[data-js="on"][data-route-experience-state]:not(
   */
   border-block-width: 0;
 }
+
+/*
+  Dialog scroll lock (Radix Dialog → react-remove-scroll).
+
+  While a dialog is open, react-remove-scroll marks `body[data-scroll-locked]`,
+  sets `overflow: hidden` on it and adds a `margin-right` equal to the
+  scrollbar width, on the assumption that hiding body overflow removes the
+  viewport scrollbar and the margin keeps the content where it was.
+
+  On this site that assumption is false: `html` carries `overflow-x: hidden`
+  (tokens/utilities.css), so body's overflow never propagates to the viewport
+  and the document scrollbar stays exactly where it was. The compensating
+  margin then narrows the body by a scrollbar width for the life of the dialog
+  and snaps it back on close — the "page moves sideways when a lightbox opens
+  or closes" seen on any pointer device with classic scrollbars (overlay
+  scrollbars have zero width, which is why a trackpad never showed it).
+
+  The JS side of the lock (wheel and touch scrolling blocked outside the
+  dialog) is untouched; only the layout compensation is cancelled. Specificity
+  (`html body[…]`) outranks the library's injected `body[…]` rule at equal
+  `!important`.
+*/
+html body[data-scroll-locked] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}

@@ -9,10 +9,10 @@ export const physiosChiropractorsCopy: IndustryCopy = {
   sector: "Physios, physical therapists & chiropractors",
   routeEntry: {
     loaderText: "Preparing the clinic system",
-    pill: "Clinic access with clinical boundaries",
-    title: "Reduce reception friction. Keep care human.",
+    pill: "Physio & chiropractic AI · non-clinical access",
+    title: "Physio, physical therapy and chiropractic automation",
     subtitle:
-      "A governed operating layer for inquiries, booking, forms and rebooking—designed to stop before clinical assessment begins.",
+      "AI automation for physio, physical therapy and chiropractic clinics: inquiries, booking, forms and rebooking, designed to stop before clinical assessment begins.",
     buttonLabel: "Explore the clinic journey",
   },
   seo: {

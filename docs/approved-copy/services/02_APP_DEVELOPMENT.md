@@ -129,9 +129,9 @@ app development agency UK, custom app, MVP, innovative app, scalable solution, L
 
 ## 4. Aether Flow route-entry hero
 
-- **Pill:** Product intelligence / First release
-- **Title:** Prove the workflow before expanding the product
-- **Subtitle:** A focused application designed around one real user, one valuable task and the system states required to deliver it reliably.
+- **Pill:** Custom app development · iOS, Android & web
+- **Title:** Custom app development that proves value first
+- **Subtitle:** Custom mobile and web app development from a London studio: a focused first release built around one real user, one valuable task and the system states that deliver it reliably.
 - **Route-entry button:** Map the first release
 
 ## 5. Complete public page copy

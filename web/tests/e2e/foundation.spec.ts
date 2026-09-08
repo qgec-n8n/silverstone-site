@@ -1,7 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-const homeHeading = "The AI automation agency for businesses that refuse to miss.";
+const homeHeading =
+  "The London AI automation agency for businesses that refuse to miss.";
 
 async function waitForHomepageIntro(page: Page) {
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "intro", {

@@ -838,20 +838,26 @@ function AtlanticAtlas({ controlId }: { controlId: string }) {
               ready for what’s next before anyone else in town is.
             </p>
           </div>
-          <p aria-hidden="true" className="ss-ind2-atlas__frontier-figure">
-            <span className="ss-ind2-atlas__frontier-figure-value">10%</span>
-            <span className="ss-ind2-atlas__frontier-figure-label">
-              off · first in your city
-            </span>
-          </p>
-          <ServiceButton
-            className="ss-ind2-atlas__frontier-cta"
-            href="/contact"
-            withArrow={false}
-          >
-            Claim your city
-            <ArrowUpRight aria-hidden="true" />
-          </ServiceButton>
+          {/* The offer column: the figure as a title, the qualifier as its
+              subtitle, the CTA beneath — one stacked unit at the band's end.
+              The figure is decorative (the body copy above states the offer),
+              so it stays out of the accessibility tree. */}
+          <div className="ss-ind2-atlas__frontier-offer">
+            <p aria-hidden="true" className="ss-ind2-atlas__frontier-figure">
+              <span className="ss-ind2-atlas__frontier-figure-value">10% OFF</span>
+              <span className="ss-ind2-atlas__frontier-figure-label">
+                First in your city
+              </span>
+            </p>
+            <ServiceButton
+              className="ss-ind2-atlas__frontier-cta"
+              href="/contact"
+              withArrow={false}
+            >
+              Claim your city
+              <ArrowUpRight aria-hidden="true" />
+            </ServiceButton>
+          </div>
         </div>
       </Reveal>
       <BorderBeam />
@@ -1393,7 +1399,8 @@ function ComplianceCard({
 }
 
 /* One card brought forward. A Radix dialog for the semantics — focus trap,
-   Escape, scrim click, scroll lock, focus return — portalled to the body
+   Escape, scroll lock, focus return (a click on the scrim is deliberately
+   ignored; see `onInteractOutside`) — portalled to the body
    because the panel's backdrop-filter would otherwise pin a fixed lightbox
    inside its own frame. The portal leaves the `.ss-srv2` scope behind, so the
    wrapper re-opens it and carries the route's two accents across. */
@@ -1424,7 +1431,8 @@ function ComplianceFocus({
           />
         </DialogPrimitive.Overlay>
         {/* The stage centres the card and lets pointer events fall through
-            to the scrim, so a click beside the card is an outside click. */}
+            to the scrim; the dialog ignores that click (below), so resting
+            the pointer beside the card never dismisses it. */}
         <div className="ss-ind2-compliance-focus__stage">
           <DialogPrimitive.Content
             asChild
@@ -1432,6 +1440,12 @@ function ComplianceFocus({
             onCloseAutoFocus={(event) => {
               event.preventDefault();
               onCloseAutoFocus();
+            }}
+            /* The close button (and Escape) are the only ways back: a click
+               on the scrim beside the card is a reader resting the pointer,
+               not a request to dismiss three rules mid-read. */
+            onInteractOutside={(event) => {
+              event.preventDefault();
             }}
             onOpenAutoFocus={(event) => {
               // Land on the card itself, not its close button: the first

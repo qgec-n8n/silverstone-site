@@ -20,7 +20,7 @@ export function ServicesUniverse() {
           of your operation.
         </>
       }
-      lead="Six connected capabilities that plug into the tools you already run — deployed on their own or as one operating system."
+      lead="Six connected build capabilities, plus AI consulting to decide the order — deployed on their own or as one operating system for UK and US businesses."
       containerSize="wide"
     >
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

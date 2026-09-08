@@ -134,9 +134,9 @@ AI receptionist UK, 24/7, never miss a call, virtual receptionist, human-like, s
 
 ## 4. Aether Flow route-entry hero
 
-- **Pill:** Customer operations / Front desk
-- **Title:** Turn every routine inquiry into a controlled handoff
-- **Subtitle:** One governed reception layer for calls, chat, intake, booking, routing and the moments that still need a person.
+- **Pill:** AI receptionists · calls, chat, booking
+- **Title:** An AI receptionist for every call, chat and inquiry
+- **Subtitle:** AI receptionist services for UK and US front desks: one governed layer for calls, chat, intake, booking, routing and the moments that still need a person.
 - **Route-entry button:** Open the front-desk system
 
 ## 5. Complete public page copy

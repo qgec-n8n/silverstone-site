@@ -17,6 +17,7 @@ import {
   ImageStorytelling,
   IndustryRelevance,
   IntegrationCarousel,
+  OperatingLayer,
   ProcessStory,
   SecondaryHero,
   ServicesUniverse,
@@ -188,6 +189,7 @@ export function HomeV2({ contentId }: { contentId?: string }) {
           <div key={bodyVisible ? "home-body" : "home-idle"}>
             <SecondaryHero />
             <TrustStrip />
+            <OperatingLayer />
             <ServicesUniverse />
             <AiConsulting />
             <BenchmarkMetrics countersEnabled={policy.countersEnabled} />

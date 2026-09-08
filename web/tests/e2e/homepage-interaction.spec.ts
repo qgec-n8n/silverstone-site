@@ -554,7 +554,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
   await expect(
     page.getByRole("heading", {
-      name: "The AI automation agency for businesses that refuse to miss.",
+      name: "The London AI automation agency for businesses that refuse to miss.",
     }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "Explore the system" })).toBeVisible();
@@ -696,11 +696,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.hasLiveSignalBenchmarks).toBe(true);
   expect(proof.signalMetrics).toBe(4);
   expect(proof.signalRows).toBe(3);
-  expect(proof.systemLayerLabels).toEqual([
-    "Patient & lead growth",
-    "Always answering",
-    "Peak reported ROI",
-  ]);
+  expect(proof.systemLayerLabels).toEqual(["Lead growth", "Coverage", "Peak ROI"]);
   expect(proof.outcomeCards).toBe(0);
   expect(proof.industryCards).toBe(6);
   expect(proof.systemBottomDelta).not.toBeNull();

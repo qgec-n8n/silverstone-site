@@ -250,13 +250,15 @@
   pointer-events: none;
 }
 
+/* No backdrop blur, on purpose: a viewport-sized blur is re-rendered on every
+   frame of the morph (the particle field behind it never stops moving) and
+   measured at roughly half the frame rate of a flat scrim. The deeper tint
+   carries the depth instead. */
 .ss-lightbox__scrim {
   position: fixed;
   inset: 0;
   z-index: 700;
-  background: color-mix(in srgb, var(--ss-v2-void-blue) 74%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--ss-v2-void-blue) 86%, transparent);
 }
 
 .ss-lightbox__stage {
@@ -357,6 +359,8 @@
     border-color 200ms ease,
     background-color 200ms ease,
     color 200ms ease;
+  /* Composited for the dialog's whole life, like the caption below. */
+  will-change: opacity;
 }
 
 .ss-lightbox__close svg {
@@ -376,6 +380,12 @@
   outline-offset: 2px;
 }
 
+/* The caption fades in (opacity only — no transform, so the glyphs are never
+   drawn at a fractional offset) and stays on its own compositor layer for the
+   dialog's whole life. Text that is composited for an entrance and then
+   dropped back to the page raster is re-rendered with different
+   anti-aliasing, which read as the caption changing colour a moment after
+   the image had landed. */
 .ss-lightbox__caption {
   max-width: min(100%, 64ch);
   margin: 0;
@@ -386,6 +396,7 @@
   text-align: center;
   text-wrap: balance;
   pointer-events: auto;
+  will-change: opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {

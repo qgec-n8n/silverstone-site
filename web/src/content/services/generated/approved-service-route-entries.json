@@ -1,51 +1,51 @@
 {
   "/services/web-design-development": {
     "loaderText": "Aligning message, movement and measurement",
-    "pill": "Custom digital experience",
-    "title": "Make the website earn its place",
-    "subtitle": "Strategy, copy, design and engineering shaped into one clear route from first visit to qualified inquiry.",
+    "pill": "Web design & development · London agency, UK & US",
+    "title": "Web design and development that converts",
+    "subtitle": "Custom website design and development from a London agency: strategy, copy, design and engineering shaped into one route from first visit to qualified inquiry.",
     "buttonLabel": "Explore the commercial website system"
   },
   "/services/app-development": {
     "loaderText": "Reducing the idea to its most valuable working state",
-    "pill": "Product intelligence / First release",
-    "title": "Prove the workflow before expanding the product",
-    "subtitle": "A focused application designed around one real user, one valuable task and the system states required to deliver it reliably.",
+    "pill": "Custom app development · iOS, Android & web",
+    "title": "Custom app development that proves value first",
+    "subtitle": "Custom mobile and web app development from a London studio: a focused first release built around one real user, one valuable task and the system states that deliver it reliably.",
     "buttonLabel": "Map the first release"
   },
   "/services/ai-voice-agents": {
     "loaderText": "Synchronising speech, action and human fallback",
-    "pill": "Conversational systems / Voice",
-    "title": "Give every call a controlled next state",
-    "subtitle": "Custom voice workflows that listen, respond, act and escalate within rules your business can inspect.",
+    "pill": "AI voice agents · calls, booking, escalation",
+    "title": "AI voice agents that answer every call",
+    "subtitle": "Custom AI voice agents for UK and US phone lines: they listen, respond, book, act and escalate within rules your business can inspect.",
     "buttonLabel": "Explore the call architecture"
   },
   "/services/ai-receptionists": {
     "loaderText": "Converging every inquiry into the right next action",
-    "pill": "Customer operations / Front desk",
-    "title": "Turn every routine inquiry into a controlled handoff",
-    "subtitle": "One governed reception layer for calls, chat, intake, booking, routing and the moments that still need a person.",
+    "pill": "AI receptionists · calls, chat, booking",
+    "title": "An AI receptionist for every call, chat and inquiry",
+    "subtitle": "AI receptionist services for UK and US front desks: one governed layer for calls, chat, intake, booking, routing and the moments that still need a person.",
     "buttonLabel": "Open the front-desk system"
   },
   "/services/content-creation": {
     "loaderText": "Structuring expertise into reusable editorial momentum",
-    "pill": "Content operations / Editorial system",
-    "title": "Make every strong idea travel further",
-    "subtitle": "A source-led system that turns approved expertise into distinct website, insight, email and social assets—each with a reason to exist.",
+    "pill": "AI content creation · governed, on-brand",
+    "title": "AI content systems that build authority",
+    "subtitle": "AI-assisted content creation and repurposing from a London agency: approved expertise turned into website, insight, email and social assets, each with a reason to exist.",
     "buttonLabel": "Explore the content operating system"
   },
   "/services/ai-automation": {
     "loaderText": "Orchestrating data, decisions and accountable action",
-    "pill": "Operational systems / Automation",
-    "title": "Make the handoffs work without hiding the exceptions",
-    "subtitle": "Custom workflows that connect triggers, data, rules, AI judgment, approvals and reporting into an operating layer your team can inspect.",
+    "pill": "Workflow automation · AI agents & systems",
+    "title": "Workflow automation and AI agents for your operations",
+    "subtitle": "Custom AI automation for UK and US businesses: triggers, data, rules, AI agents, approvals and reporting connected into one operating layer your team can inspect.",
     "buttonLabel": "Trace the automation system"
   },
   "/services/ai-consulting": {
     "loaderText": "Converting ambition into an ordered set of decisions",
-    "pill": "Leadership advisory / Opportunity audit",
-    "title": "Put judgment before implementation",
-    "subtitle": "A senior decision layer for prioritizing use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.",
+    "pill": "AI consulting · strategy, roadmap, readiness",
+    "title": "AI consulting that decides what to automate",
+    "subtitle": "AI consultants for UK and US leadership teams: a senior decision layer for prioritizing use cases, testing readiness, choosing build or buy and defining the controls delivery will need.",
     "buttonLabel": "Explore the advisory route"
   }
 }

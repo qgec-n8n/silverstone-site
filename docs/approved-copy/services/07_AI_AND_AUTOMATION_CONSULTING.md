@@ -131,9 +131,9 @@ AI consulting UK, AI strategy, transformation, roadmap, leading consultancy, inn
 
 ## 4. Aether Flow route-entry hero
 
-- **Pill:** Leadership advisory / Opportunity audit
-- **Title:** Put judgment before implementation
-- **Subtitle:** A senior decision layer for prioritizing use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.
+- **Pill:** AI consulting · strategy, roadmap, readiness
+- **Title:** AI consulting that decides what to automate
+- **Subtitle:** AI consultants for UK and US leadership teams: a senior decision layer for prioritizing use cases, testing readiness, choosing build or buy and defining the controls delivery will need.
 - **Route-entry button:** Explore the advisory route
 
 ## 5. Complete public page copy

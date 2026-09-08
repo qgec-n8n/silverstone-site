@@ -37,7 +37,7 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 const DISCIPLINE_CARDS = [
   {
     label: "Strategy",
-    body: "Define the *commercial problem*, first release and evidence required to justify expansion.",
+    body: "AI consulting first: define the *commercial problem*, the first release and the evidence required to justify expansion.",
     icon: Target,
   },
   {
@@ -101,10 +101,10 @@ export function AboutComposition() {
         title="A London AI automation agency *working across the UK and US*"
         deck="Practical systems, clearly explained."
         titleId="core-about-title"
-        lead="Silverstone AI is an AI automation agency in London that builds AI receptionists, voice agents, automation, websites and apps for businesses in the US and the UK. Six disciplines, one line of accountability."
+        lead="Silverstone AI is a London-based AI automation agency and AI consultancy. We build AI agents, AI receptionists, voice agents, workflow automation, websites and apps for businesses in the UK and the US. Six disciplines, one line of accountability."
         points={[
           { icon: Layers, text: "Six disciplines, one line of accountability" },
-          { icon: Sparkles, text: "A London studio with US and UK clients" },
+          { icon: Sparkles, text: "AI consulting and delivery from one London studio" },
           {
             icon: CheckCircle2Icon,
             text: "A team trained at Yale, Princeton and the University of Texas",

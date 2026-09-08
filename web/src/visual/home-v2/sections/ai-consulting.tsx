@@ -70,17 +70,19 @@ export function AiConsulting() {
             </Reveal>
             <Reveal delayMs={80}>
               <h2 className="ss-hv2-display text-4xl sm:text-5xl">
-                Strategy first.{" "}
+                AI consulting: strategy first,{" "}
                 <span className="ss-signal-text" data-sig="azure">
-                  Technology second.
+                  technology second
                 </span>
+                .
               </h2>
             </Reveal>
             <Reveal delayMs={160}>
               <p className="ss-lead ss-hv2-copy">
-                Most automation fails because it starts with a tool. We start with your
-                numbers — where time leaks and where revenue slips — then design the
-                smallest system that fixes it.
+                Most automation fails because it starts with a tool. Silverstone AI's AI
+                consultants start with your numbers — where time leaks and where revenue
+                slips — then design the smallest system that fixes it, for UK and US
+                businesses.
               </p>
             </Reveal>
             <ul className="flex flex-col gap-3">
@@ -91,7 +93,7 @@ export function AiConsulting() {
             <Reveal delayMs={460} kind="cta">
               <div>
                 <Button asChild size="lg" variant="accent">
-                  <Link to="/services/ai-consulting">Explore consulting</Link>
+                  <Link to="/services/ai-consulting">Explore AI consulting</Link>
                 </Button>
               </div>
             </Reveal>
