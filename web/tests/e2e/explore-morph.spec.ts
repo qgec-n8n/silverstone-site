@@ -35,13 +35,13 @@ const routes = [
   {
     path: "/services/ai-voice-agents",
     body: ".ss-service-experience__body",
-    returnName: /return to route intro/i,
+    returnName: /return to intro/i,
     stateAttr: "data-route-experience-state",
   },
   {
     path: "/about",
     body: ".ss-route-experience__body",
-    returnName: /return to route intro/i,
+    returnName: /return to intro/i,
     stateAttr: "data-route-experience-state",
   },
 ] as const;

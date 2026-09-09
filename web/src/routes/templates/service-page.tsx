@@ -82,6 +82,21 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
     serviceExperienceState === "opening" ||
     serviceExperienceState === "closing";
 
+  /*
+   * The particle engine starts once the body has landed, never while it is
+   * expanding. Initialising particles.js is a chunky synchronous job (canvas
+   * allocation plus the whole particle set) and running it on the frames the
+   * morph starts was the single biggest main-thread block in the expansion.
+   * The backdrop's gradient layers are mounted throughout, so the field behind
+   * the copy is there from the first frame either way; only the drifting dots
+   * arrive a beat later, fading in (see `.ss-hv2-backdrop__particles`).
+   *
+   * It deliberately stays live through `closing`, so the field shrinks into
+   * the pill with the page rather than blinking out as the close begins.
+   */
+  const particlesLive =
+    policy.motionEnabled && bodyMounted && serviceExperienceState !== "opening";
+
   const focusExploreButton = useCallback(() => {
     window.setTimeout(
       () => {
@@ -199,7 +214,7 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
         inert={!bodyVisible}
       >
         {bodyMounted ? (
-          <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
+          <BodyParticles enabled={particlesLive} tier={policy.tier} />
         ) : null}
         <div className="ss-service-experience__content">
           <RoutePageFrame
@@ -212,18 +227,24 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
             showHeader={false}
             showBreadcrumbs={false}
           >
-            <ServicePageVisuals
-              key={bodyMounted ? "svc-body" : "svc-hidden"}
-              route={route}
-            />
+            {/*
+              No remount `key`. Rekeying the composition when the body opened
+              replayed its scroll entrances, but it also put a full remount on
+              the main thread on the exact frame the Explore morph started —
+              the stutter in the first third of the expansion. The morph is the
+              entrance now: `data-reveal-bypass` on the staged layer resolves
+              the first screen's reveals instantly while it grows, and anything
+              below the fold keeps its normal scroll-triggered entrance.
+            */}
+            <ServicePageVisuals route={route} />
           </RoutePageFrame>
         </div>
         <button
           type="button"
           className="ss-hv2-return ss-service-experience__return"
           onClick={handleCloseBody}
-          aria-label="Return to route intro"
-          title="Return to route intro"
+          aria-label="Return to intro"
+          title="Return to intro"
           hidden={!bodyVisible}
         >
           <RotateCcw className="size-4" aria-hidden="true" />

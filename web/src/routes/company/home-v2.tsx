@@ -1,8 +1,8 @@
 import "~/styles/visual/home-v2.css";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { X } from "~/components/icons/lucide";
+import { RotateCcw } from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
 import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";
@@ -40,7 +40,7 @@ function HomepageReturnButton({ onClick }: { onClick: () => void }) {
       aria-label="Return to intro"
       title="Return to intro"
     >
-      <X className="size-4" aria-hidden="true" />
+      <RotateCcw className="size-4" aria-hidden="true" />
     </button>,
     document.body,
   );
@@ -63,7 +63,6 @@ export function HomeV2({ contentId }: { contentId?: string }) {
   } = useAppExperience();
   const exploreButtonRef = useRef<HTMLButtonElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const [bodyBackdropReady, setBodyBackdropReady] = useState(false);
   const policy = deriveMotionPolicy({
     tier: capability.tier,
     reducedMotion: capability.reducedMotion,
@@ -81,6 +80,21 @@ export function HomeV2({ contentId }: { contentId?: string }) {
     homepageState === "body" ||
     homepageState === "closing";
 
+  /*
+   * The particle engine starts once the body has landed, never while it is
+   * expanding. Initialising particles.js is a chunky synchronous job (canvas
+   * allocation plus the whole particle set) and running it on the frames the
+   * morph starts was the single biggest main-thread block in the expansion.
+   * The backdrop's gradient layers are mounted throughout, so the field behind
+   * the copy is there from the first frame either way; only the drifting dots
+   * arrive a beat later, fading in (see `.ss-hv2-backdrop__particles`).
+   *
+   * It deliberately stays live through `closing`, so the field shrinks into
+   * the pill with the page rather than blinking out as the close begins.
+   */
+  const particlesLive =
+    policy.motionEnabled && bodyMounted && homepageState !== "opening";
+
   const focusExploreButton = useCallback(() => {
     window.setTimeout(
       () => {
@@ -94,10 +108,9 @@ export function HomeV2({ contentId }: { contentId?: string }) {
     if (homepageState !== "intro") {
       return;
     }
-    setBodyBackdropReady(!policy.motionEnabled);
     window.scrollTo({ left: 0, top: 0, behavior: "auto" });
     openHomepageBody();
-  }, [homepageState, openHomepageBody, policy.motionEnabled]);
+  }, [homepageState, openHomepageBody]);
 
   const handleOpeningComplete = useCallback(() => {
     completeHomepageOpening();
@@ -157,7 +170,6 @@ export function HomeV2({ contentId }: { contentId?: string }) {
         revealed={homepageState !== "loading"}
       />
       <ExploreSystemTransition
-        bodyBackdropReady={bodyBackdropReady}
         pillRef={exploreButtonRef}
         stageRef={bodyRef}
         state={homepageState}
@@ -178,8 +190,16 @@ export function HomeV2({ contentId }: { contentId?: string }) {
        * body opens. During the Explore morph this wrapper is the layer that
        * grows out of the pill (ExploreSystemTransition pins and transforms
        * it), which is why the particle backdrop lives inside it: it scales
-       * with the page it sits behind. The `key` remounts the sections when
-       * the morph begins so their entrances play inside the growing layer.
+       * with the page it sits behind.
+       *
+       * The sections deliberately carry no remount `key`. They used to be
+       * rekeyed when the body opened, to replay their scroll entrances — but
+       * that put a full remount of the entire homepage on the main thread on
+       * the exact frame the morph started, which is what made the first third
+       * of the expansion stutter. The morph itself is now the entrance: the
+       * controller marks the layer `data-reveal-bypass` while it runs, so the
+       * first screen is simply present as it grows, and everything below the
+       * fold keeps its normal scroll-triggered entrance.
        */}
       <div
         ref={bodyRef}
@@ -188,14 +208,10 @@ export function HomeV2({ contentId }: { contentId?: string }) {
         inert={!bodyVisible}
       >
         {bodyMounted ? (
-          <BodyParticles
-            enabled={policy.motionEnabled}
-            onReady={() => setBodyBackdropReady(true)}
-            tier={policy.tier}
-          />
+          <BodyParticles enabled={particlesLive} tier={policy.tier} />
         ) : null}
         <ScrollProvider enabled={policy.scrollChoreography}>
-          <div key={bodyMounted ? "home-body" : "home-idle"}>
+          <div>
             <SecondaryHero />
             <TrustStrip />
             <OperatingLayer />

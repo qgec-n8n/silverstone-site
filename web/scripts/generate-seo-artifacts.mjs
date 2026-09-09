@@ -80,6 +80,89 @@ export function expectedPostPaths() {
 }
 
 /**
+ * Redirect wrappers a research step can leave behind instead of the source it
+ * actually found. They resolve for a few days and then 404, so a citation
+ * behind one is a dead citation by the time anybody follows it.
+ */
+const URL_REDIRECT_WRAPPERS = [
+  "vertexaisearch.cloud.google.com/grounding-api-redirect",
+  "googleusercontent.com/url?",
+  "google.com/url?",
+  "bing.com/ck/a",
+  "duckduckgo.com/l/?",
+];
+
+function flattenSections(sections = []) {
+  return sections.flatMap((section) => [
+    section,
+    ...flattenSections(section.subsections ?? []),
+  ]);
+}
+
+/**
+ * Outbound URL rules from `docs/blog-article-contract.md` ("Outbound URLs").
+ *
+ * These are the URLs the page actually renders — citations, entity links,
+ * quote attributions and ranked-provider sites. Each has to be an absolute
+ * https address pointing at the destination itself. A missing
+ * `rankedCards[].website` is deliberately NOT an error: the automation does
+ * not emit that field yet, and `src/data/blog-provider-links.ts` recovers it
+ * from the article's own registry-verified research. Only a URL that is
+ * present and unusable fails the build, because that is the one case nothing
+ * downstream can recover from.
+ */
+export function collectBlogUrlErrors(post) {
+  const errors = [];
+  const check = (value, field) => {
+    const url = typeof value === "string" ? value.trim() : "";
+    if (!url) {
+      errors.push(`Post ${post.slug} has an empty ${field}`);
+      return;
+    }
+    if (url.startsWith("/")) return;
+    if (!url.startsWith("https://")) {
+      errors.push(`Post ${post.slug} ${field} is not an absolute https URL: ${url}`);
+      return;
+    }
+    const wrapper = URL_REDIRECT_WRAPPERS.find((pattern) => url.includes(pattern));
+    if (wrapper) {
+      errors.push(
+        `Post ${post.slug} ${field} is a ${wrapper} redirect rather than the source itself`,
+      );
+      return;
+    }
+    try {
+      new URL(url);
+    } catch {
+      errors.push(`Post ${post.slug} ${field} is not a parseable URL: ${url}`);
+    }
+  };
+
+  for (const [index, source] of (post.researchSources ?? []).entries()) {
+    check(source.url, `researchSources[${index}].url`);
+  }
+  for (const section of flattenSections(post.articleBody ?? [])) {
+    for (const entity of section.entityLinks ?? []) {
+      check(entity.url, `entityLinks "${entity.name}".url`);
+    }
+    if (section.quoteCard?.url !== undefined) {
+      check(section.quoteCard.url, "quoteCard.url");
+    }
+    for (const card of section.rankedCards ?? []) {
+      // Absent is fine (recovered at render); present-but-broken is not.
+      if (card.website !== undefined) {
+        check(card.website, `rankedCards "${card.name}".website`);
+      }
+    }
+    for (const link of section.links ?? []) {
+      check(link.href, `links "${link.label}".href`);
+    }
+  }
+
+  return errors;
+}
+
+/**
  * Deploy gate for the blog article contract (docs/blog-article-contract.md).
  * Every published post must carry complete, unique metadata before a
  * production bundle can ship — a violation names the article and the field
@@ -139,6 +222,7 @@ export function validateBlogData(now = new Date()) {
     if (!Number.isNaN(published) && !Number.isNaN(updated) && updated < published) {
       errors.push(`Post ${post.slug} has updatedIsoDate before publishedIsoDate`);
     }
+    errors.push(...collectBlogUrlErrors(post));
   }
   return errors;
 }

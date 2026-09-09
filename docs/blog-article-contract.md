@@ -11,7 +11,10 @@ Enforcement layers:
   A violation fails the production build with a message naming the article
   and the field. Invalid articles are never silently omitted.
 - **Test gate** — `web/tests/unit/blog-posts.test.ts` (slug policy, hero
-  asset existence, metadata uniqueness, date ordering).
+  asset existence, metadata uniqueness, date ordering),
+  `web/tests/unit/blog-url-contract.test.ts` (the outbound-URL rules below)
+  and `web/tests/unit/blog-provider-links.test.ts` (ranked-provider link
+  recovery).
 
 ## Identity and URL
 
@@ -60,17 +63,47 @@ Enforcement layers:
 16. Internal working fields (`researchSources`, `imagePrompt`) are
     tolerated in the data file but must never render on the page.
 
+## Outbound URLs
+
+Every URL the page renders comes from one of four fields, and each has to
+arrive absolute, `https://`, and pointing at the destination itself — never
+a search result, a tracking wrapper, or a grounding redirect
+(`vertexaisearch.cloud.google.com/grounding-api-redirect/…` and the like
+expire, so a citation behind one is a dead citation within days).
+
+17. `articleBody[].entityLinks[].url` and `articleBody[].quoteCard.url` —
+    the deliberate outbound actions. Absolute `https://`, or a site-relative
+    path (`/services/{slug}`) for our own pages.
+18. `researchSources[].url` — the citation list. Absolute `https://` to the
+    page that carries the claim.
+19. `articleBody[].links[].href` — site-relative internal links, subject to
+    the canonical-path rule in 14.
+20. `articleBody[].rankedCards[].website` — **the provider's own homepage,
+    on every card in a ranked shortlist.** This is the field the automation
+    currently omits. Until it emits one, the site recovers the link from the
+    article's own research: `web/src/data/blog-provider-links.ts` matches a
+    card's `name` to a `researchSources` entry carrying
+    `registryProvider: true` and an `organisationName`, and uses the URL that
+    entry verified. That recovery reproduces every hand-filled value in the
+    published back catalogue (asserted in
+    `web/tests/unit/blog-provider-links.test.ts`), but it can only work when
+    the shortlisted organisation is present in `researchSources` as a
+    registry-verified record. **A ranked card naming a provider that no
+    research source verifies will render without a link.** Emitting
+    `website` directly on the card remains the fix; the recovery is a floor,
+    not a substitute.
+
 ## Integration (owned by the website, verified per build)
 
-17. Route: served at `/blog/{slug}` via `routes/blog/article.tsx`;
+21. Route: served at `/blog/{slug}` via `routes/blog/article.tsx`;
     prerendered at build time with meaningful page-specific HTML.
-18. Blog hub: listed with a crawlable link on `/blog`
+22. Blog hub: listed with a crawlable link on `/blog`
     (`BLOG_CARD_ARTICLES` → insights board).
-19. Sitemap: exactly one entry in `sitemap-posts.xml` with `lastmod` from
+23. Sitemap: exactly one entry in `sitemap-posts.xml` with `lastmod` from
     the content dates.
-20. Robots: `index, follow` in production; never `noindex`; no
+24. Robots: `index, follow` in production; never `noindex`; no
     `X-Robots-Tag` block.
-21. Breadcrumbs: visible Home → Blog → article trail and matching
+25. Breadcrumbs: visible Home → Blog → article trail and matching
     `BreadcrumbList` JSON-LD; `BlogPosting` JSON-LD with truthful dates,
     absolute image URL and Organization author/publisher.
 

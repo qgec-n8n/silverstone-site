@@ -88,10 +88,6 @@
   backface-visibility: hidden;
 }
 
-.ss-hv2[data-homepage-state="opening"] .ss-hv2-backdrop {
-  opacity: 0;
-}
-
 .ss-hv2-backdrop > * {
   position: absolute;
   inset: 0;
@@ -154,7 +150,23 @@
   height: 100%;
   height: 100lvh;
   pointer-events: auto;
+  /* Held at zero until the engine is live (`data-particles-live` on the
+     backdrop) so the dots ease in rather than snapping on. The engine starts
+     once the Explore morph has landed — see the note in the route templates —
+     and this is what keeps that from reading as the field appearing out of
+     nowhere. The gradient layers underneath are never faded. */
+  opacity: 0;
+  transition: opacity 720ms var(--ss-motion-easing-standard, ease);
+}
+
+.ss-hv2-backdrop[data-particles-live="true"] .ss-hv2-backdrop__particles {
   opacity: 0.92;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-hv2-backdrop__particles {
+    transition: none;
+  }
 }
 
 .ss-hv2-backdrop__particles canvas {
@@ -457,8 +469,22 @@ html[data-js="on"]
   pointer-events: none;
 }
 
+/*
+  `isolation` is load-bearing, not decoration. The splash centres its copy in a
+  `.relative.z-10` container (Tailwind), and this section is positioned but has
+  no z-index of its own — so without a stacking context here that z-10 competed
+  directly with the morphing body layer (z-index 3) in the route container's
+  context and won. The intro's heading and lead stayed painted on top of the
+  body as it expanded, which is what left the splash copy sitting over the page
+  copy on /blog and every other gated route. Isolating traps the z-10 inside,
+  and z-index 2 then puts the whole splash under the growing body and above the
+  route background — the same layering the homepage hero gets from its own
+  positioned `z-index: 2` while the intro owns the screen.
+*/
 .ss-service-intro {
   position: relative;
+  z-index: 2;
+  isolation: isolate;
   display: flex;
   min-height: 100dvh;
   align-items: center;
@@ -2855,6 +2881,17 @@ html[data-js="on"]
    exactly the duration of the morph and the collapse resumes the moment the
    attribute comes off. `pointer-events: none` because the body is `inert`
    throughout and nothing underneath should receive a stray click either.
+
+   `padding-top` is what makes the hand-off seamless. The site header is on
+   screen for the whole morph (see the arrival animation in
+   experience-gate.css) and, once the body owns the screen, `main` carries a
+   matching top padding — so the body's copy sits one header-height down. The
+   pinned layer reserves the same band, which means the copy is at the same
+   distance from the top of the screen on the last frame of the morph as it is
+   on the first frame after it, and nothing jumps at the swap. Absolutely
+   positioned children (the particle backdrop) resolve against the padding
+   box, so the backdrop still covers the reserved band rather than starting
+   below it.
 */
 .ss-hv2__body[data-explore-stage],
 html[data-js="on"]
@@ -2866,10 +2903,27 @@ html[data-js="on"] .ss-route-experience .ss-route-experience__body[data-explore-
   z-index: 3;
   min-height: 0;
   max-height: none;
+  padding-top: var(--ss-layout-header);
   overflow: hidden;
   background: var(--ss-v2-void-black);
   pointer-events: none;
   transform-origin: 0 0;
+}
+
+/*
+   The particle backdrop is `position: fixed`, which pins it to the viewport
+   while the body is an ordinary scrolling document. Inside the staged layer it
+   cannot be: an ancestor with a transform makes a fixed descendant resolve
+   against that ancestor instead, and the layer is both transformed and
+   (on a close) scrolled. Anchoring it explicitly to the scroll offset the
+   controller publishes keeps it exactly where the viewport-fixed version sat,
+   so the field behind the copy neither slides nor blinks as the two swap.
+*/
+[data-explore-stage] .ss-hv2-backdrop {
+  position: absolute;
+  top: var(--ss-explore-stage-scroll, 0px);
+  bottom: auto;
+  height: 100dvh;
 }
 
 /* Belt-and-braces for iOS Safari: `inset: 0` on a fixed element already fills

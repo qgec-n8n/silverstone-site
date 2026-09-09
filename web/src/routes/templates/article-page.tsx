@@ -64,6 +64,7 @@ import type {
   SilverstoneBlogTimeline,
   SilverstoneBlogVersusCard,
 } from "~/data/blog-posts";
+import { withResolvedProviderLinks } from "~/data/blog-provider-links";
 import { getRelatedPosts } from "~/data/blog-related";
 import {
   BorderBeam,
@@ -1613,11 +1614,16 @@ function plainProviderName(value: string): string {
  * Returns null otherwise; an empty ItemList is worse than none.
  */
 export function buildRankedShortlistSchema(
-  post: SilverstoneBlogPost,
+  publishedPost: SilverstoneBlogPost,
 ): RankedShortlistSchema | null {
-  if (post.presentation?.family !== RANKED_SHORTLIST_FAMILY) {
+  if (publishedPost.presentation?.family !== RANKED_SHORTLIST_FAMILY) {
     return null;
   }
+
+  // Same recovery the page performs, so an entry that renders a "Visit …"
+  // button is an Organization with a `url` in the schema rather than a bare
+  // name. Cached per post, so asking twice costs one walk.
+  const post = withResolvedProviderLinks(publishedPost);
 
   // Cards live on a section, and in today's data every ranked shortlist keeps
   // them in one section. Sections and subsections are walked in reading order
@@ -1779,7 +1785,16 @@ function FloatingInsightsReturn({ visible }: { visible: boolean }) {
   );
 }
 
-export function ArticlePage({ post }: ArticlePageProps) {
+export function ArticlePage({ post: publishedPost }: ArticlePageProps) {
+  /*
+   * Ranked shortlists reach us with their provider links missing — the
+   * automation records each verified organisation on `researchSources` but
+   * never copies its URL onto the card. Filling them here, from the article's
+   * own research, is what keeps a shortlist's "Visit …" buttons and its
+   * ItemList schema working for posts nobody has hand-edited. See
+   * `~/data/blog-provider-links`.
+   */
+  const post = withResolvedProviderLinks(publishedPost);
   const factStripRef = useRef<HTMLDivElement>(null);
   const [floatingReturnVisible, setFloatingReturnVisible] = useState(false);
   const relatedPosts = getRelatedPosts(post);

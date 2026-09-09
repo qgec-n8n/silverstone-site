@@ -1,34 +1,58 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
 import { expect, test, type Page } from "@playwright/test";
 
-const serviceRoutes = [
-  {
-    path: "/services/web-design-development",
-    loader: "Aligning message, movement and measurement",
-    pill: /Custom digital experience/i,
-    // The Aether intro's teaser title — distinct from the body's public H1
-    // by design (intro teases, body delivers); it is not repeated in <main>.
-    title: "Make the website earn its place",
-    // The real public H1 rendered once the body opens.
-    bodyHeading: "Web design and development engineered to move buyers forward",
-    button: "Explore the commercial website system",
-  },
-  {
-    path: "/services/app-development",
-    loader: "Reducing the idea to its most valuable working state",
-    pill: /Product intelligence \/ First release/i,
-    title: "Prove the workflow before expanding the product",
-    bodyHeading: "Custom app development that starts small and proves value",
-    button: "Map the first release",
-  },
-  {
-    path: "/services/ai-voice-agents",
-    loader: "Synchronising speech, action and human fallback",
-    pill: /Conversational systems \/ Voice/i,
-    title: "Give every call a controlled next state",
-    bodyHeading: "AI voice agents for real conversations",
-    button: "Explore the call architecture",
-  },
-] as const;
+import type { ApprovedServiceContent } from "../../src/content/services/approved-services";
+import { serviceCopyByRoute } from "../../src/features/services-v2/content/copy";
+
+/**
+ * The gated route-entry sequence: loader → Aether intro splash → the Explore
+ * pill expanding into the body → the return control collapsing it back.
+ *
+ * Every string asserted here is read from the file that produces it rather
+ * than transcribed into this one. That is deliberate. These expectations used
+ * to be hand-copied, so an ordinary copy edit to a route's splash — new loader
+ * line, retuned pill, reworded button — failed the suite even though the
+ * sequence it exists to guard was perfectly healthy. Reading the source of
+ * truth keeps the test on the wiring (does the splash render this route's
+ * entry, does the body carry this route's H1, does the gate open and come
+ * back) and lets the copy move freely.
+ *
+ * `approved-services.json` is what `~/data/route-experiences` itself reads for
+ * these routes; it is loaded with `readFileSync` rather than imported because
+ * Playwright's loader will not take a JSON import without an import attribute.
+ */
+const approvedServices = JSON.parse(
+  readFileSync(
+    resolve(process.cwd(), "src/content/services/generated/approved-services.json"),
+    "utf8",
+  ),
+) as Record<string, ApprovedServiceContent>;
+
+const serviceRoutes = (
+  [
+    "/services/web-design-development",
+    "/services/app-development",
+    "/services/ai-voice-agents",
+  ] as const
+).map((path) => {
+  const service = approvedServices[path];
+  if (!service) {
+    // A route dropping out of the approved set would silently empty this
+    // table, so it fails loudly at collection time instead.
+    throw new Error(`No approved service content for ${path}`);
+  }
+
+  return {
+    entry: service.routeEntry,
+    // The route's real public H1, rendered once the body opens — distinct from
+    // the splash's teaser title by design. Emphasis markdown renders as <em>,
+    // so the text check uses the plain form.
+    bodyHeading: serviceCopyByRoute[path].h1.replaceAll("*", ""),
+    path,
+  };
+});
 
 /**
  * The CoreSpin loader, addressed by element rather than by bare role.
@@ -69,7 +93,7 @@ async function openBody(page: Page, button: string) {
 }
 
 /**
- * Click the floating return-to-route-intro control.
+ * Click the floating return-to-intro control.
  *
  * On phones that control is deliberately withheld until the visitor has
  * scrolled past the one-screen hero (see `app/experience/mobile-chrome-gate.tsx`
@@ -91,7 +115,7 @@ async function clickReturnToRouteIntro(page: Page) {
       timeout: 5_000,
     });
   }
-  await page.getByRole("button", { name: /return to route intro/i }).click();
+  await page.getByRole("button", { name: /return to intro/i }).click();
 }
 
 function escapeRegExp(value: string) {
@@ -99,32 +123,42 @@ function escapeRegExp(value: string) {
 }
 
 for (const route of serviceRoutes) {
+  const { entry } = route;
+
   test(`route-entry sequence works for ${route.path}`, async ({ page }) => {
     test.setTimeout(45_000);
     await page.goto(route.path);
 
-    await expect(loaderStatus(page)).toContainText(route.loader);
+    await expect(loaderStatus(page)).toContainText(entry.loaderText);
     await expect(introTitle(page)).toHaveCount(0);
 
     await waitForRouteIntro(page);
-    await expect(
-      page
-        .getByLabel(new RegExp(`${escapeRegExp(route.title)} intro`, "i"))
-        .getByText(route.pill),
-    ).toBeVisible();
-    await expect(introTitle(page)).toHaveText(route.title);
+    const splash = page.getByLabel(
+      new RegExp(`${escapeRegExp(entry.title)} intro`, "i"),
+    );
+    await expect(splash).toBeVisible();
+    /*
+     * The pill ships in two forms — the full line and a phone-length one — and
+     * CSS shows exactly one per viewport (see `.ss-hv2-kicker__text`). Both are
+     * always in the markup, so a text check covers either project while the
+     * visibility check proves the kicker itself renders.
+     */
+    const kicker = splash.locator(".ss-hv2-kicker");
+    await expect(kicker).toBeVisible();
+    await expect(kicker).toContainText(entry.pill);
+    await expect(introTitle(page)).toHaveText(entry.title);
     await expect(introTitle(page)).toBeVisible();
-    await expect(page.getByRole("button", { name: route.button })).toBeVisible();
+    await expect(page.getByRole("button", { name: entry.buttonLabel })).toBeVisible();
 
-    await openBody(page, route.button);
+    await openBody(page, entry.buttonLabel);
     await expect(page.getByRole("main")).toContainText(route.bodyHeading);
 
     await clickReturnToRouteIntro(page);
     await waitForRouteIntro(page);
-    await expect(page.getByRole("button", { name: route.button })).toBeFocused();
+    await expect(page.getByRole("button", { name: entry.buttonLabel })).toBeFocused();
 
     await page.reload();
-    await expect(loaderStatus(page)).toContainText(route.loader);
+    await expect(loaderStatus(page)).toContainText(entry.loaderText);
     await waitForRouteIntro(page);
   });
 }

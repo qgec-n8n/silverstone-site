@@ -63,10 +63,32 @@ export function RouteExperienceFrame({
       routeExperienceState === "opening" ||
       routeExperienceState === "closing");
   const bodyVisible = skipIntro || !enabled || routeExperienceState === "body";
-  // The particle backdrop sits inside the body wrapper, so keeping it up while
-  // the body collapses into the Explore pill lets it shrink with the page
-  // instead of vanishing on the first frame of the close.
-  const bodyBackdropMounted = bodyVisible || routeExperienceState === "closing";
+  /*
+   * The body is the layer that grows out of the Explore pill and collapses
+   * back into it, so its particle backdrop is mounted for both morphs — not
+   * just once the state settles on `body`. Without `opening` here the route's
+   * whole background was simply absent while the page expanded, which is
+   * exactly the "the shader is there, then it isn't" flicker.
+   */
+  const bodyBackdropMounted =
+    bodyVisible ||
+    routeExperienceState === "opening" ||
+    routeExperienceState === "closing";
+
+  /*
+   * The particle engine starts once the body has landed, never while it is
+   * expanding. Initialising particles.js is a chunky synchronous job (canvas
+   * allocation plus the whole particle set) and running it on the frames the
+   * morph starts was the single biggest main-thread block in the expansion.
+   * The backdrop's gradient layers are mounted throughout, so the field behind
+   * the copy is there from the first frame either way; only the drifting dots
+   * arrive a beat later, fading in (see `.ss-hv2-backdrop__particles`).
+   *
+   * It deliberately stays live through `closing`, so the field shrinks into
+   * the pill with the page rather than blinking out as the close begins.
+   */
+  const particlesLive =
+    policy.motionEnabled && bodyBackdropMounted && routeExperienceState !== "opening";
 
   const focusExploreButton = useCallback(() => {
     const delays = policy.motionEnabled ? [620, 760] : [50, 140, 260];
@@ -187,7 +209,7 @@ export function RouteExperienceFrame({
         inert={!bodyVisible}
       >
         {bodyBackdropMounted ? (
-          <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
+          <BodyParticles enabled={particlesLive} tier={policy.tier} />
         ) : null}
         <div className="ss-service-experience__content ss-route-experience__content">
           {children}
@@ -197,8 +219,8 @@ export function RouteExperienceFrame({
             type="button"
             className="ss-hv2-return ss-service-experience__return"
             onClick={handleCloseBody}
-            aria-label="Return to route intro"
-            title="Return to route intro"
+            aria-label="Return to intro"
+            title="Return to intro"
             hidden={!bodyVisible}
           >
             <RotateCcw className="size-4" aria-hidden="true" />

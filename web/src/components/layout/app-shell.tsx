@@ -17,12 +17,34 @@ type AppShellProps = {
 
 function AppShell({ children, pendingIndicator }: AppShellProps) {
   const location = useLocation();
-  const { homepageState, routeIntroLocked } = useAppExperience();
+  const {
+    homepageState,
+    routeExperienceActive,
+    routeExperienceState,
+    routeIntroLocked,
+  } = useAppExperience();
   const previousPathRef = useRef(location.pathname);
   usePageInView();
 
   const isHome = location.pathname === "/";
   const chromeVisible = (!isHome || homepageState === "body") && !routeIntroLocked;
+  /*
+   * The header is mounted for the Explore morph as well as for the settled
+   * body, so it can arrive as part of the expansion (experience-gate.css owns
+   * the animation) instead of being snapped in on the frame the morph ends.
+   *
+   * `chromeVisible` deliberately stays narrower and still governs `main`'s top
+   * padding and the footer: adding that padding mid-morph would shove the
+   * intro splash — still on screen behind the growing body — down by a header
+   * height. The morphing layer reserves the same band itself while it is
+   * pinned (`padding-top` on `[data-explore-stage]`), so the body's copy sits
+   * at the same height throughout and nothing moves at the hand-off.
+   */
+  const introOwnsScreen = isHome
+    ? homepageState === "loading" || homepageState === "intro"
+    : routeExperienceActive &&
+      (routeExperienceState === "loading" || routeExperienceState === "intro");
+  const headerMounted = !introOwnsScreen;
   /*
    * The footer is ALWAYS mounted — never gated on `chromeVisible`.
    *
@@ -58,7 +80,7 @@ function AppShell({ children, pendingIndicator }: AppShellProps) {
           controls stay off the phone hero until the visitor scrolls past it —
           mounted here because it must outlive every route change. */}
       <MobileChromeGate />
-      {chromeVisible ? <SiteHeader pendingIndicator={pendingIndicator} /> : null}
+      {headerMounted ? <SiteHeader pendingIndicator={pendingIndicator} /> : null}
       <main
         className={cn(
           "flex-1 outline-none",
