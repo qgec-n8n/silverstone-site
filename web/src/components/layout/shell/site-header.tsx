@@ -619,7 +619,17 @@ function useMobileDrawerScrollLock(
 
 export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const location = useLocation();
-  const { headerHidden } = useAppExperience();
+  /*
+   * The narrow signal, not the broad one. `headerHidden` stays true for the
+   * whole Explore morph, which parked this header at its `hidden` variant
+   * while experience-gate.css was animating it in — so the moment the morph
+   * ended and that animation stopped applying, Motion's inline hidden style
+   * showed through and the bar slid in a SECOND time. `introOwnsScreen` is
+   * true only while a loader or splash really owns the screen, so the header
+   * gets one entrance, owned by the stylesheet, and Motion holds it at rest
+   * for the rest of the morph.
+   */
+  const { introOwnsScreen } = useAppExperience();
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
@@ -813,7 +823,8 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const elevated = scrolled || openMenu !== null;
   // Never hide the header while one of its own menus is open — scrolling a
   // mega-menu or the mobile drawer shouldn't make the trigger disappear.
-  const hidden = headerHidden || (hiddenByScroll && openMenu === null && !mobileOpen);
+  const hidden =
+    introOwnsScreen || (hiddenByScroll && openMenu === null && !mobileOpen);
 
   // Interactivity must follow the header's VISIBILITY, not the logical `hidden`
   // flag — the header keeps animating for a beat after the flag flips. Disabling

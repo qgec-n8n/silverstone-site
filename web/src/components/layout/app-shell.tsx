@@ -17,12 +17,7 @@ type AppShellProps = {
 
 function AppShell({ children, pendingIndicator }: AppShellProps) {
   const location = useLocation();
-  const {
-    homepageState,
-    routeExperienceActive,
-    routeExperienceState,
-    routeIntroLocked,
-  } = useAppExperience();
+  const { homepageState, introOwnsScreen, routeIntroLocked } = useAppExperience();
   const previousPathRef = useRef(location.pathname);
   usePageInView();
 
@@ -40,10 +35,6 @@ function AppShell({ children, pendingIndicator }: AppShellProps) {
    * pinned (`padding-top` on `[data-explore-stage]`), so the body's copy sits
    * at the same height throughout and nothing moves at the hand-off.
    */
-  const introOwnsScreen = isHome
-    ? homepageState === "loading" || homepageState === "intro"
-    : routeExperienceActive &&
-      (routeExperienceState === "loading" || routeExperienceState === "intro");
   const headerMounted = !introOwnsScreen;
   /*
    * The footer is ALWAYS mounted — never gated on `chromeVisible`.

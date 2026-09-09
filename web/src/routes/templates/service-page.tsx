@@ -82,21 +82,6 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
     serviceExperienceState === "opening" ||
     serviceExperienceState === "closing";
 
-  /*
-   * The particle engine starts once the body has landed, never while it is
-   * expanding. Initialising particles.js is a chunky synchronous job (canvas
-   * allocation plus the whole particle set) and running it on the frames the
-   * morph starts was the single biggest main-thread block in the expansion.
-   * The backdrop's gradient layers are mounted throughout, so the field behind
-   * the copy is there from the first frame either way; only the drifting dots
-   * arrive a beat later, fading in (see `.ss-hv2-backdrop__particles`).
-   *
-   * It deliberately stays live through `closing`, so the field shrinks into
-   * the pill with the page rather than blinking out as the close begins.
-   */
-  const particlesLive =
-    policy.motionEnabled && bodyMounted && serviceExperienceState !== "opening";
-
   const focusExploreButton = useCallback(() => {
     window.setTimeout(
       () => {
@@ -214,7 +199,7 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
         inert={!bodyVisible}
       >
         {bodyMounted ? (
-          <BodyParticles enabled={particlesLive} tier={policy.tier} />
+          <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
         ) : null}
         <div className="ss-service-experience__content">
           <RoutePageFrame

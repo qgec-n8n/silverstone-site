@@ -168,16 +168,43 @@ function boxOf(element: Element): Box {
 
 const mix = (from: number, to: number, progress: number) =>
   from + (to - from) * progress;
-const circIn = (t: number) => 1 - Math.sqrt(1 - t * t);
-const circOut = (t: number) => Math.sqrt(1 - (t - 1) ** 2);
-/*
- * The crossfade Motion applies to a shared-layout handover: the element taking
- * over fades in across the first half of the journey while the one it replaces
- * fades out, so by the midpoint only the new surface remains and the second
- * half is pure movement.
+/**
+ * Where along the pill → page journey the two surfaces have finished trading
+ * places, as a fraction of the distance (0 = sitting on the pill, 1 = filling
+ * the screen).
+ *
+ * Keeping this near the button is what makes the expansion read as the page
+ * emerging from it. Handing over at the midpoint instead meant the pill's
+ * gradient grew into a large coloured slab and the page only arrived once that
+ * slab was already half the screen — which is why the collapse looked right
+ * and the expansion did not: shrinking, the page stayed on screen almost the
+ * whole way and only became the pill at the end.
  */
-const crossfadeIn = (t: number) => (t >= 0.5 ? 1 : circOut(t / 0.5));
-const crossfadeOut = (t: number) => (t >= 0.5 ? 1 : circIn(t / 0.5));
+const HANDOVER_AT = 0.3;
+
+/**
+ * Smoothstep — flat at both ends, steepest in the middle.
+ *
+ * The ease matters as much as the window. A circular ease-out (Motion's own
+ * choice for a shared-layout crossfade) leaves its origin almost vertically:
+ * at 2% of the journey it is already 46% of the way through the fade, which
+ * put a legible page inside a still-pill-sized box. Sitting flat at the start
+ * keeps the button looking like a button until it has actually begun to open.
+ */
+function smoothstep(t: number): number {
+  const clamped = t <= 0 ? 0 : t >= 1 ? 1 : t;
+  return clamped * clamped * (3 - 2 * clamped);
+}
+
+/*
+ * The two surfaces are keyed to POSITION, not to how far through the animation
+ * we are. Direction-relative progress is what made the ends asymmetric: "the
+ * first third of the way there" means near the pill when opening and near the
+ * page when closing, so one window did opposite things at each end. Distance
+ * from the pill means the same thing in both directions. They sum to exactly
+ * one, so the handover neither gaps to the backdrop nor doubles up bright.
+ */
+const pageFade = (progress: number) => smoothstep(progress / HANDOVER_AT);
 
 /**
  * The curve Motion resolves `{ type: "spring", bounce: 0, duration }` to — a
@@ -275,20 +302,18 @@ function buildMorphKeyframes(from: Box, to: Box, opening: boolean): MorphKeyfram
     };
     // Fully round at the pill, square-cornered once it fills the viewport.
     const radius = mix(from.h / 2, 0, progress);
-    // Opening, the body leads and the pill follows; closing, the reverse.
-    const lead = opening ? progress : 1 - progress;
-    const leadOpacity = crossfadeIn(lead);
-    const followOpacity = 1 - crossfadeOut(lead);
+    const pageOpacity = pageFade(progress);
+    const pillOpacity = 1 - pageOpacity;
 
     stageMotion.push({
       offset,
-      opacity: String(opening ? leadOpacity : followOpacity),
+      opacity: String(pageOpacity),
       transform: transformBetween(to, box),
     });
     stageRadius.push({ offset, borderRadius: radiusBetween(to, box, radius) });
     pillMotion.push({
       offset,
-      opacity: String(opening ? followOpacity : leadOpacity),
+      opacity: String(pillOpacity),
       transform: transformBetween(from, box),
     });
     pillRadius.push({ offset, borderRadius: radiusBetween(from, box, radius) });

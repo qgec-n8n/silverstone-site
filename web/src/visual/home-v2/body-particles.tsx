@@ -539,9 +539,6 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
     <div
       className="ss-hv2-backdrop"
       data-particles-package="particles.js"
-      /* Drives the canvas fade in home-v2.css: the dots ease in when the
-         engine starts rather than snapping on mid-transition. */
-      data-particles-live={enabled ? "true" : "false"}
       data-particles-script={particlesScriptUrl}
       data-tier={tier}
       aria-hidden="true"

@@ -150,23 +150,7 @@
   height: 100%;
   height: 100lvh;
   pointer-events: auto;
-  /* Held at zero until the engine is live (`data-particles-live` on the
-     backdrop) so the dots ease in rather than snapping on. The engine starts
-     once the Explore morph has landed — see the note in the route templates —
-     and this is what keeps that from reading as the field appearing out of
-     nowhere. The gradient layers underneath are never faded. */
-  opacity: 0;
-  transition: opacity 720ms var(--ss-motion-easing-standard, ease);
-}
-
-.ss-hv2-backdrop[data-particles-live="true"] .ss-hv2-backdrop__particles {
   opacity: 0.92;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ss-hv2-backdrop__particles {
-    transition: none;
-  }
 }
 
 .ss-hv2-backdrop__particles canvas {

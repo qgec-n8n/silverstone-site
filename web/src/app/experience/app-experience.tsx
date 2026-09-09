@@ -51,6 +51,15 @@ type AppExperienceValue = {
   serviceIntroLocked: boolean;
   serviceBodyActive: boolean;
   headerHidden: boolean;
+  /**
+   * True only while a loader or an intro splash genuinely owns the screen —
+   * NOT while the Explore morph is running. `headerHidden` stays broader (it
+   * is what withholds the floating chrome and defers deep-link scrolling for
+   * the whole gate), so the header needs its own narrower signal: it belongs
+   * to the page that is expanding and has to be on screen for that expansion,
+   * not parked off-screen until it finishes.
+   */
+  introOwnsScreen: boolean;
   scrollLocked: boolean;
   dismissLoader: () => void;
   lockHomepageHero: () => void;
@@ -352,6 +361,11 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const serviceIntroLocked = isServiceRoute && routeIntroLocked;
   const serviceBodyActive = isServiceRoute && routeBodyActive;
   const headerHidden = loaderActive || homepageHeroLocked || routeIntroLocked;
+  const introOwnsScreen =
+    loaderActive ||
+    (isHomeRoute && (homepageState === "loading" || homepageState === "intro")) ||
+    (routeExperienceActive &&
+      (routeExperienceState === "loading" || routeExperienceState === "intro"));
   const scrollLocked = loaderActive || homepageHeroLocked || routeIntroLocked;
 
   useEffect(() => {
@@ -486,6 +500,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       serviceIntroLocked,
       serviceBodyActive,
       headerHidden,
+      introOwnsScreen,
       scrollLocked,
       dismissLoader,
       lockHomepageHero,
@@ -517,6 +532,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       serviceIntroLocked,
       serviceBodyActive,
       headerHidden,
+      introOwnsScreen,
       scrollLocked,
       dismissLoader,
       lockHomepageHero,
