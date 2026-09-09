@@ -106,36 +106,41 @@ export type AtlasInsetSpec = AtlasPlateSpec & {
 };
 
 export const ATLAS_PHONE_INSETS: Record<AtlasInsetName, AtlasInsetSpec> = {
-  /** 60° × 30° at 1.4 dots per degree: Seattle to Maine, the Rio Grande to
+  /** 60° × 30° at 1.667 dots per degree: Seattle to Maine, the Rio Grande to
    * the 49th parallel, with a degree and a half of sea above Seattle and
-   * below Miami so neither label sits on the frame. */
+   * below Miami so neither label sits on the frame. The inset is the whole
+   * plate width less the margins — which is why New York's phone label sits
+   * under its node rather than east of it (see `US_METROS`). */
   us: {
     region: { lat: { min: 21, max: 51 }, lng: { min: -126, max: -66 } },
-    width: 84,
-    height: 42,
+    width: 100,
+    height: 50,
     x: 3,
     y: 3,
   },
-  /** 14° × 10° at 4.5 dots per degree: Ireland to the Frisian coast, the
-   * Channel to the Orkneys. */
+  /** 14° × 10° at 3 dots per degree: a degree of Atlantic west of Ireland to
+   * the North Sea off the Belgian coast, the Channel to the Orkneys.
+   * Deliberately the smaller frame — the same proportion to the US inset as
+   * the original plate had — so the island reads as an inset and not as a
+   * second map of equal weight. The region sits a degree further west than
+   * the ocean plates' UK crop so London lands east of Boston on a plate
+   * whose US inset now runs to the east margin (`reads honestly` test). */
   uk: {
-    region: { lat: { min: 49.5, max: 59.5 }, lng: { min: -11, max: 3 } },
-    width: 63,
-    height: 45,
-    x: 40,
-    y: 48,
+    region: { lat: { min: 49.5, max: 59.5 }, lng: { min: -12, max: 2 } },
+    width: 42,
+    height: 30,
+    x: 61,
+    y: 56,
   },
 };
 
 /** The phone plate's own grid: a three-dot margin all round (the chart's
  * 20px corner radius would otherwise cut an inset's own corner), the US
- * inset plus an Atlantic margin wide enough for New York's label (the plate
- * is drawn at the page's full width on a phone — ~3.2px a dot at 375, 2.6 at
- * 320 — and the label needs up to ~26 dots east of the node), and the UK
- * inset seated under it, at the east edge, with a gutter between. The UK
- * inset is east so London stays east of New York: the plate must read the
- * same way the ocean plates do. */
-export const ATLAS_PHONE_GRID = { width: 106, height: 96 } as const;
+ * inset across the full width, and the UK inset seated under it at the east
+ * edge with a gutter between. The UK inset is east so London stays east of
+ * New York: the plate must read the same way the ocean plates do. The plate
+ * is drawn at the page's full width on a phone, ~3.2px a dot at 375. */
+export const ATLAS_PHONE_GRID = { width: 106, height: 89 } as const;
 
 export const ATLAS_PHONE_LAYER_HREF: Record<
   AtlasInsetName,
@@ -185,8 +190,12 @@ export const US_METROS: readonly AtlasCity[] = [
     zone: "Eastern",
     tier: 1,
     /* South-east on the wide plate: due east sat squarely over Boston's
-       node, which is 13px east and 8px north of New York's at 1200. */
-    anchor: { wide: "se", compact: "e", phone: "se" },
+       node, which is 13px east and 8px north of New York's at 1200. South
+       on the phone: the US inset runs to the plate's east margin there, so
+       an eastward name (~70px, a fifth of the plate) would leave the plate;
+       south clears Boston to the north-east and sits a dot under
+       Philadelphia's quiet node. */
+    anchor: { wide: "se", compact: "e", phone: "s" },
   },
   {
     id: "bos",

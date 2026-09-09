@@ -219,4 +219,27 @@ describe("MarketLanes (Atlantic atlas + ledger)", () => {
     );
     expect(radios.map((radio) => radio.value)).toEqual(["gbp", "usd"]);
   });
+
+  it("gives the ledger its own compact market switch, as a separate radio group", () => {
+    const { container } = renderLanes("/industry/hospitality");
+    const ledger = container.querySelector(".ss-ind2-markets__switch");
+    expect(ledger).not.toBeNull();
+    const radios = [
+      ...(ledger?.querySelectorAll<HTMLInputElement>(
+        '.ss-cur[data-context="ledger"] input[type="radio"]',
+      ) ?? []),
+    ];
+    expect(radios).toHaveLength(2);
+    expect(new Set(radios.map((radio) => radio.name))).toEqual(
+      new Set(["ss-currency-ledger"]),
+    );
+    expect(radios.map((radio) => radio.value)).toEqual(["gbp", "usd"]);
+    // Labelled by market, like the plate's control: "UK" and "US" reach the
+    // accessible name (WCAG 2.5.3), so voice control can say the word on
+    // screen for either switch.
+    expect(radios.map((radio) => radio.getAttribute("aria-label"))).toEqual([
+      "UK, GBP, British pounds",
+      "US, USD, US dollars",
+    ]);
+  });
 });

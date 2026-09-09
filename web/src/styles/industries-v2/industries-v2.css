@@ -2957,7 +2957,7 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 
 @media (max-width: 40rem) {
   .ss-ind2-atlas__plate {
-    aspect-ratio: 1060 / 960;
+    aspect-ratio: 1060 / 890;
   }
 
   .ss-ind2-atlas__svg--compact {
@@ -2968,20 +2968,20 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     display: block;
   }
 
-  /* The field's graticule at the US inset's pitch (10° = 140 of 1060 units
-     across, of 960 down), so the ocean's grid continues the inset's. The
-     inset starts 30 units in from each edge, and a background's percentage
-     position offsets the tile by that fraction of (box − tile): 30 / 920
-     across, 30 / 820 down. */
+  /* The field's graticule at the US inset's pitch (10° = 166.7 of 1060
+     units across, of 890 down), so the ocean's grid continues the inset's.
+     The inset starts 30 units in from each edge, and a background's
+     percentage position offsets the tile by that fraction of (box − tile):
+     30 / 893.3 across, 30 / 723.3 down. */
   .ss-ind2-atlas__chart {
     background-size:
-      calc(100% / 7.571) 100%,
-      100% calc(100% / 6.857),
+      calc(100% / 6.36) 100%,
+      100% calc(100% / 5.34),
       auto,
       auto;
     background-position:
-      3.26% 0,
-      0 3.66%,
+      3.36% 0,
+      0 4.15%,
       0 0,
       0 0;
   }
@@ -3898,10 +3898,39 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
    `html[data-currency]` the plate and the desktop lanes key on, with the
    `:has()` fallback for the no-script radio. */
 
+/* The ledger's own market switch: phone only. From 40rem both lanes are on
+   screen and the plate's control is a glance away. */
+.ss-ind2-markets__switch {
+  display: none;
+}
+
 @media (max-width: 40rem) {
   .ss-ind2-markets {
     /* One column gives the gutters back to the panel. */
     padding: clamp(0.95rem, 0.7rem + 1.2vw, 1.4rem);
+  }
+
+  /* The ledger head: the mono label west, the compact switch east, wrapping
+     to two rows on the narrowest phones; a hairline under it so the shown
+     lane's own head reads as the lane's, not the panel's. */
+  .ss-ind2-markets__switch {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--ss-v2-hairline);
+  }
+
+  .ss-ind2-markets__switch-label {
+    font-family: var(--ss-font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--srv2-accent) 45%, var(--ss-v2-titanium));
+    white-space: nowrap;
   }
 
   .ss-ind2-markets__lanes {

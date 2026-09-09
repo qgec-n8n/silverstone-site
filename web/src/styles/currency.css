@@ -442,7 +442,8 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   the DOM.
 */
 
-.ss-cur[data-context="markets"] {
+.ss-cur[data-context="markets"],
+.ss-cur[data-context="ledger"] {
   --ss-cur-track: color-mix(in srgb, var(--ss-v2-void-black) 62%, transparent);
   --ss-cur-track-edge: color-mix(
     in srgb,
@@ -470,8 +471,37 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 }
 
 /* The market code replaces the currency code, in the same slot. */
-.ss-cur[data-context="markets"] .ss-cur__code {
+.ss-cur[data-context="markets"] .ss-cur__code,
+.ss-cur[data-context="ledger"] .ss-cur__code {
   display: none;
+}
+
+/*
+  Ledger: the same market switch a second time, compact, in the head of the
+  industry pages' two-market ledger on phones (the ledger shows one market at
+  a time there, a screen below the plate's control). A fixed-width capsule,
+  never the phone's full-width slab — it shares its row with a label — and a
+  40px track: the tallest that still reads as a chip in a panel head.
+*/
+.ss-cur[data-context="ledger"] {
+  --ss-cur-seg: 3.5rem;
+}
+
+.ss-cur[data-context="ledger"] .ss-cur__track {
+  height: 2.5rem;
+}
+
+.ss-cur[data-context="ledger"] .ss-cur__option input {
+  inset-block: -3px;
+  height: auto;
+}
+
+.ss-cur[data-context="ledger"] .ss-cur__symbol {
+  font-size: 0.92rem;
+}
+
+.ss-cur[data-context="ledger"] .ss-cur__market {
+  font-size: 0.66rem;
 }
 
 .ss-cur__market {

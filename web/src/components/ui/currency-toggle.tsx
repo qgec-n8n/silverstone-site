@@ -40,9 +40,12 @@ type CurrencyToggleProps = {
    * "markets" is the industry pages' Atlantic Bridge control — same store, same
    * radio semantics, but labelled by market ("US · $" / "UK · £") in
    * styles/currency.css, because on those pages the reader is choosing a market
-   * to read in and the currency follows from it.
+   * to read in and the currency follows from it. "ledger" is the same control
+   * a second time on those pages, compact, in the head of the two-market
+   * ledger on phones (where the ledger shows one market at a time): same
+   * market labels, its own radio name, its own size in styles/currency.css.
    */
-  context?: "header" | "drawer" | "pricing" | "pricing-inline" | "markets";
+  context?: "header" | "drawer" | "pricing" | "pricing-inline" | "markets" | "ledger";
   size?: "default" | "compact" | "instrument" | "grand";
   tone?: "light" | "dark";
   /** Show the small mono "Currency" label beside the capsule. */
@@ -70,7 +73,7 @@ export function CurrencyToggle({
   const [announcement, setAnnouncement] = useState("");
   const generatedId = useId();
   const id = idPrefix ?? generatedId;
-  const isMarkets = context === "markets";
+  const isMarkets = context === "markets" || context === "ledger";
 
   const onChange = (next: Currency) => {
     if (next === currency) {

@@ -609,15 +609,16 @@ function AtlasInsets({
               x={inset.x}
               y={inset.y}
             />
-            {/* Seated where each inset has open water: under the Pacific
-                for the US, in the North Sea east of Orkney for the UK (the
-                Atlantic corner above the Hebrides ran the tag's tail into
-                Cape Wrath once the island was drawn at 4.5 dots a degree). */}
+            {/* Seated in open water: under the Pacific inside the US inset;
+                for the UK, OUTSIDE its frame in the plate's own Atlantic to
+                the west, bottom-aligned — the island fills its small frame
+                too well for a tag to sit in any corner (Cape Wrath, Orkney,
+                Land's End and Calais each take one). */}
             <text
               className="ss-ind2-atlas__inset-tag"
               textAnchor={side === "us" ? "start" : "end"}
-              x={side === "us" ? inset.x + 24 : inset.x + inset.w - 24}
-              y={side === "us" ? inset.y + inset.h - 20 : inset.y + 34}
+              x={side === "us" ? inset.x + 24 : inset.x - 24}
+              y={inset.y + inset.h - 20}
             >
               {INSET_TAG[side]}
             </text>
@@ -1214,6 +1215,22 @@ export function MarketLanes({ markets }: { markets: IndustryMarkets }) {
         className="ss-ind2-markets ss-srv2-beam-border"
         delayMs={120}
       >
+        {/*
+          The ledger's own market switch, phone only (CSS hides it from 40rem,
+          where both lanes are on screen and the plate's control is a glance
+          away). On a phone the ledger shows one lane at a time and sits a
+          full screen below the plate's control, so a reader changing market
+          here sees the cards change under their thumb. Its own context —
+          "ledger" — gives it its own radio name (two controlled groups on one
+          native name fight over the checked state) while the store keeps it
+          in step with the plate's control and the header's.
+        */}
+        <div className="ss-ind2-markets__switch">
+          <span aria-hidden="true" className="ss-ind2-markets__switch-label">
+            Market focus
+          </span>
+          <CurrencyToggle context="ledger" tone="dark" />
+        </div>
         <div className="ss-ind2-markets__lanes" data-rows={String(rows.length)}>
           {markets.lanes.map((lane, laneIndex) => (
             <Reveal
