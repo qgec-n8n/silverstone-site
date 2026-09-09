@@ -4,6 +4,7 @@ import { futureRouteManifest } from "~/data/future-routes";
 import {
   getCanonicalRouteExperienceByPath,
   routeExperiences,
+  MOBILE_PILL_MAX_LENGTH,
 } from "~/data/route-experiences";
 
 describe("route experience registry", () => {
@@ -29,6 +30,12 @@ describe("route experience registry", () => {
     for (const experience of routeExperiences) {
       expect(experience.loaderText.trim(), experience.path).not.toHaveLength(0);
       expect(experience.pill.trim(), experience.path).not.toHaveLength(0);
+      // The phone form of the pill has to sit on one line inside the 20px
+      // gutters at 320px: ~25 characters of 12px mono at 0.18em tracking.
+      expect(experience.pillShort.trim(), experience.path).not.toHaveLength(0);
+      expect(experience.pillShort.length, experience.path).toBeLessThanOrEqual(
+        MOBILE_PILL_MAX_LENGTH,
+      );
       expect(experience.title.trim(), experience.path).not.toHaveLength(0);
       expect(experience.subtitle.trim(), experience.path).not.toHaveLength(0);
       expect(experience.buttonLabel.trim(), experience.path).not.toHaveLength(0);

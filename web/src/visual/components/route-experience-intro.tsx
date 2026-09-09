@@ -107,7 +107,17 @@ export function RouteExperienceIntro({
             variants={introItem}
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-            {experience.pill}
+            {/* Two spans, one shown per viewport tier (see `.ss-hv2-kicker__text`
+                in home-v2.css): the phone form is short enough to sit on one
+                line inside the page gutters at 320px, the full form returns
+                from 40rem. Both are in the markup so the swap is a pure
+                stylesheet matter — no media-query hook, no hydration drift. */}
+            <span className="ss-hv2-kicker__text ss-hv2-kicker__text--full">
+              {experience.pill}
+            </span>
+            <span className="ss-hv2-kicker__text ss-hv2-kicker__text--phone">
+              {experience.pillShort}
+            </span>
           </m.span>
 
           {/*

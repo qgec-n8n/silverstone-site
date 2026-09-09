@@ -284,6 +284,29 @@ html[data-js="on"]
   color: var(--ss-v2-titanium);
 }
 
+/* The pill's copy comes in two lengths (see `RouteExperience.pillShort`):
+   the phone form is chosen so it sits on ONE line inside the 20px gutters on
+   a 320px screen, the full form returns from 40rem, where the longest full
+   pill (55 characters) has ~600px of measure. Both spans are always in the
+   markup; only the stylesheet decides. */
+.ss-hv2-kicker__text {
+  min-width: 0;
+}
+
+.ss-hv2-kicker__text--phone {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .ss-hv2-kicker__text--full {
+    display: none;
+  }
+
+  .ss-hv2-kicker__text--phone {
+    display: inline;
+  }
+}
+
 .ss-hv2-kicker__dot {
   width: 7px;
   height: 7px;

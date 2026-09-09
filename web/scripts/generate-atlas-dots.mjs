@@ -63,20 +63,22 @@ const PLATES = {
    * The phone atlas is two insets on one plate rather than one ocean-wide
    * region: at ~270px across, a single North Atlantic plate resolved the US
    * at 130px and the UK as a dozen dots on the right edge. Each inset keeps
-   * its own honest equirectangular scale — 0.8° per dot for the continental
-   * US, 0.4° for the British Isles — and only ever draws the world layer
-   * plus its own country.
+   * its own honest equirectangular scale — 1.4 dots per degree for the
+   * continental US, 4.5 for the British Isles — and only ever draws the
+   * world layer plus its own country. The plate is drawn at the page's full
+   * width on a phone (outside the atlas frame), which is what pays for the
+   * larger insets.
    */
   "phone-us": {
-    region: { lat: { min: 22.4, max: 49.6 }, lng: { min: -126, max: -66 } },
-    width: 75,
-    height: 34,
+    region: { lat: { min: 21, max: 51 }, lng: { min: -126, max: -66 } },
+    width: 84,
+    height: 42,
     layers: ["world", "us"],
   },
   "phone-uk": {
     region: { lat: { min: 49.5, max: 59.5 }, lng: { min: -11, max: 3 } },
-    width: 35,
-    height: 25,
+    width: 63,
+    height: 45,
     layers: ["world", "uk"],
   },
 };

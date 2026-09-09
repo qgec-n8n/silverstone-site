@@ -18,6 +18,14 @@ export type RouteExperience = {
   path: string;
   loaderText: string;
   pill: string;
+  /**
+   * The pill's phone copy. The intro pill is one line of 12px mono at 0.18em
+   * tracking inside the 20px page gutters, which is ~25 characters at 320px
+   * and ~31 at 375px, so every route carries a form short enough to sit on
+   * one line on any phone; the full `pill` stays for wider viewports. See
+   * `MOBILE_PILLS`.
+   */
+  pillShort: string;
   title: string;
   subtitle: string;
   buttonLabel: string;
@@ -205,6 +213,50 @@ function loaderTextFor(
   }
 }
 
+/**
+ * Phone copy for the intro pill, by path — at most 25 characters (see
+ * `RouteExperience.pillShort`). A route without an entry falls back to the
+ * head of its full pill, cut at the first " · " or " / " separator, which is
+ * how the article and legal families get "Silverstone insight" and
+ * "Governance framework". `tests/unit/route-experiences.test.ts` enforces the
+ * budget on every manifest route.
+ */
+const MOBILE_PILLS: Record<string, string> = {
+  "/": "AI automation · UK & US",
+  "/services": "AI agency services",
+  "/industry": "Industry AI automation",
+  "/how-we-work": "The Silverstone method",
+  "/blog": "Silverstone Intelligence",
+  "/about": "The Silverstone standard",
+  "/pricing": "Pricing, scope & return",
+  "/contact": "Direct correspondence",
+  "/book": "30-minute discovery",
+  "/privacy-policy": "Governance framework",
+  "/services/web-design-development": "Web design & development",
+  "/services/app-development": "Custom app development",
+  "/services/ai-voice-agents": "AI voice agents",
+  "/services/ai-receptionists": "AI receptionists",
+  "/services/content-creation": "AI content creation",
+  "/services/ai-automation": "Workflow automation",
+  "/services/ai-consulting": "AI consulting",
+  "/industry/dentists": "Dental practice AI",
+  "/industry/physios-chiropractors": "Physio & chiropractic AI",
+  "/industry/salons-barbers": "Salon & barbershop AI",
+  "/industry/gyms-fitness-studios": "Gym & fitness studio AI",
+  "/industry/hospitality": "Hospitality AI",
+  "/industry/ecommerce": "Ecommerce AI",
+  "/industry/fitness-coaches": "Online fitness coach AI",
+  "/industry/estate-agents": "Estate agent & broker AI",
+  "/industry/trades": "Trades & contractor AI",
+  "/industry/aesthetic-clinics": "Seven-day booking sprint",
+};
+
+export const MOBILE_PILL_MAX_LENGTH = 25;
+
+function mobilePillFor(path: string, pill: string): string {
+  return MOBILE_PILLS[path] ?? (pill.split(/\s[·/]\s/)[0] ?? pill).trim();
+}
+
 function pillFor(route: FutureRouteRecord, family: RouteExperienceFamily): string {
   if (route.path === "/") return "Silverstone operating system";
   if (route.path === "/services") return "Services command map";
@@ -276,6 +328,10 @@ function buildExperience(route: FutureRouteRecord): RouteExperience {
     path: route.path,
     loaderText: approvedRouteEntry?.loaderText ?? loaderTextFor(route, family),
     pill: approvedRouteEntry?.pill ?? pillFor(route, family),
+    pillShort: mobilePillFor(
+      route.path,
+      approvedRouteEntry?.pill ?? pillFor(route, family),
+    ),
     title: approvedRouteEntry?.title ?? conciseTitle(route),
     subtitle: approvedRouteEntry?.subtitle ?? route.description,
     buttonLabel: approvedRouteEntry?.buttonLabel ?? buttonLabelFor(route, family),
@@ -299,6 +355,7 @@ export const notFoundRouteExperience: RouteExperience = {
   path: "*",
   loaderText: "Recovering a safe route",
   pill: "Route recovery",
+  pillShort: "Route recovery",
   title: "This address doesn't resolve",
   subtitle:
     "The page may have moved while the Silverstone system was being rebuilt. Every live route is one step away.",

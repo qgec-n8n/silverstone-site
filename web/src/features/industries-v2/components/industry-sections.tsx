@@ -610,10 +610,13 @@ function AtlasInsets({
               y={inset.y}
             />
             {/* Seated where each inset has open water: under the Pacific
-                for the US, in the Atlantic above the Hebrides for the UK. */}
+                for the US, in the North Sea east of Orkney for the UK (the
+                Atlantic corner above the Hebrides ran the tag's tail into
+                Cape Wrath once the island was drawn at 4.5 dots a degree). */}
             <text
               className="ss-ind2-atlas__inset-tag"
-              x={inset.x + 24}
+              textAnchor={side === "us" ? "start" : "end"}
+              x={side === "us" ? inset.x + 24 : inset.x + inset.w - 24}
               y={side === "us" ? inset.y + inset.h - 20 : inset.y + 34}
             >
               {INSET_TAG[side]}
@@ -956,95 +959,107 @@ function AtlanticAtlas({ controlId }: { controlId: string }) {
         <CurrencyToggle context="markets" idPrefix={controlId} tone="dark" />
       </Reveal>
 
-      {/* Every metro by name at every width, behind a disclosure: the plates
+      {/*
+        The dock: the metro strip and the frontier offer, together. On a phone
+        (≤40rem) the atlas frame gives up its glass — the plate is drawn at the
+        page's full width outside any container, with the market focus switch
+        beneath it — and the dock becomes the framed panel on its own, holding
+        the two things that are not the map. From 40rem the dock is a plain
+        grid area inside the one frame, as before, and its own beam is hidden.
+      */}
+      <div className="ss-ind2-atlas__dock ss-srv2-beam-border">
+        {/* Every metro by name at every width, behind a disclosure: the plates
           label seven at most, and a city name is something a reader may
           search for, so the twelve stay in the prerendered document (folded
           with grid rows + `inert`, never unmounted) under a row that reads as
           one line whether it is open or shut. */}
-      <Reveal className="ss-ind2-atlas__strip" delayMs={280} kind="section">
-        <button
-          aria-controls={stripId}
-          aria-expanded={metrosOpen}
-          className="ss-ind2-atlas__strip-toggle"
-          data-state={metrosOpen ? "open" : "closed"}
-          onClick={() => {
-            setMetrosOpen((state) => !state);
-          }}
-          type="button"
-        >
-          <span className="ss-ind2-atlas__strip-label">
-            US metros Silverstone AI currently serves
-          </span>
-          <span aria-hidden="true" className="ss-ind2-atlas__strip-count">
-            {US_METROS.length}
-          </span>
-          <span className="ss-ind2-atlas__strip-hint">
-            {metrosOpen ? "Hide cities" : "Show cities"}
-          </span>
-          <ChevronDown aria-hidden="true" className="ss-ind2-atlas__strip-chevron" />
-        </button>
-        <div
-          className="ss-ind2-atlas__strip-fold"
-          data-state={metrosOpen ? "open" : "closed"}
-          id={stripId}
-          inert={!metrosOpen}
-        >
-          <p className="ss-ind2-atlas__strip-line">
-            {US_METROS.map((city) => (
-              <span
-                className="ss-ind2-atlas__strip-city"
-                data-zone={city.zone}
-                key={city.id}
-              >
-                {city.name}
-              </span>
-            ))}
-          </p>
-        </div>
-      </Reveal>
+        <Reveal className="ss-ind2-atlas__strip" delayMs={280} kind="section">
+          <button
+            aria-controls={stripId}
+            aria-expanded={metrosOpen}
+            className="ss-ind2-atlas__strip-toggle"
+            data-state={metrosOpen ? "open" : "closed"}
+            onClick={() => {
+              setMetrosOpen((state) => !state);
+            }}
+            type="button"
+          >
+            <span className="ss-ind2-atlas__strip-label">
+              US metros Silverstone AI currently serves
+            </span>
+            <span aria-hidden="true" className="ss-ind2-atlas__strip-count">
+              {US_METROS.length}
+            </span>
+            <span className="ss-ind2-atlas__strip-hint">
+              {metrosOpen ? "Hide cities" : "Show cities"}
+            </span>
+            <ChevronDown aria-hidden="true" className="ss-ind2-atlas__strip-chevron" />
+          </button>
+          <div
+            className="ss-ind2-atlas__strip-fold"
+            data-state={metrosOpen ? "open" : "closed"}
+            id={stripId}
+            inert={!metrosOpen}
+          >
+            <p className="ss-ind2-atlas__strip-line">
+              {US_METROS.map((city) => (
+                <span
+                  className="ss-ind2-atlas__strip-city"
+                  data-zone={city.zone}
+                  key={city.id}
+                >
+                  {city.name}
+                </span>
+              ))}
+            </p>
+          </div>
+        </Reveal>
 
-      {/* The frontier: a reader whose metro is not on the plate is the one
+        {/* The frontier: a reader whose metro is not on the plate is the one
           the map should turn into an enquiry, so the offer sits outside the
           fold, always visible, and the CTA is the shared conversion button
           so it lands on the contact console client-side. */}
-      <Reveal className="ss-ind2-atlas__frontier-reveal" delayMs={360} kind="cta">
-        <div className="ss-ind2-atlas__frontier">
-          <div className="ss-ind2-atlas__frontier-copy">
-            <span className="ss-ind2-atlas__frontier-badge">
-              <Sparkles aria-hidden="true" />
-              New frontier · First-in-city offer
-            </span>
-            <p className="ss-ind2-atlas__frontier-title">
-              Can’t find your city? Put it on the map.
-            </p>
-            <p className="ss-ind2-atlas__frontier-body">
-              Be the first business in your metro to run a Silverstone AI system and
-              take <strong>10% off your build</strong>. Enter the new frontier — and be
-              ready for what’s next before anyone else in town is.
-            </p>
-          </div>
-          {/* The offer column: the figure as a title, the qualifier as its
+        <Reveal className="ss-ind2-atlas__frontier-reveal" delayMs={360} kind="cta">
+          <div className="ss-ind2-atlas__frontier">
+            <div className="ss-ind2-atlas__frontier-copy">
+              <span className="ss-ind2-atlas__frontier-badge">
+                <Sparkles aria-hidden="true" />
+                New frontier · First-in-city offer
+              </span>
+              <p className="ss-ind2-atlas__frontier-title">
+                Can’t find your city? Put it on the map.
+              </p>
+              <p className="ss-ind2-atlas__frontier-body">
+                Be the first business in your metro to run a Silverstone AI system and
+                take <strong>10% off your build</strong>. Enter the new frontier — and
+                be ready for what’s next before anyone else in town is.
+              </p>
+            </div>
+            {/* The offer column: the figure as a title, the qualifier as its
               subtitle, the CTA beneath — one stacked unit at the band's end.
               The figure is decorative (the body copy above states the offer),
               so it stays out of the accessibility tree. */}
-          <div className="ss-ind2-atlas__frontier-offer">
-            <p aria-hidden="true" className="ss-ind2-atlas__frontier-figure">
-              <span className="ss-ind2-atlas__frontier-figure-value">10% OFF</span>
-              <span className="ss-ind2-atlas__frontier-figure-label">
-                First in your city
-              </span>
-            </p>
-            <ServiceButton
-              className="ss-ind2-atlas__frontier-cta"
-              href="/contact"
-              withArrow={false}
-            >
-              Claim your city
-              <ArrowUpRight aria-hidden="true" />
-            </ServiceButton>
+            <div className="ss-ind2-atlas__frontier-offer">
+              <p aria-hidden="true" className="ss-ind2-atlas__frontier-figure">
+                <span className="ss-ind2-atlas__frontier-figure-value">10% OFF</span>
+                <span className="ss-ind2-atlas__frontier-figure-label">
+                  First in your city
+                </span>
+              </p>
+              <ServiceButton
+                className="ss-ind2-atlas__frontier-cta"
+                href="/contact"
+                withArrow={false}
+              >
+                Claim your city
+                <ArrowUpRight aria-hidden="true" />
+              </ServiceButton>
+            </div>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+        {/* The dock's own beam: shown only while the dock is the frame (≤40rem). */}
+        <BorderBeam />
+      </div>
       <BorderBeam />
     </PanelReveal>
   );

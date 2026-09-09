@@ -106,28 +106,36 @@ export type AtlasInsetSpec = AtlasPlateSpec & {
 };
 
 export const ATLAS_PHONE_INSETS: Record<AtlasInsetName, AtlasInsetSpec> = {
-  /** 60° × 27.2°, Seattle to Maine, the Rio Grande to the 49th parallel. */
+  /** 60° × 30° at 1.4 dots per degree: Seattle to Maine, the Rio Grande to
+   * the 49th parallel, with a degree and a half of sea above Seattle and
+   * below Miami so neither label sits on the frame. */
   us: {
-    region: { lat: { min: 22.4, max: 49.6 }, lng: { min: -126, max: -66 } },
-    width: 75,
-    height: 34,
-    x: 0,
-    y: 0,
+    region: { lat: { min: 21, max: 51 }, lng: { min: -126, max: -66 } },
+    width: 84,
+    height: 42,
+    x: 3,
+    y: 3,
   },
-  /** 14° × 10°: Ireland to the Frisian coast, the Channel to the Orkneys. */
+  /** 14° × 10° at 4.5 dots per degree: Ireland to the Frisian coast, the
+   * Channel to the Orkneys. */
   uk: {
     region: { lat: { min: 49.5, max: 59.5 }, lng: { min: -11, max: 3 } },
-    width: 35,
-    height: 25,
-    x: 60,
-    y: 38,
+    width: 63,
+    height: 45,
+    x: 40,
+    y: 48,
   },
 };
 
-/** The phone plate's own grid: the US inset plus an Atlantic margin wide
- * enough for New York's label, and the UK inset seated under it, flush
- * right, with a gutter between. */
-export const ATLAS_PHONE_GRID = { width: 95, height: 63 } as const;
+/** The phone plate's own grid: a three-dot margin all round (the chart's
+ * 20px corner radius would otherwise cut an inset's own corner), the US
+ * inset plus an Atlantic margin wide enough for New York's label (the plate
+ * is drawn at the page's full width on a phone — ~3.2px a dot at 375, 2.6 at
+ * 320 — and the label needs up to ~26 dots east of the node), and the UK
+ * inset seated under it, at the east edge, with a gutter between. The UK
+ * inset is east so London stays east of New York: the plate must read the
+ * same way the ocean plates do. */
+export const ATLAS_PHONE_GRID = { width: 106, height: 96 } as const;
 
 export const ATLAS_PHONE_LAYER_HREF: Record<
   AtlasInsetName,

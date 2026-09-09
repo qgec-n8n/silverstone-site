@@ -2230,15 +2230,17 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 /* ---- Atlas frame ---------------------------------------------------------- */
 
 .ss-ind2-atlas {
+  /* One gap for the frame and for the dock inside it (see `__dock`). */
+  --atlas-gap: clamp(0.75rem, 0.55rem + 0.8vw, 1.15rem);
+
   position: relative;
   display: grid;
   grid-template-areas:
     "readout"
     "chart"
     "control"
-    "strip"
-    "frontier";
-  gap: clamp(0.75rem, 0.55rem + 0.8vw, 1.15rem);
+    "dock";
+  gap: var(--atlas-gap);
   padding: clamp(0.9rem, 0.6rem + 1.3vw, 1.8rem);
   border-radius: var(--ss-radius-2xl);
   border: 1px solid var(--srv2-hairline);
@@ -2262,11 +2264,25 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     grid-template-areas:
       "readout control"
       "chart chart"
-      "strip strip"
-      "frontier frontier";
+      "dock dock";
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
   }
+}
+
+/* The dock: the metro strip and the frontier band as one grid area. Inside
+   the frame it is a plain stack at the frame's own gap; on a phone it IS the
+   frame (see "Atlas, phone" at the end of this file), which is why it carries
+   its own beam — hidden while the outer frame has one. */
+.ss-ind2-atlas__dock {
+  display: grid;
+  grid-area: dock;
+  gap: var(--atlas-gap);
+  min-width: 0;
+}
+
+.ss-ind2-atlas__dock > .ss-srv2-beam {
+  display: none;
 }
 
 .ss-ind2-atlas__readout {
@@ -2930,9 +2946,18 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   stroke-width: 2.4;
 }
 
+/* The phone plate is 1060 units across 335px (~0.32px a unit), so a 20-unit
+   tag reads at ~6.3px — the size the old 950-unit plate gave its 24-unit tag.
+   The shorter run is also what keeps "United Kingdom" clear of Orkney in the
+   North Sea corner it now sits in. */
+.ss-ind2-atlas__svg--phone .ss-ind2-atlas__inset-tag {
+  font-size: 20px;
+  letter-spacing: 3.2px;
+}
+
 @media (max-width: 40rem) {
   .ss-ind2-atlas__plate {
-    aspect-ratio: 950 / 630;
+    aspect-ratio: 1060 / 960;
   }
 
   .ss-ind2-atlas__svg--compact {
@@ -2943,14 +2968,22 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
     display: block;
   }
 
-  /* The field's graticule at the US inset's pitch (10° = 125 of 950 units
-     across, of 630 down), so the ocean's grid continues the inset's. */
+  /* The field's graticule at the US inset's pitch (10° = 140 of 1060 units
+     across, of 960 down), so the ocean's grid continues the inset's. The
+     inset starts 30 units in from each edge, and a background's percentage
+     position offsets the tile by that fraction of (box − tile): 30 / 920
+     across, 30 / 820 down. */
   .ss-ind2-atlas__chart {
     background-size:
-      calc(100% / 7.6) 100%,
-      100% calc(100% / 5.04),
+      calc(100% / 7.571) 100%,
+      100% calc(100% / 6.857),
       auto,
       auto;
+    background-position:
+      3.26% 0,
+      0 3.66%,
+      0 0,
+      0 0;
   }
 
   .ss-ind2-atlas__label {
@@ -2996,14 +3029,11 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
   }
 }
 
-/* On the narrowest phones (an SE, a 360-wide Android) the US inset is under
-   200px across and Seattle's name runs into Denver's; the second tier steps
-   back to the strip there, as it does on the compact plate. */
-@media (max-width: 23rem) {
-  .ss-ind2-atlas__label[data-tier="2"] {
-    display: none;
-  }
-}
+/* The second tier used to step back to the strip under 23rem, where the US
+   inset (then ~75% of a plate drawn inside two gutters and a frame) fell
+   under 200px and Seattle's name ran into Denver's. The plate is now drawn at
+   the page's full width with the US inset at ~81% of it — 226px on a 320px
+   screen, more than the old plate had at 375 — so the tier stays. */
 
 /* Between the compact breakpoint and ~1090px the wide plate is drawn at
    under 860px, and the second tier's names (Denver, Seattle) no longer clear
@@ -3060,7 +3090,6 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 /* ---- Metro strip ---------------------------------------------------------- */
 
 .ss-ind2-atlas__strip {
-  grid-area: strip;
   min-width: 0;
 }
 
@@ -3218,7 +3247,6 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
    (the US lane's hue), a lit top edge, and a figure big enough to be read
    from across the room. */
 .ss-ind2-atlas__frontier-reveal {
-  grid-area: frontier;
   min-width: 0;
 }
 
@@ -3857,6 +3885,67 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
 
   .ss-ind2-market__row[data-market="UK"] > dd::before {
     content: "UK";
+  }
+}
+
+/* ---- Ledger, phone: one market at a time -----------------------------------
+   Under 40rem the two lanes no longer sit side by side. The ledger is one
+   column and the market focus switch — the one under the plate — chooses the
+   lane it shows: sterling (the default) the UK, dollars the US. Both lanes
+   stay in the DOM, the far one at `display: none` and never unmounted, so the
+   prerendered page still carries both markets' copy for a crawler and a
+   reader without script gets the sterling default. The hook is the same
+   `html[data-currency]` the plate and the desktop lanes key on, with the
+   `:has()` fallback for the no-script radio. */
+
+@media (max-width: 40rem) {
+  .ss-ind2-markets {
+    /* One column gives the gutters back to the panel. */
+    padding: clamp(0.95rem, 0.7rem + 1.2vw, 1.4rem);
+  }
+
+  .ss-ind2-markets__lanes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ss-ind2-market--us,
+  .ss-ind2-market--uk {
+    grid-column: 1;
+  }
+
+  .ss-ind2-market--us,
+  html[data-currency="usd"] .ss-ind2-market--uk,
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-market--uk {
+    display: none;
+  }
+
+  html[data-currency="usd"] .ss-ind2-market--us,
+  html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
+    .ss-ind2-market--us {
+    display: grid;
+  }
+
+  /* The shown lane prints its own fact labels: there is no western lane
+     beside it to carry them. */
+  .ss-ind2-market--uk .ss-ind2-market__row > dt {
+    opacity: 1;
+  }
+
+  /* The whole panel is one value cell's measure now, so the cell and its
+     tool chips get their padding back. The chips' inline padding steps up so
+     a chip that still wraps to two lines keeps its first and last characters
+     clear of the pill's curve. */
+  .ss-ind2-market__row > dd {
+    padding: 0.6rem 0.8rem 0.7rem;
+  }
+
+  .ss-ind2-market__tools {
+    gap: 0.36rem;
+  }
+
+  .ss-ind2-market__tools li {
+    padding: 0.28rem 0.78rem;
   }
 }
 
@@ -5106,6 +5195,67 @@ html:not([data-currency]):has(input[name^="ss-currency"][value="usd"]:checked)
       radial-gradient(
         120% 100% at 0% 100%,
         color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+        transparent 55%
+      ),
+      color-mix(in srgb, var(--ss-v2-void-black) 82%, var(--ss-v2-graphite));
+  }
+}
+
+/* ---- Atlas, phone: the plate outside the frame ----------------------------
+   Under 40rem the atlas frame dissolves. The readout, the plate and the
+   market focus switch sit on the section ground; the plate breaks out of the
+   section's inner gutter to the page gutter — the whole width a phone has,
+   which is what pays for the larger insets (see `ATLAS_PHONE_INSETS`) — and
+   the dock (the metro strip and the frontier offer) becomes the framed panel
+   on its own, at the section's width like the ledger under it. The frame's
+   beam moves with the frame: the outer one hides, the dock's shows. This
+   block sits after the ≤44rem ground rules above so its `background: none`
+   wins on the same specificity. */
+
+@media (max-width: 40rem) {
+  .ss-ind2-atlas {
+    --atlas-gap: 1rem;
+
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .ss-ind2-atlas > .ss-srv2-beam {
+    display: none;
+  }
+
+  .ss-ind2-atlas__dock > .ss-srv2-beam {
+    display: block;
+  }
+
+  .ss-ind2-atlas__chart-reveal {
+    width: calc(100% + (2 * var(--srv2-gutter)));
+    margin-inline: calc(-1 * var(--srv2-gutter));
+  }
+
+  .ss-ind2-atlas__control {
+    margin-top: 0.15rem;
+  }
+
+  .ss-ind2-atlas__dock {
+    margin-top: 0.35rem;
+    padding: clamp(0.9rem, 0.6rem + 1.3vw, 1.4rem);
+    border-radius: var(--ss-radius-2xl);
+    border: 1px solid var(--srv2-hairline);
+    background:
+      radial-gradient(
+        120% 100% at 100% 0%,
+        color-mix(in srgb, var(--srv2-accent) 13%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        120% 100% at 0% 100%,
+        color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
         transparent 55%
       ),
       color-mix(in srgb, var(--ss-v2-void-black) 82%, var(--ss-v2-graphite));

@@ -90,7 +90,14 @@ export function Hero({
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-            AI automation agency · UK & US
+            {/* Same two-tier copy as the route intros (`.ss-hv2-kicker__text`):
+                the phone form fits one line inside the gutters at 320px. */}
+            <span className="ss-hv2-kicker__text ss-hv2-kicker__text--full">
+              AI automation agency · UK & US
+            </span>
+            <span className="ss-hv2-kicker__text ss-hv2-kicker__text--phone">
+              AI automation · UK & US
+            </span>
           </m.span>
 
           <m.h1
