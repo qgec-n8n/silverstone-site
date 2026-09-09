@@ -26,16 +26,17 @@ const item: Variants = {
 
 type HeroProps = {
   exploreButtonDisabled?: boolean;
-  exploreButtonLayoutEnabled?: boolean;
   exploreButtonRef?: Ref<HTMLButtonElement>;
-  hideExploreButton?: boolean;
   motionEnabled: boolean;
   onExplore: () => void;
   /**
-   * Whether the homepage state machine has released the hero (intro / opening
-   * / closing). False while the loader is still up, and once the body owns the
-   * screen — but the hero stays MOUNTED either way, so its heading, lead and
-   * copy are always present in the prerendered document.
+   * Whether the homepage state machine has released the hero: false only while
+   * the loader is still up. It stays true once the body owns the screen — the
+   * hero is dropped from layout then, but it must be sitting at rest, pill in
+   * place, the moment a close begins, because the body collapses straight
+   * onto that pill (see ExploreSystemTransition). The hero stays MOUNTED
+   * either way, so its heading, lead and copy are always present in the
+   * prerendered document.
    */
   revealed?: boolean;
 };
@@ -49,9 +50,7 @@ type HeroProps = {
  */
 export function Hero({
   exploreButtonDisabled = false,
-  exploreButtonLayoutEnabled = true,
   exploreButtonRef,
-  hideExploreButton = false,
   motionEnabled,
   onExplore,
   revealed = true,
@@ -128,21 +127,25 @@ export function Hero({
             </span>
           </m.p>
 
-          {hideExploreButton ? null : (
-            <m.div
-              variants={item}
-              custom={3}
-              className="ss-hv2-hero__actions flex flex-wrap items-center justify-center gap-4"
-            >
-              <ExploreSystemButton
-                ref={exploreButtonRef}
-                disabled={exploreButtonDisabled}
-                layoutEnabled={exploreButtonLayoutEnabled}
-                onActivate={onExplore}
-                palette={AETHER_ROUTE_PALETTES["/"]}
-              />
-            </m.div>
-          )}
+          {/*
+            Always mounted: while the body opens or closes, the pill's
+            background is the surface the morph stretches from and shrinks
+            back onto (see ExploreSystemTransition). Its label folds away via
+            CSS whenever the button is disabled, and the whole hero is dropped
+            from layout once the body owns the screen.
+          */}
+          <m.div
+            variants={item}
+            custom={3}
+            className="ss-hv2-hero__actions flex flex-wrap items-center justify-center gap-4"
+          >
+            <ExploreSystemButton
+              ref={exploreButtonRef}
+              disabled={exploreButtonDisabled}
+              onActivate={onExplore}
+              palette={AETHER_ROUTE_PALETTES["/"]}
+            />
+          </m.div>
         </m.div>
       </Container>
     </section>

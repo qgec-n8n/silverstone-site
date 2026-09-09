@@ -44,9 +44,9 @@
  * boot script runs — a visitor without JavaScript keeps the in-flow hero and
  * the full scrollable document beneath it, exactly as before.
  *
- * z-index 2 clears `.ss-hv2__body` (1) and the fixed backdrop (0) while
- * staying under the explore overlay (120), so the opening curtain still
- * sweeps over the hero.
+ * z-index 2 clears `.ss-hv2__body` (1, with the fixed backdrop inside it at
+ * 0) while staying under the body once it is pinned as the morph stage (3),
+ * so the body still grows out of the pill over the hero.
  */
 .ss-hv2[data-homepage-state="loading"] .ss-hv2-hero,
 .ss-hv2[data-homepage-state="intro"] .ss-hv2-hero,
@@ -2678,11 +2678,12 @@ html[data-js="on"]
   cursor: default;
 }
 
-/* The shared-layout element (layoutId) that morphs into the full-screen
-   panel on activation — geometry (position/size/radius) is animated by
-   Motion; the material treatment below only ever applies to this resting
-   pill state, since the transition overlay renders its own separate
-   .ss-explore-overlay__card instance under the same layoutId.
+/* The pill's material, and the surface the Explore morph stretches across
+   the viewport: while the body opens or closes, ExploreSystemTransition
+   transforms this span in step with the body wrapper and crossfades the two
+   (see the stage rules further down), so the pill's own gradient is what
+   visibly grows into the page and shrinks back out of it. Everything here is
+   the resting pill; the morph only ever adds inline transform/opacity.
 
    The two hues are the route's own Aether pair, set inline by
    ExploreSystemButton: `--ss-explore-accent` is the colour the field behind
@@ -2697,6 +2698,7 @@ html[data-js="on"]
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  border-radius: 999px;
   background: linear-gradient(
     118deg,
     var(--ss-explore-accent, var(--ss-v2-signal-cyan, #22d3ee)) 0%,
@@ -2782,6 +2784,19 @@ html[data-js="on"]
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The button is disabled for exactly as long as the body is open or on its
+   way (opening / body / closing), which is when the pill is a morphing
+   surface rather than a control: fold the label away so only the material
+   stretches, and let it settle back in once the body has landed and the
+   pill is a button again. */
+.ss-explore-cta:disabled .ss-explore-cta__label {
+  opacity: 0;
+  transform: scale(0.8);
 }
 
 .ss-explore-cta__dot {
@@ -2825,57 +2840,54 @@ html[data-js="on"]
   border-radius: 999px;
 }
 
-/* Full-bleed panel the button morphs into before the body is revealed. */
-.ss-explore-overlay {
+/*
+   The morph stage. While the Explore pill and the body trade places
+   (route state `opening` / `closing`), ExploreSystemTransition stamps
+   `data-explore-stage` on the route's body wrapper and drives its transform:
+   the wrapper is pinned over the viewport here, and a spring scales it
+   between the pill's box and the full screen — the real body, content and
+   all, is what grows out of the button and collapses back into it. The
+   wrapper's own clip does the rest: at scroll 0 it shows the body's first
+   screen, and on a close it is scrolled to wherever the visitor was.
+
+   Selectors carry the same weight as the "gated body collapses to zero
+   height" rules earlier in this file and sit after them, so the pin wins for
+   exactly the duration of the morph and the collapse resumes the moment the
+   attribute comes off. `pointer-events: none` because the body is `inert`
+   throughout and nothing underneath should receive a stray click either.
+*/
+.ss-hv2__body[data-explore-stage],
+html[data-js="on"]
+  .ss-service-experience
+  .ss-service-experience__body[data-explore-stage],
+html[data-js="on"] .ss-route-experience .ss-route-experience__body[data-explore-stage] {
   position: fixed;
   inset: 0;
-  z-index: 120;
+  z-index: 3;
+  min-height: 0;
+  max-height: none;
+  overflow: hidden;
+  background: var(--ss-v2-void-black);
   pointer-events: none;
+  transform-origin: 0 0;
 }
 
 /* Belt-and-braces for iOS Safari: `inset: 0` on a fixed element already fills
    the ICB, but reinforcing with an explicit dynamic-viewport height keeps the
-   panel pinned to the true screen edge (behind the collapsing bottom bar)
+   layer pinned to the true screen edge (behind the collapsing bottom bar)
    even if the toolbar animation and this element's own paint fall out of
    sync for a frame. Desktop never has a dynamic toolbar, so this is scoped
    to mobile/tablet widths only. */
 @media (max-width: 900px) {
-  .ss-explore-overlay {
+  .ss-hv2__body[data-explore-stage],
+  html[data-js="on"]
+    .ss-service-experience
+    .ss-service-experience__body[data-explore-stage],
+  html[data-js="on"]
+    .ss-route-experience
+    .ss-route-experience__body[data-explore-stage] {
     height: 100dvh;
   }
-}
-
-.ss-explore-overlay__card {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      70% 60% at 50% 38%,
-      color-mix(in srgb, var(--ss-v2-ice, #7fe9f2) 24%, transparent),
-      transparent 60%
-    ),
-    radial-gradient(
-      80% 80% at 16% 96%,
-      color-mix(in srgb, var(--ss-v2-orchid, #b27be0) 22%, transparent),
-      transparent 62%
-    ),
-    linear-gradient(
-      180deg,
-      var(--ss-v2-void-blue, #0b1120),
-      var(--ss-v2-void-black, #04060b) 78%
-    );
-}
-
-.ss-explore-overlay__glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    42% 42% at 50% 46%,
-    color-mix(in srgb, var(--ss-v2-ice, #7fe9f2) 30%, transparent),
-    transparent 70%
-  );
-  filter: blur(30px);
 }
 
 /* Stacked directly above the Silktide cookie icon (#stcm-icon: 3.1rem tall,

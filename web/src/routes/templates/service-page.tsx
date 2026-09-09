@@ -1,6 +1,5 @@
 import "~/styles/visual/home-v2.css";
 
-import { LayoutGroup } from "motion/react";
 import { useCallback, useEffect, useRef, type Ref } from "react";
 import { RotateCcw } from "~/components/icons/lucide";
 
@@ -24,27 +23,27 @@ type ServicePageProps = {
 
 function ServiceIntro({
   buttonDisabled,
-  buttonHidden,
   buttonRef,
   experience,
   motionEnabled,
   onExplore,
+  settled,
 }: {
   buttonDisabled: boolean;
-  buttonHidden: boolean;
   buttonRef: Ref<HTMLButtonElement>;
   experience: ReturnType<typeof getRouteExperienceByPath>;
   motionEnabled: boolean;
   onExplore: () => void;
+  settled: boolean;
 }) {
   return (
     <RouteExperienceIntro
       buttonDisabled={buttonDisabled}
-      buttonHidden={buttonHidden}
       buttonRef={buttonRef}
       experience={experience}
       motionEnabled={motionEnabled}
       onExplore={onExplore}
+      settled={settled}
     />
   );
 }
@@ -66,6 +65,7 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
     serviceExperienceState,
   } = useAppExperience();
   const exploreButtonRef = useRef<HTMLButtonElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const experience = getRouteExperienceByPath(route.path);
 
   const introVisible =
@@ -74,6 +74,13 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
       serviceExperienceState === "opening" ||
       serviceExperienceState === "closing");
   const bodyVisible = !serviceExperienceEnabled || serviceExperienceState === "body";
+  // The body is the layer that grows out of the Explore pill and collapses back
+  // into it, so its content and particle backdrop are live for both morphs,
+  // not only once the state settles on `body`.
+  const bodyMounted =
+    bodyVisible ||
+    serviceExperienceState === "opening" ||
+    serviceExperienceState === "closing";
 
   const focusExploreButton = useCallback(() => {
     window.setTimeout(
@@ -158,23 +165,23 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
         }}
         type="application/ld+json"
       />
-      <LayoutGroup id={`ss-service-explore-${route.id}`}>
-        {introVisible ? (
-          <ServiceIntro
-            buttonDisabled={serviceExperienceState !== "intro"}
-            buttonHidden={serviceExperienceState === "opening"}
-            buttonRef={exploreButtonRef}
-            experience={experience}
-            motionEnabled={policy.motionEnabled}
-            onExplore={handleExplore}
-          />
-        ) : null}
-        <ExploreSystemTransition
-          state={serviceExperienceState}
-          onOpeningComplete={handleOpeningComplete}
-          onClosingReady={handleClosingReady}
+      {introVisible ? (
+        <ServiceIntro
+          buttonDisabled={serviceExperienceState !== "intro"}
+          buttonRef={exploreButtonRef}
+          experience={experience}
+          motionEnabled={policy.motionEnabled}
+          onExplore={handleExplore}
+          settled={serviceExperienceState === "closing"}
         />
-      </LayoutGroup>
+      ) : null}
+      <ExploreSystemTransition
+        pillRef={exploreButtonRef}
+        stageRef={bodyRef}
+        state={serviceExperienceState}
+        onOpeningComplete={handleOpeningComplete}
+        onClosingReady={handleClosingReady}
+      />
 
       {/*
         `inert`, not `aria-hidden`. Both keep the closed body out of the tab
@@ -186,11 +193,12 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
         semantics without suppressing the copy.
       */}
       <div
+        ref={bodyRef}
         className="ss-service-experience__body"
         data-service-body-visible={bodyVisible ? "true" : "false"}
         inert={!bodyVisible}
       >
-        {bodyVisible ? (
+        {bodyMounted ? (
           <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
         ) : null}
         <div className="ss-service-experience__content">
@@ -205,7 +213,7 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
             showBreadcrumbs={false}
           >
             <ServicePageVisuals
-              key={serviceExperienceState === "body" ? "svc-body" : "svc-hidden"}
+              key={bodyMounted ? "svc-body" : "svc-hidden"}
               route={route}
             />
           </RoutePageFrame>

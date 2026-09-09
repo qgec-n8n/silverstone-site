@@ -1,14 +1,13 @@
 /**
  * Industry detail template — mirrors the ServicePage experience shell exactly:
  * CoreSpin loader gate → full-screen Aether intro (Industries palette) →
- * expandable shared-layout hero button → body with Particles background,
- * secondary hero, custom composition and reverse-return control. The shared
- * app-experience state machine drives the same open/close/replay behavior
- * used by Home and Services.
+ * expandable hero button (the body grows out of the pill) → body with
+ * Particles background, secondary hero, custom composition and reverse-return
+ * control. The shared app-experience state machine drives the same
+ * open/close/replay behavior used by Home and Services.
  */
 import "~/styles/visual/home-v2.css";
 
-import { LayoutGroup } from "motion/react";
 import { useCallback, useEffect, useRef, type Ref } from "react";
 import { RotateCcw } from "~/components/icons/lucide";
 
@@ -32,27 +31,27 @@ type IndustryPageProps = {
 
 function IndustryIntro({
   buttonDisabled,
-  buttonHidden,
   buttonRef,
   experience,
   motionEnabled,
   onExplore,
+  settled,
 }: {
   buttonDisabled: boolean;
-  buttonHidden: boolean;
   buttonRef: Ref<HTMLButtonElement>;
   experience: ReturnType<typeof getRouteExperienceByPath>;
   motionEnabled: boolean;
   onExplore: () => void;
+  settled: boolean;
 }) {
   return (
     <RouteExperienceIntro
       buttonDisabled={buttonDisabled}
-      buttonHidden={buttonHidden}
       buttonRef={buttonRef}
       experience={experience}
       motionEnabled={motionEnabled}
       onExplore={onExplore}
+      settled={settled}
     />
   );
 }
@@ -72,6 +71,7 @@ export function IndustryPage({ route }: IndustryPageProps) {
     routeExperienceState,
   } = useAppExperience();
   const exploreButtonRef = useRef<HTMLButtonElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const experience = getRouteExperienceByPath(route.path);
 
   const introVisible =
@@ -79,6 +79,13 @@ export function IndustryPage({ route }: IndustryPageProps) {
     routeExperienceState === "opening" ||
     routeExperienceState === "closing";
   const bodyVisible = routeExperienceState === "body";
+  // The body is the layer that grows out of the Explore pill and collapses back
+  // into it, so its content and particle backdrop are live for both morphs,
+  // not only once the state settles on `body`.
+  const bodyMounted =
+    bodyVisible ||
+    routeExperienceState === "opening" ||
+    routeExperienceState === "closing";
 
   const focusExploreButton = useCallback(() => {
     window.setTimeout(
@@ -142,23 +149,23 @@ export function IndustryPage({ route }: IndustryPageProps) {
         }}
         type="application/ld+json"
       />
-      <LayoutGroup id={`ss-industry-explore-${route.id}`}>
-        {introVisible ? (
-          <IndustryIntro
-            buttonDisabled={routeExperienceState !== "intro"}
-            buttonHidden={routeExperienceState === "opening"}
-            buttonRef={exploreButtonRef}
-            experience={experience}
-            motionEnabled={policy.motionEnabled}
-            onExplore={handleExplore}
-          />
-        ) : null}
-        <ExploreSystemTransition
-          state={routeExperienceState}
-          onOpeningComplete={handleOpeningComplete}
-          onClosingReady={handleClosingReady}
+      {introVisible ? (
+        <IndustryIntro
+          buttonDisabled={routeExperienceState !== "intro"}
+          buttonRef={exploreButtonRef}
+          experience={experience}
+          motionEnabled={policy.motionEnabled}
+          onExplore={handleExplore}
+          settled={routeExperienceState === "closing"}
         />
-      </LayoutGroup>
+      ) : null}
+      <ExploreSystemTransition
+        pillRef={exploreButtonRef}
+        stageRef={bodyRef}
+        state={routeExperienceState}
+        onOpeningComplete={handleOpeningComplete}
+        onClosingReady={handleClosingReady}
+      />
 
       {/*
         `inert` rather than `aria-hidden` — see the note in `service-page.tsx`.
@@ -166,11 +173,12 @@ export function IndustryPage({ route }: IndustryPageProps) {
         the whole body, which left every gated route looking thin.
       */}
       <div
+        ref={bodyRef}
         className="ss-service-experience__body"
         data-service-body-visible={bodyVisible ? "true" : "false"}
         inert={!bodyVisible}
       >
-        {bodyVisible ? (
+        {bodyMounted ? (
           <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
         ) : null}
         <div className="ss-service-experience__content">
@@ -185,7 +193,7 @@ export function IndustryPage({ route }: IndustryPageProps) {
             showBreadcrumbs={false}
           >
             <IndustryExperienceV2
-              key={routeExperienceState === "body" ? "ind-body" : "ind-hidden"}
+              key={bodyMounted ? "ind-body" : "ind-hidden"}
               route={route.path}
             />
           </RoutePageFrame>

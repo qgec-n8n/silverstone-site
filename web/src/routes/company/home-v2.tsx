@@ -1,6 +1,5 @@
 import "~/styles/visual/home-v2.css";
 
-import { LayoutGroup } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "~/components/icons/lucide";
@@ -63,18 +62,24 @@ export function HomeV2({ contentId }: { contentId?: string }) {
     openHomepageBody,
   } = useAppExperience();
   const exploreButtonRef = useRef<HTMLButtonElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const [bodyBackdropReady, setBodyBackdropReady] = useState(false);
   const policy = deriveMotionPolicy({
     tier: capability.tier,
     reducedMotion: capability.reducedMotion,
     shaderEligible: capability.shaderEligible,
   });
-  const introVisible =
-    homepageState === "intro" ||
-    homepageState === "opening" ||
-    homepageState === "closing";
   const bodyVisible = homepageState === "body";
-  const bodyParticlesPrepared = homepageState === "opening" || homepageState === "body";
+  /*
+   * The body is on screen for the whole of both morphs — it is the layer that
+   * grows out of the Explore pill and later collapses back into it — so its
+   * sections and particle backdrop are live from `opening` through `closing`,
+   * not only once the state settles on `body`.
+   */
+  const bodyMounted =
+    homepageState === "opening" ||
+    homepageState === "body" ||
+    homepageState === "closing";
 
   const focusExploreButton = useCallback(() => {
     window.setTimeout(
@@ -133,39 +138,32 @@ export function HomeV2({ contentId }: { contentId?: string }) {
       data-homepage-state={homepageState}
       data-content-id={contentId}
     >
-      <LayoutGroup id="ss-home-explore">
-        {/*
-         * Always mounted — never conditionally rendered. The homepage
-         * prerenders in the "loading" state, so anything gated on
-         * `introVisible`/`bodyVisible` is simply absent from the static
-         * document; that is why the homepage used to ship no H1 and no
-         * crawlable copy at all. The hero now renders into the HTML and is
-         * gated visually instead: `revealed` drives its entrance animation,
-         * and CSS drops it once the body owns the screen.
-         */}
-        <Hero
-          exploreButtonDisabled={homepageState !== "intro"}
-          exploreButtonRef={exploreButtonRef}
-          hideExploreButton={homepageState === "opening"}
-          motionEnabled={policy.motionEnabled}
-          onExplore={handleExplore}
-          revealed={introVisible}
-        />
-        <ExploreSystemTransition
-          bodyBackdropReady={bodyBackdropReady}
-          state={homepageState}
-          onOpeningComplete={handleOpeningComplete}
-          onClosingReady={handleClosingReady}
-        />
-      </LayoutGroup>
-
-      {bodyParticlesPrepared ? (
-        <BodyParticles
-          enabled={policy.motionEnabled}
-          onReady={() => setBodyBackdropReady(true)}
-          tier={policy.tier}
-        />
-      ) : null}
+      {/*
+       * Always mounted — never conditionally rendered. The homepage
+       * prerenders in the "loading" state, so anything gated on
+       * `bodyVisible` is simply absent from the static document; that is why
+       * the homepage used to ship no H1 and no crawlable copy at all. The
+       * hero now renders into the HTML and is gated visually instead:
+       * `revealed` drives its one entrance (loader → intro) and CSS drops it
+       * once the body owns the screen. It stays at rest from then on — never
+       * back to hidden — so that when the body collapses into the Explore
+       * pill, the pill is already exactly where the body lands.
+       */}
+      <Hero
+        exploreButtonDisabled={homepageState !== "intro"}
+        exploreButtonRef={exploreButtonRef}
+        motionEnabled={policy.motionEnabled}
+        onExplore={handleExplore}
+        revealed={homepageState !== "loading"}
+      />
+      <ExploreSystemTransition
+        bodyBackdropReady={bodyBackdropReady}
+        pillRef={exploreButtonRef}
+        stageRef={bodyRef}
+        state={homepageState}
+        onOpeningComplete={handleOpeningComplete}
+        onClosingReady={handleClosingReady}
+      />
 
       {/*
        * Always mounted, for the same reason the hero above is: anything gated
@@ -177,16 +175,27 @@ export function HomeV2({ contentId }: { contentId?: string }) {
        * It is gated visually instead: `.ss-hv2__body` collapses to zero
        * height while the intro owns the screen (see home-v2.css), and `inert`
        * keeps it out of the tab order and the accessibility tree until the
-       * body opens. The `key` remounts the sections on open so their scroll
-       * entrances play from the top, matching the service routes.
+       * body opens. During the Explore morph this wrapper is the layer that
+       * grows out of the pill (ExploreSystemTransition pins and transforms
+       * it), which is why the particle backdrop lives inside it: it scales
+       * with the page it sits behind. The `key` remounts the sections when
+       * the morph begins so their entrances play inside the growing layer.
        */}
       <div
+        ref={bodyRef}
         className="ss-hv2__body"
         data-home-body-visible={bodyVisible ? "true" : "false"}
         inert={!bodyVisible}
       >
+        {bodyMounted ? (
+          <BodyParticles
+            enabled={policy.motionEnabled}
+            onReady={() => setBodyBackdropReady(true)}
+            tier={policy.tier}
+          />
+        ) : null}
         <ScrollProvider enabled={policy.scrollChoreography}>
-          <div key={bodyVisible ? "home-body" : "home-idle"}>
+          <div key={bodyMounted ? "home-body" : "home-idle"}>
             <SecondaryHero />
             <TrustStrip />
             <OperatingLayer />

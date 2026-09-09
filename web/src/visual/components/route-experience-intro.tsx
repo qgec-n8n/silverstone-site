@@ -54,20 +54,26 @@ const introItem: Variants = {
 
 type RouteExperienceIntroProps = {
   buttonDisabled: boolean;
-  buttonHidden: boolean;
   buttonRef: Ref<HTMLButtonElement>;
   experience: RouteExperience;
   motionEnabled: boolean;
   onExplore: () => void;
+  /**
+   * The intro is being put back behind a body that is collapsing into the
+   * Explore pill (state "closing"): render every beat at rest, with no
+   * entrance, so the pill is exactly where the body lands from the first
+   * frame. The staged reveal is for arriving, not for returning.
+   */
+  settled?: boolean;
 };
 
 export function RouteExperienceIntro({
   buttonDisabled,
-  buttonHidden,
   buttonRef,
   experience,
   motionEnabled,
   onExplore,
+  settled = false,
 }: RouteExperienceIntroProps) {
   const motion = familyMotion[experience.family];
   // Each page family signals itself through the Aether palette: the standalone
@@ -99,7 +105,7 @@ export function RouteExperienceIntro({
         <m.div
           animate="show"
           className="ss-service-intro__content flex flex-col items-center gap-7 text-center"
-          initial={motionEnabled ? "hidden" : false}
+          initial={motionEnabled && !settled ? "hidden" : false}
         >
           <m.span
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
@@ -149,21 +155,26 @@ export function RouteExperienceIntro({
             {experience.subtitle}
           </m.p>
 
-          {buttonHidden ? null : (
-            <m.div
-              className="flex flex-wrap items-center justify-center gap-4"
-              custom={{ delay: motion.delay, index: 3, y: motion.y }}
-              variants={introItem}
-            >
-              <ExploreSystemButton
-                ref={buttonRef}
-                disabled={buttonDisabled}
-                label={experience.buttonLabel}
-                onActivate={onExplore}
-                palette={palette}
-              />
-            </m.div>
-          )}
+          {/*
+            Always mounted while the intro is: the pill's background is the
+            surface the body morphs out of and back onto (see
+            ExploreSystemTransition), and its label folds away via CSS
+            whenever the button is disabled.
+          */}
+          <m.div
+            className="flex flex-wrap items-center justify-center gap-4"
+            custom={{ delay: motion.delay, index: 3, y: motion.y }}
+            variants={introItem}
+          >
+            <ExploreSystemButton
+              ref={buttonRef}
+              disabled={buttonDisabled}
+              entrance={!settled}
+              label={experience.buttonLabel}
+              onActivate={onExplore}
+              palette={palette}
+            />
+          </m.div>
         </m.div>
       </Container>
     </section>

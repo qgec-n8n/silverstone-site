@@ -1,6 +1,5 @@
 import "~/styles/visual/home-v2.css";
 
-import { LayoutGroup } from "motion/react";
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { RotateCcw } from "~/components/icons/lucide";
 
@@ -48,6 +47,7 @@ export function RouteExperienceFrame({
     routeExperienceState,
   } = useAppExperience();
   const exploreButtonRef = useRef<HTMLButtonElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const restoreIntroFocusRef = useRef(false);
   const resolvedExperience =
     experience ??
@@ -63,6 +63,10 @@ export function RouteExperienceFrame({
       routeExperienceState === "opening" ||
       routeExperienceState === "closing");
   const bodyVisible = skipIntro || !enabled || routeExperienceState === "body";
+  // The particle backdrop sits inside the body wrapper, so keeping it up while
+  // the body collapses into the Explore pill lets it shrink with the page
+  // instead of vanishing on the first frame of the close.
+  const bodyBackdropMounted = bodyVisible || routeExperienceState === "closing";
 
   const focusExploreButton = useCallback(() => {
     const delays = policy.motionEnabled ? [620, 760] : [50, 140, 260];
@@ -150,23 +154,25 @@ export function RouteExperienceFrame({
       data-skip-intro={skipIntro || undefined}
     >
       {!skipIntro ? (
-        <LayoutGroup id={`ss-route-explore-${resolvedExperience.path}`}>
+        <>
           {introVisible && routeExperienceState !== "loading" ? (
             <RouteExperienceIntro
               buttonDisabled={routeExperienceState !== "intro"}
-              buttonHidden={routeExperienceState === "opening"}
               buttonRef={exploreButtonRef}
               experience={resolvedExperience}
               motionEnabled={policy.motionEnabled}
               onExplore={handleExplore}
+              settled={routeExperienceState === "closing"}
             />
           ) : null}
           <ExploreSystemTransition
+            pillRef={exploreButtonRef}
+            stageRef={bodyRef}
             state={routeExperienceState}
             onOpeningComplete={handleOpeningComplete}
             onClosingReady={handleClosingReady}
           />
-        </LayoutGroup>
+        </>
       ) : null}
 
       {/*
@@ -175,11 +181,12 @@ export function RouteExperienceFrame({
         the whole body, which left every gated route looking thin.
       */}
       <div
+        ref={bodyRef}
         className="ss-service-experience__body ss-route-experience__body"
         data-route-body-visible={bodyVisible ? "true" : "false"}
         inert={!bodyVisible}
       >
-        {bodyVisible ? (
+        {bodyBackdropMounted ? (
           <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
         ) : null}
         <div className="ss-service-experience__content ss-route-experience__content">

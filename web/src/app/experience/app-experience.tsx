@@ -95,6 +95,25 @@ function setRootAttribute(name: string, value: string | null): void {
   }
 }
 
+/**
+ * A close is requested from wherever the visitor has scrolled to, but the
+ * intro it returns to lives at the top of the document, so the window is
+ * reset before the closing state commits. The Explore morph
+ * (`ExploreSystemTransition`) collapses the body back into its pill from the
+ * part of the page that was actually on screen, so the offset is recorded on
+ * the root first, where the morph can read it back.
+ */
+function rememberBodyScrollForClose(): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+  document.documentElement.setAttribute(
+    "data-explore-close-scroll",
+    String(Math.round(window.scrollY)),
+  );
+  window.scrollTo({ left: 0, top: 0, behavior: "auto" });
+}
+
 function normalizePathname(pathname: string): string {
   const [pathOnly = "/"] = pathname.split(/[?#]/);
   const normalized = pathOnly.startsWith("/") ? pathOnly : `/${pathOnly}`;
@@ -268,9 +287,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   }, [setGate]);
 
   const closeHomepageBody = useCallback(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ left: 0, top: 0, behavior: "auto" });
-    }
+    rememberBodyScrollForClose();
     setGate((current) => ({
       ...current,
       homepageState:
@@ -307,9 +324,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   }, [setGate]);
 
   const closeRouteBody = useCallback(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ left: 0, top: 0, behavior: "auto" });
-    }
+    rememberBodyScrollForClose();
     setGate((current) => ({
       ...current,
       routeExperienceState:
