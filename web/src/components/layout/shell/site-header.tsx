@@ -65,6 +65,20 @@ const headerMotionVariants: Variants = {
     y: "-100%",
     transition: { duration: 0.18, ease: [0.4, 0, 1, 1] },
   },
+  /**
+   * The same destination as `hidden`, taken at the pace of the Explore morph
+   * so the bar leaves with the page collapsing beneath it rather than
+   * snapping away ahead of it. It is a Motion variant rather than a stylesheet
+   * animation on purpose: Motion interpolates from wherever the header
+   * actually is, so a header already hidden by scroll simply stays hidden,
+   * where a keyframe exit had to name its own starting opacity and flashed the
+   * bar on screen first.
+   */
+  collapsing: {
+    opacity: 0,
+    y: "-100%",
+    transition: { duration: 0.5, ease: [0.4, 0, 1, 1] },
+  },
 };
 
 /** The header's own hide animation (see `headerMotionVariants.hidden`, 0.18s)
@@ -629,7 +643,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
    * gets one entrance, owned by the stylesheet, and Motion holds it at rest
    * for the rest of the morph.
    */
-  const { introOwnsScreen } = useAppExperience();
+  const { exploreCollapsing, introOwnsScreen } = useAppExperience();
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
@@ -824,7 +838,9 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   // Never hide the header while one of its own menus is open — scrolling a
   // mega-menu or the mobile drawer shouldn't make the trigger disappear.
   const hidden =
-    introOwnsScreen || (hiddenByScroll && openMenu === null && !mobileOpen);
+    introOwnsScreen ||
+    exploreCollapsing ||
+    (hiddenByScroll && openMenu === null && !mobileOpen);
 
   // Interactivity must follow the header's VISIBILITY, not the logical `hidden`
   // flag — the header keeps animating for a beat after the flag flips. Disabling
@@ -865,7 +881,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
 
   const header = (
     <m.header
-      animate={hidden ? "hidden" : "rest"}
+      animate={exploreCollapsing ? "collapsing" : hidden ? "hidden" : "rest"}
       className={cn(
         /*
          * `fixed` at every breakpoint. iOS Safari's dynamic bottom URL bar

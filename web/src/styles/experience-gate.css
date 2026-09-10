@@ -62,7 +62,7 @@ html[data-js="on"][data-route-experience-state="intro"] [data-site-header] {
   it the entrance instead, on the morph's own clock:
   `--ss-explore-morph-duration` is published by ExploreSystemTransition from the
   single duration constant that drives the spring, so the bar finishes arriving
-  exactly as the body finishes expanding — and leaves exactly as it collapses.
+  exactly as the body finishes expanding.
 */
 @keyframes ss-chrome-arrive {
   from {
@@ -78,29 +78,18 @@ html[data-js="on"][data-route-experience-state="intro"] [data-site-header] {
   }
 }
 
-@keyframes ss-chrome-depart {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  45% {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-115%);
-  }
-}
-
+/*
+  There is deliberately no matching exit keyframe. An animation has to declare
+  where it starts, and by the time a collapse begins the header may already be
+  hidden by scroll — declaring `opacity: 1` snapped a full-width white bar on
+  screen for two frames before sliding it away, while Motion pulled the other
+  way. The exit is a Motion variant instead (`collapsing`, in site-header.tsx):
+  it interpolates from wherever the bar actually is, so an already-hidden
+  header simply stays hidden.
+*/
 html[data-js="on"][data-homepage-state="opening"] [data-site-header],
 html[data-js="on"][data-route-experience-state="opening"] [data-site-header] {
   animation: ss-chrome-arrive var(--ss-explore-morph-duration, 900ms)
-    cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-html[data-js="on"][data-homepage-state="closing"] [data-site-header],
-html[data-js="on"][data-route-experience-state="closing"] [data-site-header] {
-  animation: ss-chrome-depart var(--ss-explore-morph-duration, 900ms)
     cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -110,9 +99,7 @@ html[data-js="on"][data-route-experience-state="closing"] [data-site-header] {
   }
 
   html[data-js="on"][data-homepage-state="opening"] [data-site-header],
-  html[data-js="on"][data-route-experience-state="opening"] [data-site-header],
-  html[data-js="on"][data-homepage-state="closing"] [data-site-header],
-  html[data-js="on"][data-route-experience-state="closing"] [data-site-header] {
+  html[data-js="on"][data-route-experience-state="opening"] [data-site-header] {
     animation: none;
   }
 }

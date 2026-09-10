@@ -60,6 +60,15 @@ type AppExperienceValue = {
    * not parked off-screen until it finishes.
    */
   introOwnsScreen: boolean;
+  /**
+   * The Explore morph is running backwards — the body is collapsing into the
+   * pill. The header rides this out rather than being animated away by the
+   * stylesheet: a keyframe exit has to declare where it starts, and the header
+   * may already be hidden by scroll when the collapse begins, in which case
+   * declaring `opacity: 1` snapped a full-width white bar on screen before
+   * sliding it away.
+   */
+  exploreCollapsing: boolean;
   scrollLocked: boolean;
   dismissLoader: () => void;
   lockHomepageHero: () => void;
@@ -366,6 +375,9 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     (isHomeRoute && (homepageState === "loading" || homepageState === "intro")) ||
     (routeExperienceActive &&
       (routeExperienceState === "loading" || routeExperienceState === "intro"));
+  const exploreCollapsing =
+    (isHomeRoute && homepageState === "closing") ||
+    (routeExperienceActive && routeExperienceState === "closing");
   const scrollLocked = loaderActive || homepageHeroLocked || routeIntroLocked;
 
   useEffect(() => {
@@ -501,6 +513,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       serviceBodyActive,
       headerHidden,
       introOwnsScreen,
+      exploreCollapsing,
       scrollLocked,
       dismissLoader,
       lockHomepageHero,
@@ -533,6 +546,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       serviceBodyActive,
       headerHidden,
       introOwnsScreen,
+      exploreCollapsing,
       scrollLocked,
       dismissLoader,
       lockHomepageHero,
